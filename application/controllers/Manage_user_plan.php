@@ -62,7 +62,7 @@ class Manage_user_plan extends CI_Controller {
 					$this->session->set_flashdata('message_type', 'error');
 					$this->session->set_flashdata('message', $this->config->item("index")." Invalid Request!!");
 		}
-			redirect('manage_user_plan');
+			redirect('Manage_user_plan');
 	}
 	
 /*Manage_user_plan create insert and update End .........................................................................................*/
