@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Manage_user_plan extends CI_Controller {
+class Campaign extends CI_Controller {
 
 	
 	 function __construct() {
@@ -22,7 +22,7 @@ class Manage_user_plan extends CI_Controller {
 		$this->data['user_type']=$this->manage_user_plan_model->get_user_type();
 		$this->data['userplans']=$this->manage_user_plan_model->get_userplans();
 		
-		$this->load->view('manage_user_plan',$this->data);
+		$this->load->view('campaign',$this->data);
 	}
 /*Manage_user_plan view Load End.............................................................................................................*/
 	
@@ -67,5 +67,15 @@ class Manage_user_plan extends CI_Controller {
 	
 /*Manage_user_plan create insert and update End .........................................................................................*/
 
+/*Manage_user_plan view Load Start.............................................................................................................*/
+	function Campaign_listing($class=false,$section=false,$subject=false,$date=false)
+	{	
+		$this->data['user_type']=$this->manage_user_plan_model->get_user_type();
+		$this->data['userplans']=$this->manage_user_plan_model->get_userplans();
+		
+		$this->load->view('campaign_listing',$this->data);
+	}
+/*Manage_user_plan view Load End.............................................................................................................*/
+	
 		
 }

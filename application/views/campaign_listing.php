@@ -6,27 +6,28 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="shortcut icon" href="images/favicon.ico">
+<link rel="shortcut icon" href="<?=base_url();?>images/favicon.ico">
 <title>Homeonline</title>
 
 <!-- Bootstrap core CSS -->
 
-<link href="css/bootstrap.min.css" rel="stylesheet">
-<link href="fonts/css/font-awesome.min.css" rel="stylesheet">
-<link href="css/animate.min.css" rel="stylesheet">
+<link href="<?=base_url();?>css/bootstrap.min.css" rel="stylesheet">
+<link href="<?=base_url();?>fonts/css/font-awesome.min.css" rel="stylesheet">
+<link href="<?=base_url();?>css/animate.min.css" rel="stylesheet">
 
 <!-- Custom styling plus plugins -->
-<link href="css/custom.css" rel="stylesheet">
-<link href="css/icheck/flat/green.css" rel="stylesheet">
+<link href="<?=base_url();?>css/custom.css" rel="stylesheet">
+<link href="<?=base_url();?>css/icheck/flat/green.css" rel="stylesheet">
 <!-- editor -->
 <link href="http://netdna.bootstrapcdn.com/font-awesome/3.0.2/css/font-awesome.css" rel="stylesheet">
-<link href="css/editor/external/google-code-prettify/prettify.css" rel="stylesheet">
-<link href="css/editor/index.css" rel="stylesheet">
+<link href="<?=base_url();?>css/editor/external/google-code-prettify/prettify.css" rel="stylesheet">
+<link href="<?=base_url();?>css/editor/index.css" rel="stylesheet">
+<link rel="stylesheet" href="<?=base_url();?>css/ion.rangeSlider.css" />
 <!-- select2 -->
-<link href="css/select/select2.min.css" rel="stylesheet">
+<link href="<?=base_url();?>css/select/select2.min.css" rel="stylesheet">
 <!-- switchery -->
-<link rel="stylesheet" href="css/switchery/switchery.min.css" />
-<script src="js/jquery.min.js"></script>
+<link rel="stylesheet" href="<?=base_url();?>css/switchery/switchery.min.css" />
+<script src="<?=base_url();?>js/jquery.min.js"></script>
 
 <!--[if lt IE 9]>
         <script src="../assets/js/ie8-responsive-file-warning.js"></script>
@@ -44,12 +45,12 @@
   <div class="main_container">
     <div class="col-md-3 left_col">
       <div class="left_col scroll-view">
-        <div class="navbar nav_title" style="border: 0;"> <a href="index.html" class="site_title"><i><img src="images/logo.png"/></i> <span>Homeonline</span></a> </div>
+        <div class="navbar nav_title" style="border: 0;"> <a href="index.html" class="site_title"><i><img src="<?=base_url();?>images/logo.png"/></i> <span>Homeonline</span></a> </div>
         <div class="clearfix"></div>
         
         <!-- menu prile quick info -->
         <div class="profile">
-          <div class="profile_pic"> <img src="images/img.jpg" alt="..." class="img-circle profile_img"> </div>
+          <div class="profile_pic"> <img src="<?=base_url();?>images/img.jpg" alt="..." class="img-circle profile_img"> </div>
           <div class="profile_info"> <span>Welcome,</span>
             <h2>Anthony Fernando</h2>
           </div>
@@ -60,19 +61,17 @@
         
         <!-- sidebar menu -->
         <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-              <div class="menu_section">
+          <div class="menu_section">
             <h3>General</h3>
             <ul class="nav side-menu">
-                 
                <li><a href="<?=base_url();?>"><i class="fa fa-user"></i> Manage Usar Plan </a></li>
                <li><a href="<?=base_url();?>Inventory"><i class="fa fa-user"></i> Inventory </a></li>
 			   <li><a href="<?=base_url();?>Inventory/Inventory_listing"><i class="fa fa-user"></i> Inventory Listing </a></li>
                <li><a href="<?=base_url();?>Campaign"><i class="fa fa-edit"></i> Creat Campaign </a></li>
-               <li><a href="<?=base_url();?>Campaign/Campaign_listing"><i class="fa fa-edit"></i> Campaign Listing</a></li>
-                </ul>
+			    <li><a href="<?=base_url();?>Campaign/Campaign_listing"><i class="fa fa-edit"></i> Campaign Listing</a></li>
+            </ul>
           </div>
-              
-            </div>
+        </div>
         <!-- /sidebar menu --> 
         
         <!-- /menu footer buttons -->
@@ -87,7 +86,7 @@
         <nav class="" role="navigation">
           <div class="nav toggle"> <a id="menu_toggle"><i class="fa fa-bars"></i></a> </div>
           <ul class="nav navbar-nav navbar-right">
-            <li class=""> <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false"> <img src="images/img.jpg" alt="">John Doe <span class=" fa fa-angle-down"></span> </a>
+            <li class=""> <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false"> <img src="<?=base_url();?>images/img.jpg" alt="">John Doe <span class=" fa fa-angle-down"></span> </a>
               <ul class="dropdown-menu dropdown-usermenu animated fadeInDown pull-right">
                 <li><a href="javascript:;"> Profile</a> </li>
                 <li> <a href="javascript:;"> <span class="badge bg-red pull-right">50%</span> <span>Settings</span> </a> </li>
@@ -97,10 +96,10 @@
             </li>
             <li role="presentation" class="dropdown"> <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false"> <i class="fa fa-envelope-o"></i> <span class="badge bg-red">6</span> </a>
               <ul id="menu1" class="dropdown-menu list-unstyled msg_list animated fadeInDown" role="menu">
-                <li> <a> <span class="image"> <img src="images/img.jpg" alt="Profile Image" /> </span> <span> <span>John Smith</span> <span class="time">3 mins ago</span> </span> <span class="message"> Film festivals used to be do-or-die moments for movie makers. They were where... </span> </a> </li>
-                <li> <a> <span class="image"> <img src="images/img.jpg" alt="Profile Image" /> </span> <span> <span>John Smith</span> <span class="time">3 mins ago</span> </span> <span class="message"> Film festivals used to be do-or-die moments for movie makers. They were where... </span> </a> </li>
-                <li> <a> <span class="image"> <img src="images/img.jpg" alt="Profile Image" /> </span> <span> <span>John Smith</span> <span class="time">3 mins ago</span> </span> <span class="message"> Film festivals used to be do-or-die moments for movie makers. They were where... </span> </a> </li>
-                <li> <a> <span class="image"> <img src="images/img.jpg" alt="Profile Image" /> </span> <span> <span>John Smith</span> <span class="time">3 mins ago</span> </span> <span class="message"> Film festivals used to be do-or-die moments for movie makers. They were where... </span> </a> </li>
+                <li> <a> <span class="image"> <img src="<?=base_url();?>images/img.jpg" alt="Profile Image" /> </span> <span> <span>John Smith</span> <span class="time">3 mins ago</span> </span> <span class="message"> Film festivals used to be do-or-die moments for movie makers. They were where... </span> </a> </li>
+                <li> <a> <span class="image"> <img src="<?=base_url();?>images/img.jpg" alt="Profile Image" /> </span> <span> <span>John Smith</span> <span class="time">3 mins ago</span> </span> <span class="message"> Film festivals used to be do-or-die moments for movie makers. They were where... </span> </a> </li>
+                <li> <a> <span class="image"> <img src="<?=base_url();?>images/img.jpg" alt="Profile Image" /> </span> <span> <span>John Smith</span> <span class="time">3 mins ago</span> </span> <span class="message"> Film festivals used to be do-or-die moments for movie makers. They were where... </span> </a> </li>
+                <li> <a> <span class="image"> <img src="<?=base_url();?>images/img.jpg" alt="Profile Image" /> </span> <span> <span>John Smith</span> <span class="time">3 mins ago</span> </span> <span class="message"> Film festivals used to be do-or-die moments for movie makers. They were where... </span> </a> </li>
                 <li>
                   <div class="text-center"> <a> <strong>See All Alerts</strong> <i class="fa fa-angle-right"></i> </a> </div>
                 </li>
@@ -117,103 +116,15 @@
       <div class="">
         <div class="page-title">
           <div class="title_left">
-            <h3>Manage User Plan</h3>
+            <h3>Creat Compaign</h3>
           </div>
           <div class="title_right">
-           
-              <div class="input-group pull-right">
-              <div class="nav toggle paddman12"> <a id="menu_toggle2"><button class="btn btn-primary" type="button">Full Screen</button></a> </div>
-                <button class="btn btn-success taright" type="button" data-toggle="modal" data-target=".bs-example-modal-lg"> <i class="fa fa-plus"></i> Add User Plan</button>
-                </div>
-                
-                <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
-                <div class="modal-dialog modal-lg">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span> </button>
-                      <h4 class="modal-title" id="myModalLabel">Add User Plan</h4>
-                    </div>
-                    <div class="modal-body">
-                      <form class="form-horizontal form-label-left" action="<?=base_url();?>/manage_user_plan/adduserplan" method="post">
-                  <div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Plan Title</label>
-                    <div class="col-md-9 col-sm-9 col-xs-12">
-                      <input type="text" placeholder="Plan title" name="plantitle" class="form-control">
-                    </div>
-                  </div>
-                  
-                  <div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Plan User Type</label>
-                    <div class="col-md-9 col-sm-9 col-xs-12">
-                      <select class="select2_group form-control" name="planusertype">
-                        <optgroup label="Plan User Type">
-						<?php foreach($user_type as $user_type){?>
-                        <option value="<?=$user_type->userTypeID?>"><?=$user_type->userTypeName?></option>
-						<?php } ?>
-                        </optgroup>
-                      </select>
-                    </div>
-                  </div>
-                  
-                  <div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Plan Order</label>
-                    <div class="col-md-9 col-sm-9 col-xs-12">
-                      <input type="text" placeholder="order" class="form-control" name="planorder">
-                    </div>
-                  </div>
-                  
-                  <div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Plan Type</label>
-                    <div class="col-md-9 col-sm-9 col-xs-12">
-                     <div style="padding: 5px 0">
-                      <ul class="list-inline">
-                  <li>
-                    <input type="checkbox" name="plantype" id="hobby1" value="project" data-parsley-mincheck="2" required class="flat" />
-                    Project</li>
-                    <li>
-                    <input type="checkbox" name="plantype" id="hobby2" value="property" class="flat" />
-                    Property</li>
-                    
-                    
-                    </ul>
-                    </div>
-                    </div>
-                  </div>
-                  
-                  <div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Status</label>
-                    <div class="col-md-9 col-sm-9 col-xs-12">
-                      <div id="gender" class="btn-group" data-toggle="buttons">
-                        <label class="btn btn-default" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                          <input type="radio" name="planstatus" value="Active">
-                          &nbsp; Active &nbsp; </label>
-                        <label class="btn btn btn-default" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                          <input type="radio" name="planstatus" value="Inactive" checked="">
-                          Inactive </label>
-                    </div>
-                      
-                      
-                      
-                    </div>
-                  </div>
-
-                
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                      <input type="submit" class="btn btn-primary" value="Save changes" name="submit"/>
-                    </div>
-					
-					</form>
-                    </div>
-					
-                  </div>
-                </div>
-              </div>
-         
+            <div class="input-group pull-right"> 
+             <div class="nav toggle paddman12"> <a id="menu_toggle2"><button class="btn btn-primary" type="button">Full Screen</button></a> </div>
+            </div>
           </div>
         </div>
         <div class="clearfix"></div>
-        
         <script type="text/javascript">
                         $(document).ready(function () {
                             $('#calender01').daterangepicker({
@@ -224,14 +135,11 @@
                             });
                         });
                     </script>
-                    
-        
-        
         <div class="row">
           <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
               <div class="x_title">
-                <h2>Manage User Form</h2>
+                <h2>Compaign</h2>
                 <ul class="nav navbar-right panel_toolbox">
                   <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a> </li>
                   <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
@@ -246,111 +154,136 @@
               </div>
               <div class="x_content">
                 <form id="demo-form2" data-parsley-validate class="form-group form-label-left clearfix">
-                <div class="row">
-                  <div class="form-group col-xs-12 col-sm-3">
-                    <label class="control-label" for="first-name">Plan Title <span class="required">*</span> </label>
-                    <input type="text" id="first-name" required="required" class="form-control">
+                  <div class="row">
+                    <div class="form-group col-xs-12 col-sm-2">
+                      <label for="middle-name" class="control-label">Comapny name</label>
+                      <input type="text" placeholder="Company" class="form-control">
+                    </div>
+                    
+                    <div class="form-group col-xs-12 col-sm-2">
+                     <label for="middle-name" class="control-label">Email</label>
+                      <input type="text" placeholder="Enter Your Email" class="form-control">
+                    </div>
+                    <div class="form-group col-xs-12 col-sm-2">
+                      <label for="middle-name" class="control-label">Mobile No</label>
+                      <input type="text" placeholder="Enter Your No" class="form-control">
+                    </div>
+                    
+                    <div class="form-group col-xs-12 col-sm-2">
+                      <label for="middle-name" class="control-label">Compaign Name</label>
+                      <input type="text" placeholder="Enter Your Company" class="form-control">
+                    </div>
+                    
+                    <div class="form-group col-xs-12 col-sm-2">
+                      <label class="control-label" for="last-name">User Type <span class="required">*</span> </label>
+                      <select class="select2_group form-control">
+                        <optgroup label="Alaskan/Hawaiian Time Zone">
+                        <option value="AK">Select</option>
+                        <option value="HI">Hawaii</option>
+                        </optgroup>
+                      </select>
+                    </div>
+                    
+                    <div class="form-group col-xs-12 col-sm-2 martop20">                      
+                    <button type="submit" class="btn btn-primary">Reset</button>
+                    <button type="submit" class="btn btn-success">Search</button>
+          
+                    </div>
                   </div>
-                  <div class="form-group col-xs-12 col-sm-3">
-                    <label class="control-label" for="last-name">User Type <span class="required">*</span> </label>
-                    <input type="text" id="last-name" name="last-name" required="required" class="form-control">
-                  </div>
-                  <div class="form-group col-xs-12 col-sm-3">
-                    <label for="middle-name" class="control-label">Plan Type</label>
-                    <input id="middle-name" class="form-control" type="text" name="middle-name">
-                  </div>
+                 <!-- <div class="ln_solid"></div>-->
+                 
                   
-                  <div class="form-group col-xs-12 col-sm-3 martop20">
-                  <button type="submit" class="btn btn-primary">Reset</button>
-                  <button type="submit" class="btn btn-success">Search</button>
-                   
-                  </div>
-
-                  </div>
-
                 </form>
               </div>
             </div>
           </div>
         </div>
-        
         <div class="clearfix"></div>
-            <div class="row">
-        <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="row">
+          <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
               <div class="x_title">
-
-            
-                  <div class="btn-group  btn-group-sm">
-                    <button type="button" class="btn btn-default">Active</button>
-                    <button type="button" class="btn btn-default">Inactive</button>
-                    <button type="button" class="btn btn-default">Select all</button>
-                  </div>
-              
-                
+                <h2>Compaign table </h2>
                 <ul class="nav navbar-right panel_toolbox">
-                  <li><a href="#"><i class="fa fa-chevron-up"></i></a> </li>
+                  <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a> </li>
                   <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
                     <ul class="dropdown-menu" role="menu">
                       <li><a href="#">Settings 1</a> </li>
                       <li><a href="#">Settings 2</a> </li>
                     </ul>
                   </li>
-                  <li><a href="#"><i class="fa fa-close"></i></a> </li>
+                  <li><a class="close-link"><i class="fa fa-close"></i></a> </li>
                 </ul>
                 <div class="clearfix"></div>
               </div>
-              
-              
-              <div class="x_content paddbot">
-                <table id="example" class="table table-striped responsive-utilities jambo_table">
+              <div class="x_content scor-bott">
+                <table class="table table-bordered table-hover vert-aliins">
                   <thead>
-                    <tr class="headings">
-                      <th> <input type="checkbox" class="tableflat">
-                      </th>
-                      <th>Plan Title </th>
-                      <th>User Type </th>
-                      <th>Plan Order </th>
-                      <th>Plan Type </th>
-                      <th>Created Date </th>
-                      <th class=" no-link last"><span class="nobr">Action</span> </th>
+                    <tr>
+                      <th>Compaign Name </th>
+                      <th>Company Name</th>
+                      <th>Email ID </th>
+                      <th>Mobile No</th>
+                      <th>HPG</th>
+                      <th>HHD</th>
+                      <th>POM</th>
+                      <th>RPG</th>
+                      <th>RHD</th>
+                      <th>RBB</th>
+                      <th>RPROJ</th>
+                      <th>RPROJ</th>
+                      <th>Platinum (proj)</th>
+                      <th>Diamond (prop)</th>
+                      <th>Gold (prop)</th>
+                      <th>Silver (prop)</th>
+                      <th>UPED</th>
+                      <th>Amount Rs </th>
+                    
                     </tr>
                   </thead>
                   <tbody>
-				  <?php foreach($userplans as $userplans){?>
-                    <tr class="even pointer">
-                      <td class="a-center "><input type="checkbox" class="tableflat"></td>
-              
-                      <td class=" "><?=isset($userplans->planTitle)?$userplans->planTitle:''?> </td>
-                      <td class=" "><?=isset($userplans->userTypeName)?$userplans->userTypeName:''?> <i class="success fa fa-long-arrow-up"></i></td>
-                      <td class=" "><input type="text" placeholder="<?=isset($userplans->planPrice)?$userplans->planPrice:''?>" disabled="disabled" class="form-control edt-form"></td>
-                      <td class=" ">project</td>
-                      <td class="a-right a-right "><?=isset($userplans->planDate)?$userplans->planDate:''?></td>
-                      <td class=" last"><ul class="list-inline text-right">
-                      <li><a title="Right" href="#"><i class="fa fa-check"></i></a></li>
-                       <li><a title="Edit" data-toggle="modal" data-target=".bs-example-modal-lg" href="<?=isset($userplans->planID)?$userplans->planID:''?>"><i class="fa fa-pencil"></i></a></li>
-                      </ul></td>
+                    <tr>
+                      <td>Sobha 16-09-2015 20:30:30</td>
+                      <td>Sobha Developers</td>
+                      <td>sales@shoba.com</td>
+                      <td>1111100000</td>
+                      <td>0/3</td>
+                      <td>0/4</td>
+                      <td>0/2</td>
+                      <td>0/1</td>
+                       <td>0/1</td>
+                       <td>0/3</td>
+                       <td>0/4</td>
+                       <td>0/5</td>
+                       <td>0/10</td>
+                       <td>0/200</td>
+                       <td>0/300</td>
+                       <td>0/100</td>
+                       <td>20/10/2015</td>
+                       <td>3000</td>
+                       
+                     
                     </tr>
-				  <?php } ?>
-                    </tbody>
+
+                  </tbody>
                 </table>
               </div>
+              
+             <!-- <div class="valusho pull-left"> <h5>Compaign Amount :  Rs 335090 </h5></div>
+              <div class="valusho pull-right"> <button class="btn btn-info btn-lg" type="button">Create</button></div>-->
             </div>
+                  
           </div>
           
-          </div>
-                    
-        
-        
-        
-        
+    
+        </div>
       </div>
       <!-- /page content --> 
       
       <!-- footer content -->
       <footer>
         <div class="">
-         <p class="pull-right">Copyright <a>Homeonline</a>. | <span class="lead"> <i><img src="images/logo-f.png"/></i> Homeonline</span> </p>
+          <p class="pull-right">Copyright <a>Homeonline</a>. | <span class="lead"> <i><img src="<?=base_url();?>images/logo-f.png"/></i> Homeonline</span> </p>
         </div>
         <div class="clearfix"></div>
       </footer>
@@ -364,45 +297,45 @@
   <div class="clearfix"></div>
   <div id="notif-group" class="tabbed_notifications"></div>
 </div>
-<script src="js/bootstrap.min.js"></script> 
+<script src="<?=base_url();?>js/bootstrap.min.js"></script> 
 
 <!-- chart js --> 
-<script src="js/chartjs/chart.min.js"></script> 
+<script src="<?=base_url();?>js/chartjs/chart.min.js"></script> 
 <!-- bootstrap progress js --> 
-<script src="js/progressbar/bootstrap-progressbar.min.js"></script> 
-<script src="js/nicescroll/jquery.nicescroll.min.js"></script> 
+<script src="<?=base_url();?>js/progressbar/bootstrap-progressbar.min.js"></script> 
+<script src="<?=base_url();?>js/nicescroll/jquery.nicescroll.min.js"></script> 
 <!-- icheck --> 
-<script src="js/icheck/icheck.min.js"></script> 
+<script src="<?=base_url();?>js/icheck/icheck.min.js"></script> 
 <!-- tags --> 
-<script src="js/tags/jquery.tagsinput.min.js"></script> 
+<script src="<?=base_url();?>js/tags/jquery.tagsinput.min.js"></script> 
 <!-- switchery --> 
-<script src="js/switchery/switchery.min.js"></script> 
+<script src="<?=base_url();?>js/switchery/switchery.min.js"></script> 
 <!-- daterangepicker --> 
-<script type="text/javascript" src="js/moment.min2.js"></script> 
-<script type="text/javascript" src="js/datepicker/daterangepicker.js"></script> 
+<script type="text/javascript" src="<?=base_url();?>js/moment.min2.js"></script> 
+<script type="text/javascript" src="<?=base_url();?>js/datepicker/daterangepicker.js"></script> 
 <!-- richtext editor --> 
-<script src="js/editor/bootstrap-wysiwyg.js"></script> 
-<script src="js/editor/external/jquery.hotkeys.js"></script> 
-<script src="js/editor/external/google-code-prettify/prettify.js"></script> 
+<script src="<?=base_url();?>js/editor/bootstrap-wysiwyg.js"></script> 
+<script src="<?=base_url();?>js/editor/external/jquery.hotkeys.js"></script> 
+<script src="<?=base_url();?>js/editor/external/google-code-prettify/prettify.js"></script> 
 <!-- select2 --> 
-<script src="js/select/select2.full.js"></script> 
+<script src="<?=base_url();?>js/select/select2.full.js"></script> 
 <!-- form validation --> 
-<script type="text/javascript" src="js/parsley/parsley.min.js"></script> 
+<script type="text/javascript" src="<?=base_url();?>js/parsley/parsley.min.js"></script> 
 <!-- textarea resize --> 
-<script src="js/textarea/autosize.min.js"></script> 
+<script src="<?=base_url();?>js/textarea/autosize.min.js"></script> 
 <!-- Datatables --> 
-<script src="js/datatables/js/jquery.dataTables.js"></script> 
-<script src="js/datatables/tools/js/dataTables.tableTools.js"></script> 
+<script src="<?=base_url();?>js/datatables/js/jquery.dataTables.js"></script> 
+<script src="<?=base_url();?>js/datatables/tools/js/dataTables.tableTools.js"></script> 
 
 <!-- bootstrap progress js --> 
-<script src="js/progressbar/bootstrap-progressbar.min.js"></script> 
-<script src="js/nicescroll/jquery.nicescroll.min.js"></script> 
+<script src="<?=base_url();?>js/progressbar/bootstrap-progressbar.min.js"></script> 
+<script src="<?=base_url();?>js/nicescroll/jquery.nicescroll.min.js"></script> 
 <script>
             autosize($('.resizable_textarea'));
         </script> 
 <!-- Autocomplete --> 
-<script type="text/javascript" src="js/autocomplete/countries.js"></script> 
-<script src="js/autocomplete/jquery.autocomplete.js"></script> 
+<script type="text/javascript" src="<?=base_url();?>js/autocomplete/countries.js"></script> 
+<script src="<?=base_url();?>js/autocomplete/jquery.autocomplete.js"></script> 
 <script type="text/javascript">
             $(function () {
                 'use strict';
@@ -419,7 +352,7 @@
                 });
             });
         </script> 
-<script src="js/custom.js"></script> 
+<script src="<?=base_url();?>js/custom.js"></script> 
 
 <!-- select2 --> 
 <script>
@@ -566,8 +499,7 @@
                 window.prettyPrint && prettyPrint();
             });
         </script> 
-        
-        <script>
+<script>
             $(document).ready(function () {
                 $('input.tableflat').iCheck({
                     checkboxClass: 'icheckbox_flat-green',
@@ -614,7 +546,19 @@
                     }
                 });
             });
-        </script>
+        </script> 
+<script type="text/javascript">
+        $(document).ready(function () {
+            
+            $('#single_cal2').daterangepicker({
+                singleDatePicker: true,
+                calender_style: "picker_2"
+            }, function (start, end, label) {
+                console.log(start.toISOString(), end.toISOString(), label);
+            });
+             
+        });
+    </script> 
 <!-- /editor -->
 </body>
 </html>
