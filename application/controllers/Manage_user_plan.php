@@ -17,7 +17,7 @@ class Manage_user_plan extends CI_Controller {
 // Manage_user_plan Started Here.................................................................................................................
 
 /*Manage_user_plan view Load Start.............................................................................................................*/
-	function index($class=false,$section=false,$subject=false,$date=false)
+	function index()
 	{	
 		$this->data['user_type']=$this->manage_user_plan_model->get_user_type();
 		$this->data['userplans']=$this->manage_user_plan_model->get_userplans();

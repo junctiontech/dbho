@@ -140,16 +140,27 @@
         <div class="ln_solid"></div>
          <div class="row">
           <div class="col-md-12 col-sm-12 col-xs-12">
-           <form class="form-horizontal form-label-left">
-           
+		  <!-- Alert section For Message-->
+		 <?php  if($this->session->flashdata('message_type')=='success') { ?>
+		  <div class="alert alert-success alert-dismissible fade in" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span> </button>
+                <strong><?=$this->session->flashdata('message')?></strong>  </div>
+		 <?php } if($this->session->flashdata('message_type')=='error') { ?>
+		 <div class="alert alert-danger alert-dismissible fade in" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span> </button>
+                <strong><?=$this->session->flashdata('message')?></strong>  </div>
+		 <?php } ?>
+		 <!-- Alert section End-->
+           <form class="form-horizontal form-label-left" action="<?=base_url();?>Inventory/Add_inventory" method="post" enctype="multipart/form-data">
+           <input type="hidden" name="inventory_id" value="" />
            <div class="form-group">
            <div class="col-md-12 col-sm-12 col-xs-12">
               <div class="radio mabott10">
                         <label>
-                          <input type="radio" class="flat" checked name="iCheck">
+                          <input type="radio" class="flat" checked name="type" value="Free">
                           Free </label>
                           <label>
-                          <input type="radio" class="flat" name="iCheck">
+                          <input type="radio" class="flat" name="type" value="Campaign">
                           Compaign </label>
                       </div>     
              </div>         
@@ -166,14 +177,21 @@
 				<div class="form-group">
                     <label class="control-label col-md-2 col-sm-2 col-xs-12">Company Name</label>
                     <div class="col-md-10 col-sm-10 col-xs-12">
-                       <label class="control-label col-md-2 col-sm-2 col-xs-12">Sobha Developers</label>
+                      <select class="select2_group form-control" name="user_id">
+                        <optgroup label="Alaskan/Hawaiian Time Zone">
+                        <option value="">Select Company Name</option>
+						<?php foreach($company_name as $company_name){?>
+                        <option value="<?=isset($company_name->userID)?$company_name->userID:''?>"><?=isset($company_name->userCompanyName)?$company_name->userCompanyName:''?></option>
+						<?php } ?>
+                        </optgroup>
+                      </select>
                     </div>
-                </div>
+                  </div>
 		   
 				 <div class="form-group">
                     <label class="control-label col-md-2 col-sm-2 col-xs-12">Inventory</label>
                     <div class="col-md-10 col-sm-10 col-xs-12">
-                       <label class="control-label col-md-2 col-sm-2 col-xs-12">Home page project gallery</label>
+                      <input type="text" name="inventory_des" value="" class="form-control" />
                     </div>
                 </div>
                   
@@ -184,10 +202,12 @@
            <div class="form-group">
                     <label class="control-label col-md-2 col-sm-2 col-xs-12">City</label>
                     <div class="col-md-10 col-sm-10 col-xs-12">
-                      <select class="select2_group form-control">
-                        <optgroup label="Alaskan/Hawaiian Time Zone">
-                        <option value="AK">Select City</option>
-                        <option value="HI">Bhopal</option>
+                      <select class="select2_group form-control" name="city_id">
+                        <optgroup label="Alaskan/Hawaiian Time Zone" >
+                        <option value="">Select City</option>
+                       <?php foreach($cities as $cities){?>
+                        <option value="<?=isset($cities->cityID)?$cities->cityID:''?>"><?=isset($cities->cityName)?$cities->cityName:''?></option>
+						<?php } ?>
                         </optgroup>
                       </select>
                     </div>
@@ -197,10 +217,12 @@
            <div class="form-group">
                     <label class="control-label col-md-2 col-sm-2 col-xs-12">Project Name</label>
                     <div class="col-md-10 col-sm-10 col-xs-12">
-                      <select class="select2_group form-control">
+                      <select class="select2_group form-control" name="project_id">
                         <optgroup label="Alaskan/Hawaiian Time Zone">
-                        <option value="AK">Bhaskar</option>
-                        <option value="HI">Home Online</option>
+                        <option value="">Select Project</option>
+                         <?php foreach($projects as $projects){?>
+                        <option value="<?=isset($projects->projectID)?$projects->projectID:''?>"><?=isset($projects->projectName)?$projects->projectName:''?></option>
+						<?php } ?>
                         </optgroup>
                       </select>
                     </div>
@@ -227,7 +249,7 @@
                         <div class="control-group">
                           <div class="controls">
                             <div class="xdisplay_inputx form-group has-feedback">
-                              <input type="text" class="form-control has-feedback-left" id="single_cal2" placeholder="09/30/2015" aria-describedby="inputSuccess2Status2">
+                              <input type="text" name="start_date" class="form-control has-feedback-left"  id="single_cal2" placeholder="09/30/2015" aria-describedby="inputSuccess2Status2">
                               <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span> <span id="inputSuccess2Status2" class="sr-only">(success)</span> </div>
                           </div>
                         </div>
@@ -238,28 +260,28 @@
                   <div class="form-group">
                     <label class="control-label col-md-2 col-sm-2 col-xs-12">Duration</label>
                     <div class="col-md-10 col-sm-10 col-xs-12 contxt">
-                     <input type="text" placeholder="4" class="form-control">
+                     <input type="text" placeholder="4" class="form-control" name="duration">
                     </div>
                   </div>
                   
                   <div class="form-group">
                     <label class="control-label col-md-2 col-sm-2 col-xs-12">Weightage</label>
                     <div class="col-md-10 col-sm-10 col-xs-12 contxt">
-                     <input type="text" placeholder="40" class="form-control">
+                     <input type="text" placeholder="40" class="form-control" name="weightage">
                     </div>
                   </div>
                   
                   <div class="form-group">
                     <label class="control-label col-md-2 col-sm-2 col-xs-12">Remark</label>
                     <div class="col-md-10 col-sm-10 col-xs-12">
-                     <textarea id="message" required="required" class="form-control" name="message" data-parsley-trigger="keyup" data-parsley-minlength="20" data-parsley-maxlength="100" data-parsley-minlength-message="Come on! You need to enter at least a 20 caracters long comment.." data-parsley-validation-threshold="10"></textarea>
+                     <textarea id="message" required="required" class="form-control" name="remark" data-parsley-trigger="keyup" data-parsley-minlength="20" data-parsley-maxlength="100" data-parsley-minlength-message="Come on! You need to enter at least a 20 caracters long comment.." data-parsley-validation-threshold="10"></textarea>
                     </div>
                   </div>
                   
                   <div class="form-group">
                     <label class="control-label col-md-2 col-sm-2 col-xs-12"></label>
                     <div class="col-md-10 col-sm-10 col-xs-12">
-                     <button class="btn btn-success btn-lg" type="submit">Save</button>
+                     <button class="btn btn-success btn-lg" type="submit" value="submit" name="submit">Save</button>
                     </div>
                   </div>
                   

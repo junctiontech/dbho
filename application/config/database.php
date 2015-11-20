@@ -105,11 +105,13 @@ $db['default'] = array(
 	'save_queries' => TRUE
 );
 
-$db['db_junction'] = array(
+
+$db['both'] = array(
 	'dsn'	=> '',
 	'hostname' => 'localhost',
 	'username' => $username,
 	'password' => $password,
+	'database' => 'homeonline',
 	'database' => 'homeonline_junction',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
@@ -126,3 +128,4 @@ $db['db_junction'] = array(
 	'failover' => array(),
 	'save_queries' => TRUE
 );
+

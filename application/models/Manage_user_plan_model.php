@@ -38,7 +38,7 @@ class Manage_user_plan_model extends CI_Model
 							 'languageID'=>'1');
 				$this->db->insert('rp_user_plan_details',$data1);
 				
-				$db2 = $this->load->database('db_junction', TRUE);
+				$db2 = $this->load->database('both', TRUE);
 				$data2=array('planTypeTitle'=>$plantitle.' For '.$usertypename,
 							 'Priority'=>$planorder);
 				$db2->insert('db_plantype',$data2);
@@ -57,7 +57,9 @@ class Manage_user_plan_model extends CI_Model
 			$qry = $this->db->query("select rp_user_plans.planID,planPrice,planDate,planTitle,userTypeName  from rp_user_plans,rp_user_plan_details,rp_user_types,rp_user_type_details where
 			rp_user_plans.planID=rp_user_plan_details.planID and
 			rp_user_plans.userTypeID=rp_user_types.userTypeID and
-			rp_user_types.userTypeID=rp_user_type_details.userTypeID");	
+			rp_user_types.userTypeID=rp_user_type_details.userTypeID and 
+			rp_user_type_details.languageID='1' and
+			rp_user_plan_details.languageID='1'");	
 			return $qry->Result();	
 	}
 	
@@ -65,7 +67,8 @@ class Manage_user_plan_model extends CI_Model
 	{
 			$qry = $this->db->query("select rp_user_types.userTypeID,userTypeName from rp_user_types,rp_user_type_details where
 									rp_user_types.userTypeID=rp_user_type_details.userTypeID and
-									userTypeStatus='Active'");	
+									userTypeStatus='Active' and
+									rp_user_type_details.languageID='1'");	
 			return $qry->Result();	
 	}
 	

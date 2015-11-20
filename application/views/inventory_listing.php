@@ -139,6 +139,17 @@
         
 
         <div class="ln_solid"></div>
+		<!-- Alert section For Message-->
+		 <?php  if($this->session->flashdata('message_type')=='success') { ?>
+		  <div class="alert alert-success alert-dismissible fade in" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span> </button>
+                <strong><?=$this->session->flashdata('message')?></strong>  </div>
+		 <?php } if($this->session->flashdata('message_type')=='error') { ?>
+		 <div class="alert alert-danger alert-dismissible fade in" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span> </button>
+                <strong><?=$this->session->flashdata('message')?></strong>  </div>
+		 <?php } ?>
+		 <!-- Alert section End-->
          <div class="row">
           <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
@@ -265,43 +276,26 @@
                     </tr>
                   </thead>
                   <tbody>
+				  <?php foreach($inventory_list as $inventory_list){?>
                     <tr>
                       <td>Sobha 16-09-2015 20:30:30</td>
-                      <td>Sobha Developers</td>
-                      <td>sales@shoba.com</td>
-                      <td>1111100000</td>
-                      <td>Home Page Project Gallery</td>
-                      <td>Bhopal</td>
-                      <td>Your man india</td>
-                      <td>20/10/2015</td>
-                       <td>123</td>
-                       <td>20/10/2015</td>
-                       <td>1</td>
+                      <td><?=isset($inventory_list->userCompanyName)?$inventory_list->userCompanyName:''?></td>
+                      <td><?=isset($inventory_list->userEmail)?$inventory_list->userEmail:''?></td>
+                      <td><?=isset($inventory_list->userPhone)?$inventory_list->userPhone:''?></td>
+                      <td><?=isset($inventory_list->inventoryDescription)?$inventory_list->inventoryDescription:''?></td>
+                      <td><?=isset($inventory_list->cityName)?$inventory_list->cityName:''?></td>
+                      <td><?=isset($inventory_list->projectName)?$inventory_list->projectName:''?></td>
+                      <td><?=isset($inventory_list->StartDate)?$inventory_list->StartDate:''?></td>
+                       <td><?=isset($inventory_list->Duration)?$inventory_list->Duration:''?></td>
+                       <td><?=isset($inventory_list->StartDate)?$inventory_list->StartDate:''?></td>
+                       <td><?=isset($inventory_list->Weightage)?$inventory_list->Weightage:''?></td>
                        <td>
                        <a class="btn btn-app paddpsush">
                        <i class="fa fa-pause"></i></a>
                        </td>
                     </tr>
-                    
-                     <tr>
-                      <td>Sobha 16-09-2015 20:30:30</td>
-                      <td>Sobha Developers</td>
-                      <td>sales@shoba.com</td>
-                      <td>1111100000</td>
-                      <td>Home Page Project Gallery</td>
-                      <td>Bhopal</td>
-                      <td>Your man india</td>
-                      <td>20/10/2015</td>
-                       <td>123</td>
-                       <td>20/10/2015</td>
-                       <td>1</td>
-                       <td>
-                       <a class="btn btn-app paddpsush">
-                       <i class="fa fa-pause"></i></a>
-                       </td>
-                    </tr>
-
-                  </tbody>
+                    <?php } ?>
+                    </tbody>
                 </table>
               </div>
               
