@@ -17,14 +17,30 @@ class Manage_user_plan extends CI_Controller {
 // Manage_user_plan Started Here.................................................................................................................
 
 /*Manage_user_plan view Load Start.............................................................................................................*/
-	function index()
-	{	
+	function index($planid=false)
+	{	if($planid){
+		$this->data['planid']=$planid;
+		}
 		$this->data['user_type']=$this->manage_user_plan_model->get_user_type();
 		$this->data['userplans']=$this->manage_user_plan_model->get_userplans();
 		
 		$this->load->view('manage_user_plan',$this->data);
 	}
 /*Manage_user_plan view Load End.............................................................................................................*/
+
+/*Manage_user_plan Modal view Load Start.............................................................................................................*/
+	function loadmodal($planid=false)
+	{	if(!empty($planid)){
+		$this->data['planid']=$planid;
+		$filter=$planid;
+		$this->data['updateplan']=$this->manage_user_plan_model->select_for_update($filter); 
+		}
+		$this->data['user_type']=$this->manage_user_plan_model->get_user_type();
+		$this->load->view('planmodal',$this->data);
+	}
+/*Manage_user_plan Modal view Load End.............................................................................................................*/
+
+
 	
 /*Manage_user_plan create insert and update start .........................................................................................*/
 	function adduserplan()

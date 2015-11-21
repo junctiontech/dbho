@@ -18,10 +18,17 @@ class Manage_user_plan_model extends CI_Model
 	function insert_userplan($plantitle=false,$planusertype=false,$planorder=false,$plantype=false,$planstatus=false,$date=false,$filter=false)
    {	
 		 if($filter){
-			 
+			 $data=array('userTypeID'=>$planusertype,'planPrice'=>$planorder,'planStatus'=>$planstatus);
 				$this->db->where($filter);
-				$this->db->update($table,$data);
-				//echo $this->db->last_query();die;
+				$this->db->update('rp_user_plans',$data);
+				$qry = $this->db->query("select userTypeName from rp_user_type_details where
+										userTypeID=$planusertype");
+										$qry=$qry->Result();
+										$usertypename=$qry[0]->userTypeName;
+				$data1=array('planTitle'=>$plantitle.' For '.$usertypename);
+				$this->db->where($filter);
+				$this->db->update('rp_user_plan_details',$data1);
+				
 		}else{
 				$data=array('userTypeID'=>$planusertype,
 							'planPrice'=>$planorder,
@@ -45,11 +52,14 @@ class Manage_user_plan_model extends CI_Model
 			}
 	}
 	
-	function select_for_update($table=false,$filter=false)
+	function select_for_update($filter=false)
    {	
-			$query = $this->db->get_where($table, $filter);
-			return $query->Result();
-   }
+			$qry = $this->db->query("select rp_user_plans.planID,planPrice,planTitle,userTypeID,planStatus  from rp_user_plans,rp_user_plan_details where
+			rp_user_plans.planID=rp_user_plan_details.planID and
+			rp_user_plan_details.languageID='1' and
+			rp_user_plans.planID=$filter");	
+			return $qry->Result();	
+	}
 	
 	
 	function get_userplans()

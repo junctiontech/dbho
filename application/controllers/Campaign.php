@@ -8,25 +8,26 @@ class Campaign extends CI_Controller {
 		
 		$this->data[]="";
 		$this->data['url'] = base_url();
-		$this->load->model('manage_user_plan_model');
+		$this->load->model('campaign_model');
 		$this->load->library('parser');
 		$this->data['base_url']=base_url();
 		$this->load->library('session');
 	}
 	
-// Manage_user_plan Started Here.................................................................................................................
+// Campaign Started Here.................................................................................................................
 
-/*Manage_user_plan view Load Start.............................................................................................................*/
-	function index($class=false,$section=false,$subject=false,$date=false)
+/*Campaign view Load Start.............................................................................................................*/
+	function index()
 	{	
-		$this->data['user_type']=$this->manage_user_plan_model->get_user_type();
-		$this->data['userplans']=$this->manage_user_plan_model->get_userplans();
+		
+		//$this->data['user_type']=$this->campaign_model->get_user_type();
+		//$this->data['userplans']=$this->campaign_model->get_userplans();
 		
 		$this->load->view('campaign',$this->data);
 	}
-/*Manage_user_plan view Load End.............................................................................................................*/
+/*Campaign view Load End.............................................................................................................*/
 	
-/*Manage_user_plan create insert and update start .........................................................................................*/
+/*Campaign create insert and update start .........................................................................................*/
 	function adduserplan()
 	{	
 	
@@ -45,14 +46,14 @@ class Campaign extends CI_Controller {
 					if(!empty($this->input->post('planid'))){
 						
 							$filter=array('planID'=>$this->input->post('planid'));
-							$this->manage_user_plan_model->insert_userplan($plantitle,$planusertype,$planorder,$plantype,$planstatus,$date,$filter);
+							$this->campaign_model->insert_userplan($plantitle,$planusertype,$planorder,$plantype,$planstatus,$date,$filter);
 							$this->session->set_flashdata('message_type', 'success');
-							$this->session->set_flashdata('message', $this->config->item("index")." User Plan Updated Successfully!!");
+							$this->session->set_flashdata('message', $this->config->item("index")." Campaign Updated Successfully!!");
 							
 					}else{
-							$this->manage_user_plan_model->insert_userplan($plantitle,$planusertype,$planorder,$plantype,$planstatus,$date);
+							$this->campaign_model->insert_userplan($plantitle,$planusertype,$planorder,$plantype,$planstatus,$date);
 							$this->session->set_flashdata('message_type', 'success');
-							$this->session->set_flashdata('message', $this->config->item("index")." User Plan Added Successfully!!");
+							$this->session->set_flashdata('message', $this->config->item("index")." Campaign Added Successfully!!");
 					}
 			}else{
 					$this->session->set_flashdata('message_type', 'error');
@@ -62,20 +63,20 @@ class Campaign extends CI_Controller {
 					$this->session->set_flashdata('message_type', 'error');
 					$this->session->set_flashdata('message', $this->config->item("index")." Invalid Request!!");
 		}
-			redirect('manage_user_plan');
+			redirect('Campaign_listing');
 	}
 	
-/*Manage_user_plan create insert and update End .........................................................................................*/
+/*Campaign create insert and update End .........................................................................................*/
 
-/*Manage_user_plan view Load Start.............................................................................................................*/
-	function Campaign_listing($class=false,$section=false,$subject=false,$date=false)
+/*Campaign Listing view Load Start.............................................................................................................*/
+	function Campaign_listing()
 	{	
-		$this->data['user_type']=$this->manage_user_plan_model->get_user_type();
-		$this->data['userplans']=$this->manage_user_plan_model->get_userplans();
+		//$this->data['user_type']=$this->campaign_model->get_user_type();
+		//$this->data['userplans']=$this->campaign_model->get_userplans();
 		
 		$this->load->view('campaign_listing',$this->data);
 	}
-/*Manage_user_plan view Load End.............................................................................................................*/
+/*Campaign Listing view Load End.............................................................................................................*/
 	
 		
 }

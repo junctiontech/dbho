@@ -214,6 +214,7 @@
                 </ul>
                 <div class="clearfix"></div>
               </div>
+			  <form class="" action="<?=base_url();?>campaign/addcampaign" method="post">
               <div class="x_content">
                 <table class="table table-bordered table-hover vert-aliins">
                   <thead>
@@ -228,41 +229,6 @@
                       <td>Home page project gallery</td>
                       <td><input type="text" placeholder="3" class="form-control"></td>
                       <td><input type="text" placeholder="10000" class="form-control"></td>
-                    </tr>
-                    <tr>
-                      <td>Home page Hot deals</td>
-                      <td><input type="text" placeholder="4" class="form-control"></td>
-                      <td><input type="text" placeholder="50000" class="form-control"></td>
-                    </tr>
-                    <tr>
-                      <td>Real estate project of the month</td>
-                      <td><input type="text" placeholder="2" class="form-control"></td>
-                      <td><input type="text" placeholder="25000" class="form-control"></td>
-                    </tr>
-                    <tr>
-                      <td>Real estate project Gallery</td>
-                      <td><input type="text" placeholder="2" class="form-control col-xs-1"></td>
-                      <td><input type="text" placeholder="50000" class="form-control col-xs-2"></td>
-                    </tr>
-                    <tr>
-                      <td>Real estate Hot Deals</td>
-                      <td><input type="text" placeholder="4" class="form-control"></td>
-                      <td><input type="text" placeholder="50000" class="form-control"></td>
-                    </tr>
-                    <tr>
-                      <td>Real estate Button Banner</td>
-                      <td><input type="text" placeholder="3" class="form-control"></td>
-                      <td><input type="text" placeholder="50000" class="form-control"></td>
-                    </tr>
-                    <tr>
-                      <td>Real estate Sponsred Project</td>
-                      <td><input type="text" placeholder="1" class="form-control"></td>
-                      <td><input type="text" placeholder="50000" class="form-control"></td>
-                    </tr>
-                    <tr>
-                      <td>Real estate Sponsred Properties</td>
-                      <td><input type="text" placeholder="2" class="form-control"></td>
-                      <td><input type="text" placeholder="50000" class="form-control"></td>
                     </tr>
                   </tbody>
                 </table>
@@ -292,40 +258,13 @@
                       <td>12/17/2015</td>
                       <td>12/17/2014</td>
                     </tr>
-                    <tr>
-                      <td>Platinum (Projects)</td>
-                      <td><input type="text" placeholder="300" class="form-control"></td>
-                      <td><input type="text" placeholder="45" class="form-control"></td>
-                      <td><input type="text" placeholder="15000" class="form-control"></td>
-                      <td><input type="text" placeholder="2" class="form-control"></td>
-                      <td>12/17/2015</td>
-                      <td>12/17/2014</td>
-                    </tr>
-                    <tr>
-                      <td>Platinum (Projects)</td>
-                      <td><input type="text" placeholder="150" class="form-control"></td>
-                      <td><input type="text" placeholder="40" class="form-control"></td>
-                      <td><input type="text" placeholder="50000" class="form-control"></td>
-                      <td><input type="text" placeholder="6" class="form-control"></td>
-                      <td>12/17/2015</td>
-                      <td>12/17/2014</td>
-                    </tr>
-                    <tr>
-                      <td>Platinum (Projects)</td>
-                      <td><input type="text" placeholder="200" class="form-control"></td>
-                      <td><input type="text" placeholder="60" class="form-control"></td>
-                      <td><input type="text" placeholder="10000" class="form-control"></td>
-                      <td><input type="text" placeholder="6" class="form-control"></td>
-                      <td>12/17/2015</td>
-                      <td>12/17/2014</td>
-                    </tr>
-                  </tbody>
+                   </tbody>
                 </table>
               </div>
               
-              <div class="valusho pull-left"> <button class="btn btn-info btn-lg" type="button">Create</button></div>
+              <div class="valusho pull-left"> <button class="btn btn-info btn-lg" type="submit">Create</button></div>
               <div class="valusho pull-right"> <h5> Compaign Amount :  Rs 335090 </h5></div>
-              
+              <form/>
             </div>
                   
           </div>

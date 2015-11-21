@@ -123,93 +123,26 @@
            
               <div class="input-group pull-right">
               <div class="nav toggle paddman12"> <a id="menu_toggle2"><button class="btn btn-primary" type="button">Full Screen</button></a> </div>
-                <button class="btn btn-success taright" type="button" data-toggle="modal" data-target=".bs-example-modal-lg"> <i class="fa fa-plus"></i> Add User Plan</button>
+                <button class="btn btn-success taright" type="button" href="<?=base_url();?>Manage_user_plan/loadmodal" data-toggle="modal" data-target=".bs-example-modal-lg"> <i class="fa fa-plus"></i> Add User Plan</button>
                 </div>
                 
                 <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
                 <div class="modal-dialog modal-lg">
                   <div class="modal-content">
                     <div class="modal-header">
-                      <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span> </button>
+                      <button type="button" class="close"  data-dismiss="modal"><span aria-hidden="true">×</span> </button>
                       <h4 class="modal-title" id="myModalLabel">Add User Plan</h4>
                     </div>
                     <div class="modal-body">
-                      <form class="form-horizontal form-label-left" action="<?=base_url();?>/manage_user_plan/adduserplan" method="post">
-                  <div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Plan Title</label>
-                    <div class="col-md-9 col-sm-9 col-xs-12">
-                      <input type="text" placeholder="Plan title" name="plantitle" class="form-control">
-                    </div>
-                  </div>
-                  
-                  <div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Plan User Type</label>
-                    <div class="col-md-9 col-sm-9 col-xs-12">
-                      <select class="select2_group form-control" name="planusertype">
-                        <optgroup label="Plan User Type">
-						<?php foreach($user_type as $user_type){?>
-                        <option value="<?=$user_type->userTypeID?>"><?=$user_type->userTypeName?></option>
-						<?php } ?>
-                        </optgroup>
-                      </select>
-                    </div>
-                  </div>
-                  
-                  <div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Plan Order</label>
-                    <div class="col-md-9 col-sm-9 col-xs-12">
-                      <input type="text" placeholder="order" class="form-control" name="planorder">
-                    </div>
-                  </div>
-                  
-                  <div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Plan Type</label>
-                    <div class="col-md-9 col-sm-9 col-xs-12">
-                     <div style="padding: 5px 0">
-                      <ul class="list-inline">
-                  <li>
-                    <input type="checkbox" name="plantype" id="hobby1" value="project" data-parsley-mincheck="2" required class="flat" />
-                    Project</li>
-                    <li>
-                    <input type="checkbox" name="plantype" id="hobby2" value="property" class="flat" />
-                    Property</li>
-                    
-                    
-                    </ul>
-                    </div>
-                    </div>
-                  </div>
-                  
-                  <div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Status</label>
-                    <div class="col-md-9 col-sm-9 col-xs-12">
-                      <div id="gender" class="btn-group" data-toggle="buttons">
-                        <label class="btn btn-default" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                          <input type="radio" name="planstatus" value="Active">
-                          &nbsp; Active &nbsp; </label>
-                        <label class="btn btn btn-default" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                          <input type="radio" name="planstatus" value="Inactive" checked="">
-                          Inactive </label>
-                    </div>
-                      
-                      
-                      
-                    </div>
-                  </div>
-
-                
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                      <input type="submit" class="btn btn-primary" value="Save changes" name="submit"/>
-                    </div>
 					
-					</form>
+                      
                     </div>
 					
                   </div>
                 </div>
               </div>
-         
+			  
+			
           </div>
         </div>
         <div class="clearfix"></div>
@@ -339,7 +272,7 @@
                       <td class="a-right a-right "><?=isset($userplans->planDate)?$userplans->planDate:''?></td>
                       <td class=" last"><ul class="list-inline text-right">
                       <li><a title="Right" href="#"><i class="fa fa-check"></i></a></li>
-                       <li><a title="Edit" data-toggle="modal" data-target=".bs-example-modal-lg" href="<?=isset($userplans->planID)?$userplans->planID:''?>"><i class="fa fa-pencil"></i></a></li>
+                       <li><a title="Edit" data-toggle="modal" data-target=".bs-example-modal-lg" href="<?=base_url();?>Manage_user_plan/loadmodal/<?=isset($userplans->planID)?$userplans->planID:''?>"><i class="fa fa-pencil"></i></a></li>
                       </ul></td>
                     </tr>
 				  <?php } ?>
@@ -625,6 +558,16 @@
                     }
                 });
             });
+			
+				
+    $(document).on('hidden.bs.modal', function (e) {
+		var target = $(e.target);
+        target.removeData('bs.modal')
+              .find(".modal-content").html('');
+    });
+	
+	
+	
         </script>
 <!-- /editor -->
 </body>
