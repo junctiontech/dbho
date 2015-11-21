@@ -271,7 +271,7 @@
                       <td class=" ">project</td>
                       <td class="a-right a-right "><?=isset($userplans->planDate)?$userplans->planDate:''?></td>
                       <td class=" last"><ul class="list-inline text-right">
-                      <li><a title="Right" href="#"><i class="fa fa-check"></i></a></li>
+                      <li><a title="Right" href="javascript:;"><i class="fa fa-check"></i></a></li>
                        <li><a title="Edit" data-toggle="modal" data-target=".bs-example-modal-lg" href="<?=base_url();?>Manage_user_plan/loadmodal/<?=isset($userplans->planID)?$userplans->planID:''?>"><i class="fa fa-pencil"></i></a></li>
                       </ul></td>
                     </tr>

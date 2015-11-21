@@ -135,6 +135,15 @@
                                 console.log(start.toISOString(), end.toISOString(), label);
                             });
                         });
+						
+						 $(document).ready(function () {
+                            $('#calender02').daterangepicker({
+                                singleDatePicker: true,
+                                calender_style: "picker_4"
+                            }, function (start, end, label) {
+                                console.log(start.toISOString(), end.toISOString(), label);
+                            });
+                        });
                     </script>
         <div class="row">
           <div class="col-md-12 col-sm-12 col-xs-12">
@@ -226,9 +235,16 @@
                   </thead>
                   <tbody>
                     <tr>
-                      <td>Home page project gallery</td>
-                      <td><input type="text" placeholder="3" class="form-control"></td>
-                      <td><input type="text" placeholder="10000" class="form-control"></td>
+                      <td><select class="select2_group form-control" name="inventoryid">
+                        <optgroup label="Select Inventory">
+                        <option value="">Select Inventory</option>
+						<?php// foreach($company_name as $company_name){?>
+                        <option value="<?=isset($company_name->userID)?$company_name->userID:''?>"><?=isset($company_name->userCompanyName)?$company_name->userCompanyName:''?></option>
+						<?php //} ?>
+                        </optgroup>
+                      </select></td>
+                      <td><input type="text" name="inventoryquan" placeholder="3" class="form-control"></td>
+                      <td><input type="text" name="inventoryamoun" placeholder="10000" class="form-control"></td>
                     </tr>
                   </tbody>
                 </table>
@@ -250,13 +266,20 @@
                   </thead>
                   <tbody>
                     <tr>
-                      <td>Platinum (Projects)</td>
-                      <td><input type="text" placeholder="10" class="form-control"></td>
-                      <td><input type="text" placeholder="30" class="form-control"></td>
-                      <td><input type="text" placeholder="20000" class="form-control"></td>
-                      <td><input type="text" placeholder="3" class="form-control"></td>
-                      <td>12/17/2015</td>
-                      <td>12/17/2014</td>
+                      <td><select class="select2_group form-control" name="planid">
+                        <optgroup label="Select Plan">
+                        <option value="">Select Plan</option>
+						<?php// foreach($company_name as $company_name){?>
+                        <option value="<?=isset($company_name->userID)?$company_name->userID:''?>"><?=isset($company_name->userCompanyName)?$company_name->userCompanyName:''?></option>
+						<?php //} ?>
+                        </optgroup>
+                      </select></td>
+                      <td><input type="text" name="planquan" placeholder="10" class="form-control"></td>
+                      <td><input type="text" name="planduration" placeholder="30" class="form-control"></td>
+                      <td><input type="text" name="planamoun" placeholder="20000" class="form-control"></td>
+                      <td><input type="text" name="plancarry" placeholder="3" class="form-control"></td>
+                      <td><input type="text" name="lastexpiry" class="form-control has-feedback-left"  id="calender01" placeholder="09/30/2015" aria-describedby="inputSuccess2Status2"></td>
+                      <td><input type="text" name="currentexpiry" class="form-control has-feedback-left"  id="calender02" placeholder="09/30/2015" aria-describedby="inputSuccess2Status2"></td>
                     </tr>
                    </tbody>
                 </table>
