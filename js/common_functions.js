@@ -1,8 +1,8 @@
 function get_planpriority(plantypeid)
-{ 
+{ alert(base_url);
 	$.ajax({
 				type: "POST",
-				url : 'common_functions/get_planpriority',
+				url : base_url+'common_functions/get_planpriority',
 				data: {plantypeid: plantypeid  },
 			})	
 				.done(function(msg){
