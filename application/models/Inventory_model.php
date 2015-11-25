@@ -24,7 +24,7 @@ class Inventory_model extends CI_Model
 				$db2->update('dbho_planinventoryconsumption',$data);
 				
 		}else{
-				$data=array('inventoryUnit'=>'0','MaximumQuantity'=>'2','OverdrawingAllowed'=>'','City'=>$city_id);
+				$data=array('days'=>'0','MaximumQuantity'=>'2','OverdrawingAllowed'=>'','City'=>$city_id);
 				$db2->insert('dbho_inventorymaster',$data);
 				$last_id = $db2->insert_id();
 				$data1=array('inventoryID'=>$last_id, 'inventoryDescription'=>$inventory_des,'LanguageID'=>'1');
