@@ -34,11 +34,20 @@ class Campaign extends CI_Controller {
 		if(!empty($this->input->post('submit')))
 		{
 			
-			$plantitle=$this->input->post('plantitle');
-			$planusertype=$this->input->post('planusertype');
-			$planorder=$this->input->post('planorder');
-			$plantype=$this->input->post('plantype');
-			$planstatus=$this->input->post('planstatus');
+			$compaigndate=$this->input->post('compaigndate');
+			$userid=$this->input->post('userid');
+			$companyname=$this->input->post('companyname');
+			$inventoryid=$this->input->post('inventoryid');
+			$inventoryquan=$this->input->post('inventoryquan');
+			
+			$inventoryamoun=$this->input->post('inventoryamoun');
+			$planid=$this->input->post('planid');
+			$planquan=$this->input->post('planquan');
+			$planduration=$this->input->post('planduration');
+			$planamoun=$this->input->post('planamoun');
+			$plancarry=$this->input->post('plancarry');
+			$lastexpiry=$this->input->post('lastexpiry');
+			$currentexpiry=$this->input->post('currentexpiry');
 			date_default_timezone_set("Asia/Kolkata");
 			$date=date("Y-m-d h:i:s");
 			if(!empty($plantitle) && !empty($planusertype) && !empty($planorder) && !empty($plantype) && !empty($planstatus)){

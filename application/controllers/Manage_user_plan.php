@@ -33,9 +33,12 @@ class Manage_user_plan extends CI_Controller {
 	{	if(!empty($planid)){
 		$this->data['planid']=$planid;
 		$filter=$planid;
-		$this->data['updateplan']=$this->manage_user_plan_model->select_for_update($filter); 
+		$tittle=$this->data['updateplan']=$this->manage_user_plan_model->select_for_update($filter);
+			$tittle=explode("For",$tittle[0]->planTitle);
+		
 		}
 		$this->data['user_type']=$this->manage_user_plan_model->get_user_type();
+		$this->data['plandetails']=$this->manage_user_plan_model->get_plandetails();
 		$this->load->view('planmodal',$this->data);
 	}
 /*Manage_user_plan Modal view Load End.............................................................................................................*/
@@ -49,24 +52,24 @@ class Manage_user_plan extends CI_Controller {
 		if(!empty($this->input->post('submit')))
 		{
 			
-			$plantitle=$this->input->post('plantitle');
+			$plantitle=explode("-",$this->input->post('plantitle'));
 			$planusertype=$this->input->post('planusertype');
 			$planorder=$this->input->post('planorder');
 			$plantype=$this->input->post('plantype');
 			$planstatus=$this->input->post('planstatus');
 			date_default_timezone_set("Asia/Kolkata");
 			$date=date("Y-m-d h:i:s");
-			if(!empty($plantitle) && !empty($planusertype) && !empty($planorder) && !empty($plantype) && !empty($planstatus)){
+			if(!empty($plantitle[1]) && !empty($planusertype) && !empty($planorder) && !empty($plantype) && !empty($planstatus)){
 				
 					if(!empty($this->input->post('planid'))){
 						
 							$filter=array('planID'=>$this->input->post('planid'));
-							$this->manage_user_plan_model->insert_userplan($plantitle,$planusertype,$planorder,$plantype,$planstatus,$date,$filter);
+							$this->manage_user_plan_model->insert_userplan($plantitle[1],$planusertype,$planorder,$plantype,$planstatus,$date,$filter);
 							$this->session->set_flashdata('message_type', 'success');
 							$this->session->set_flashdata('message', $this->config->item("index")." User Plan Updated Successfully!!");
 							
 					}else{
-							$this->manage_user_plan_model->insert_userplan($plantitle,$planusertype,$planorder,$plantype,$planstatus,$date);
+							$this->manage_user_plan_model->insert_userplan($plantitle[1],$planusertype,$planorder,$plantype,$planstatus,$date);
 							$this->session->set_flashdata('message_type', 'success');
 							$this->session->set_flashdata('message', $this->config->item("index")." User Plan Added Successfully!!");
 					}

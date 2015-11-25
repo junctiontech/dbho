@@ -569,6 +569,8 @@
 	
 	
         </script>
+		<script type="text/javascript" src="js/script.js"></script>
+<script type="text/javascript" src="js/common_functions.js"></script>		
 <!-- /editor -->
 </body>
 </html>

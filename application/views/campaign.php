@@ -163,7 +163,7 @@
                 <div class="clearfix"></div>
               </div>
               <div class="x_content">
-                <form id="demo-form2" data-parsley-validate class="form-group form-label-left clearfix">
+                 <form class="" action="<?=base_url();?>campaign/addcampaign" method="post">
                   <div class="row">
                     <div class="form-group col-xs-12 col-sm-3">
                       <label class="control-label" for="first-name">Compaign Start Date <span class="required">*</span> </label>
@@ -171,7 +171,7 @@
                         <div class="control-group">
                           <div class="controls">
                             <div class="xdisplay_inputx form-group has-feedback">
-                              <input type="text" class="form-control has-feedback-left" id="single_cal2" placeholder="09/30/2015" aria-describedby="inputSuccess2Status2">
+                              <input type="text" name="compaigndate" class="form-control has-feedback-left" id="single_cal2" placeholder="09/30/2015" aria-describedby="inputSuccess2Status2">
                               <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span> <span id="inputSuccess2Status2" class="sr-only">(success)</span> </div>
                           </div>
                         </div>
@@ -179,7 +179,7 @@
                     </div>
                     <div class="form-group col-xs-12 col-sm-3">
                       <label class="control-label" for="last-name">User Type <span class="required">*</span> </label>
-                      <select class="select2_group form-control">
+                      <select name="userid" class="select2_group form-control">
                         <optgroup label="Alaskan/Hawaiian Time Zone">
                         <option value="AK">Select</option>
                         <option value="HI">Hawaii</option>
@@ -188,24 +188,35 @@
                     </div>
                     <div class="form-group col-xs-12 col-sm-3">
                       <label for="middle-name" class="control-label">Comapny name</label>
-                      <input type="text" placeholder="Company" class="form-control">
+                      <input name="companyname" type="text" placeholder="Company" class="form-control">
                     </div>
                     
                     <div class="form-group col-xs-12 col-sm-3 martop20">
                       
                     <button type="submit" class="btn btn-primary">Reset</button>
-                    <button type="submit" class="btn btn-success">Search</button>
+                    
           
                     </div>
                   </div>
                  <!-- <div class="ln_solid"></div>-->
                  
-                </form>
+              
               </div>
             </div>
           </div>
         </div>
         <div class="clearfix"></div>
+		<!-- Alert section For Message-->
+		 <?php  if($this->session->flashdata('message_type')=='success') { ?>
+		  <div class="alert alert-success alert-dismissible fade in" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span> </button>
+                <strong><?=$this->session->flashdata('message')?></strong>  </div>
+		 <?php } if($this->session->flashdata('message_type')=='error') { ?>
+		 <div class="alert alert-danger alert-dismissible fade in" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span> </button>
+                <strong><?=$this->session->flashdata('message')?></strong>  </div>
+		 <?php } ?>
+		 <!-- Alert section End-->
         <div class="row">
           <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
@@ -223,7 +234,7 @@
                 </ul>
                 <div class="clearfix"></div>
               </div>
-			  <form class="" action="<?=base_url();?>campaign/addcampaign" method="post">
+			
               <div class="x_content">
                 <table class="table table-bordered table-hover vert-aliins">
                   <thead>
@@ -285,7 +296,7 @@
                 </table>
               </div>
               
-              <div class="valusho pull-left"> <button class="btn btn-info btn-lg" type="submit">Create</button></div>
+              <div class="valusho pull-left"> <button class="btn btn-info btn-lg" name="submit" value="submit" type="submit">Create</button></div>
               <div class="valusho pull-right"> <h5> Compaign Amount :  Rs 335090 </h5></div>
               <form/>
             </div>

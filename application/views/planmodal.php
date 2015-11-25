@@ -7,21 +7,31 @@
                     </div>
                     <div class="modal-body">
 					<form class="form-horizontal form-label-left" action="<?=base_url();?>/manage_user_plan/adduserplan" method="post">
-					<input id="nullall" type="hidden" name="planid" value="<?=isset($planid)?$planid:''?>" />
+					<input type="hidden" name="planid" value="<?=isset($planid)?$planid:''?>" />
                   <div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Plan Title</label>
-                    <div class="col-md-9 col-sm-9 col-xs-12">
-                      <input id="nullall" type="text" placeholder="Plan title" name="plantitle" class="form-control" value="<?=isset($updateplan[0]->planTitle)?$updateplan[0]->planTitle:''?>">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Plan Type</label>
+					<div class="col-md-9 col-sm-9 col-xs-12">
+                      <select onchange="get_planpriority(this.value);" id="plantittle" class="select2_group form-control" name="plantitle">
+                        <optgroup label="Select Plan">
+						<option>Select Plan</option>
+						<?php foreach($plandetails as $plandetails){?>
+                        <option value="<?=isset($plandetails->planTypeID)?$plandetails->planTypeID:''?>-<?=isset($plandetails->planTypeTitle)?$plandetails->planTypeTitle:''?>" <?php  if(!empty($updateplan[0]->planTitle)){  $tittle=explode("For",$updateplan[0]->planTitle); if($tittle[0]==$plandetails->planTypeTitle
+						){ echo"selected";} } ?>><?=isset($plandetails->planTypeTitle)?$plandetails->planTypeTitle:''?></option>
+						<?php } ?>
+                        </optgroup>
+                      </select>
                     </div>
+                    
                   </div>
                   
                   <div class="form-group">
                     <label class="control-label col-md-3 col-sm-3 col-xs-12">Plan User Type</label>
                     <div class="col-md-9 col-sm-9 col-xs-12">
-                      <select id="nullall" class="select2_group form-control" name="planusertype">
+                      <select id="plantype" class="select2_group form-control" name="planusertype" >
                         <optgroup label="Plan User Type">
+						<option>Select User Type</option>
 						<?php foreach($user_type as $user_type){?>
-                        <option value="<?=$user_type->userTypeID?>" <?php if(!empty($updateplan[0]->userTypeID)){ if($updateplan[0]->userTypeID==$user_type->userTypeID){ echo"select";} } ?>><?=$user_type->userTypeName?></option>
+                        <option value="<?=$user_type->userTypeID?>" <?php if(!empty($updateplan[0]->userTypeID)){ if($updateplan[0]->userTypeID==$user_type->userTypeID){ echo"selected";} } ?>><?=$user_type->userTypeName?></option>
 						<?php } ?>
                         </optgroup>
                       </select>
@@ -31,7 +41,7 @@
                   <div class="form-group">
                     <label class="control-label col-md-3 col-sm-3 col-xs-12">Plan Order</label>
                     <div class="col-md-9 col-sm-9 col-xs-12">
-                      <input id="nullall" type="text" placeholder="order" class="form-control" name="planorder" value="<?=isset($updateplan[0]->planPrice)?$updateplan[0]->planPrice:''?>">
+                      <input id="planorder" type="text" readonly placeholder="order" class="form-control" name="planorder" value="<?=isset($updateplan[0]->planPrice)?$updateplan[0]->planPrice:''?>">
                     </div>
                   </div>
                   
@@ -69,8 +79,21 @@
                       
                     </div>
                   </div>
+					<div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Auto Generated Plan Tittle</label>
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+                      <input id="shownewtittle" type="text" readonly placeholder="New Plan Tittle" class="form-control"  value="<?=isset($updateplan[0]->planTitle)?$updateplan[0]->planTitle:''?>">
+                    </div>
+                  </div>
+                <script>
+$("#plantype").change(function(){    
 
-                
+    var plantype = $("#plantype option:selected").text();
+	var plantittle = $("#plantittle option:selected").text();
+	var newtittle = plantittle +' For '+ plantype;
+	document.getElementById('shownewtittle').value=newtittle;
+});
+</script>
                     <div class="modal-footer">
                       <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                       <input type="submit" class="btn btn-primary" value="Save changes" name="submit"/>
@@ -81,4 +104,17 @@
 					
                   </div>
                 
-              
+             <script>
+            $(document).ready(function () {
+                $(".select2_single").select2({
+                    placeholder: "Select a state",
+                    allowClear: true
+                });
+                $(".select2_group").select2({});
+                $(".select2_multiple").select2({
+                    maximumSelectionLength: 4,
+                    placeholder: "With Max Selection limit 4",
+                    allowClear: true
+                });
+            });
+        </script>  
