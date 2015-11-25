@@ -60,7 +60,7 @@ class Manage_user_plan extends CI_Controller {
 			$planstatus=$this->input->post('planstatus');
 			date_default_timezone_set("Asia/Kolkata");
 			$date=date("Y-m-d h:i:s");
-			print_r($_POST);die;
+			
 			if(!empty($plantitle[1]) && !empty($planusertype) && !empty($planorder) && !empty($plantype) && !empty($planstatus)){
 				
 					if(!empty($this->input->post('planid'))){
