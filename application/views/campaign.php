@@ -125,88 +125,7 @@
             </div>
           </div>
         </div>
-        <div class="clearfix"></div>
-        <script type="text/javascript">
-                        $(document).ready(function () {
-                            $('#calender01').daterangepicker({
-                                singleDatePicker: true,
-                                calender_style: "picker_4"
-                            }, function (start, end, label) {
-                                console.log(start.toISOString(), end.toISOString(), label);
-                            });
-                        });
-						
-						 $(document).ready(function () {
-                            $('#calender02').daterangepicker({
-                                singleDatePicker: true,
-                                calender_style: "picker_4"
-                            }, function (start, end, label) {
-                                console.log(start.toISOString(), end.toISOString(), label);
-                            });
-                        });
-                    </script>
-        <div class="row">
-          <div class="col-md-12 col-sm-12 col-xs-12">
-            <div class="x_panel">
-              <div class="x_title">
-                <h2>Compaign</h2>
-                <ul class="nav navbar-right panel_toolbox">
-                  <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a> </li>
-                  <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                    <ul class="dropdown-menu" role="menu">
-                      <li><a href="#">Settings 1</a> </li>
-                      <li><a href="#">Settings 2</a> </li>
-                    </ul>
-                  </li>
-                  <li><a class="close-link"><i class="fa fa-close"></i></a> </li>
-                </ul>
-                <div class="clearfix"></div>
-              </div>
-              <div class="x_content">
-                 <form class="" action="<?=base_url();?>campaign/addcampaign" method="post">
-                  <div class="row">
-                    <div class="form-group col-xs-12 col-sm-3">
-                      <label class="control-label" for="first-name">Compaign Start Date <span class="required">*</span> </label>
-                      <fieldset>
-                        <div class="control-group">
-                          <div class="controls">
-                            <div class="xdisplay_inputx form-group has-feedback">
-                              <input type="text" name="compaigndate" class="form-control has-feedback-left" id="single_cal2" placeholder="09/30/2015" aria-describedby="inputSuccess2Status2">
-                              <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span> <span id="inputSuccess2Status2" class="sr-only">(success)</span> </div>
-                          </div>
-                        </div>
-                      </fieldset>
-                    </div>
-                    <div class="form-group col-xs-12 col-sm-3">
-                      <label class="control-label" for="last-name">User Type <span class="required">*</span> </label>
-                      <select name="userid" class="select2_group form-control">
-                        <optgroup label="Alaskan/Hawaiian Time Zone">
-                        <option value="AK">Select</option>
-                        <option value="HI">Hawaii</option>
-                        </optgroup>
-                      </select>
-                    </div>
-                    <div class="form-group col-xs-12 col-sm-3">
-                      <label for="middle-name" class="control-label">Comapny name</label>
-                      <input name="companyname" type="text" placeholder="Company" class="form-control">
-                    </div>
-                    
-                    <div class="form-group col-xs-12 col-sm-3 martop20">
-                      
-                    <button type="submit" class="btn btn-primary">Reset</button>
-                    
-          
-                    </div>
-                  </div>
-                 <!-- <div class="ln_solid"></div>-->
-                 
-              
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="clearfix"></div>
-		<!-- Alert section For Message-->
+		 <!-- Alert section For Message-->
 		 <?php  if($this->session->flashdata('message_type')=='success') { ?>
 		  <div class="alert alert-success alert-dismissible fade in" role="alert">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span> </button>
@@ -217,51 +136,152 @@
                 <strong><?=$this->session->flashdata('message')?></strong>  </div>
 		 <?php } ?>
 		 <!-- Alert section End-->
+        <div class="clearfix"></div>
+        <script type="text/javascript">
+                        $(document).ready(function () {
+                            $('#calender01').daterangepicker({
+                                singleDatePicker: true,
+                                calender_style: "picker_4"
+                            }, function (start, end, label) {
+                                console.log(start.toISOString(), end.toISOString(), label);
+                            });
+                        });
+                    </script>
+        
+        <div class="clearfix"></div>
         <div class="row">
+        
           <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
-              <div class="x_title">
-                <h2>Compaign table </h2>
-                <ul class="nav navbar-right panel_toolbox">
-                  <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a> </li>
-                  <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                    <ul class="dropdown-menu" role="menu">
-                      <li><a href="#">Settings 1</a> </li>
-                      <li><a href="#">Settings 2</a> </li>
-                    </ul>
-                  </li>
-                  <li><a class="close-link"><i class="fa fa-close"></i></a> </li>
-                </ul>
-                <div class="clearfix"></div>
+             <form id="demo-form2" method="post" action="<?=base_url();?>campaign/addcampaign" data-parsley-validate class="form-group form-label-left clearfix">
+            <div class="x_content">
+               
+                  <div class="row">
+                    <div class="form-group col-xs-12 col-sm-3">
+                      <label class="control-label" for="first-name">Compaign Start Date <span class="required">*</span> </label>
+                      <fieldset>
+                        <div class="control-group">
+                          <div class="controls">
+                            <div class="xdisplay_inputx form-group has-feedback">
+                              <input name="campaignstartdate" value="" type="text" class="form-control has-feedback-left" id="single_cal2" placeholder="09/30/2015" aria-describedby="inputSuccess2Status2">
+                              <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span> <span id="inputSuccess2Status2" class="sr-only">(success)</span> </div>
+                          </div>
+                        </div>
+                      </fieldset>
+                    </div>
+                    <div class="form-group col-xs-12 col-sm-3">
+                      <label class="control-label" for="last-name">User Type <span class="required">*</span> </label>
+                      <select name="usertype" class="select2_group form-control">
+                        <optgroup label="Alaskan/Hawaiian Time Zone">
+                        <option value="">Select</option>
+						<?php foreach($user_type as $user_type){?>
+                        <option value="<?=$user_type->userTypeID?>" <?php if(!empty($updateplan[0]->userTypeID)){ if($updateplan[0]->userTypeID==$user_type->userTypeID){ echo"selected";} } ?>><?=$user_type->userTypeName?></option>
+						<?php } ?>
+						</optgroup>
+                      </select>
+                    </div>
+                    <div class="form-group col-xs-12 col-sm-3">
+                      <label class="control-label" for="last-name">Company Name<span class="required">*</span> </label>
+                      <select class="select2_group form-control" name="user_id">
+                        <optgroup label="Alaskan/Hawaiian Time Zone">
+                        <option value="">Select Company Name</option>
+						<?php foreach($company_name as $company_name){?>
+                        <option value="<?=isset($company_name->userID)?$company_name->userID:''?>"><?=isset($company_name->userCompanyName)?$company_name->userCompanyName:''?></option>
+						<?php } ?>
+                        </optgroup>
+                      </select>
+                    </div>
+                    
+                    <!--<div class="form-group col-xs-12 col-sm-3 martop20">
+                      
+                    <button type="submit" class="btn btn-primary">Reset</button>
+                    <button type="submit" class="btn btn-success">Search</button>
+          
+                    </div>-->
+                  </div>
+                 <!-- <div class="ln_solid"></div>-->
+                 
+               
               </div>
-			
-              <div class="x_content">
-                <table class="table table-bordered table-hover vert-aliins">
+              
+              <div class="row">
+        
+          <div class="col-md-12 col-sm-12 col-xs-12">
+          <div class="row">
+         
+            <div class="x_content">
+                <table id="myTable" class="table table-bordered table-hover vert-aliins">
                   <thead>
                     <tr>
-                      <th>Inventory</th>
+                     <th>Inventory</th>
+                      <th>City</th>
                       <th>Qty</th>
+                      <th>Duration (Days) </th>
                       <th>Amount (Rs)</th>
+                      <th>Creat</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr>
-                      <td><select class="select2_group form-control" name="inventoryid">
-                        <optgroup label="Select Inventory">
+                    <td><div class="form-group col-xs-12 col-sm-6">
+                      <select name="inventoryid" class="select2_group form-control">
+                        <optgroup label="Inventory">
                         <option value="">Select Inventory</option>
-						<?php// foreach($company_name as $company_name){?>
-                        <option value="<?=isset($company_name->userID)?$company_name->userID:''?>"><?=isset($company_name->userCompanyName)?$company_name->userCompanyName:''?></option>
-						<?php //} ?>
+                        <?php foreach($inventory as $inventory){?>
+                        <option value="<?=isset($inventory->inventoryID)?$inventory->inventoryID:''?>"><?=isset($inventory->inventoryDescription)?$inventory->inventoryDescription:''?></option>
+						<?php } ?>
                         </optgroup>
-                      </select></td>
-                      <td><input type="text" name="inventoryquan" placeholder="3" class="form-control"></td>
-                      <td><input type="text" name="inventoryamoun" placeholder="10000" class="form-control"></td>
+                      </select>
+                    </div></td>
+                      <td>
+                      <div class="form-group col-xs-12 col-sm-6">
+                      <select name="cityid" class="select2_group form-control">
+                        <optgroup label="City">
+                        <option value="">Select City</option>
+                        <?php foreach($cities as $cities){?>
+                        <option value="<?=isset($cities->cityID)?$cities->cityID:''?>"><?=isset($cities->cityName)?$cities->cityName:''?></option>
+						<?php } ?>
+                        </optgroup>
+                      </select>
+                    </div></td>
+                      <td>
+                      <div class="form-group col-xs-12 col-sm-6">
+                      <input name="inventoryquantity" type="text" placeholder="3" class="form-control">
+                    </div></td>
+                      <td><div class="form-group col-xs-12 col-sm-6">
+                      <input name="inventoryduration" type="text" placeholder="3" class="form-control">
+                    </div></td>
+                      <td>
+                      <div class="form-group col-xs-12 col-sm-6">
+                      <input name="inventoryamount" type="text" placeholder="3" class="form-control">
+                    </div>
+                      </td>
+                      
+                      <td><button class="btn btn-success" type="button" onclick="displayResult()">Add</button></td>
+                      
                     </tr>
+                    
+                    
+                    
+                    
+                   
+                   
+                    
                   </tbody>
                 </table>
               </div>
-              <div class="valusho pull-right"> <h5>Compaign Amount :  Rs 335090 </h5></div>
+          
+
+    
+          
               
+              
+    </div>
+    
+        </div>
+    
+      </div>
+             
               <div class="x_content">
                 <table class="table table-bordered table-hover vert-aliins">
                   <thead>
@@ -277,35 +297,46 @@
                   </thead>
                   <tbody>
                     <tr>
-                      <td><select class="select2_group form-control" name="planid">
-                        <optgroup label="Select Plan">
-                        <option value="">Select Plan</option>
-						<?php// foreach($company_name as $company_name){?>
-                        <option value="<?=isset($company_name->userID)?$company_name->userID:''?>"><?=isset($company_name->userCompanyName)?$company_name->userCompanyName:''?></option>
-						<?php //} ?>
+                      <td><div class="form-group col-xs-12 ">
+                      <select name="planid" class="select2_group form-control">
+                        <optgroup label="Plan">
+                        <option value=""> Select Plan</option>
+                        <?php foreach($plan as $plan){?>
+                        <option value="<?=isset($plan->planID)?$plan->planID:''?>"><?=isset($plan->planTitle)?$plan->planTitle:''?></option>
+						<?php } ?>
                         </optgroup>
-                      </select></td>
-                      <td><input type="text" name="planquan" placeholder="10" class="form-control"></td>
-                      <td><input type="text" name="planduration" placeholder="30" class="form-control"></td>
-                      <td><input type="text" name="planamoun" placeholder="20000" class="form-control"></td>
-                      <td><input type="text" name="plancarry" placeholder="3" class="form-control"></td>
-                      <td><input type="text" name="lastexpiry" class="form-control has-feedback-left"  id="calender01" placeholder="09/30/2015" aria-describedby="inputSuccess2Status2"></td>
-                      <td><input type="text" name="currentexpiry" class="form-control has-feedback-left"  id="calender02" placeholder="09/30/2015" aria-describedby="inputSuccess2Status2"></td>
+                      </select>
+                    </div></td>
+                      <td><input name="planquantity" type="text" placeholder="10" class="form-control"></td>
+                      <td><input name="planduration" type="text" placeholder="30" class="form-control"></td>
+                      <td><input name="planamount" type="text" placeholder="20000" class="form-control"></td>
+                      <td><input name="plancarryforwrd" type="text" placeholder="3" class="form-control"></td>
+                      <td>12/17/2015</td>
+                      <td>12/17/2014</td>
                     </tr>
-                   </tbody>
+                   
+                  </tbody>
                 </table>
               </div>
-              
-              <div class="valusho pull-left"> <button class="btn btn-info btn-lg" name="submit" value="submit" type="submit">Create</button></div>
+            
+                
+                
+                <div class="clearfix"></div>
+          
+               <div class="valusho pull-left"> <button class="btn btn-info btn-lg" type="submit" name="submit" value="submit">Create</button></div>
               <div class="valusho pull-right"> <h5> Compaign Amount :  Rs 335090 </h5></div>
-              <form/>
-            </div>
+              
+           </form>
                   
           </div>
           
     
         </div>
       </div>
+      
+       <div class="clearfix"></div>
+        
+      </div></div>
       <!-- /page content --> 
       
       <!-- footer content -->
@@ -587,6 +618,21 @@
              
         });
     </script> 
+	
+	<script type="text/javascript">
+
+
+function displayResult()
+{
+document.getElementById("myTable").insertRow(-1).innerHTML = '<td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td><p>Remove</p></td>';
+}
+$('#myTable').on('click','td p',function(){
+$(this).closest('tr').remove();
+});
+
+
+
+</script>
 <!-- /editor -->
 </body>
 </html>

@@ -272,6 +272,7 @@
                       <th>End Date</th>
                       <th>WGT</th>
                       <th></th>
+					   <th>View</th>
                      
                     </tr>
                   </thead>
@@ -293,6 +294,7 @@
                        <a class="btn btn-app paddpsush">
                        <i class="fa fa-pause"></i></a>
                        </td>
+					   <td><a href="<?=base_url();?>Inventory/<?=isset($inventory_list->inventoryID)?$inventory_list->inventoryID:''?>" class="btn btn-app paddpsush"> <i class="fa fa-edit"></i></a></td>
                     </tr>
                     <?php } ?>
                     </tbody>

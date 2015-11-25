@@ -38,6 +38,19 @@
           <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
           <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
+        
+        <style type="text/css">
+        #myTable span {
+    background: none repeat scroll 0 0 #e74c3c;
+    border-radius: 3px;
+    color: #fff;
+    cursor: pointer;
+    padding: 5px 7px;
+    text-align: center;
+}
+        
+        
+        </style>
 
 </head>
 <body class="nav-md">
@@ -199,17 +212,6 @@
           </div>
         </div>
         <div class="clearfix"></div>
-		<!-- Alert section For Message-->
-		 <?php  if($this->session->flashdata('message_type')=='success') { ?>
-		  <div class="alert alert-success alert-dismissible fade in" role="alert">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span> </button>
-                <strong><?=$this->session->flashdata('message')?></strong>  </div>
-		 <?php } if($this->session->flashdata('message_type')=='error') { ?>
-		 <div class="alert alert-danger alert-dismissible fade in" role="alert">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span> </button>
-                <strong><?=$this->session->flashdata('message')?></strong>  </div>
-		 <?php } ?>
-		 <!-- Alert section End-->
         <div class="row">
           <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
@@ -228,27 +230,17 @@
                 <div class="clearfix"></div>
               </div>
               <div class="x_content scor-bott">
-                <table class="table table-bordered table-hover vert-aliins">
+                <table  class="table table-bordered table-hover vert-aliins">
                   <thead>
                     <tr>
                       <th>Compaign Name </th>
                       <th>Company Name</th>
                       <th>Email ID </th>
                       <th>Mobile No</th>
-                      <th>HPG</th>
-                      <th>HHD</th>
-                      <th>POM</th>
-                      <th>RPG</th>
-                      <th>RHD</th>
-                      <th>RBB</th>
-                      <th>RPROJ</th>
-                      <th>RPROJ</th>
-                      <th>Platinum (proj)</th>
-                      <th>Diamond (prop)</th>
-                      <th>Gold (prop)</th>
-                      <th>Silver (prop)</th>
+                      
                       <th>UPED</th>
                       <th>Amount Rs </th>
+                      <th></th>
                     
                     </tr>
                   </thead>
@@ -258,26 +250,122 @@
                       <td>Sobha Developers</td>
                       <td>sales@shoba.com</td>
                       <td>1111100000</td>
-                      <td>0/3</td>
-                      <td>0/4</td>
-                      <td>0/2</td>
-                      <td>0/1</td>
-                       <td>0/1</td>
-                       <td>0/3</td>
-                       <td>0/4</td>
-                       <td>0/5</td>
-                       <td>0/10</td>
-                       <td>0/200</td>
-                       <td>0/300</td>
-                       <td>0/100</td>
+                      
                        <td>20/10/2015</td>
                        <td>3000</td>
+                       <td><button class="btn btn-success" type="button" data-toggle="modal" data-target=".bs-example-modal-lg">View</button></td>
                        
                      
                     </tr>
 
                   </tbody>
                 </table>
+              </div>
+              
+              
+              <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                  <div class="modal-content moda-scrol">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span> </button>
+                      <h4 class="modal-title" id="myModalLabel">Inventory</h4>
+                    </div>
+                    <div class="modal-body">
+                      <div class="x_content">
+
+                                    <div class="row">
+
+                                        <div class="x_content">
+                <table id="myTable" class="table table-bordered table-hover vert-aliins">
+                  <thead>
+                    <tr>
+                     <th>Inventory</th>
+                      <th>City</th>
+                      <th>Qty</th>
+                      <th>Duration </th>
+                      <th>Remaining</th>
+                   
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                    <td><a href="inventory.html">Inventory 1</a></td>
+                      <td>Bhopal</td>
+                      <td>5</td>
+                      <td>7</td>
+                      <td>
+                      5
+                      </td>
+                    </tr>
+                    
+                    <tr>
+                    <td><a href="inventory.html">Inventory 2</a></td>
+                      <td>Indore</td>
+                      <td>8</td>
+                      <td>6</td>
+                      <td>7</td>
+                    </tr>
+                    
+                    
+                    
+                    
+                   
+                   
+                    
+                  </tbody>
+                </table>
+              </div>
+              
+              
+              
+              <div class="x_content">
+                <table class="table table-bordered table-hover vert-aliins">
+                  <thead>
+                    <tr>
+                      <th>Plan</th>
+                      <th>Total QTY</th>
+                      <th> Remaining Qty</th>
+                      <th>Current Expiry Date</th>
+                 
+                      
+                      
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Plan 1</td>
+                      <td>4</td>
+                      <td>10</td>
+                      <td>10/11/2015</td>
+                      
+                    </tr>
+                    
+                    <tr>
+                      <td>Plan 2</td>
+                      <td>4</td>
+                     
+                      <td>10</td>
+                       <td>12/10/2015</td>
+                      
+                    </tr>
+                    
+                    
+                  </tbody>
+                </table>
+              </div>
+                                 
+
+                                    </div>
+
+                                </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                      <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
+                  </div>
+                </div>
               </div>
               
              <!-- <div class="valusho pull-left"> <h5>Compaign Amount :  Rs 335090 </h5></div>
@@ -570,6 +658,21 @@
              
         });
     </script> 
+    
+<script type="text/javascript">
+
+
+function displayResult()
+{
+document.getElementById("myTable").insertRow(-1).innerHTML = '<td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td><span>Remove</span></td>';
+}
+$('#myTable').on('click','td span',function(){
+$(this).closest('tr').remove();
+});
+
+
+
+</script>
 <!-- /editor -->
 </body>
 </html>
