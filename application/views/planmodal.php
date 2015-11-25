@@ -15,7 +15,7 @@
                         <optgroup label="Select Plan">
 						<option>Select Plan</option>
 						<?php foreach($plandetails as $plandetails){?>
-                        <option value="<?=isset($plandetails->planTypeID)?$plandetails->planTypeID:''?>-<?=isset($plandetails->planTypeTitle)?$plandetails->planTypeTitle:''?>" <?php  if(!empty($updateplan[0]->planTitle)){  $tittle=explode("For",$updateplan[0]->planTitle); if($tittle[0]==$plandetails->planTypeTitle
+                        <option value="<?=isset($plandetails->planTypeID)?$plandetails->planTypeID:''?>-<?=isset($plandetails->planTypeTitle)?$plandetails->planTypeTitle:''?>" <?php  if(!empty($updateplan[0]->planTitle)){   if($plantypeid==$plandetails->planTypeID
 						){ echo"selected";} } ?>><?=isset($plandetails->planTypeTitle)?$plandetails->planTypeTitle:''?></option>
 						<?php } ?>
                         </optgroup>
@@ -46,7 +46,7 @@
                   </div>
                   
                   <div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Plan Type</label>
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12 ">Plan Type</label>
                     <div class="col-md-9 col-sm-9 col-xs-12">
                      <div style="padding: 5px 0">
                       <ul class="list-inline">
@@ -67,10 +67,10 @@
                     <label class="control-label col-md-3 col-sm-3 col-xs-12">Status</label>
                     <div class="col-md-9 col-sm-9 col-xs-12">
                       <div id="gender" class="btn-group" data-toggle="buttons">
-                        <label class="btn btn-default" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                        <label class="btn btn-default <?php if(!empty($updateplan[0]->planStatus)){ if($updateplan[0]->planStatus=="Active"){ echo"active";} } ?>" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
                           <input type="radio" name="planstatus" value="Active" <?php if(!empty($updateplan[0]->planStatus)){ if($updateplan[0]->planStatus=="Active"){ echo"checked";} } ?>>
                           &nbsp; Active &nbsp; </label>
-                        <label class="btn btn btn-default" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                        <label class="btn btn btn-default <?php if(!empty($updateplan[0]->planStatus)){ if($updateplan[0]->planStatus=="Inactive"){ echo"active";} } ?>" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
                           <input  type="radio" name="planstatus" value="Inactive" <?php if(!empty($updateplan[0]->planStatus)){ if($updateplan[0]->planStatus=="Inactive"){ echo"checked";} } ?>>
                           Inactive </label>
                     </div>

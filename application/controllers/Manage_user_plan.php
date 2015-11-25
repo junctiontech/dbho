@@ -35,7 +35,8 @@ class Manage_user_plan extends CI_Controller {
 		$filter=$planid;
 		$tittle=$this->data['updateplan']=$this->manage_user_plan_model->select_for_update($filter);
 			$tittle=explode("For",$tittle[0]->planTitle);
-		
+			$plantypeid=$this->manage_user_plan_model->select_for_update_plantittle($tittle[0]);
+			$this->data['plantypeid']=$plantypeid[0]->planTypeID;
 		}
 		$this->data['user_type']=$this->manage_user_plan_model->get_user_type();
 		$this->data['plandetails']=$this->manage_user_plan_model->get_plandetails();
@@ -59,6 +60,7 @@ class Manage_user_plan extends CI_Controller {
 			$planstatus=$this->input->post('planstatus');
 			date_default_timezone_set("Asia/Kolkata");
 			$date=date("Y-m-d h:i:s");
+			print_r($_POST);die;
 			if(!empty($plantitle[1]) && !empty($planusertype) && !empty($planorder) && !empty($plantype) && !empty($planstatus)){
 				
 					if(!empty($this->input->post('planid'))){

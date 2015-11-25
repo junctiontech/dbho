@@ -86,5 +86,13 @@ class Manage_user_plan_model extends CI_Model
 			return $qry->Result();	
 	}
 	
+	function select_for_update_plantittle($tittle=false)
+	{
+			$db2 = $this->load->database('both', TRUE);
+			$qry = $db2->query("select planTypeID from db_plantype where `planTypeTitle` like TRIM('$tittle')");	
+			//echo $db2->last_query();die;
+			return $qry->Result();	
+	}
+	
 		
 }
