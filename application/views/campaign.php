@@ -125,17 +125,7 @@
             </div>
           </div>
         </div>
-		 <!-- Alert section For Message-->
-		 <?php  if($this->session->flashdata('message_type')=='success') { ?>
-		  <div class="alert alert-success alert-dismissible fade in" role="alert">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span> </button>
-                <strong><?=$this->session->flashdata('message')?></strong>  </div>
-		 <?php } if($this->session->flashdata('message_type')=='error') { ?>
-		 <div class="alert alert-danger alert-dismissible fade in" role="alert">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span> </button>
-                <strong><?=$this->session->flashdata('message')?></strong>  </div>
-		 <?php } ?>
-		 <!-- Alert section End-->
+		 
         <div class="clearfix"></div>
         <script type="text/javascript">
                         $(document).ready(function () {
@@ -149,6 +139,17 @@
                     </script>
         
         <div class="clearfix"></div>
+		<!-- Alert section For Message-->
+		 <?php  if($this->session->flashdata('message_type')=='success') { ?>
+		  <div class="alert alert-success alert-dismissible fade in" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span> </button>
+                <strong><?=$this->session->flashdata('message')?></strong>  </div>
+		 <?php } if($this->session->flashdata('message_type')=='error') { ?>
+		 <div class="alert alert-danger alert-dismissible fade in" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span> </button>
+                <strong><?=$this->session->flashdata('message')?></strong>  </div>
+		 <?php } ?>
+		 <!-- Alert section End-->
         <div class="row">
         
           <div class="col-md-12 col-sm-12 col-xs-12">

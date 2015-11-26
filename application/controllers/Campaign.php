@@ -89,13 +89,15 @@ class Campaign extends CI_Controller {
 				$inventory_availablity=$this->campaign_model->inventory_availablity($inventoryid,$datess);
 				
 				if(!empty($inventory_availablity)){
-					//print_r(count($inventory_availablity));die;
-					if(count($inventory_availablity)==$inventoryquantity){
+					
+					if(count($inventory_availablity)==$inventory_details[0]->MaximumQuantity){
 					$this->session->set_flashdata('message_type', 'error');
 					$this->session->set_flashdata('message', $this->config->item("index")."These Date Are Already Booked , Please Choose DIfferent Date Or Inventory!!");
 					redirect('Campaign');
 					}
-					if(count($inventoryquantity>$inventory_availablity)){
+					
+					if($inventoryduration >= count($inventory_availablity)){
+						
 						$i=0;
 						foreach($inventory_availablity as $inventory_availablity){
 							$dates.=$inventory_availablity->date;
@@ -109,6 +111,7 @@ class Campaign extends CI_Controller {
 					$this->session->set_flashdata('message', $this->config->item("index")."These Date Are Already Booked For $dates, Please Choose DIfferent Date. There Is Only $free Available Slotes!!");
 					redirect('Campaign');
 					}
+					
 				}
 				
 			}else{
