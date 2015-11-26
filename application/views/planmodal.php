@@ -80,13 +80,21 @@
                     </div>
                   </div>
 					<div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Auto Generated Plan Tittle</label>
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Auto Generated Plan Title</label>
                     <div class="col-md-9 col-sm-9 col-xs-12">
-                      <input id="shownewtittle" type="text" readonly placeholder="New Plan Tittle" class="form-control"  value="<?=isset($updateplan[0]->planTitle)?$updateplan[0]->planTitle:''?>">
+                      <input id="shownewtittle" type="text" readonly placeholder="New Plan Title" class="form-control"  value="<?=isset($updateplan[0]->planTitle)?$updateplan[0]->planTitle:''?>">
                     </div>
                   </div>
                 <script>
 $("#plantype").change(function(){    
+
+    var plantype = $("#plantype option:selected").text();
+	var plantittle = $("#plantittle option:selected").text();
+	var newtittle = plantittle +' For '+ plantype;
+	document.getElementById('shownewtittle').value=newtittle;
+});
+
+$("#plantittle").change(function(){    
 
     var plantype = $("#plantype option:selected").text();
 	var plantittle = $("#plantittle option:selected").text();
