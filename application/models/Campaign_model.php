@@ -122,6 +122,16 @@ class Campaign_model extends CI_Model
 	{		$db2 = $this->load->database('both', TRUE);
 			$qry = $db2->query("select * from dbho_planinventoryconsumptiondates where
 									inventoryID=$inventoryid and date in ($date)");
+		return $qry->Result();	
+	}
+	
+	function get_campaignlist()
+	{		$db2 = $this->load->database('both', TRUE);
+			$qry = $db2->query("select dbho_campaignmaster.campaignID,userCompanyName,userEmail,userPhone,startDate,dbho_campaignmaster.created, sum(dbho_campaigninventory.amount+dbho_campaignplan.Amount) from dbho_campaignmaster,homeonline.rp_users,homeonline.rp_user_details,dbho_campaigninventory,dbho_campaignplan where
+									dbho_campaignmaster.userID=rp_users.userID and 
+									rp_users.userID=rp_user_details.userID and
+									dbho_campaignmaster.campaignID=dbho_campaigninventory.campaignID and
+									dbho_campaignmaster.campaignID=dbho_campaignplan.campaignID");
 		//echo $db2->last_query();die;									
 			return $qry->Result();	
 	}

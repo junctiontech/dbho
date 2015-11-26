@@ -95,7 +95,7 @@ class Campaign extends CI_Controller {
 				
 				if(!empty($inventory_availablity)){
 					
-					if(count($inventory_availablity)==$inventory_details[0]->MaximumQuantity){
+					if(count($inventory_availablity)>=$inventory_details[0]->MaximumQuantity){
 					$this->session->set_flashdata('message_type', 'error');
 					$this->session->set_flashdata('message', $this->config->item("index")."These Date Are Already Booked , Please Choose DIfferent Date Or Inventory!!");
 					redirect('Campaign');
@@ -103,7 +103,7 @@ class Campaign extends CI_Controller {
 					
 					if($inventoryduration >= count($inventory_availablity)){
 						
-						$i=0;
+						$i=1;
 						foreach($inventory_availablity as $inventory_availablity){
 							$dates.=$inventory_availablity->date;
 							if(count($inventory_availablity)-1>=$i){
@@ -162,9 +162,8 @@ class Campaign extends CI_Controller {
 /*Campaign Listing view Load Start.............................................................................................................*/
 	function Campaign_listing()
 	{	
-		//$this->data['user_type']=$this->campaign_model->get_user_type();
-		//$this->data['userplans']=$this->campaign_model->get_userplans();
-		
+		$this->data['campaignlist']=$this->campaign_model->get_campaignlist();
+		//print_r($this->data['campaignlist']);die;
 		$this->load->view('campaign_listing',$this->data);
 	}
 /*Campaign Listing view Load End.............................................................................................................*/
