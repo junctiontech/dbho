@@ -40,17 +40,22 @@ class Campaign extends CI_Controller {
 			$usertype=$this->input->post('usertype');
 			$user_id=$this->input->post('user_id');
 			
-			$inventoryid=$this->input->post('inventoryid');
-			$cityid=$this->input->post('cityid');
-			$inventoryquantity=$this->input->post('inventoryquantity');
-			$inventoryduration=$this->input->post('inventoryduration');
-			$inventoryamount=$this->input->post('inventoryamount');
+			$data=$this->input->post();
+			//print_r($_POST);die;
+			for($z=0;$z<=count($data['inventoryid'])-1; $z++)
+			{
+				
+			$inventoryid=$data['inventoryid'][$z];
+			$cityid=$data['cityid'][$z];
+			$inventoryquantity=$data['inventoryquantity'][$z];
+			$inventoryduration=$data['inventoryduration'][$z];
+			$inventoryamount=$data['inventoryamount'][$z];
 			
-			$planid=$this->input->post('planid');
-			$planquantity=$this->input->post('planquantity');
-			$planduration=$this->input->post('planduration');
-			$planamount=$this->input->post('planamount');
-			$plancarryforwrd=$this->input->post('plancarryforwrd');
+			$planid=$data['planid'][$z];
+			$planquantity=$data['planquantity'][$z];
+			$planduration=$data['planduration'][$z];
+			$planamount=$data['planamount'][$z];
+			$plancarryforwrd=$data['plancarryforwrd'][$z];
 			
 			if(!empty($campaignstartdate) && !empty($user_id) && !empty($inventoryid) && !empty($cityid) && !empty($inventoryquantity) && !empty($inventoryduration) && !empty($inventoryamount) && !empty($planid) && !empty($planquantity) && !empty($planduration) && !empty($planamount) && !empty($plancarryforwrd)){
 			
@@ -141,6 +146,9 @@ class Campaign extends CI_Controller {
 					$this->session->set_flashdata('message', $this->config->item("index")." All Fields Are Mendatory!!");
 					redirect('Campaign');
 			}
+		
+		}
+		
 		}else{
 					$this->session->set_flashdata('message_type', 'error');
 					$this->session->set_flashdata('message', $this->config->item("index")." Invalid Request!!");

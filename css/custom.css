@@ -6411,3 +6411,16 @@ ul.notifications {
 
 
 /*Remove button end*/
+
+/*Remove button*/
+#myTable1 p {
+    background: none repeat scroll 0 0 #e74c3c;
+    border-radius: 3px;
+    color: #fff;
+    cursor: pointer;
+    padding: 5px 7px;
+    text-align: center;
+}
+
+
+/*Remove button end*/
