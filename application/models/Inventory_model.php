@@ -22,8 +22,9 @@ class Inventory_model extends CI_Model
 				$data=array('City'=>$city_id,'ProjectID'=>$project_id,'BannerImagePath'=>$file,'Weightage'=>$weightage,'Remark'=>$remark);
 				$db2->where($filter);
 				$db2->update('dbho_planinventoryconsumption',$data);
-				
+				//echo $db2->last_query();die;
 		}else{
+			
 				$data2=array('inventoryID'=>$inventory_id,'UserID'=>$user_id,'UnitsConsumed'=>'','CampaignID'=>'','City'=>$city_id,'ProjectID'=>$project_id,'BannerImagePath'=>$file,'StartDate'=>$start_date,'Duration'=>$inventoryduration,'Weightage'=>$weightage,'Remark'=>$remark,'Status'=>'Created','DaysCompleted'=>'');
 				$db2->insert('dbho_planinventoryconsumption',$data2);
 				

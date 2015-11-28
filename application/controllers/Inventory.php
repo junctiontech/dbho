@@ -156,11 +156,12 @@ class Inventory extends CI_Controller {
 				if(!empty($this->input->post('Update'))){
 						
 							$filter=array('inventoryID'=>$inventoryid);
-							$this->inventory_model->insert_userplan($type,$user_id,$inventoryid,$city_id,$project_id,$image,$start_date,$duration,$weightage,$remark,$date,$filter);
+							$this->inventory_model->insert_userplan($type,$user_id,$inventoryid,$city_id,$project_id,$image,$start_date,$duration,$weightage,$remark,$campaignid,$date,$filter);
 							$this->session->set_flashdata('message_type', 'success');
 							$this->session->set_flashdata('message', $this->config->item("index")." Inventory Updated Successfully!!");
 							
 					}else{
+						
 							$this->inventory_model->insert_userplan($type,$user_id,$inventoryid,$city_id,$project_id,$image,$start_date,$duration,$weightage,$remark,$campaignid);
 							$this->session->set_flashdata('message_type', 'success');
 							$this->session->set_flashdata('message', $this->config->item("index")." Inventory Added Successfully!!");
