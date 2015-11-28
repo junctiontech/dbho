@@ -152,7 +152,7 @@
 		 <?php } ?>
 		 <!-- Alert section End-->
            <form class="form-horizontal form-label-left" action="<?=base_url();?>Inventory/Add_inventory" method="post" enctype="multipart/form-data">
-           <input type="hidden" name="inventory_id" value="" />
+           
            <div class="form-group">
            <div class="col-md-12 col-sm-12 col-xs-12">
               <div class="radio mabott10">

@@ -35,10 +35,10 @@ class Inventory extends CI_Controller {
 		
 		if(!empty($this->input->post('submit')))
 		{
-			
+			$campaignid=$this->input->post('campaignid');
 			$type=$this->input->post('type');
 			$user_id=$this->input->post('user_id');
-			$inventory_des=$this->input->post('inventory_des');
+			$inventoryid=$this->input->post('inventoryid');
 			$city_id=$this->input->post('city_id');
 			$project_id=$this->input->post('project_id');
 			$start_date=$this->input->post('start_date');
@@ -73,17 +73,87 @@ class Inventory extends CI_Controller {
 				
 			date_default_timezone_set("Asia/Kolkata");
 			$date=date("Y-m-d h:i:s");
-			if(!empty($type) && !empty($user_id) && !empty($inventory_des) && !empty($city_id) && !empty($project_id)  && !empty($start_date) && !empty($duration) && !empty($weightage) && !empty($remark)){
+			if(!empty($type) && !empty($user_id) && !empty($inventoryid) && !empty($city_id) && !empty($project_id)  && !empty($start_date) && !empty($duration) && !empty($weightage) && !empty($remark)){
 				
-				if(!empty($this->input->post('inventory_id'))){
+			$filter=array('inventoryID'=>$inventoryid);
+			$inventory_details=$this->inventory_model->check('dbho_inventorymaster',$filter);
+			
+			if(!empty($inventory_details)){
+				
+				$filter1=array('inventoryID'=>$inventoryid);
+				$inventory_consumption=$this->inventory_model->check('dbho_planinventoryconsumption',$filter1);
+				
+				if(!empty($inventory_consumption)){
+					
+				if(count($inventory_consumption)>=$inventory_details[0]->MaximumQuantity){
+					$quan=$inventory_details[0]->MaximumQuantity;
+					if($inventory_details[0]->OverdrawingAllowed!='Yes'){
+					$this->session->set_flashdata('message_type', 'error');
+					$this->session->set_flashdata('message', $this->config->item("index")." The Maximum Quantity Of This Inventory Is $quan And All Are Booked, Please Select DIfferent Inventory!!");
+					redirect('Inventory');
+					}else{
+							$this->session->set_flashdata('message_type', 'error');
+					$this->session->set_flashdata('message', $this->config->item("index")."Warning: The Maximum Quantity Of This Inventory Is $quan And All Are Booked, Overdrawing Is Allowed !!");
+					}
+					}
+				}
+				$datess="";
+				if($duration>1){
+					
+					for($k=0;$k<=$duration;$k++){
+						if($k==0){
+						$datess.="'$start_date'";	
+						}else{
+							
+					$newdates=explode("/",$start_date);
+					$add=$newdates[1]+$k;
+					$datess.="'$newdates[0]/$add/$newdates[2]'";
+						}
+					if($duration>$k){
+						$datess.=",";
+					}
+					}
+				}else{
+					$datess="'$start_date'";
+				}
+				
+				$inventory_availablity=$this->inventory_model->inventory_availablity($inventoryid,$datess);
+				
+				if(!empty($inventory_availablity)){
+					
+					if($duration >= count($inventory_availablity)){
 						
-							$filter=array('inventoryID'=>$this->input->post('inventory_id'));
-							$this->inventory_model->insert_userplan($type,$user_id,$inventory_des,$city_id,$project_id,$image,$start_date,$duration,$weightage,$remark,$date,$filter);
+						$i=1;
+						foreach($inventory_availablity as $inventory_availablity){
+							$dates.=$inventory_availablity->date;
+							if(count($inventory_availablity)-1>=$i){
+								$dates.=",";
+							}
+							$i++;
+						}
+						$free=$duration-count($inventory_availablity);
+					$this->session->set_flashdata('message_type', 'error');
+					$this->session->set_flashdata('message', $this->config->item("index")."This Inventory is Already Booked For $dates, Please Choose DIfferent Date. There Is Only $free Available Slotes!!");
+					redirect('Inventory');
+					}
+					
+				}
+				
+			}else{
+					$this->session->set_flashdata('message_type', 'error');
+					$this->session->set_flashdata('message', $this->config->item("index")." This Inventory Is Not Found!!");
+					redirect('Inventory');
+			}
+				
+				if(!empty($this->input->post('update'))){
+						
+							$filter=array('inventoryID'=>$inventoryid);
+							$this->inventory_model->insert_userplan($type,$user_id,$inventoryid,$city_id,$project_id,$image,$start_date,$duration,$weightage,$remark,$date,$filter);
 							$this->session->set_flashdata('message_type', 'success');
 							$this->session->set_flashdata('message', $this->config->item("index")." Inventory Updated Successfully!!");
 							
 					}else{
-							$this->inventory_model->insert_userplan($type,$user_id,$inventory_des,$city_id,$project_id,$image,$start_date,$duration,$weightage,$remark);
+							$this->inventory_model->insert_userplan($type,$user_id,$inventoryid,$city_id,$project_id,$image,$start_date,$duration,$weightage,$remark,$campaignid);
 							$this->session->set_flashdata('message_type', 'success');
 							$this->session->set_flashdata('message', $this->config->item("index")." Inventory Added Successfully!!");
 					}

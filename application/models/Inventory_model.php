@@ -15,7 +15,7 @@ class Inventory_model extends CI_Model
 		$this->load->database();
 	}
 	
-	function insert_userplan($type=false,$user_id=false,$inventory_des=false,$city_id=false,$project_id=false,$file=false,$start_date=false,$duration=false,$weightage=false,$remark=false,$date=false,$filter=false)
+	function insert_userplan($type=false,$user_id=false,$inventory_id=false,$city_id=false,$project_id=false,$file=false,$start_date=false,$inventoryduration=false,$weightage=false,$remark=false,$campaignid=false,$date=false,$filter=false)
    {	
 		$db2 = $this->load->database('both', TRUE);
 		 if($filter){
@@ -24,13 +24,35 @@ class Inventory_model extends CI_Model
 				$db2->update('dbho_planinventoryconsumption',$data);
 				
 		}else{
-				$data=array('days'=>'0','MaximumQuantity'=>'2','OverdrawingAllowed'=>'','City'=>$city_id);
-				$db2->insert('dbho_inventorymaster',$data);
-				$last_id = $db2->insert_id();
-				$data1=array('inventoryID'=>$last_id, 'inventoryDescription'=>$inventory_des,'LanguageID'=>'1');
-				$db2->insert('dbho_inventorydescription',$data1);
-				$data2=array('inventoryID'=>$last_id,'UserID'=>$user_id,'UnitsConsumed'=>'','CampaignID'=>'','City'=>$city_id,'ProjectID'=>$project_id,'BannerImagePath'=>$file,'StartDate'=>$start_date,'Duration'=>$duration,'Weightage'=>$weightage,'Remark'=>$remark,'Status'=>'Created','DaysCompleted'=>'');
+				$data2=array('inventoryID'=>$inventory_id,'UserID'=>$user_id,'UnitsConsumed'=>'','CampaignID'=>'','City'=>$city_id,'ProjectID'=>$project_id,'BannerImagePath'=>$file,'StartDate'=>$start_date,'Duration'=>$inventoryduration,'Weightage'=>$weightage,'Remark'=>$remark,'Status'=>'Created','DaysCompleted'=>'');
 				$db2->insert('dbho_planinventoryconsumption',$data2);
+				
+				if($inventoryduration>1){
+					
+					for($k=0;$k<=$inventoryduration-1;$k++){
+					if($k==0){
+						$datess=$start_date;	
+						}else{
+							
+					$newdates=explode("/",$start_date);
+					$add=$newdates[1]+$k;
+					$datess="$newdates[0]/$add/$newdates[2]";
+						}
+					$data3=array('inventoryID'=>$inventory_id,
+							 'userID'=>$user_id,
+							 'campaignid'=>$campaignid,
+							 'date'=>$datess);
+					$db2->insert('dbho_planinventoryconsumptiondates',$data3);
+					
+					}
+				}else{
+					$datess=$start_date;
+					$data3=array('inventoryID'=>$inventory_id,
+							 'userID'=>$user_id,
+							 'campaignid'=>$campaignid,
+							 'date'=>$datess);
+				$db2->insert('dbho_planinventoryconsumptiondates',$data3);
+				}
 			}
 	}
 	
@@ -84,6 +106,19 @@ class Inventory_model extends CI_Model
 			rp_project_details.languageID='1'");	
 			
 			return $qry->Result();	
+	}
+	
+	function check($table=false,$filter=false)
+   {		$db2 = $this->load->database('both', TRUE);
+			$query = $db2->get_where($table, $filter);
+			return $query->Result();
+   }
+   
+   function inventory_availablity($inventoryid=false,$date=false)
+	{		$db2 = $this->load->database('both', TRUE);
+			$qry = $db2->query("select * from dbho_planinventoryconsumptiondates where
+									inventoryID=$inventoryid and date in ($date)");
+		return $qry->Result();	
 	}
 		
 }
