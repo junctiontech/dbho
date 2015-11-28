@@ -19,7 +19,12 @@ class Inventory extends CI_Controller {
 /*Inventory view Load Start.............................................................................................................*/
 	function index($inventoryid=FALSE)
 	{	
-		$this->data['inventoryid']=$inventoryid;
+		if(!empty($inventoryid)){
+			$this->data['inventoryid']=$inventoryid;
+			$filter=array('inventoryID'=>$inventoryid);
+			$this->data['inventoryupdate']=$this->inventory_model->select_for_update('dbho_planinventoryconsumption',$filter);
+		}
+		
 		$this->data['inventory']=$this->inventory_model->get_inventory();
 		$this->data['company_name']=$this->inventory_model->get_company_name();
 		$this->data['cities']=$this->inventory_model->get_city();
@@ -73,8 +78,10 @@ class Inventory extends CI_Controller {
 				
 			date_default_timezone_set("Asia/Kolkata");
 			$date=date("Y-m-d h:i:s");
-			if(!empty($type) && !empty($user_id) && !empty($inventoryid) && !empty($city_id) && !empty($project_id)  && !empty($start_date) && !empty($duration) && !empty($weightage) && !empty($remark)){
+			if(!empty($type) && !empty($user_id) && !empty($inventoryid) && !empty($city_id) && !empty($project_id)  && !empty($start_date) && !empty($duration) && !empty($weightage) && !empty($remark) ){
 				
+				if(empty($this->input->post('Update'))){
+					
 			$filter=array('inventoryID'=>$inventoryid);
 			$inventory_details=$this->inventory_model->check('dbho_inventorymaster',$filter);
 			
@@ -92,11 +99,12 @@ class Inventory extends CI_Controller {
 					$this->session->set_flashdata('message', $this->config->item("index")." The Maximum Quantity Of This Inventory Is $quan And All Are Booked, Please Select DIfferent Inventory!!");
 					redirect('Inventory');
 					}else{
-							$this->session->set_flashdata('message_type', 'error');
-					$this->session->set_flashdata('message', $this->config->item("index")."Warning: The Maximum Quantity Of This Inventory Is $quan And All Are Booked, Overdrawing Is Allowed !!");
+							$this->session->set_flashdata('category_error',"Warning: The Maximum Quantity Of This Inventory Is $quan And All Are Booked, Overdrawing Is Allowed !!");
 					}
+					
 					}
 				}
+				
 				$datess="";
 				if($duration>1){
 					
@@ -133,7 +141,7 @@ class Inventory extends CI_Controller {
 						}
 						$free=$duration-count($inventory_availablity);
 					$this->session->set_flashdata('message_type', 'error');
-					$this->session->set_flashdata('message', $this->config->item("index")."This Inventory is Already Booked For $dates, Please Choose DIfferent Date. There Is Only $free Available Slotes!!");
+					$this->session->set_flashdata('message', $this->config->item("index")."This Inventory is Already Booked For $dates, Please Choose DIfferent Date. !!");
 					redirect('Inventory');
 					}
 					
@@ -144,8 +152,8 @@ class Inventory extends CI_Controller {
 					$this->session->set_flashdata('message', $this->config->item("index")." This Inventory Is Not Found!!");
 					redirect('Inventory');
 			}
-				
-				if(!empty($this->input->post('update'))){
+			}
+				if(!empty($this->input->post('Update'))){
 						
 							$filter=array('inventoryID'=>$inventoryid);
 							$this->inventory_model->insert_userplan($type,$user_id,$inventoryid,$city_id,$project_id,$image,$start_date,$duration,$weightage,$remark,$date,$filter);

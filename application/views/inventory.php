@@ -157,17 +157,20 @@
            <div class="col-md-12 col-sm-12 col-xs-12">
               <div class="radio mabott10">
                         <label>
-                          <input type="radio" class="flat" <?php if(!empty($inventoryid)){ }else{echo"checked";}?> name="type" value="Free">
+                          <input type="radio" class="flat" <?php if(!empty($campaignid)){ }else{echo"checked";}?> name="type" value="Free">
                           Free </label>
                           <label>
-                          <input type="radio" class="flat" name="type" <?php if(!empty($inventoryid)){ echo"checked";}?> value="Campaign">
+                          <input type="radio" class="flat" name="type" <?php if(!empty($campaignid)){ echo"checked";}?> value="Campaign">
                           Compaign </label>
                       </div>     
              </div>         
            
            </div>
-           <?php if(!empty($inventoryid)){?>
-				<input type="hidden" name="campaignid" value="" readonly />
+		   <?php if(!empty($inventoryupdate)){?>
+				<input type="hidden" name="Update" value="Update" readonly />
+		   <?php } ?>
+           <?php if(!empty($campaignid)){?>
+				<input type="hidden" name="campaignid" value="<?=$campaignid?>" readonly />
 				<div class="form-group">
                     <label class="control-label col-md-2 col-sm-2 col-xs-12">Campaign Name</label>
                     <div class="col-md-10 col-sm-10 col-xs-12">
@@ -178,11 +181,11 @@
 				<div class="form-group">
                     <label class="control-label col-md-2 col-sm-2 col-xs-12">Company Name</label>
                     <div class="col-md-10 col-sm-10 col-xs-12">
-                      <select class="select2_group form-control" name="user_id">
+                      <select class="select2_group form-control" name="user_id" <?php if(!empty($inventoryupdate)){ echo"enable='true'";}?>>
                         <optgroup label="Alaskan/Hawaiian Time Zone">
                         <option value="">Select Company Name</option>
 						<?php foreach($company_name as $company_name){?>
-                        <option value="<?=isset($company_name->userID)?$company_name->userID:''?>"><?=isset($company_name->userCompanyName)?$company_name->userCompanyName:''?></option>
+                        <option value="<?=isset($company_name->userID)?$company_name->userID:''?>" <?php if(!empty($inventoryupdate[0]->UserID)){ if($inventoryupdate[0]->UserID==$company_name->userID){ echo"selected";} } ?>><?=isset($company_name->userCompanyName)?$company_name->userCompanyName:''?></option>
 						<?php } ?>
                         </optgroup>
                       </select>
@@ -192,11 +195,11 @@
 				 <div class="form-group">
                     <label class="control-label col-md-2 col-sm-2 col-xs-12">Inventory</label>
                     <div class="col-md-10 col-sm-10 col-xs-12">
-                      <select  class="select2_group form-control" name="inventoryid">
+                      <select  class="select2_group form-control" name="inventoryid" <?php if(!empty($inventoryupdate)){ echo"enable='true'";}?>>
                         <optgroup label="Alaskan/Hawaiian Time Zone">
                         <option value="">Select Inventory</option>
 						<?php foreach($inventory as $inventory){?>
-                        <option value="<?=isset($inventory->inventoryID)?$inventory->inventoryID:''?>"><?=isset($inventory->inventoryDescription)?$inventory->inventoryDescription:''?></option>
+                        <option value="<?=isset($inventory->inventoryID)?$inventory->inventoryID:''?>" <?php if(!empty($inventoryupdate[0]->inventoryID)){ if($inventoryupdate[0]->inventoryID==$inventory->inventoryID){ echo"selected";} } ?>><?=isset($inventory->inventoryDescription)?$inventory->inventoryDescription:''?></option>
 						<?php } ?>
                         </optgroup>
                       </select>
@@ -214,7 +217,7 @@
                         <optgroup label="Alaskan/Hawaiian Time Zone" >
                         <option value="">Select City</option>
                        <?php foreach($cities as $cities){?>
-                        <option value="<?=isset($cities->cityID)?$cities->cityID:''?>"><?=isset($cities->cityName)?$cities->cityName:''?></option>
+                        <option value="<?=isset($cities->cityID)?$cities->cityID:''?>" <?php if(!empty($inventoryupdate[0]->City)){ if($inventoryupdate[0]->City==$cities->cityID){ echo"selected";} } ?>><?=isset($cities->cityName)?$cities->cityName:''?></option>
 						<?php } ?>
                         </optgroup>
                       </select>
@@ -229,7 +232,7 @@
                         <optgroup label="Alaskan/Hawaiian Time Zone">
                         <option value="">Select Project</option>
                          <?php foreach($projects as $projects){?>
-                        <option value="<?=isset($projects->projectID)?$projects->projectID:''?>"><?=isset($projects->projectName)?$projects->projectName:''?></option>
+                        <option value="<?=isset($projects->projectID)?$projects->projectID:''?>" <?php if(!empty($inventoryupdate[0]->ProjectID)){ if($inventoryupdate[0]->ProjectID==$projects->projectID){ echo"selected";} } ?>><?=isset($projects->projectName)?$projects->projectName:''?></option>
 						<?php } ?>
                         </optgroup>
                       </select>
@@ -240,7 +243,7 @@
                     <label class="control-label col-md-2 col-sm-2 col-xs-12">Banner Image</label>
                     <div class="col-md-10 col-sm-10 col-xs-12">
                       <label class="btn btn-default btn-upload" for="inputImage" title="Upload image file">
-                                        <input class="sr-only" id="inputImage" name="file" type="file" accept="image/*">
+                                        <input class="sr-only" id="inputImage" name="file" type="file" value="<?=isset($inventoryupdate[0]->BannerImagePath)?$inventoryupdate[0]->BannerImagePath:''?>" accept="image/*">
                                         
                                           <span class="brous-bt">Brouse</span>
                                        
@@ -257,7 +260,7 @@
                         <div class="control-group">
                           <div class="controls">
                             <div class="xdisplay_inputx form-group has-feedback">
-                              <input type="text" name="start_date" class="form-control has-feedback-left"  id="single_cal2" placeholder="09/30/2015" aria-describedby="inputSuccess2Status2">
+                              <input <?php if(!empty($inventoryupdate)){ echo"readonly";}else{echo"id='single_cal2'";}?> type="text" name="start_date" class="form-control has-feedback-left" value="<?=isset($inventoryupdate[0]->StartDate)?$inventoryupdate[0]->StartDate:''?>"   placeholder="09/30/2015" aria-describedby="inputSuccess2Status2">
                               <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span> <span id="inputSuccess2Status2" class="sr-only">(success)</span> </div>
                           </div>
                         </div>
@@ -268,28 +271,28 @@
                   <div class="form-group">
                     <label class="control-label col-md-2 col-sm-2 col-xs-12">Duration</label>
                     <div class="col-md-10 col-sm-10 col-xs-12 contxt">
-                     <input type="text" placeholder="4" class="form-control" name="duration">
+                     <input type="text" placeholder="4" class="form-control" value="<?=isset($inventoryupdate[0]->Duration)?$inventoryupdate[0]->Duration:''?>" <?php if(!empty($inventoryupdate)){ echo"readonly";}?> name="duration">
                     </div>
                   </div>
                   
                   <div class="form-group">
                     <label class="control-label col-md-2 col-sm-2 col-xs-12">Weightage</label>
                     <div class="col-md-10 col-sm-10 col-xs-12 contxt">
-                     <input type="text" placeholder="40" class="form-control" name="weightage">
+                     <input type="text" placeholder="40" class="form-control" value="<?=isset($inventoryupdate[0]->Weightage)?$inventoryupdate[0]->Weightage:''?>" name="weightage">
                     </div>
                   </div>
                   
                   <div class="form-group">
                     <label class="control-label col-md-2 col-sm-2 col-xs-12">Remark</label>
                     <div class="col-md-10 col-sm-10 col-xs-12">
-                     <textarea id="message" required="required" class="form-control" name="remark" data-parsley-trigger="keyup" data-parsley-minlength="20" data-parsley-maxlength="100" data-parsley-minlength-message="Come on! You need to enter at least a 20 caracters long comment.." data-parsley-validation-threshold="10"></textarea>
+                     <textarea id="message" required="required" class="form-control"  name="remark" data-parsley-trigger="keyup" data-parsley-minlength="20" data-parsley-maxlength="100" data-parsley-minlength-message="Come on! You need to enter at least a 20 caracters long comment.." data-parsley-validation-threshold="10"><?=isset($inventoryupdate[0]->Remark)?$inventoryupdate[0]->Remark:''?></textarea>
                     </div>
                   </div>
                   
                   <div class="form-group">
                     <label class="control-label col-md-2 col-sm-2 col-xs-12"></label>
                     <div class="col-md-10 col-sm-10 col-xs-12">
-                     <button class="btn btn-success btn-lg" type="submit" value="submit" name="submit">Save</button>
+                     <button class="btn btn-success btn-lg" type="submit" value="submit" name="submit"><?php if(!empty($inventoryupdate)){echo"Update";}else{echo"Save";}?></button>
                     </div>
                   </div>
                   

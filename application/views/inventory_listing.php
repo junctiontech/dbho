@@ -148,7 +148,13 @@
 		 <div class="alert alert-danger alert-dismissible fade in" role="alert">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span> </button>
                 <strong><?=$this->session->flashdata('message')?></strong>  </div>
-		 <?php } ?>
+		 <?php } if($this->session->flashdata('category_error')) { ?>
+<div class="row" >
+<div class="alert alert-danger" >
+<strong><?=$this->session->flashdata('category_error')?></strong> <?php echo"<button type=\"button\" class=\"close\" data-dismiss=\"alert\">&times;</button>";?>
+</div>
+</div>
+<?php }?>
 		 <!-- Alert section End-->
          <div class="row">
           <div class="col-md-12 col-sm-12 col-xs-12">
@@ -279,7 +285,7 @@
                   <tbody>
 				  <?php foreach($inventory_list as $inventory_list){?>
                     <tr>
-                      <td>Sobha 16-09-2015 20:30:30</td>
+                      <td></td>
                       <td><?=isset($inventory_list->userCompanyName)?$inventory_list->userCompanyName:''?></td>
                       <td><?=isset($inventory_list->userEmail)?$inventory_list->userEmail:''?></td>
                       <td><?=isset($inventory_list->userPhone)?$inventory_list->userPhone:''?></td>

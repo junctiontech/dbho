@@ -57,8 +57,8 @@ class Inventory_model extends CI_Model
 	}
 	
 	function select_for_update($table=false,$filter=false)
-   {	
-			$query = $this->db->get_where($table, $filter);
+   {		$db2 = $this->load->database('both', TRUE);
+			$query = $db2->get_where($table, $filter);
 			return $query->Result();
    }
 	
@@ -97,7 +97,8 @@ class Inventory_model extends CI_Model
 						 homeonline.rp_users,homeonline.rp_user_details,homeonline.rp_city_details,homeonline.rp_project_details where
 			dbho_inventorymaster.inventoryID=dbho_inventorydescription.inventoryID and
 			dbho_inventorymaster.inventoryID=dbho_planinventoryconsumption.inventoryID and
-			dbho_planinventoryconsumption.UserID=rp_user_details.UserID and
+			dbho_planinventoryconsumption.UserID=rp_users.UserID and
+			rp_users.UserID=rp_user_details.UserID and
 			dbho_planinventoryconsumption.City=rp_city_details.cityID and
 			dbho_planinventoryconsumption.ProjectID=rp_project_details.projectID and
 			dbho_inventorydescription.LanguageID='1' and
