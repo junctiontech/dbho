@@ -19,6 +19,8 @@ class Inventory extends CI_Controller {
 /*Inventory view Load Start.............................................................................................................*/
 	function index($inventoryid=FALSE)
 	{	
+		$this->data['inventoryid']=$inventoryid;
+		$this->data['inventory']=$this->inventory_model->get_inventory();
 		$this->data['company_name']=$this->inventory_model->get_company_name();
 		$this->data['cities']=$this->inventory_model->get_city();
 		$this->data['projects']=$this->inventory_model->get_project();

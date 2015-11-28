@@ -62,6 +62,13 @@ class Inventory_model extends CI_Model
 			return $qry->Result();	
 	}
 	
+	function get_inventory()
+	{		$db3 = $this->load->database('both', TRUE);
+			$qry = $db3->query("select dbho_inventorymaster.inventoryID,inventoryDescription from dbho_inventorymaster,dbho_inventorydescription where
+									dbho_inventorymaster.inventoryID=dbho_inventorydescription.inventoryID and dbho_inventorydescription.LanguageID='1'");	
+			return $qry->Result();	
+	}
+	
 	function get_inventorylist()
 	{		$db3 = $this->load->database('both', TRUE);
 			$qry = $db3->query("select dbho_inventorymaster.inventoryID,userCompanyName,userEmail,cityName,userPhone,inventoryDescription,projectName,StartDate,Duration,Weightage from homeonline_junction.dbho_inventorymaster,homeonline_junction.dbho_inventorydescription,homeonline_junction.dbho_planinventoryconsumption,

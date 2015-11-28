@@ -157,23 +157,24 @@
            <div class="col-md-12 col-sm-12 col-xs-12">
               <div class="radio mabott10">
                         <label>
-                          <input type="radio" class="flat" checked name="type" value="Free">
+                          <input type="radio" class="flat" <?php if(!empty($inventoryid)){ }else{echo"checked";}?> name="type" value="Free">
                           Free </label>
                           <label>
-                          <input type="radio" class="flat" name="type" value="Campaign">
+                          <input type="radio" class="flat" name="type" <?php if(!empty($inventoryid)){ echo"checked";}?> value="Campaign">
                           Compaign </label>
                       </div>     
              </div>         
            
            </div>
-           
+           <?php if(!empty($inventoryid)){?>
+				<input type="hidden" name="campaignid" value="" readonly />
 				<div class="form-group">
                     <label class="control-label col-md-2 col-sm-2 col-xs-12">Campaign Name</label>
                     <div class="col-md-10 col-sm-10 col-xs-12">
-                       <label class="control-label col-md-2 col-sm-2 col-xs-12">Sobha 16-09-2015 20:30:30</label>
+                       <label class="control-label col-md-2 col-sm-2 col-xs-12"></label>
                     </div>
                 </div>
-				  
+		   <?php } ?> 
 				<div class="form-group">
                     <label class="control-label col-md-2 col-sm-2 col-xs-12">Company Name</label>
                     <div class="col-md-10 col-sm-10 col-xs-12">
@@ -191,9 +192,16 @@
 				 <div class="form-group">
                     <label class="control-label col-md-2 col-sm-2 col-xs-12">Inventory</label>
                     <div class="col-md-10 col-sm-10 col-xs-12">
-                      <input type="text" name="inventory_des" value="" class="form-control" />
+                      <select  class="select2_group form-control" name="inventoryid">
+                        <optgroup label="Alaskan/Hawaiian Time Zone">
+                        <option value="">Select Inventory</option>
+						<?php foreach($inventory as $inventory){?>
+                        <option value="<?=isset($inventory->inventoryID)?$inventory->inventoryID:''?>"><?=isset($inventory->inventoryDescription)?$inventory->inventoryDescription:''?></option>
+						<?php } ?>
+                        </optgroup>
+                      </select>
                     </div>
-                </div>
+                  </div>
                   
                   
                   
