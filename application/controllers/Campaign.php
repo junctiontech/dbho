@@ -163,10 +163,18 @@ class Campaign extends CI_Controller {
 	function Campaign_listing()
 	{	
 		$this->data['campaignlist']=$this->campaign_model->get_campaignlist();
-		//print_r($this->data['campaignlist']);die;
 		$this->load->view('campaign_listing',$this->data);
 	}
 /*Campaign Listing view Load End.............................................................................................................*/
+	
+	/*Campaign Listing modal Load Start.............................................................................................................*/
+	function campaign_modal($id=false)
+	{
+		$this->data['inventorylist']=$this->campaign_model->get_inventorylist($id);
+		$this->data['planlist']=$this->campaign_model->get_planlist($id);
+		$this->load->view('campaignmodal',$this->data);
+	}
+	/*Campaign Listing modal Load End.............................................................................................................*/
 	
 		
 }

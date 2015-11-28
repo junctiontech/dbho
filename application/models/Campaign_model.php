@@ -127,13 +127,31 @@ class Campaign_model extends CI_Model
 	
 	function get_campaignlist()
 	{		$db2 = $this->load->database('both', TRUE);
-			$qry = $db2->query("select dbho_campaignmaster.campaignID,userCompanyName,userEmail,userPhone,startDate,dbho_campaignmaster.created, sum(dbho_campaigninventory.amount+dbho_campaignplan.Amount) from dbho_campaignmaster,homeonline.rp_users,homeonline.rp_user_details,dbho_campaigninventory,dbho_campaignplan where
+			$qry = $db2->query("select dbho_campaignmaster.campaignID,userCompanyName,userEmail,userPhone,startDate,dbho_campaignmaster.created, dbho_campaigninventory.amount+dbho_campaignplan.Amount as amount from dbho_campaignmaster,homeonline.rp_users,homeonline.rp_user_details,dbho_campaigninventory,dbho_campaignplan where
 									dbho_campaignmaster.userID=rp_users.userID and 
 									rp_users.userID=rp_user_details.userID and
 									dbho_campaignmaster.campaignID=dbho_campaigninventory.campaignID and
 									dbho_campaignmaster.campaignID=dbho_campaignplan.campaignID");
 		//echo $db2->last_query();die;									
 			return $qry->Result();	
+	}
+	
+	function get_inventorylist($id=FALSE)
+	{		$db2 = $this->load->database('both', TRUE);
+		$qry = $db2->query("select dbho_campaigninventory.inventoryID,inventoryDescription,cityName,quantity,amount,duration from dbho_campaigninventory,dbho_inventorydescription,homeonline.rp_city_details where
+									dbho_campaigninventory.campaignID=$id and
+									dbho_campaigninventory.inventoryID=dbho_inventorydescription.inventoryID and
+									dbho_campaigninventory.cityID=rp_city_details.cityID and rp_city_details.languageID='1'");
+	return $qry->Result();
+	}
+	
+	function get_planlist($id=FALSE)
+	{		$db2 = $this->load->database('both', TRUE);
+	$qry = $db2->query("select dbho_campaignplan.planID,planTitle,Quantity,Duration,CarryForward,LastExpiry,currentExpiry,Amount from dbho_campaignplan,homeonline.rp_user_plan_details where
+									dbho_campaignplan.campaignID=$id and
+									dbho_campaignplan.planID=rp_user_plan_details.planID and
+									rp_user_plan_details.languageID='1'");
+	return $qry->Result();
 	}
 		
 }

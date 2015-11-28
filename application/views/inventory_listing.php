@@ -294,7 +294,7 @@
                        <a class="btn btn-app paddpsush">
                        <i class="fa fa-pause"></i></a>
                        </td>
-					   <td><a href="<?=base_url();?>Inventory/<?=isset($inventory_list->inventoryID)?$inventory_list->inventoryID:''?>" class="btn btn-app paddpsush"> <i class="fa fa-edit"></i></a></td>
+					   <td><a href="<?=base_url();?>Inventory/index/<?=isset($inventory_list->inventoryID)?$inventory_list->inventoryID:''?>" class="btn btn-app paddpsush"> <i class="fa fa-edit"></i></a></td>
                     </tr>
                     <?php } ?>
                     </tbody>

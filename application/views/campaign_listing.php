@@ -245,19 +245,20 @@
                     </tr>
                   </thead>
                   <tbody>
+                  <?php foreach ($campaignlist as $campaignlists){?>
                     <tr>
-                      <td>Sobha 16-09-2015 20:30:30</td>
-                      <td>Sobha Developers</td>
-                      <td>sales@shoba.com</td>
-                      <td>1111100000</td>
+                      <td><?=isset($campaignlists->userCompanyName)?$campaignlists->userCompanyName:''?> <?=isset($campaignlists->created)?$campaignlists->created:''?></td>
+                      <td><?=isset($campaignlists->userCompanyName)?$campaignlists->userCompanyName:''?></td>
+                      <td><?=isset($campaignlists->userEmail)?$campaignlists->userEmail:''?></td>
+                      <td><?=isset($campaignlists->userPhone)?$campaignlists->userPhone:''?></td>
                       
-                       <td>20/10/2015</td>
-                       <td>3000</td>
-                       <td><button class="btn btn-success" type="button" data-toggle="modal" data-target=".bs-example-modal-lg">View</button></td>
+                       <td><?=isset($campaignlists->startDate)?$campaignlists->startDate:''?></td>
+                       <td><?=isset($campaignlists->amount)?$campaignlists->amount:''?></td>
+                       <td><button class="btn btn-success" type="button" data-toggle="modal" href="<?=base_url();?>campaign/campaign_modal/<?=isset($campaignlists->campaignID)?$campaignlists->campaignID:''?>" data-target=".bs-example-modal-lg">View</button></td>
                        
                      
                     </tr>
-
+<?php } ?>
                   </tbody>
                 </table>
               </div>
@@ -266,104 +267,6 @@
               <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
                 <div class="modal-dialog modal-lg">
                   <div class="modal-content moda-scrol">
-                    <div class="modal-header">
-                      <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span> </button>
-                      <h4 class="modal-title" id="myModalLabel">Inventory</h4>
-                    </div>
-                    <div class="modal-body">
-                      <div class="x_content">
-
-                                    <div class="row">
-
-                                        <div class="x_content">
-                <table id="myTable" class="table table-bordered table-hover vert-aliins">
-                  <thead>
-                    <tr>
-                     <th>Inventory</th>
-                      <th>City</th>
-                      <th>Qty</th>
-                      <th>Duration </th>
-                      <th>Remaining</th>
-                   
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                    <td><a href="inventory.html">Inventory 1</a></td>
-                      <td>Bhopal</td>
-                      <td>5</td>
-                      <td>7</td>
-                      <td>
-                      5
-                      </td>
-                    </tr>
-                    
-                    <tr>
-                    <td><a href="inventory.html">Inventory 2</a></td>
-                      <td>Indore</td>
-                      <td>8</td>
-                      <td>6</td>
-                      <td>7</td>
-                    </tr>
-                    
-                    
-                    
-                    
-                   
-                   
-                    
-                  </tbody>
-                </table>
-              </div>
-              
-              
-              
-              <div class="x_content">
-                <table class="table table-bordered table-hover vert-aliins">
-                  <thead>
-                    <tr>
-                      <th>Plan</th>
-                      <th>Total QTY</th>
-                      <th> Remaining Qty</th>
-                      <th>Current Expiry Date</th>
-                 
-                      
-                      
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>Plan 1</td>
-                      <td>4</td>
-                      <td>10</td>
-                      <td>10/11/2015</td>
-                      
-                    </tr>
-                    
-                    <tr>
-                      <td>Plan 2</td>
-                      <td>4</td>
-                     
-                      <td>10</td>
-                       <td>12/10/2015</td>
-                      
-                    </tr>
-                    
-                    
-                  </tbody>
-                </table>
-              </div>
-                                 
-
-                                    </div>
-
-                                </div>
-                    </div>
-                    <div class="clearfix"></div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                      <button type="button" class="btn btn-primary">Save changes</button>
-                    </div>
                   </div>
                 </div>
               </div>
@@ -671,7 +574,11 @@ $(this).closest('tr').remove();
 });
 
 
-
+$(document).on('hidden.bs.modal', function (e) {
+	var target = $(e.target);
+    target.removeData('bs.modal')
+          .find(".modal-content").html('');
+});
 </script>
 <!-- /editor -->
 </body>
