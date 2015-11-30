@@ -25,7 +25,7 @@ class Inventory_model extends CI_Model
 				//echo $db2->last_query();die;
 		}else{
 			
-				$data2=array('inventoryID'=>$inventory_id,'UserID'=>$user_id,'UnitsConsumed'=>'','CampaignID'=>'','City'=>$city_id,'ProjectID'=>$project_id,'BannerImagePath'=>$file,'StartDate'=>$start_date,'Duration'=>$inventoryduration,'Weightage'=>$weightage,'Remark'=>$remark,'Status'=>'Created','DaysCompleted'=>'');
+				$data2=array('inventoryID'=>$inventory_id,'UserID'=>$user_id,'UnitsConsumed'=>'','CampaignID'=>$campaignid,'City'=>$city_id,'ProjectID'=>$project_id,'BannerImagePath'=>$file,'StartDate'=>$start_date,'Duration'=>$inventoryduration,'Weightage'=>$weightage,'Remark'=>$remark,'Status'=>'Created','DaysCompleted'=>'');
 				$db2->insert('dbho_planinventoryconsumption',$data2);
 				
 				if($inventoryduration>1){
@@ -94,7 +94,7 @@ class Inventory_model extends CI_Model
 	
 	function get_inventorylist()
 	{		$db3 = $this->load->database('both', TRUE);
-			$qry = $db3->query("select planinventoryconsumptionID,dbho_inventorymaster.inventoryID,userCompanyName,userEmail,cityName,userPhone,inventoryDescription,projectName,StartDate,Duration,Weightage from homeonline_junction.dbho_inventorymaster,homeonline_junction.dbho_inventorydescription,homeonline_junction.dbho_planinventoryconsumption,
+			$qry = $db3->query("select planinventoryconsumptionID,dbho_inventorymaster.inventoryID,dbho_planinventoryconsumption.CampaignID,userCompanyName,userEmail,cityName,userPhone,inventoryDescription,projectName,dbho_planinventoryconsumption.StartDate,Duration,Weightage from homeonline_junction.dbho_inventorymaster,homeonline_junction.dbho_inventorydescription,homeonline_junction.dbho_planinventoryconsumption,
 						 homeonline.rp_users,homeonline.rp_user_details,homeonline.rp_city_details,homeonline.rp_project_details where
 			dbho_inventorymaster.inventoryID=dbho_inventorydescription.inventoryID and
 			dbho_inventorymaster.inventoryID=dbho_planinventoryconsumption.inventoryID and
@@ -121,6 +121,40 @@ class Inventory_model extends CI_Model
 			$qry = $db2->query("select * from dbho_planinventoryconsumptiondates where
 									inventoryID=$inventoryid and date in ($date)");
 		return $qry->Result();	
+	}
+	
+	function get_campaigninventory($campaignid=false,$inventoryconsumptionid=false)
+	{		$db3 = $this->load->database('both', TRUE);
+			$qry = $db3->query("select dbho_campaignmaster.campaignID,dbho_campaignmaster.userID,userCompanyName,dbho_campaignmaster.created,dbho_campaigninventory.inventoryID,inventoryDescription from dbho_campaignmaster,homeonline.rp_user_details,dbho_campaigninventory,dbho_inventorydescription where
+									dbho_campaignmaster.campaignID='$campaignid' and
+									dbho_campaignmaster.campaignID=dbho_campaigninventory.campaignID and
+									dbho_campaigninventory.inventoryID='$inventoryconsumptionid' and
+									dbho_campaignmaster.userID=rp_user_details.userID and
+									dbho_campaigninventory.inventoryID=dbho_inventorydescription.inventoryID and 
+									dbho_inventorydescription.LanguageID='1' and
+									rp_user_details.languageID='1'");	
+			return $qry->Result();	
+	}
+	
+	function get_campaigninventorydetails($campaignid=false,$user_id=false,$inventoryid=false)
+	{		$db3 = $this->load->database('both', TRUE);
+			$qry = $db3->query("select quantity from dbho_campaignmaster,dbho_campaigninventory where
+									dbho_campaignmaster.campaignID='$campaignid' and
+									dbho_campaignmaster.userID='$user_id' and
+									dbho_campaignmaster.campaignID=dbho_campaigninventory.campaignID and
+									dbho_campaigninventory.inventoryID='$inventoryid' ");	
+			return $qry->Result();	
+	}		
+			
+	function campaigninventory_availablity($inventoryid=false,$date=false,$campaignid=false,$user_id=false)
+	{		
+			$db2 = $this->load->database('both', TRUE);
+			$qry = $db2->query("select * from dbho_planinventoryconsumptiondates where
+									inventoryID=$inventoryid and 
+									campaignid=$campaignid and
+									userID=$user_id and
+									date in ($date)");
+			return $qry->Result();	
 	}
 		
 }

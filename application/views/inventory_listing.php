@@ -285,7 +285,7 @@
                   <tbody>
 				  <?php foreach($inventory_list as $inventory_list){?>
                     <tr>
-                      <td></td>
+                      <td><?php if(!empty($inventory_list->CampaignID)){ $campaign_name=$this->utilities->get_campaign_name($inventory_list->CampaignID); echo $inventory_list->userCompanyName; echo $campaign_name[0]->created;}?></td>
                       <td><?=isset($inventory_list->userCompanyName)?$inventory_list->userCompanyName:''?></td>
                       <td><?=isset($inventory_list->userEmail)?$inventory_list->userEmail:''?></td>
                       <td><?=isset($inventory_list->userPhone)?$inventory_list->userPhone:''?></td>

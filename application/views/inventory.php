@@ -169,15 +169,36 @@
 		   <?php if(!empty($inventoryconsumptionid)){?>
 				<input type="hidden" name="inventoryconsumptionid" value="<?=isset($inventoryconsumptionid)?$inventoryconsumptionid:''?>" readonly />
 		   <?php } ?>
+		   
            <?php if(!empty($campaignid)){?>
 				<input type="hidden" name="campaignid" value="<?=$campaignid?>" readonly />
+				<input type="hidden" name="user_id" value="<?=isset($campaigndetails[0]->userID)?$campaigndetails[0]->userID:''?>" readonly />
+				<input type="hidden" name="inventoryid" value="<?=isset($campaigndetails[0]->inventoryID)?$campaigndetails[0]->inventoryID:''?>" readonly />
+				
 				<div class="form-group">
                     <label class="control-label col-md-2 col-sm-2 col-xs-12">Campaign Name</label>
                     <div class="col-md-10 col-sm-10 col-xs-12">
-                       <label class="control-label col-md-2 col-sm-2 col-xs-12"></label>
+                       <label class="control-label col-md-2 col-sm-2 col-xs-12"><?=isset($campaigndetails[0]->userCompanyName)?$campaigndetails[0]->userCompanyName:''?> <?=isset($campaigndetails[0]->created)?$campaigndetails[0]->created:''?></label>
                     </div>
                 </div>
-		   <?php } ?> 
+				
+				<div class="form-group">
+                    <label class="control-label col-md-2 col-sm-2 col-xs-12">Company Name</label>
+                    <div class="col-md-10 col-sm-10 col-xs-12">
+                       <label class="control-label col-md-2 col-sm-2 col-xs-12"><?=isset($campaigndetails[0]->userCompanyName)?$campaigndetails[0]->userCompanyName:''?> </label>
+                    </div>
+                </div>
+				
+				<div class="form-group">
+                    <label class="control-label col-md-2 col-sm-2 col-xs-12">Inventory</label>
+                    <div class="col-md-10 col-sm-10 col-xs-12">
+                       <label class="control-label col-md-2 col-sm-2 col-xs-12"><?=isset($campaigndetails[0]->inventoryDescription)?$campaigndetails[0]->inventoryDescription:''?> </label>
+                    </div>
+                </div>
+				
+				
+		   <?php }else{ ?> 
+		   
 				<div class="form-group">
                     <label class="control-label col-md-2 col-sm-2 col-xs-12">Company Name</label>
                     <div class="col-md-10 col-sm-10 col-xs-12">
@@ -206,7 +227,7 @@
                     </div>
                   </div>
                   
-                  
+		   <?php } ?> 
                   
                   
            

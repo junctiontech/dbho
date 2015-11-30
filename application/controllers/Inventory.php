@@ -10,6 +10,7 @@ class Inventory extends CI_Controller {
 		$this->data['url'] = base_url();
 		$this->load->model('inventory_model');
 		$this->load->library('parser');
+		$this->load->library('utilities');
 		$this->data['base_url']=base_url();
 		$this->load->library('session');
 	}
@@ -24,8 +25,8 @@ class Inventory extends CI_Controller {
 			$this->data['campaigninventoryid']=$inventoryconsumptionid;
 			$this->data['campaignid']=$campaignid;
 			
-			$filter=array('campaignID'=>$campaignid,'inventoryID'=>$inventoryconsumptionid);
-			$this->data['inventoryupdate']=$this->inventory_model->select_for_update('dbho_campaigninventory',$filter);
+			$this->data['campaigndetails']=$this->inventory_model->get_campaigninventory($campaignid,$inventoryconsumptionid);
+			//print_r($this->data['campaigndetails']);die;
 			
 		}elseif(!empty($inventoryconsumptionid)){
 			$this->data['inventoryconsumptionid']=$inventoryconsumptionid;
@@ -45,7 +46,6 @@ class Inventory extends CI_Controller {
 /*Inventory create insert and update start .........................................................................................*/
 	function Add_inventory()
 	{	
-		
 		if(!empty($this->input->post('submit')))
 		{
 			$campaignid=$this->input->post('campaignid');
@@ -89,6 +89,70 @@ class Inventory extends CI_Controller {
 			if(!empty($type) && !empty($user_id) && !empty($inventoryid) && !empty($city_id) && !empty($project_id)  && !empty($start_date) && !empty($duration) && !empty($weightage) && !empty($remark) ){
 				
 				if(empty($this->input->post('inventoryconsumptionid'))){
+					
+					if(!empty($campaignid)){
+						
+						$campaigninventorydetails=$this->inventory_model->get_campaigninventorydetails($campaignid,$user_id,$inventoryid);
+						
+						if(!empty($campaigninventorydetails)){
+						
+						$datess="";
+				if($duration>1){
+					
+					for($k=0;$k<=$duration;$k++){
+						if($k==0){
+						$datess.="'$start_date'";	
+						}else{
+							
+					$newdates=explode("/",$start_date);
+					$add=$newdates[1]+$k;
+					$datess.="'$newdates[0]/$add/$newdates[2]'";
+						}
+						
+						$inventory_availablity=$this->inventory_model->campaigninventory_availablity($inventoryid,$datess,$campaignid,$user_id);
+						
+						if(!empty($inventory_availablity)){
+					
+					if(count($inventory_availablity) >= $campaigninventorydetails[0]->quantity){
+						
+						$dates=$inventory_availablity[0]->date;
+							
+						
+					$this->session->set_flashdata('message_type', 'error');
+					$this->session->set_flashdata('message', $this->config->item("index")."This Inventory is Already Booked For $dates, Please Choose DIfferent Date. !!");
+					redirect('Inventory');
+					}
+					
+				}
+					
+					}
+				}else{
+					$datess="'$start_date'";
+					$inventory_availablity=$this->inventory_model->campaigninventory_availablity($inventoryid,$datess,$campaignid,$user_id);
+					if(!empty($inventory_availablity)){
+					
+					if(count($inventory_availablity) >= $campaigninventorydetails[0]->quantity){
+						
+						$dates=$inventory_availablity[0]->date;
+							
+						
+					$this->session->set_flashdata('message_type', 'error');
+					$this->session->set_flashdata('message', $this->config->item("index")."This Inventory is Already Booked For $dates, Please Choose DIfferent Date. !!");
+					redirect('Inventory');
+					}
+					
+				}
+					
+				}
+					}else{
+						
+						$this->session->set_flashdata('message_type', 'error');
+					$this->session->set_flashdata('message', $this->config->item("index")." This Campaign Is Not Found!!");
+					redirect('Inventory');
+						
+					}	
+						
+					}else{
 					
 			$filter=array('inventoryID'=>$inventoryid);
 			$inventory_details=$this->inventory_model->check('dbho_inventorymaster',$filter);
@@ -171,6 +235,9 @@ class Inventory extends CI_Controller {
 					$this->session->set_flashdata('message', $this->config->item("index")." This Inventory Is Not Found!!");
 					redirect('Inventory');
 			}
+			
+				}
+			
 			}
 				if(!empty($this->input->post('inventoryconsumptionid'))){
 						
