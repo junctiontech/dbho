@@ -22,7 +22,7 @@
 <tbody>
 <?php foreach ($inventorylist as $inventorylists){?>
 <tr>
-<td><a href="<?=base_url();?>Inventory/index/<?=isset($inventorylists->inventoryID)?$inventorylists->inventoryID:''?>"><?=isset($inventorylists->inventoryDescription)?$inventorylists->inventoryDescription:''?></a></td>
+<td><a href="<?=base_url();?>Inventory/index/<?=isset($inventorylists->inventoryID)?$inventorylists->inventoryID:''?>/<?=isset($inventorylists->campaignID)?$inventorylists->campaignID:''?>"><?=isset($inventorylists->inventoryDescription)?$inventorylists->inventoryDescription:''?></a></td>
 <td><?=isset($inventorylists->cityName)?$inventorylists->cityName:''?></td>
 <td><?=isset($inventorylists->quantity)?$inventorylists->quantity:''?></td>
 <td><?=isset($inventorylists->duration)?$inventorylists->duration:''?></td>

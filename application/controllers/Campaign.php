@@ -41,7 +41,6 @@ class Campaign extends CI_Controller {
 			$user_id=$this->input->post('user_id');
 			
 			$data=$this->input->post();
-			//print_r($_POST);die;
 			for($z=0;$z<=count($data['inventoryid'])-1; $z++)
 			{
 				
@@ -71,7 +70,7 @@ class Campaign extends CI_Controller {
 					redirect('Campaign');
 				}
 				
-				$datess="";
+				/*$datess="";
 				if($inventoryduration>1){
 					
 					for($k=0;$k<=$inventoryduration;$k++){
@@ -117,7 +116,7 @@ class Campaign extends CI_Controller {
 					redirect('Campaign');
 					}
 					
-				}
+				}*/
 				
 			}else{
 					$this->session->set_flashdata('message_type', 'error');

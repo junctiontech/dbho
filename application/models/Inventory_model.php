@@ -94,7 +94,7 @@ class Inventory_model extends CI_Model
 	
 	function get_inventorylist()
 	{		$db3 = $this->load->database('both', TRUE);
-			$qry = $db3->query("select dbho_inventorymaster.inventoryID,userCompanyName,userEmail,cityName,userPhone,inventoryDescription,projectName,StartDate,Duration,Weightage from homeonline_junction.dbho_inventorymaster,homeonline_junction.dbho_inventorydescription,homeonline_junction.dbho_planinventoryconsumption,
+			$qry = $db3->query("select planinventoryconsumptionID,dbho_inventorymaster.inventoryID,userCompanyName,userEmail,cityName,userPhone,inventoryDescription,projectName,StartDate,Duration,Weightage from homeonline_junction.dbho_inventorymaster,homeonline_junction.dbho_inventorydescription,homeonline_junction.dbho_planinventoryconsumption,
 						 homeonline.rp_users,homeonline.rp_user_details,homeonline.rp_city_details,homeonline.rp_project_details where
 			dbho_inventorymaster.inventoryID=dbho_inventorydescription.inventoryID and
 			dbho_inventorymaster.inventoryID=dbho_planinventoryconsumption.inventoryID and

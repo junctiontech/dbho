@@ -166,8 +166,8 @@
              </div>         
            
            </div>
-		   <?php if(!empty($inventoryupdate)){?>
-				<input type="hidden" name="Update" value="Update" readonly />
+		   <?php if(!empty($inventoryconsumptionid)){?>
+				<input type="hidden" name="inventoryconsumptionid" value="<?=isset($inventoryconsumptionid)?$inventoryconsumptionid:''?>" readonly />
 		   <?php } ?>
            <?php if(!empty($campaignid)){?>
 				<input type="hidden" name="campaignid" value="<?=$campaignid?>" readonly />

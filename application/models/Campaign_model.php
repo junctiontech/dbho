@@ -45,7 +45,7 @@ class Campaign_model extends CI_Model
 							 'CarryForward'=>$plancarryforwrd);
 				$db2->insert('dbho_campaignplan',$data2);
 				
-				if($inventoryduration>1){
+			/*	if($inventoryduration>1){
 					
 					for($k=0;$k<=$inventoryduration-1;$k++){
 					if($k==0){
@@ -70,7 +70,7 @@ class Campaign_model extends CI_Model
 							 'campaignid'=>$last_id,
 							 'date'=>$datess);
 				$db2->insert('dbho_planinventoryconsumptiondates',$data3);
-				}
+				}*/
 				
 			}
 	}

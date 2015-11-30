@@ -17,11 +17,19 @@ class Inventory extends CI_Controller {
 // Inventory Started Here.................................................................................................................
 
 /*Inventory view Load Start.............................................................................................................*/
-	function index($inventoryid=FALSE)
+	function index($inventoryconsumptionid=FALSE,$campaignid=false)
 	{	
-		if(!empty($inventoryid)){
-			$this->data['inventoryid']=$inventoryid;
-			$filter=array('inventoryID'=>$inventoryid);
+		if(!empty($campaignid) && !empty($inventoryconsumptionid)){
+			
+			$this->data['campaigninventoryid']=$inventoryconsumptionid;
+			$this->data['campaignid']=$campaignid;
+			
+			$filter=array('campaignID'=>$campaignid,'inventoryID'=>$inventoryconsumptionid);
+			$this->data['inventoryupdate']=$this->inventory_model->select_for_update('dbho_campaigninventory',$filter);
+			
+		}elseif(!empty($inventoryconsumptionid)){
+			$this->data['inventoryconsumptionid']=$inventoryconsumptionid;
+			$filter=array('planinventoryconsumptionID'=>$inventoryconsumptionid);
 			$this->data['inventoryupdate']=$this->inventory_model->select_for_update('dbho_planinventoryconsumption',$filter);
 		}
 		
@@ -80,14 +88,14 @@ class Inventory extends CI_Controller {
 			$date=date("Y-m-d h:i:s");
 			if(!empty($type) && !empty($user_id) && !empty($inventoryid) && !empty($city_id) && !empty($project_id)  && !empty($start_date) && !empty($duration) && !empty($weightage) && !empty($remark) ){
 				
-				if(empty($this->input->post('Update'))){
+				if(empty($this->input->post('inventoryconsumptionid'))){
 					
 			$filter=array('inventoryID'=>$inventoryid);
 			$inventory_details=$this->inventory_model->check('dbho_inventorymaster',$filter);
 			
 			if(!empty($inventory_details)){
 				
-				$filter1=array('inventoryID'=>$inventoryid);
+				/*$filter1=array('inventoryID'=>$inventoryid);
 				$inventory_consumption=$this->inventory_model->check('dbho_planinventoryconsumption',$filter1);
 				
 				if(!empty($inventory_consumption)){
@@ -103,7 +111,7 @@ class Inventory extends CI_Controller {
 					}
 					
 					}
-				}
+				}*/
 				
 				$datess="";
 				if($duration>1){
@@ -117,35 +125,46 @@ class Inventory extends CI_Controller {
 					$add=$newdates[1]+$k;
 					$datess.="'$newdates[0]/$add/$newdates[2]'";
 						}
-					if($duration>$k){
-						$datess.=",";
-					}
-					}
-				}else{
-					$datess="'$start_date'";
-				}
-				
-				$inventory_availablity=$this->inventory_model->inventory_availablity($inventoryid,$datess);
-				
-				if(!empty($inventory_availablity)){
-					
-					if($duration >= count($inventory_availablity)){
 						
-						$i=1;
-						foreach($inventory_availablity as $inventory_availablity){
-							$dates.=$inventory_availablity->date;
-							if(count($inventory_availablity)-1>=$i){
-								$dates.=",";
-							}
-							$i++;
-						}
-						$free=$duration-count($inventory_availablity);
+						$inventory_availablity=$this->inventory_model->inventory_availablity($inventoryid,$datess);
+						
+						if(!empty($inventory_availablity)){
+					
+					if(count($inventory_availablity) >= $inventory_details[0]->MaximumQuantity){
+						
+						$dates=$inventory_availablity[0]->date;
+							
+						
 					$this->session->set_flashdata('message_type', 'error');
 					$this->session->set_flashdata('message', $this->config->item("index")."This Inventory is Already Booked For $dates, Please Choose DIfferent Date. !!");
 					redirect('Inventory');
 					}
 					
 				}
+					
+					}
+				}else{
+					$datess="'$start_date'";
+					$inventory_availablity=$this->inventory_model->inventory_availablity($inventoryid,$datess);
+					if(!empty($inventory_availablity)){
+					
+					if(count($inventory_availablity) >= $inventory_details[0]->MaximumQuantity){
+						
+						$dates=$inventory_availablity[0]->date;
+							
+						
+					$this->session->set_flashdata('message_type', 'error');
+					$this->session->set_flashdata('message', $this->config->item("index")."This Inventory is Already Booked For $dates, Please Choose DIfferent Date. !!");
+					redirect('Inventory');
+					}
+					
+				}
+					
+				}
+				
+				
+				
+				
 				
 			}else{
 					$this->session->set_flashdata('message_type', 'error');
@@ -153,9 +172,9 @@ class Inventory extends CI_Controller {
 					redirect('Inventory');
 			}
 			}
-				if(!empty($this->input->post('Update'))){
+				if(!empty($this->input->post('inventoryconsumptionid'))){
 						
-							$filter=array('inventoryID'=>$inventoryid);
+							$filter=array('inventoryID'=>$this->input->post('inventoryconsumptionid'));
 							$this->inventory_model->insert_userplan($type,$user_id,$inventoryid,$city_id,$project_id,$image,$start_date,$duration,$weightage,$remark,$campaignid,$date,$filter);
 							$this->session->set_flashdata('message_type', 'success');
 							$this->session->set_flashdata('message', $this->config->item("index")." Inventory Updated Successfully!!");
