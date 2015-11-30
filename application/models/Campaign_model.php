@@ -131,7 +131,8 @@ class Campaign_model extends CI_Model
 									dbho_campaignmaster.userID=rp_users.userID and 
 									rp_users.userID=rp_user_details.userID and
 									dbho_campaignmaster.campaignID=dbho_campaigninventory.campaignID and
-									dbho_campaignmaster.campaignID=dbho_campaignplan.campaignID");
+									dbho_campaignmaster.campaignID=dbho_campaignplan.campaignID and
+									rp_user_details.languageID='1'");
 		//echo $db2->last_query();die;									
 			return $qry->Result();	
 	}
