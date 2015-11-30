@@ -56,7 +56,7 @@ class Campaign extends CI_Controller {
 			$planamount=$data['planamount'][$z];
 			$plancarryforwrd=$data['plancarryforwrd'][$z];
 			
-			if(!empty($campaignstartdate) && !empty($user_id) && !empty($inventoryid) && !empty($cityid) && !empty($inventoryquantity) && !empty($inventoryduration) && !empty($inventoryamount) && !empty($planid) && !empty($planquantity) && !empty($planduration) && !empty($planamount) && !empty($plancarryforwrd)){
+			if(!empty($campaignstartdate) && !empty($user_id) && !empty($inventoryid) && !empty($cityid) && !empty($inventoryquantity) && !empty($inventoryduration) && !empty($inventoryamount) && !empty($planid) && !empty($planquantity) && !empty($planduration) && !empty($planamount) ){
 			
 			$filter=array('inventoryID'=>$inventoryid);
 			$inventory_details=$this->campaign_model->check('dbho_inventorymaster',$filter);

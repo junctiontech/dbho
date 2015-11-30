@@ -29,6 +29,29 @@ class Utilities extends CI_Controller {
 		return $qry->Result();
 	}
 	
+	function get_usertype($userid=false)
+	{	
+		$CI = & get_instance();
+		$db2 = $CI->load->database('both', TRUE);
+			$qry = $db2->query("select rp_user_types.userTypeID,userTypeName from homeonline.rp_users,homeonline.rp_user_types,homeonline.rp_user_type_details where
+									rp_users.userID='$userid' and 
+									rp_users.userTypeID=rp_user_types.userTypeID and
+									rp_user_types.userTypeID=rp_user_type_details.userTypeID and
+									userTypeStatus='Active' and
+									rp_user_type_details.languageID='1'");
+		return $qry->Result();
+	}
+	
+	function get_planbyusertype($usertypeid=false)
+	{	
+		$CI = & get_instance();
+		$db2 = $CI->load->database('both', TRUE);
+			$qry = $db2->query("select rp_user_plans.planID,planTitle from homeonline.rp_user_plans,homeonline.rp_user_plan_details where
+									rp_user_plans.userTypeID='$usertypeid' and
+									rp_user_plans.planID=rp_user_plan_details.planID and rp_user_plan_details.languageID='1'");
+		return $qry->Result();
+	}
+	
 	
 	
 	

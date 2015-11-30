@@ -13,4 +13,35 @@ function get_planpriority(plantypeid)
 		return false;
 }
 
+function get_usertype(userid)
+{
+	$.ajax({
+				type: "POST",
+				url : base_url+'common_functions/get_usertype',
+				data: {userid: userid  },
+			})	
+				.done(function(msg){
+					document.getElementById('user_type').value=msg;
+					return false;	
+				});
+		
+		return false;
+}
 
+
+function get_plans(userid)
+{
+	if(userid){
+	$.ajax({
+				type: "POST",
+				url : base_url+'common_functions/get_planbyusertype',
+				data: {userid: userid  },
+			})	
+				.done(function(msg){
+					$('#user_plans').html(msg);
+					return false;	
+				});
+		
+		return false;
+}
+}

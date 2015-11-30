@@ -26,6 +26,32 @@ class Common_functions extends CI_Controller {
 		print_r($planpriority[0]->Priority);
 	}
 	
+	public function get_usertype()
+	{
+		$userid = $this->input->post('userid');
+		
+		$user_type = $this->utilities->get_usertype($userid);
+		print_r($user_type[0]->userTypeName);
+	}
+	
+	public function get_planbyusertype()
+	{
+		$userid = $this->input->post('userid');
+		if(!empty($userid)){
+		$user_type = $this->utilities->get_usertype($userid);
+		$usertypeid=$user_type[0]->userTypeID;
+		$user_typeplan = $this->utilities->get_planbyusertype($usertypeid);
+		
+		echo"<select required name='planid[]' class='select2_group form-control'>"; 
+		echo "<option value=''>Select Plan</option>";
+		foreach($user_typeplan as $plan1){
+		echo "<option value=".$plan1->planID.">$plan1->planTitle";
+		echo "</option>";
+		}
+		echo"</select>";
+		}
+	}
+	
 	 
 }	
 ?>

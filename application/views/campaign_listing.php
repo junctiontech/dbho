@@ -215,11 +215,11 @@
 				<!-- Alert section For Message-->
 		 <?php  if($this->session->flashdata('message_type')=='success') { ?>
 		  <div class="alert alert-success alert-dismissible fade in" role="alert">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">Ã—</span> </button>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span> </button>
                 <strong><?=$this->session->flashdata('message')?></strong>  </div>
 		 <?php } if($this->session->flashdata('message_type')=='error') { ?>
 		 <div class="alert alert-danger alert-dismissible fade in" role="alert">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">Ã—</span> </button>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span> </button>
                 <strong><?=$this->session->flashdata('message')?></strong>  </div>
 		 <?php } if($this->session->flashdata('category_error')) { ?>
 <div class="row" >
