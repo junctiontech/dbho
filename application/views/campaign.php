@@ -247,7 +247,7 @@
                     </div></td>
                       <td>
                       <div class="form-group col-xs-12 col-sm-6">
-                      <input required name="inventoryamount[]" type="text" placeholder="Amount" class="form-control">
+                      <input required id="cal_amount" name="inventoryamount[]" type="text" placeholder="Amount" class="form-control">
                     </div>
                       </td>
                       
@@ -304,7 +304,7 @@
                     </div></td>
                       <td><input required name="planquantity[]" type="text" placeholder="Type Quantity" class="form-control"></td>
                       <td><input required name="planduration[]" type="text" placeholder="Type Duration" class="form-control"></td>
-                      <td><input required name="planamount[]" type="text" placeholder="Amount" class="form-control"></td>
+                      <td><input id="cal_amount" required name="planamount[]" type="text" placeholder="Amount" class="form-control"></td>
                       <td><input name="plancarryforwrd[]" type="text" placeholder="Carray Forword" class="form-control"></td>
                       <td>12/17/2015</td>
                       <td>12/17/2014</td>
@@ -320,7 +320,7 @@
                 <div class="clearfix"></div>
           
                <div class="valusho pull-left"> <button class="btn btn-info btn-lg" type="submit" name="submit" value="submit">Create</button></div>
-              <div class="valusho pull-right"> <h5> Compaign Amount :  Rs 335090 </h5></div>
+              <div class="valusho pull-right"> <h5> Compaign Amount :  Rs <input id="total_amount" name="" type="text" placeholder="Total Amount" class="form-control"> </h5></div>
               
            </form>
                   
