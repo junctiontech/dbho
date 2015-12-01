@@ -186,7 +186,7 @@
                     <div class="form-group col-xs-12 col-sm-3">
                       <label class="control-label" for="last-name">User Type <span class="required">*</span> </label>
                       
-					   <input id="user_type" readonly name="campaignstartdate"   value="" type="text" class="form-control has-feedback-left" >
+					   <input id="user_type" readonly name=""   value="" type="text" class="form-control has-feedback-left" >
                     </div>
                    
                     <!--<div class="form-group col-xs-12 col-sm-3 martop20">
@@ -221,7 +221,7 @@
                   <tbody>
                     <tr>
                     <td><div class="form-group col-xs-12 col-sm-12">
-                      <select required name="inventoryid[]" class="select2_group form-control">
+                      <select required name="inventoryid[]" class="select2_group form-control" onchange="getcityforinventory(this.value);">
                         <option value="">Select Inventory</option>
                         <?php foreach($inventory as $inventory1){?>
                         <option value="<?=isset($inventory1->inventoryID)?$inventory1->inventoryID:''?>"><?=isset($inventory1->inventoryDescription)?$inventory1->inventoryDescription:''?></option>
@@ -230,7 +230,7 @@
                       </select>
                     </div></td>
                       <td>
-                      <div class="form-group col-xs-12 col-sm-12">
+                      <div id="inventorycity" class="form-group col-xs-12 col-sm-12">
                       <select required name="cityid[]" class="select2_group form-control">
                         <option value="">Select City</option>
                         <?php foreach($cities as $cities1){?>
@@ -620,7 +620,10 @@
 
 function displayResult()
 {
-document.getElementById("myTable").insertRow(-1).innerHTML = '<td><div class="form-group col-xs-12 col-sm-12"><select required name="inventoryid[]" class="select2_group form-control">  <option value="">Select Inventory</option><?php foreach($inventory as $inventory1){?><option value="<?=isset($inventory1->inventoryID)?$inventory1->inventoryID:''?>"><?=isset($inventory1->inventoryDescription)?$inventory1->inventoryDescription:''?></option><?php } ?> </select></div></td><td><div class="form-group col-xs-12 col-sm-12"><select required name="cityid[]" class="select2_group form-control"> <option value="">Select City</option><?php foreach($cities as $cities1){?> <option value="<?=isset($cities1->cityID)?$cities1->cityID:''?>"><?=isset($cities1->cityName)?$cities1->cityName:''?></option><?php } ?></select></div></td><td> <div class="form-group col-xs-12 col-sm-6"> <input required name="inventoryquantity[]" type="text" placeholder="" class="form-control"></div></td> <td><div class="form-group col-xs-12 col-sm-6"><input required name="inventoryduration[]" type="text" placeholder="" class="form-control"></div></td><td> <div class="form-group col-xs-12 col-sm-6"><input required name="inventoryamount[]" type="text" placeholder="" class="form-control"></div> </td><td><p>Remove</p></td>';
+	
+	if(document.getElementById("inventorycity") != null) {
+	document.getElementById("inventorycity").setAttribute("id","old_inventorycity");}
+document.getElementById("myTable").insertRow(-1).innerHTML = '<td><div  class="form-group col-xs-12 col-sm-12"><select onchange="getcityforinventory(this.value);" required name="inventoryid[]" class="select2_group form-control">  <option value="">Select Inventory</option><?php foreach($inventory as $inventory1){?><option value="<?=isset($inventory1->inventoryID)?$inventory1->inventoryID:''?>"><?=isset($inventory1->inventoryDescription)?$inventory1->inventoryDescription:''?></option><?php } ?> </select></div></td><td><div id="inventorycity" class="form-group col-xs-12 col-sm-12"><select required name="cityid[]" class="select2_group form-control"> <option value="">Select City</option><?php foreach($cities as $cities1){?> <option value="<?=isset($cities1->cityID)?$cities1->cityID:''?>"><?=isset($cities1->cityName)?$cities1->cityName:''?></option><?php } ?></select></div></td><td> <div class="form-group col-xs-12 col-sm-6"> <input required name="inventoryquantity[]" type="text" placeholder="" class="form-control"></div></td> <td><div class="form-group col-xs-12 col-sm-6"><input required name="inventoryduration[]" type="text" placeholder="" class="form-control"></div></td><td> <div class="form-group col-xs-12 col-sm-6"><input required name="inventoryamount[]" type="text" placeholder="" class="form-control"></div> </td><td><p>Remove</p></td>';
 }
 $('#myTable').on('click','td p',function(){
 $(this).closest('tr').remove();
@@ -635,7 +638,9 @@ $(this).closest('tr').remove();
 
 function displayResult1()
 {
+	if(document.getElementById("user_plans") != null) {
 	document.getElementById("user_plans").setAttribute("id","old_user_plans");
+}
 document.getElementById("myTable1").insertRow(-1).innerHTML = '<td><div id="user_plans" class="form-group col-xs-12 "><select required name="planid[]" class="select2_group form-control"> <option value=""> Select Plan</option><?php foreach($plan as $plan1){?><option value="<?=isset($plan1->planID)?$plan1->planID:''?>"><?=isset($plan1->planTitle)?$plan1->planTitle:''?></option><?php } ?> </select> </div></td><td><input required name="planquantity[]" type="text" placeholder="" class="form-control"></td> <td><input required name="planduration[]" type="text" placeholder="" class="form-control"></td> <td><input required name="planamount[]" type="text" placeholder="" class="form-control"></td> <td><input name="plancarryforwrd[]" type="text" placeholder="" class="form-control"></td> <td>12/17/2015</td> <td>12/17/2014</td><td><p>Remove</p></td>';
 }
 $('#myTable1').on('click','td p',function(){

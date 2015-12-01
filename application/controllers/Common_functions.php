@@ -52,6 +52,28 @@ class Common_functions extends CI_Controller {
 		}
 	}
 	
+	public function getcityforinventory()
+	{
+		$inventoryid = $this->input->post('inventoryid');
+		if(!empty($inventoryid)){
+			
+			$cityid = $this->utilities->getcityidforinventory($inventoryid);
+			
+		if(!empty($cityid[0]->City)){
+				
+			$inventorycity = $this->utilities->getcityforinventory($cityid[0]->City);
+			echo"<select required name='cityid[]' class='select2_group form-control'>"; 
+			echo "<option value=''>Select Plan</option>";
+			foreach($inventorycity as $inventorycitys){
+			echo "<option selected value=".$inventorycitys->cityID.">$inventorycitys->cityName";
+			echo "</option>";
+			}
+			echo"</select>";
+		}
+		
+		}
+	}
+	
 	 
 }	
 ?>

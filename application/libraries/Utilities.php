@@ -52,6 +52,25 @@ class Utilities extends CI_Controller {
 		return $qry->Result();
 	}
 	
+	function getcityidforinventory($inventoryid=false)
+	{	
+		$CI = & get_instance();
+		$db2 = $CI->load->database('both', TRUE);
+			$qry = $db2->query("select City from dbho_inventorymaster where
+									inventoryID='$inventoryid'");
+		return $qry->Result();
+	}
+	
+	function getcityforinventory($cityid=false)
+	{	
+		$CI = & get_instance();
+		
+			$qry = $CI->db->query("select rp_cities.cityID,cityName from rp_cities,rp_city_details where
+									rp_cities.cityID= '$cityid' and 
+									rp_cities.cityID=rp_city_details.cityID and rp_city_details.languageID='1'");
+		return $qry->Result();
+	}
+	
 	
 	
 	

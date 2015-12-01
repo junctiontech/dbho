@@ -45,3 +45,23 @@ function get_plans(userid)
 		return false;
 }
 }
+
+
+function getcityforinventory(inventoryid)
+{
+	if(inventoryid){
+	$.ajax({
+				type: "POST",
+				url : base_url+'common_functions/getcityforinventory',
+				data: {inventoryid: inventoryid  },
+			})	
+				.done(function(msg){
+					if(msg !=''){
+					$('#inventorycity').html(msg);
+					}
+					return false;	
+				});
+		
+		return false;
+}
+}

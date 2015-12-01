@@ -15,7 +15,7 @@ class Campaign_model extends CI_Model
 		$this->load->database();
 	}
 	
-	function insert_campaign($campaignstartdate=false,$user_id=false,$inventoryid=false,$cityid=false,$inventoryquantity=false,$inventoryduration=false,$inventoryamount=false,$planid=false,$planquantity=false,$planduration=false,$planamount=false,$plancarryforwrd=false,$date=false,$filter=false)
+	function insert_campaign_only($campaignstartdate=false,$user_id=false,$filter=false)
    {	
 		$db2 = $this->load->database('both', TRUE);
 		 if($filter){
@@ -28,6 +28,20 @@ class Campaign_model extends CI_Model
 							'startDate'=>$campaignstartdate);
 				$db2->insert('dbho_campaignmaster',$data);
 				$last_id = $db2->insert_id();
+				return($last_id);
+			}
+	}
+	
+	function insert_campaign($last_id=false,$inventoryid=false,$cityid=false,$inventoryquantity=false,$inventoryduration=false,$inventoryamount=false,$planid=false,$planquantity=false,$planduration=false,$planamount=false,$plancarryforwrd=false,$date=false,$filter=false)
+   {	
+		$db2 = $this->load->database('both', TRUE);
+		 if($filter){
+			 
+				$db2->where($filter);
+				$db2->update($table,$data);
+				
+		}else{
+				
 				$data1=array('campaignID'=>$last_id,
 							 'inventoryID'=>$inventoryid,
 							 'quantity'=>$inventoryquantity,
@@ -45,32 +59,7 @@ class Campaign_model extends CI_Model
 							 'CarryForward'=>$plancarryforwrd);
 				$db2->insert('dbho_campaignplan',$data2);
 				
-			/*	if($inventoryduration>1){
-					
-					for($k=0;$k<=$inventoryduration-1;$k++){
-					if($k==0){
-						$datess=$campaignstartdate;	
-						}else{
-							
-					$newdates=explode("/",$campaignstartdate);
-					$add=$newdates[1]+$k;
-					$datess="$newdates[0]/$add/$newdates[2]";
-						}
-					$data3=array('inventoryID'=>$inventoryid,
-							 'userID'=>$user_id,
-							 'campaignid'=>$last_id,
-							 'date'=>$datess);
-					$db2->insert('dbho_planinventoryconsumptiondates',$data3);
-					
-					}
-				}else{
-					$datess=$campaignstartdate;
-					$data3=array('inventoryID'=>$inventoryid,
-							 'userID'=>$user_id,
-							 'campaignid'=>$last_id,
-							 'date'=>$datess);
-				$db2->insert('dbho_planinventoryconsumptiondates',$data3);
-				}*/
+			
 				
 			}
 	}
@@ -127,12 +116,12 @@ class Campaign_model extends CI_Model
 	
 	function get_campaignlist()
 	{		$db2 = $this->load->database('both', TRUE);
-			$qry = $db2->query("select dbho_campaignmaster.campaignID,userCompanyName,userEmail,userPhone,startDate,dbho_campaignmaster.created, dbho_campaigninventory.amount+dbho_campaignplan.Amount as amount from dbho_campaignmaster,homeonline.rp_users,homeonline.rp_user_details,dbho_campaigninventory,dbho_campaignplan where
+			$qry = $db2->query("select dbho_campaignmaster.campaignID,userCompanyName,userEmail,userPhone,startDate,dbho_campaignmaster.created, sum(dbho_campaigninventory.amount) + sum(dbho_campaignplan.Amount) as amount from dbho_campaignmaster,homeonline.rp_users,homeonline.rp_user_details,dbho_campaigninventory,dbho_campaignplan where
 									dbho_campaignmaster.userID=rp_users.userID and 
 									rp_users.userID=rp_user_details.userID and
 									dbho_campaignmaster.campaignID=dbho_campaigninventory.campaignID and
 									dbho_campaignmaster.campaignID=dbho_campaignplan.campaignID and
-									rp_user_details.languageID='1'");
+									rp_user_details.languageID='1' GROUP BY campaignID");
 		//echo $db2->last_query();die;									
 			return $qry->Result();	
 	}
