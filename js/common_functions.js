@@ -74,8 +74,8 @@ $(document).ready(function(){
                 calculateSum();
             });
         });
- 
-    });
+		
+	 });
  
     function calculateSum() {
  
