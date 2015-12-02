@@ -156,5 +156,35 @@ class Inventory_model extends CI_Model
 									date in ($date)");
 			return $qry->Result();	
 	}
+	
+	function get_inventorytypelist()
+	{		
+			$db2 = $this->load->database('both', TRUE);
+			$qry = $db2->query("select dbho_inventorymaster.inventoryID,inventoryDescription,days,MaximumQuantity,OverdrawingAllowed,cityName from dbho_inventorymaster,dbho_inventorydescription,homeonline.rp_city_details where
+									dbho_inventorymaster.inventoryID=dbho_inventorydescription.inventoryID and 
+									dbho_inventorymaster.City=rp_city_details.cityID and 
+									rp_city_details.languageID='1' and
+									dbho_inventorydescription.LanguageID='1'");
+			return $qry->Result();	
+	}
+	
+	function insert_addinventorytype($inventoryname=false,$inventoryunit=false,$maxquantity=false,$overdrawingallow=false,$city_id=false,$filter=false)
+   {	
+			$db2 = $this->load->database('both', TRUE);
+		 if($filter)
+		 {
+				$data=array('days'=>$inventoryunit,'MaximumQuantity'=>$maxquantity,'OverdrawingAllowed'=>$overdrawingallow,'City'=>$city_id);
+				$db2->where($filter);
+				$db2->update('dbho_inventorymaster',$data);
+		}else
+		{
+			
+				$data=array('days'=>$inventoryunit,'MaximumQuantity'=>$maxquantity,'OverdrawingAllowed'=>$overdrawingallow,'City'=>$city_id);
+				$db2->insert('dbho_inventorymaster',$data);
+				$last_id = $db2->insert_id();
+				$data2=array('inventoryID'=>$last_id,'LanguageID'=>'1','inventoryDescription'=>$inventoryname);
+				$db2->insert('dbho_inventorydescription',$data2);
+		}
+	}
 		
 }

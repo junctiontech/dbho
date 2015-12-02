@@ -88,5 +88,51 @@ class Manage_user_plan extends CI_Controller {
 	
 /*Manage_user_plan create insert and update End .........................................................................................*/
 
+/*Add Plan Type view Load Start.............................................................................................................*/
+	function AddPlanType()
+	{	
+		$this->data['plantypelist']=$this->manage_user_plan_model->get_plantypelist();
+		$this->load->view('addplantype',$this->data);
+	}
+/*Add Plan Type view Load End.............................................................................................................*/
+
+/*Add Plan Type Modal view Load Start.............................................................................................................*/
+	function Addplantypemodal()
+	{	
+		$this->load->view('addplantypemodal',$this->data);
+	}
+/*Add Plan Type Modal view Load End.............................................................................................................*/
+
+/*Add Plan Type Insert Into Db Start.............................................................................................................*/
+	function Insertplantype()
+	{	
+		if(!empty($this->input->post('submit'))){
+			
+			$plantitle=$this->input->post('plantitle');
+			$planpriority=$this->input->post('planpriority');
+			
+			
+				if(!empty($plantitle) && !empty($planpriority)){
+					
+					$this->manage_user_plan_model->insert_plantype($plantitle,$planpriority);
+					$this->session->set_flashdata('message_type', 'success');
+					$this->session->set_flashdata('message', $this->config->item("index")." Plan Type Added Successfully!!");
+					
+				}else{
+					$this->session->set_flashdata('message_type', 'error');
+					$this->session->set_flashdata('message', $this->config->item("index")." All Fields Are Mendatory!!");
+					redirect('manage_user_plan/AddPlanType');
+				}
+			
+		}else{
+			
+			$this->session->set_flashdata('message_type', 'error');
+			$this->session->set_flashdata('message', $this->config->item("index")." Invalid Request!!");
+		}
+		
+			redirect('manage_user_plan/AddPlanType');
+	}
+/*Add Plan Type Insert Into Db End.............................................................................................................*/
+
 		
 }

@@ -62,14 +62,15 @@
         <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
               <div class="menu_section">
             <h3>General</h3>
-            <ul class="nav side-menu">
-                 
-               <li><a href="<?=base_url();?>"><i class="fa fa-user"></i> Manage Usar Plan </a></li>
+           <ul class="nav side-menu">
+				<li><a href="<?=base_url();?>Manage_user_plan/AddPlanType"><i class="fa fa-user"></i>Add Plan Type</a></li>
+              <li><a href="<?=base_url();?>"><i class="fa fa-user"></i> Manage Usar Plan </a></li>
                <li><a href="<?=base_url();?>Inventory"><i class="fa fa-user"></i> Inventory </a></li>
+			   <li><a href="<?=base_url();?>Inventory/AddInventoryType"><i class="fa fa-user"></i>Add Inventory Type</a></li>
 			   <li><a href="<?=base_url();?>Inventory/Inventory_listing"><i class="fa fa-user"></i> Inventory Listing </a></li>
                <li><a href="<?=base_url();?>Campaign"><i class="fa fa-edit"></i> Creat Campaign </a></li>
-               <li><a href="<?=base_url();?>Campaign/Campaign_listing"><i class="fa fa-edit"></i> Campaign Listing</a></li>
-                </ul>
+			    <li><a href="<?=base_url();?>Campaign/Campaign_listing"><i class="fa fa-edit"></i> Campaign Listing</a></li>
+            </ul>
           </div>
               
             </div>

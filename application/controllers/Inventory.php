@@ -275,6 +275,56 @@ class Inventory extends CI_Controller {
 		$this->load->view('inventory_listing',$this->data);
 	}
 /*Inventory_listing view Load End.............................................................................................................*/
+
+/*Add Inventory Type view Load Start.............................................................................................................*/
+	function AddInventoryType()
+	{	
+		
+		$this->data['inventorytypelist']=$this->inventory_model->get_inventorytypelist();
+		$this->load->view('addinventorytype',$this->data);
+	}
+/*Add Inventory Type view Load End.............................................................................................................*/
 	
+/*Add Inventory Type Modal view Load Start.............................................................................................................*/
+	function loadmodal()
+	{	
+		$this->data['cities']=$this->inventory_model->get_city();
+		$this->load->view('addinventorytypemodal',$this->data);
+	}
+/*Add Inventory Type Modal view Load End.............................................................................................................*/
+
+/*Add Inventory Type Insert Into Db Start.............................................................................................................*/
+	function Insertinventorytype()
+	{	
+		if(!empty($this->input->post('submit'))){
+			
+			$inventoryname=$this->input->post('inventoryname');
+			$inventoryunit=$this->input->post('inventoryunit');
+			$maxquantity=$this->input->post('maxquantity');
+			$overdrawingallow=$this->input->post('overdrawingallow');
+			$city_id=$this->input->post('city_id');
+			
+				if(!empty($inventoryname) && !empty($inventoryunit) && !empty($maxquantity) && !empty($overdrawingallow) && !empty($city_id)){
+					
+					$this->inventory_model->insert_addinventorytype($inventoryname,$inventoryunit,$maxquantity,$overdrawingallow,$city_id);
+					$this->session->set_flashdata('message_type', 'success');
+					$this->session->set_flashdata('message', $this->config->item("index")." Inventory Type Added Successfully!!");
+					
+				}else{
+					$this->session->set_flashdata('message_type', 'error');
+					$this->session->set_flashdata('message', $this->config->item("index")." All Fields Are Mendatory!!");
+					redirect('Inventory/AddInventoryType');
+				}
+			
+		}else{
+			
+			$this->session->set_flashdata('message_type', 'error');
+			$this->session->set_flashdata('message', $this->config->item("index")." Invalid Request!!");
+		}
+		
+			redirect('Inventory/AddInventoryType');
+	}
+/*Add Inventory Type Insert Into Db End.............................................................................................................*/
+
 		
 }

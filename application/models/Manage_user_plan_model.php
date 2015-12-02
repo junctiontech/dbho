@@ -94,5 +94,25 @@ class Manage_user_plan_model extends CI_Model
 			return $qry->Result();	
 	}
 	
+	function get_plantypelist()
+	{
+			$db2 = $this->load->database('both', TRUE);
+			$qry = $db2->query("select * from db_plantype ");	
+			return $qry->Result();	
+	}
+	
+	function insert_plantype($plantitle=false,$planpriority=false,$filter=false)
+   {	$db2 = $this->load->database('both', TRUE);
+		 if($filter){
+			 
+				$data=array('planTypeTitle'=>$plantitle,'Priority'=>$planpriority);
+				$db2->where($filter);
+				$db2->update('db_plantype',$data);
+				
+		}else{
+				$data=array('planTypeTitle'=>$plantitle,'Priority'=>$planpriority);
+				$db2->insert('db_plantype',$data);
+			}
+	}
 		
 }
