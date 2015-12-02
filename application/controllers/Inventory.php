@@ -18,32 +18,33 @@ class Inventory extends CI_Controller {
 // Inventory Started Here.................................................................................................................
 
 /*Inventory view Load Start.............................................................................................................*/
+
 	function index($inventoryconsumptionid=FALSE,$campaignid=false)
 	{	
 		if(!empty($campaignid) && !empty($inventoryconsumptionid)){
 			
 			$this->data['campaigninventoryid']=$inventoryconsumptionid;
 			$this->data['campaignid']=$campaignid;
-			
 			$this->data['campaigndetails']=$this->inventory_model->get_campaigninventory($campaignid,$inventoryconsumptionid);
-			//print_r($this->data['campaigndetails']);die;
 			
-		}elseif(!empty($inventoryconsumptionid)){
+		}elseif(!empty($inventoryconsumptionid))
+		{
 			$this->data['inventoryconsumptionid']=$inventoryconsumptionid;
 			$filter=array('planinventoryconsumptionID'=>$inventoryconsumptionid);
 			$this->data['inventoryupdate']=$this->inventory_model->select_for_update('dbho_planinventoryconsumption',$filter);
 		}
 		
-		$this->data['inventory']=$this->inventory_model->get_inventory();
-		$this->data['company_name']=$this->inventory_model->get_company_name();
-		$this->data['cities']=$this->inventory_model->get_city();
-		$this->data['projects']=$this->inventory_model->get_project();
-		
-		$this->load->view('inventory',$this->data);
+			$this->data['inventory']=$this->inventory_model->get_inventory();
+			$this->data['company_name']=$this->inventory_model->get_company_name();
+			$this->data['cities']=$this->inventory_model->get_city();
+			$this->data['projects']=$this->inventory_model->get_project();
+			$this->load->view('inventory',$this->data);
 	}
+	
 /*Inventory view Load End.............................................................................................................*/
 	
 /*Inventory create insert and update start .........................................................................................*/
+
 	function Add_inventory()
 	{	
 		if(!empty($this->input->post('submit')))
@@ -59,244 +60,320 @@ class Inventory extends CI_Controller {
 			$weightage=$this->input->post('weightage');
 			$remark=$this->input->post('remark');
 			
-			if($_FILES['file']['name']!=''){
-			$data['image_z1']= $_FILES['file']['name'];
-			 
-			$image=sha1($_FILES['file']['name']).time().rand(0, 9);
-			if(!empty($_FILES['file']['name'])){
+				if($_FILES['file']['name']!='')
+				{
+					$data['image_z1']= $_FILES['file']['name'];
+					$image=sha1($_FILES['file']['name']).time().rand(0, 9);
 				
-				$config =  array(
+					if(!empty($_FILES['file']['name']))
+					{
+				
+						$config =  array(
 						'upload_path'	  => './upload_banner/',
 						'file_name'       => $image,
 						'allowed_types'   => "gif|jpg|png|jpeg|JPG|JPEG|PNG|JPG",
 						'overwrite'       => true);
-				$this->upload->initialize($config);
-				$this->load->library('upload');
+						
+							$this->upload->initialize($config);
+							$this->load->library('upload');
 				 
-				if($this->upload->do_upload("file")){
+								if($this->upload->do_upload("file"))
+								{
 					
-					$upload_data = $this->upload->data();
-					$image=$upload_data['file_name'];
+									$upload_data = $this->upload->data();
+									$image=$upload_data['file_name'];
+								}else
+								{
+										$this->upload->display_errors()."file upload failed";
+										$image    ="";
+								}
+					}
 				}
-				else
-				{
-					$this->upload->display_errors()."file upload failed";
-					$image    ="";
-				}}}
 				
 			date_default_timezone_set("Asia/Kolkata");
 			$date=date("Y-m-d h:i:s");
-			if(!empty($type) && !empty($user_id) && !empty($inventoryid) && !empty($city_id) && !empty($project_id)  && !empty($start_date) && !empty($duration) && !empty($weightage) && !empty($remark) ){
+			
+				if(!empty($type) && !empty($user_id) && !empty($inventoryid) && !empty($city_id) && !empty($project_id)  && !empty($start_date) && !empty($duration) && !empty($weightage) && !empty($remark) )
+				{
 				
-				if(empty($this->input->post('inventoryconsumptionid'))){
+					if(empty($this->input->post('inventoryconsumptionid')))
+					{
 					
-					if(!empty($campaignid)){
+						if(!empty($campaignid))
+						{
 						
-						$campaigninventorydetails=$this->inventory_model->get_campaigninventorydetails($campaignid,$user_id,$inventoryid);
+							$campaigninventorydetails=$this->inventory_model->get_campaigninventorydetails($campaignid,$user_id,$inventoryid);
 						
-						if(!empty($campaigninventorydetails)){
+								if(!empty($campaigninventorydetails))
+								{
 						
-						$datess="";
-				if($duration>1){
+									$datess="";
+									
+										if($duration>1)
+										{
 					
-					for($k=0;$k<=$duration;$k++){
-						if($k==0){
-						$datess.="'$start_date'";	
-						}else{
+											for($k=0;$k<=$duration;$k++)
+											{
+												if($k==0)
+												{
+													$datess.="'$start_date'";
+													
+												}else
+												{
 							
-					$newdates=explode("/",$start_date);
-					$add=$newdates[1]+$k;
-					$datess.="'$newdates[0]/$add/$newdates[2]'";
+													$newdates=explode("/",$start_date);
+													$add=$newdates[1]+$k;
+													$datess.="'$newdates[0]/$add/$newdates[2]'";
+													
+												}
+						
+													$inventory_availablity=$this->inventory_model->campaigninventory_availablity($inventoryid,$datess,$campaignid,$user_id);
+						
+														if(!empty($inventory_availablity))
+														{
+					
+															if(count($inventory_availablity) >= $campaigninventorydetails[0]->quantity)
+															{
+						
+																$dates=$inventory_availablity[0]->date;
+							
+						
+																	$this->session->set_flashdata('message_type', 'error');
+																	$this->session->set_flashdata('message', $this->config->item("index")."This Inventory is Already Booked For $dates, Please Choose DIfferent Date. !!");
+																	
+																	redirect('Inventory');
+															}
+					
+														}
+					
+											}
+										}else
+										{
+												$datess="'$start_date'";
+												
+												$inventory_availablity=$this->inventory_model->campaigninventory_availablity($inventoryid,$datess,$campaignid,$user_id);
+					
+													if(!empty($inventory_availablity))
+													{
+					
+														if(count($inventory_availablity) >= $campaigninventorydetails[0]->quantity)
+														{
+						
+															$dates=$inventory_availablity[0]->date;
+							
+															$this->session->set_flashdata('message_type', 'error');
+															$this->session->set_flashdata('message', $this->config->item("index")."This Inventory is Already Booked For $dates, Please Choose DIfferent Date. !!");
+															
+															redirect('Inventory');
+														}
+					
+													}
+					
+										}
+								}else
+								{
+						
+										$this->session->set_flashdata('message_type', 'error');
+										$this->session->set_flashdata('message', $this->config->item("index")." This Campaign Is Not Found!!");
+										
+										redirect('Inventory');
+						
+								}	
+						
 						}
-						
-						$inventory_availablity=$this->inventory_model->campaigninventory_availablity($inventoryid,$datess,$campaignid,$user_id);
-						
-						if(!empty($inventory_availablity)){
+						else
+						{
 					
-					if(count($inventory_availablity) >= $campaigninventorydetails[0]->quantity){
-						
-						$dates=$inventory_availablity[0]->date;
-							
-						
-					$this->session->set_flashdata('message_type', 'error');
-					$this->session->set_flashdata('message', $this->config->item("index")."This Inventory is Already Booked For $dates, Please Choose DIfferent Date. !!");
-					redirect('Inventory');
-					}
-					
-				}
-					
-					}
-				}else{
-					$datess="'$start_date'";
-					$inventory_availablity=$this->inventory_model->campaigninventory_availablity($inventoryid,$datess,$campaignid,$user_id);
-					if(!empty($inventory_availablity)){
-					
-					if(count($inventory_availablity) >= $campaigninventorydetails[0]->quantity){
-						
-						$dates=$inventory_availablity[0]->date;
-							
-						
-					$this->session->set_flashdata('message_type', 'error');
-					$this->session->set_flashdata('message', $this->config->item("index")."This Inventory is Already Booked For $dates, Please Choose DIfferent Date. !!");
-					redirect('Inventory');
-					}
-					
-				}
-					
-				}
-					}else{
-						
-						$this->session->set_flashdata('message_type', 'error');
-					$this->session->set_flashdata('message', $this->config->item("index")." This Campaign Is Not Found!!");
-					redirect('Inventory');
-						
-					}	
-						
-					}else{
-					
-			$filter=array('inventoryID'=>$inventoryid);
-			$inventory_details=$this->inventory_model->check('dbho_inventorymaster',$filter);
+							$filter=array('inventoryID'=>$inventoryid);
+							$inventory_details=$this->inventory_model->check('dbho_inventorymaster',$filter);
 			
-			if(!empty($inventory_details)){
+								if(!empty($inventory_details))
+								{
 				
-				/*$filter1=array('inventoryID'=>$inventoryid);
-				$inventory_consumption=$this->inventory_model->check('dbho_planinventoryconsumption',$filter1);
+									/*$filter1=array('inventoryID'=>$inventoryid);
+									$inventory_consumption=$this->inventory_model->check('dbho_planinventoryconsumption',$filter1);
 				
-				if(!empty($inventory_consumption)){
+										if(!empty($inventory_consumption))
+										{
 					
-				if(count($inventory_consumption)>=$inventory_details[0]->MaximumQuantity){
-					$quan=$inventory_details[0]->MaximumQuantity;
-					if($inventory_details[0]->OverdrawingAllowed!='Yes'){
-					$this->session->set_flashdata('message_type', 'error');
-					$this->session->set_flashdata('message', $this->config->item("index")." The Maximum Quantity Of This Inventory Is $quan And All Are Booked, Please Select DIfferent Inventory!!");
-					redirect('Inventory');
-					}else{
-							$this->session->set_flashdata('category_error',"Warning: The Maximum Quantity Of This Inventory Is $quan And All Are Booked, Overdrawing Is Allowed !!");
-					}
+											if(count($inventory_consumption)>=$inventory_details[0]->MaximumQuantity)
+											{
+												
+												$quan=$inventory_details[0]->MaximumQuantity;
+												
+													if($inventory_details[0]->OverdrawingAllowed!='Yes')
+													{
+														$this->session->set_flashdata('message_type', 'error');
+														$this->session->set_flashdata('message', $this->config->item("index")." The Maximum Quantity Of This Inventory Is $quan And All Are Booked, Please Select DIfferent Inventory!!");
+														
+														redirect('Inventory');
+														
+													}
+													else
+													{
+														
+														$this->session->set_flashdata('category_error',"Warning: The Maximum Quantity Of This Inventory Is $quan And All Are Booked, Overdrawing Is Allowed !!");
+													}
 					
-					}
-				}*/
+											}
+										}*/
 				
-				$datess="";
-				if($duration>1){
+											$datess="";
+											
+											if($duration>1)
+											{
 					
-					for($k=0;$k<=$duration;$k++){
-						if($k==0){
-						$datess.="'$start_date'";	
-						}else{
+												for($k=0;$k<=$duration;$k++)
+												{
+													
+													if($k==0)
+													{
+														$datess.="'$start_date'";
+														
+													}
+													else
+													{
 							
-					$newdates=explode("/",$start_date);
-					$add=$newdates[1]+$k;
-					$datess.="'$newdates[0]/$add/$newdates[2]'";
+														$newdates=explode("/",$start_date);
+														$add=$newdates[1]+$k;
+														$datess.="'$newdates[0]/$add/$newdates[2]'";
+													}
+						
+														$inventory_availablity=$this->inventory_model->inventory_availablity($inventoryid,$datess);
+						
+															if(!empty($inventory_availablity))
+															{
+					
+																if(count($inventory_availablity) >= $inventory_details[0]->MaximumQuantity)
+																{
+						
+																	$dates=$inventory_availablity[0]->date;
+							
+						
+																	$this->session->set_flashdata('message_type', 'error');
+																	$this->session->set_flashdata('message', $this->config->item("index")."This Inventory is Already Booked For $dates, Please Choose DIfferent Date. !!");
+																	redirect('Inventory');
+																}
+					
+															}
+					
+												}
+											}
+											else
+											{
+												
+												$datess="'$start_date'";
+												$inventory_availablity=$this->inventory_model->inventory_availablity($inventoryid,$datess);
+												
+													if(!empty($inventory_availablity))
+													{
+					
+														if(count($inventory_availablity) >= $inventory_details[0]->MaximumQuantity)
+														{
+						
+															$dates=$inventory_availablity[0]->date;
+							
+						
+															$this->session->set_flashdata('message_type', 'error');
+															$this->session->set_flashdata('message', $this->config->item("index")."This Inventory is Already Booked For $dates, Please Choose DIfferent Date. !!");
+															redirect('Inventory');
+															
+														}
+					
+													}
+					
+											}
+				
+				
+				
+				
+				
+								}
+								else
+								{
+									$this->session->set_flashdata('message_type', 'error');
+									$this->session->set_flashdata('message', $this->config->item("index")." This Inventory Is Not Found!!");
+									redirect('Inventory');
+								}
+			
 						}
-						
-						$inventory_availablity=$this->inventory_model->inventory_availablity($inventoryid,$datess);
-						
-						if(!empty($inventory_availablity)){
-					
-					if(count($inventory_availablity) >= $inventory_details[0]->MaximumQuantity){
-						
-						$dates=$inventory_availablity[0]->date;
-							
-						
-					$this->session->set_flashdata('message_type', 'error');
-					$this->session->set_flashdata('message', $this->config->item("index")."This Inventory is Already Booked For $dates, Please Choose DIfferent Date. !!");
-					redirect('Inventory');
-					}
-					
-				}
-					
-					}
-				}else{
-					$datess="'$start_date'";
-					$inventory_availablity=$this->inventory_model->inventory_availablity($inventoryid,$datess);
-					if(!empty($inventory_availablity)){
-					
-					if(count($inventory_availablity) >= $inventory_details[0]->MaximumQuantity){
-						
-						$dates=$inventory_availablity[0]->date;
-							
-						
-					$this->session->set_flashdata('message_type', 'error');
-					$this->session->set_flashdata('message', $this->config->item("index")."This Inventory is Already Booked For $dates, Please Choose DIfferent Date. !!");
-					redirect('Inventory');
-					}
-					
-				}
-					
-				}
-				
-				
-				
-				
-				
-			}else{
-					$this->session->set_flashdata('message_type', 'error');
-					$this->session->set_flashdata('message', $this->config->item("index")." This Inventory Is Not Found!!");
-					redirect('Inventory');
-			}
 			
-				}
-			
-			}
-				if(!empty($this->input->post('inventoryconsumptionid'))){
+					}
+					
+						if(!empty($this->input->post('inventoryconsumptionid')))
+						{
 						
 							$filter=array('planinventoryconsumptionID'=>$this->input->post('inventoryconsumptionid'));
 							$this->inventory_model->insert_userplan($type,$user_id,$inventoryid,$city_id,$project_id,$image,$start_date,$duration,$weightage,$remark,$campaignid,$date,$filter);
 							$this->session->set_flashdata('message_type', 'success');
 							$this->session->set_flashdata('message', $this->config->item("index")." Inventory Updated Successfully!!");
 							
-					}else{
+						}
+						else
+						{
 						
 							$this->inventory_model->insert_userplan($type,$user_id,$inventoryid,$city_id,$project_id,$image,$start_date,$duration,$weightage,$remark,$campaignid);
 							$this->session->set_flashdata('message_type', 'success');
 							$this->session->set_flashdata('message', $this->config->item("index")." Inventory Added Successfully!!");
-					}
-			}else{
-					$this->session->set_flashdata('message_type', 'error');
-					$this->session->set_flashdata('message', $this->config->item("index")." All Fields Are Mendatory!!");
-					redirect('Inventory');
-			}
-		}else{
-					$this->session->set_flashdata('message_type', 'error');
-					$this->session->set_flashdata('message', $this->config->item("index")." Invalid Request!!");
+						}
+				}
+				else
+				{
+							$this->session->set_flashdata('message_type', 'error');
+							$this->session->set_flashdata('message', $this->config->item("index")." All Fields Are Mendatory!!");
+							redirect('Inventory');
+				}
 		}
-			redirect('Inventory/Inventory_listing');
+		else
+		{
+							$this->session->set_flashdata('message_type', 'error');
+							$this->session->set_flashdata('message', $this->config->item("index")." Invalid Request!!");
+		}
+							redirect('Inventory/Inventory_listing');
 	}
 	
 /*Inventory create insert and update End .........................................................................................*/
 
 /*Inventory_listing view Load Start.............................................................................................................*/
+
 	function Inventory_listing($class=false,$section=false,$subject=false,$date=false)
 	{	
 		
 		$this->data['inventory_list']=$this->inventory_model->get_inventorylist();
-		
 		$this->load->view('inventory_listing',$this->data);
+		
 	}
+	
 /*Inventory_listing view Load End.............................................................................................................*/
 
 /*Add Inventory Type view Load Start.............................................................................................................*/
+
 	function AddInventoryType()
 	{	
 		
 		$this->data['inventorytypelist']=$this->inventory_model->get_inventorytypelist();
 		$this->load->view('addinventorytype',$this->data);
 	}
+	
 /*Add Inventory Type view Load End.............................................................................................................*/
 	
 /*Add Inventory Type Modal view Load Start.............................................................................................................*/
+	
 	function loadmodal()
 	{	
 		$this->data['cities']=$this->inventory_model->get_city();
 		$this->load->view('addinventorytypemodal',$this->data);
 	}
+	
 /*Add Inventory Type Modal view Load End.............................................................................................................*/
 
 /*Add Inventory Type Insert Into Db Start.............................................................................................................*/
+	
 	function Insertinventorytype()
-	{	
-		if(!empty($this->input->post('submit'))){
+	{
+		
+		if(!empty($this->input->post('submit')))
+		{
 			
 			$inventoryname=$this->input->post('inventoryname');
 			$inventoryunit=$this->input->post('inventoryunit');
@@ -304,19 +381,24 @@ class Inventory extends CI_Controller {
 			$overdrawingallow=$this->input->post('overdrawingallow');
 			$city_id=$this->input->post('city_id');
 			
-				if(!empty($inventoryname) && !empty($inventoryunit) && !empty($maxquantity) && !empty($overdrawingallow) && !empty($city_id)){
+				if(!empty($inventoryname) && !empty($inventoryunit) && !empty($maxquantity) && !empty($overdrawingallow) && !empty($city_id))
+				{
 					
 					$this->inventory_model->insert_addinventorytype($inventoryname,$inventoryunit,$maxquantity,$overdrawingallow,$city_id);
 					$this->session->set_flashdata('message_type', 'success');
 					$this->session->set_flashdata('message', $this->config->item("index")." Inventory Type Added Successfully!!");
 					
-				}else{
+				}
+				else
+				{
 					$this->session->set_flashdata('message_type', 'error');
 					$this->session->set_flashdata('message', $this->config->item("index")." All Fields Are Mendatory!!");
 					redirect('Inventory/AddInventoryType');
 				}
 			
-		}else{
+		}
+		else
+		{
 			
 			$this->session->set_flashdata('message_type', 'error');
 			$this->session->set_flashdata('message', $this->config->item("index")." Invalid Request!!");
