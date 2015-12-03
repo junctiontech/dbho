@@ -290,12 +290,20 @@
                     </div>
                   </div>
                   
-                  <div class="form-group">
-                    <label class="control-label col-md-2 col-sm-2 col-xs-12">Weightage</label>
-                    <div class="col-md-10 col-sm-10 col-xs-12 contxt">
-                     <input required type="text" placeholder="" class="form-control" value="<?=isset($inventoryupdate[0]->Weightage)?$inventoryupdate[0]->Weightage:''?>" name="weightage">
-                    </div>
-                  </div>
+                  
+				  <div class="form-group">
+                                    <label class="control-label col-md-2 col-sm-2 col-xs-12">Weightage</label>
+                                    <div class="col-md-10 col-sm-10 col-xs-12">
+                                    <select required name="weightage" class="select2_group form-control">
+									<option>Select Weightage</option>
+                                    <option value="1" <?php if(!empty($inventoryupdate[0]->Weightage)){ if($inventoryupdate[0]->Weightage=="1"){ echo"selected";} } ?>>1</option>
+									<option value="2" <?php if(!empty($inventoryupdate[0]->Weightage)){ if($inventoryupdate[0]->Weightage=="2"){ echo"selected";} } ?>>2</option>
+									<option value="3" <?php if(!empty($inventoryupdate[0]->Weightage)){ if($inventoryupdate[0]->Weightage=="3"){ echo"selected";} } ?>>3</option>
+									<option value="4" <?php if(!empty($inventoryupdate[0]->Weightage)){ if($inventoryupdate[0]->Weightage=="4"){ echo"selected";} } ?>>4</option>
+									<option value="5" <?php if(!empty($inventoryupdate[0]->Weightage)){ if($inventoryupdate[0]->Weightage=="5"){ echo"selected";} } ?>>5</option>
+                                    </select>
+                                    </div>
+                                    </div>
                   
                   <div class="form-group">
                     <label class="control-label col-md-2 col-sm-2 col-xs-12">Remark</label>
