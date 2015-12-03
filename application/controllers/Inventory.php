@@ -151,12 +151,12 @@ class Inventory extends CI_Controller {
 													
 													if(count($inventory_availablityquantity)>=$campaigninventorydetails[0]->quantity){
 																	$this->session->set_flashdata('message_type', 'error');
-																	$this->session->set_flashdata('message', $this->config->item("index")."This Inventory is Already Booked For Slotes !!");
+																	$this->session->set_flashdata('message', $this->config->item("index")."This Inventory is Already Booked For All Slotes !!");
 																	
 																	redirect('Inventory');
 													}
 													
-													if($duration>=$campaigninventorydetails[0]->duration){
+													if($duration>$campaigninventorydetails[0]->duration){
 																	$due=$campaigninventorydetails[0]->duration;
 																	$this->session->set_flashdata('message_type', 'error');
 																	$this->session->set_flashdata('message', $this->config->item("index")."This Inventory Has Max Duration $due . Please Insert Duration Less Than Or Equal To $due !!");
