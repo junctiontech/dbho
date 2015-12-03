@@ -89,8 +89,8 @@ class Campaign_model extends CI_Model
 	
 	function get_inventory()
 	{		$db2 = $this->load->database('both', TRUE);
-			$qry = $db2->query("select dbho_inventorymaster.inventoryID,inventoryDescription from dbho_inventorymaster,dbho_inventorydescription where
-									dbho_inventorymaster.inventoryID=dbho_inventorydescription.inventoryID and dbho_inventorydescription.LanguageID='1'");	
+			$qry = $db2->query("select dbho_inventorytype.inventorytypeID,inventoryDescription from dbho_inventorytype where
+									dbho_inventorytype.LanguageID='1'");	
 			return $qry->Result();	
 	}
 	
@@ -128,9 +128,10 @@ class Campaign_model extends CI_Model
 	
 	function get_inventorylist($id=FALSE)
 	{		$db2 = $this->load->database('both', TRUE);
-		$qry = $db2->query("select dbho_campaigninventory.campaignID,dbho_campaigninventory.inventoryID,inventoryDescription,cityName,quantity,amount,duration from dbho_campaigninventory,dbho_inventorydescription,homeonline.rp_city_details where
+		$qry = $db2->query("select dbho_campaigninventory.campaignID,dbho_campaigninventory.inventoryID,inventoryDescription,cityName,quantity,amount,duration from dbho_campaigninventory,dbho_inventorymaster,dbho_inventorytype,homeonline.rp_city_details where
 									dbho_campaigninventory.campaignID=$id and
-									dbho_campaigninventory.inventoryID=dbho_inventorydescription.inventoryID and
+									dbho_campaigninventory.inventoryID=dbho_inventorymaster.inventoryID and
+									dbho_inventorymaster.inventorytypeID=dbho_inventorytype.inventorytypeID and
 									dbho_campaigninventory.cityID=rp_city_details.cityID and rp_city_details.languageID='1'");
 	return $qry->Result();
 	}

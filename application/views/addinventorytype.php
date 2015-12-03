@@ -201,7 +201,7 @@
                       <td><?=isset($inventorytypelists->OverdrawingAllowed)?$inventorytypelists->OverdrawingAllowed:''?></td>
                       <td><?=isset($inventorytypelists->cityName)?$inventorytypelists->cityName:''?></td>
                     </tr>
-				  <?php } ?>
+				  <?php  } ?>
                    
                 </tbody>
                 </table>

@@ -59,13 +59,24 @@ class Common_functions extends CI_Controller {
 			
 			$cityid = $this->utilities->getcityidforinventory($inventoryid);
 			
-		if(!empty($cityid[0]->City)){
-				
-			$inventorycity = $this->utilities->getcityforinventory($cityid[0]->City);
+		if(!empty($cityid)){
+			
+			$citiesin='';
+			$i=1;
+			foreach($cityid as $cityids){
+				$citiesin.="$cityids->City";
+				if(count($cityid)-1>=$i){
+					$citiesin.=",";
+				}
+				$i++;
+			}
+			
+			$inventorycity = $this->utilities->getcityforinventory($citiesin);
+			
 			echo"<select required name='cityid[]' class='select2_group form-control'>"; 
 			echo "<option value=''>Select Plan</option>";
 			foreach($inventorycity as $inventorycitys){
-			echo "<option selected value=".$inventorycitys->cityID.">$inventorycitys->cityName";
+			echo "<option  value=".$inventorycitys->cityID.">$inventorycitys->cityName";
 			echo "</option>";
 			}
 			echo"</select>";

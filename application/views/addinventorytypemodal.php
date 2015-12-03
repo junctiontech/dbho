@@ -11,16 +11,23 @@
                                     <div class="row">
                                     
                                     <div class="form-group">
-                                    <label class="control-label col-md-2 col-sm-2 col-xs-12">Inventory Name</label>
-                                    <div class="col-md-10 col-sm-10 col-xs-12">
-                                    <input type="text" placeholder="Enter Inventory Name" name="inventoryname" value="" class="form-control">
-                                    </div>
-                                    </div>
+                    <label class="control-label col-md-2 col-sm-2 col-xs-12">Inventory Name</label>
+                    <div class="col-md-10 col-sm-10 col-xs-12">
+                      <select required class="select2_group form-control" name="inventoryname">
+                        <option value="">Select Name</option>
+                       <?php foreach($inventoryname as $inventorynames){?>
+                        <option value="<?=isset($inventorynames->inventorytypeID)?$inventorynames->inventorytypeID:''?>" ><?=isset($inventorynames->inventoryDescription)?$inventorynames->inventoryDescription:''?></option>
+						<?php } ?>
+                      </select>
+                    </div>
+                  </div>
                                     
-                                    <div class="form-group">
+									<div class="form-group">
                                     <label class="control-label col-md-2 col-sm-2 col-xs-12">Inventory Unit</label>
                                     <div class="col-md-10 col-sm-10 col-xs-12">
-                                    <input type="text" placeholder="Enter Inventory Unit" name="inventoryunit" value="" class="form-control">
+                                    <select name="inventoryunit" class="select2_group form-control">
+                                    <option value="Day">Day</option>
+                                    </select>
                                     </div>
                                     </div>
                                     

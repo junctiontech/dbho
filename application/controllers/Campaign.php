@@ -44,8 +44,23 @@ class Campaign extends CI_Controller {
 			for($z=0;$z<=count($data['inventoryid'])-1; $z++)
 			{
 				
-			$inventoryid=$data['inventoryid'][$z];
+			$inventorytypeid=$data['inventoryid'][$z];
 			$cityid=$data['cityid'][$z];
+			
+			$filter=array('inventorytypeID'=>$inventorytypeid,'City'=>$cityid);
+			$inventory_id=$this->campaign_model->check('dbho_inventorymaster',$filter);
+			
+			if(!empty($inventory_id))
+			{
+						$inventoryid=$inventory_id[0]->inventoryID;
+				
+			}else{
+						$this->session->set_flashdata('message_type', 'error');
+						$this->session->set_flashdata('message', $this->config->item("index")." This Inventory Is Not Found For Selected City!!");
+						redirect('Inventory');
+			}
+			
+			
 			$inventoryquantity=$data['inventoryquantity'][$z];
 			$inventoryduration=$data['inventoryduration'][$z];
 			$inventoryamount=$data['inventoryamount'][$z];

@@ -162,7 +162,7 @@
                           <input type="radio"  class="flat" <?php if(!empty($campaignid)){ }else{echo"checked";}?> name="type" value="Free">
                           Free </label>
                           <label>
-                          <input type="radio"  class="flat" name="type" <?php if(!empty($campaignid)){ echo"checked";}?> value="Campaign">
+                          <input type="radio"  class="flat" name="type" <?php if(!empty($campaignid) ||!empty($inventoryupdate[0]->CampaignID)){ echo"checked";}?> value="Campaign">
                           Compaign </label>
                       </div>     
              </div>         
@@ -172,11 +172,11 @@
 				<input type="hidden" name="inventoryconsumptionid" value="<?=isset($inventoryconsumptionid)?$inventoryconsumptionid:''?>" readonly />
 		   <?php } ?>
 		   
-           <?php if(!empty($campaignid)){?>
+           <?php if(!empty($campaignid) ){?>
 				<input type="hidden" name="campaignid" value="<?=$campaignid?>" readonly />
 				<input type="hidden" name="user_id" value="<?=isset($campaigndetails[0]->userID)?$campaigndetails[0]->userID:''?>" readonly />
 				<input type="hidden" name="inventoryid" value="<?=isset($campaigndetails[0]->inventoryID)?$campaigndetails[0]->inventoryID:''?>" readonly />
-				
+				<input type="hidden" name="city_id" value="<?=isset($campaigndetails[0]->cityID)?$campaigndetails[0]->cityID:''?>" readonly />
 				<div class="form-group">
                     <label class="control-label col-md-2 col-sm-2 col-xs-12">Campaign Name</label>
                     <div class="col-md-10 col-sm-10 col-xs-12">
@@ -216,10 +216,10 @@
 				 <div class="form-group">
                     <label class="control-label col-md-2 col-sm-2 col-xs-12">Inventory</label>
                     <div class="col-md-10 col-sm-10 col-xs-12">
-                      <select required  class="select2_group form-control" name="inventoryid" <?php if(!empty($inventoryupdate)){ echo"enable='true'";}?>>
+                      <select required  class="select2_group form-control" name="inventoryid" >
                         <option value="">Select Inventory</option>
 						<?php foreach($inventory as $inventory){?>
-                        <option value="<?=isset($inventory->inventoryID)?$inventory->inventoryID:''?>" <?php if(!empty($inventoryupdate[0]->inventoryID)){ if($inventoryupdate[0]->inventoryID==$inventory->inventoryID){ echo"selected";} } ?>><?=isset($inventory->inventoryDescription)?$inventory->inventoryDescription:''?></option>
+                        <option value="<?=isset($inventory->inventorytypeID)?$inventory->inventorytypeID:''?>" <?php if(!empty($inventoryupdateid[0]->inventorytypeID)){ if($inventoryupdateid[0]->inventorytypeID==$inventory->inventorytypeID){ echo"selected";} } ?>><?=isset($inventory->inventoryDescription)?$inventory->inventoryDescription:''?></option>
 						<?php } ?>
                       </select>
                     </div>
@@ -232,10 +232,10 @@
            <div class="form-group">
                     <label class="control-label col-md-2 col-sm-2 col-xs-12">City</label>
                     <div class="col-md-10 col-sm-10 col-xs-12">
-                      <select required class="select2_group form-control" name="city_id">
+                      <select required class="select2_group form-control" name="city_id" <?php if(!empty($campaigndetails[0]->cityID)){ echo"disabled ='true'"; } ?> >
                         <option value="">Select City</option>
                        <?php foreach($cities as $cities){?>
-                        <option value="<?=isset($cities->cityID)?$cities->cityID:''?>" <?php if(!empty($inventoryupdate[0]->City)){ if($inventoryupdate[0]->City==$cities->cityID){ echo"selected";} } ?>><?=isset($cities->cityName)?$cities->cityName:''?></option>
+                        <option value="<?=isset($cities->cityID)?$cities->cityID:''?>" <?php if(!empty($campaigndetails[0]->cityID)){ if($campaigndetails[0]->cityID==$cities->cityID){ echo"selected";} } ?> <?php if(!empty($inventoryupdate[0]->City)){ if($inventoryupdate[0]->City==$cities->cityID){ echo"selected";} } ?>><?=isset($cities->cityName)?$cities->cityName:''?></option>
 						<?php } ?>
                       </select>
                     </div>

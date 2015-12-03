@@ -48,7 +48,7 @@ function get_plans(userid)
 
 
 function getcityforinventory(inventoryid)
-{
+{	
 	if(inventoryid){
 	$.ajax({
 				type: "POST",
@@ -56,6 +56,7 @@ function getcityforinventory(inventoryid)
 				data: {inventoryid: inventoryid  },
 			})	
 				.done(function(msg){
+					
 					if(msg !=''){
 					$('#inventorycity').html(msg);
 					}

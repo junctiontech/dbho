@@ -112,8 +112,8 @@ class Inventory_model extends CI_Model
 	{		
 			$db3 = $this->load->database('both', TRUE);
 			
-			$qry = $db3->query("select dbho_inventorymaster.inventoryID,inventoryDescription from dbho_inventorymaster,dbho_inventorydescription where
-									dbho_inventorymaster.inventoryID=dbho_inventorydescription.inventoryID and dbho_inventorydescription.LanguageID='1'");	
+			$qry = $db3->query("select dbho_inventorytype.inventorytypeID,inventoryDescription from dbho_inventorytype where
+									dbho_inventorytype.inventorytypeID and dbho_inventorytype.LanguageID='1'");	
 			return $qry->Result();	
 	}
 	
@@ -121,15 +121,15 @@ class Inventory_model extends CI_Model
 	{		
 			$db3 = $this->load->database('both', TRUE);
 			
-			$qry = $db3->query("select planinventoryconsumptionID,dbho_inventorymaster.inventoryID,dbho_planinventoryconsumption.CampaignID,userCompanyName,userEmail,cityName,userPhone,inventoryDescription,projectName,dbho_planinventoryconsumption.StartDate,Duration,Weightage from homeonline_junction.dbho_inventorymaster,homeonline_junction.dbho_inventorydescription,homeonline_junction.dbho_planinventoryconsumption,
+			$qry = $db3->query("select planinventoryconsumptionID,dbho_inventorymaster.inventoryID,dbho_planinventoryconsumption.CampaignID,userCompanyName,userEmail,cityName,userPhone,inventoryDescription,projectName,dbho_planinventoryconsumption.StartDate,Duration,Weightage from homeonline_junction.dbho_inventorymaster,homeonline_junction.dbho_inventorytype,homeonline_junction.dbho_planinventoryconsumption,
 						 homeonline.rp_users,homeonline.rp_user_details,homeonline.rp_city_details,homeonline.rp_project_details where
-			dbho_inventorymaster.inventoryID=dbho_inventorydescription.inventoryID and
+			dbho_inventorymaster.inventorytypeID=dbho_inventorytype.inventorytypeID and
 			dbho_inventorymaster.inventoryID=dbho_planinventoryconsumption.inventoryID and
 			dbho_planinventoryconsumption.UserID=rp_users.UserID and
 			rp_users.UserID=rp_user_details.UserID and
 			dbho_planinventoryconsumption.City=rp_city_details.cityID and
 			dbho_planinventoryconsumption.ProjectID=rp_project_details.projectID and
-			dbho_inventorydescription.LanguageID='1' and
+			dbho_inventorytype.LanguageID='1' and
 			rp_user_details.languageID='1' and
 			rp_city_details.languageID='1' and
 			rp_project_details.languageID='1'");	
@@ -159,13 +159,14 @@ class Inventory_model extends CI_Model
 	{		
 			$db3 = $this->load->database('both', TRUE);
 			
-			$qry = $db3->query("select dbho_campaignmaster.campaignID,dbho_campaignmaster.userID,userCompanyName,dbho_campaignmaster.created,dbho_campaigninventory.inventoryID,inventoryDescription from dbho_campaignmaster,homeonline.rp_user_details,dbho_campaigninventory,dbho_inventorydescription where
+			$qry = $db3->query("select dbho_campaignmaster.campaignID,cityID,dbho_campaignmaster.userID,userCompanyName,dbho_campaignmaster.created,dbho_campaigninventory.inventoryID,inventoryDescription from dbho_campaignmaster,homeonline.rp_user_details,dbho_campaigninventory,dbho_inventorymaster,dbho_inventorytype where
 									dbho_campaignmaster.campaignID='$campaignid' and
 									dbho_campaignmaster.campaignID=dbho_campaigninventory.campaignID and
 									dbho_campaigninventory.inventoryID='$inventoryconsumptionid' and
 									dbho_campaignmaster.userID=rp_user_details.userID and
-									dbho_campaigninventory.inventoryID=dbho_inventorydescription.inventoryID and 
-									dbho_inventorydescription.LanguageID='1' and
+									dbho_campaigninventory.inventoryID=dbho_inventorymaster.inventoryID and
+									dbho_inventorymaster.inventorytypeID=dbho_inventorytype.inventorytypeID and 
+									dbho_inventorytype.LanguageID='1' and
 									rp_user_details.languageID='1'");	
 			
 			return $qry->Result();	
@@ -175,7 +176,7 @@ class Inventory_model extends CI_Model
 	{		
 			$db3 = $this->load->database('both', TRUE);
 			
-			$qry = $db3->query("select quantity from dbho_campaignmaster,dbho_campaigninventory where
+			$qry = $db3->query("select quantity,duration from dbho_campaignmaster,dbho_campaigninventory where
 									dbho_campaignmaster.campaignID='$campaignid' and
 									dbho_campaignmaster.userID='$user_id' and
 									dbho_campaignmaster.campaignID=dbho_campaigninventory.campaignID and
@@ -197,16 +198,28 @@ class Inventory_model extends CI_Model
 			return $qry->Result();	
 	}
 	
+	function campaigninventory_availablityquantity($inventoryid=false,$campaignid=false,$user_id=false)
+	{		
+			$db2 = $this->load->database('both', TRUE);
+			
+			$qry = $db2->query("select * from dbho_planinventoryconsumptiondates where
+									inventoryID=$inventoryid and 
+									campaignid=$campaignid and
+									userID=$user_id ");
+			
+			return $qry->Result();	
+	}
+	
 	function get_inventorytypelist()
 	{		
 			
 			$db2 = $this->load->database('both', TRUE);
 			
-			$qry = $db2->query("select dbho_inventorymaster.inventoryID,inventoryDescription,days,MaximumQuantity,OverdrawingAllowed,cityName from dbho_inventorymaster,dbho_inventorydescription,homeonline.rp_city_details where
-									dbho_inventorymaster.inventoryID=dbho_inventorydescription.inventoryID and 
+			$qry = $db2->query("select dbho_inventorymaster.inventoryID,inventoryDescription,days,MaximumQuantity,OverdrawingAllowed,cityName from dbho_inventorymaster,dbho_inventorytype,homeonline.rp_city_details where
+									dbho_inventorymaster.inventorytypeID=dbho_inventorytype.inventorytypeID and 
 									dbho_inventorymaster.City=rp_city_details.cityID and 
 									rp_city_details.languageID='1' and
-									dbho_inventorydescription.LanguageID='1'");
+									dbho_inventorytype.LanguageID='1'");
 			
 			return $qry->Result();	
 	}
@@ -217,7 +230,7 @@ class Inventory_model extends CI_Model
 		 
 				if($filter)
 				{
-					$data=array('days'=>$inventoryunit,'MaximumQuantity'=>$maxquantity,'OverdrawingAllowed'=>$overdrawingallow,'City'=>$city_id);
+					$data=array('inventorytypeID'=>$inventoryname,'days'=>$inventoryunit,'MaximumQuantity'=>$maxquantity,'OverdrawingAllowed'=>$overdrawingallow,'City'=>$city_id);
 					
 					$db2->where($filter);
 					
@@ -227,16 +240,20 @@ class Inventory_model extends CI_Model
 				else
 				{
 			
-					$data=array('days'=>$inventoryunit,'MaximumQuantity'=>$maxquantity,'OverdrawingAllowed'=>$overdrawingallow,'City'=>$city_id);
+					$data=array('inventorytypeID'=>$inventoryname,'days'=>$inventoryunit,'MaximumQuantity'=>$maxquantity,'OverdrawingAllowed'=>$overdrawingallow,'City'=>$city_id);
 					
 					$db2->insert('dbho_inventorymaster',$data);
 					
-					$last_id = $db2->insert_id();
-					
-					$data2=array('inventoryID'=>$last_id,'LanguageID'=>'1','inventoryDescription'=>$inventoryname);
-					
-					$db2->insert('dbho_inventorydescription',$data2);
 				}
+	}
+	
+	function get_inventoryname()
+	{		
+			$db3 = $this->load->database('both', TRUE);
+			
+			$qry = $db3->query("select inventorytypeID,inventoryDescription from dbho_inventorytype where
+									dbho_inventorytype.LanguageID='1'");	
+			return $qry->Result();	
 	}
 		
 }

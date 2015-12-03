@@ -31,7 +31,10 @@ class Inventory extends CI_Controller {
 		{
 			$this->data['inventoryconsumptionid']=$inventoryconsumptionid;
 			$filter=array('planinventoryconsumptionID'=>$inventoryconsumptionid);
-			$this->data['inventoryupdate']=$this->inventory_model->select_for_update('dbho_planinventoryconsumption',$filter);
+			$this->data['inventoryupdate']=$inventoryupdate=$this->inventory_model->select_for_update('dbho_planinventoryconsumption',$filter);
+			
+			$filter1=array('inventoryID'=>$inventoryupdate[0]->inventoryID);
+			$this->data['inventoryupdateid']=$this->inventory_model->select_for_update('dbho_inventorymaster',$filter1);
 		}
 		
 			$this->data['inventory']=$this->inventory_model->get_inventory();
@@ -52,13 +55,31 @@ class Inventory extends CI_Controller {
 			$campaignid=$this->input->post('campaignid');
 			$type=$this->input->post('type');
 			$user_id=$this->input->post('user_id');
-			$inventoryid=$this->input->post('inventoryid');
+			$inventorytypeid=$this->input->post('inventoryid');
 			$city_id=$this->input->post('city_id');
 			$project_id=$this->input->post('project_id');
 			$start_date=$this->input->post('start_date');
 			$duration=$this->input->post('duration');
 			$weightage=$this->input->post('weightage');
 			$remark=$this->input->post('remark');
+			
+			if(empty($campaignid))
+			{
+				$filter=array('inventorytypeID'=>$inventorytypeid,'City'=>$city_id);
+				$inventory_id=$this->inventory_model->check('dbho_inventorymaster',$filter);
+				
+				if(!empty($inventory_id))
+				{
+							$inventoryid=$inventory_id[0]->inventoryID;
+					
+				}else{
+							$this->session->set_flashdata('message_type', 'error');
+							$this->session->set_flashdata('message', $this->config->item("index")." This Inventory Is Not Found For Selected City!!");
+							redirect('Inventory');
+				}
+			}else{
+				$inventoryid=$inventorytypeid;
+			}
 			
 				if($_FILES['file']['name']!='')
 				{
@@ -126,7 +147,23 @@ class Inventory extends CI_Controller {
 													$datess.="'$newdates[0]/$add/$newdates[2]'";
 													
 												}
-						
+													$inventory_availablityquantity=$this->inventory_model->campaigninventory_availablityquantity($inventoryid,$campaignid,$user_id);
+													
+													if(count($inventory_availablityquantity)>=$campaigninventorydetails[0]->quantity){
+																	$this->session->set_flashdata('message_type', 'error');
+																	$this->session->set_flashdata('message', $this->config->item("index")."This Inventory is Already Booked For Slotes !!");
+																	
+																	redirect('Inventory');
+													}
+													
+													if($duration>=$campaigninventorydetails[0]->duration){
+																	$due=$campaigninventorydetails[0]->duration;
+																	$this->session->set_flashdata('message_type', 'error');
+																	$this->session->set_flashdata('message', $this->config->item("index")."This Inventory Has Max Duration $due . Please Insert Duration Less Than Or Equal To $due !!");
+																	
+																	redirect('Inventory');
+													}
+													
 													$inventory_availablity=$this->inventory_model->campaigninventory_availablity($inventoryid,$datess,$campaignid,$user_id);
 						
 														if(!empty($inventory_availablity))
@@ -361,6 +398,7 @@ class Inventory extends CI_Controller {
 	
 	function loadmodal()
 	{	
+		$this->data['inventoryname']=$this->inventory_model->get_inventoryname();
 		$this->data['cities']=$this->inventory_model->get_city();
 		$this->load->view('addinventorytypemodal',$this->data);
 	}
