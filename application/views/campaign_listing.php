@@ -131,7 +131,7 @@
       <div class="">
         <div class="page-title">
           <div class="title_left">
-            <h3>Creat Compaign</h3>
+            <h3>Creat Campaign</h3>
           </div>
           <div class="title_right">
             <div class="input-group pull-right"> 
@@ -154,7 +154,7 @@
           <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
               <div class="x_title">
-                <h2>Compaign</h2>
+                <h2>Campaign</h2>
                 <ul class="nav navbar-right panel_toolbox">
                   <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a> </li>
                   <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
@@ -185,7 +185,7 @@
                     </div>
                     
                     <div class="form-group col-xs-12 col-sm-2">
-                      <label for="middle-name" class="control-label">Compaign Name</label>
+                      <label for="middle-name" class="control-label">Campaign Name</label>
                       <input type="text" placeholder="Enter Your Company" class="form-control">
                     </div>
                     
@@ -235,7 +235,7 @@
           <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
               <div class="x_title">
-                <h2>Compaign table </h2>
+                <h2>Campaign table </h2>
                 <ul class="nav navbar-right panel_toolbox">
                   <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a> </li>
                   <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
@@ -252,7 +252,7 @@
                 <table  class="table table-bordered table-hover vert-aliins">
                   <thead>
                     <tr>
-                      <th>Compaign Name </th>
+                      <th>Campaign Name </th>
                       <th>Company Name</th>
                       <th>Email ID </th>
                       <th>Mobile No</th>
@@ -290,7 +290,7 @@
                 </div>
               </div>
               
-             <!-- <div class="valusho pull-left"> <h5>Compaign Amount :  Rs 335090 </h5></div>
+             <!-- <div class="valusho pull-left"> <h5>Campaign Amount :  Rs 335090 </h5></div>
               <div class="valusho pull-right"> <button class="btn btn-info btn-lg" type="button">Create</button></div>-->
             </div>
                   

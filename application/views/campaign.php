@@ -118,7 +118,7 @@
       <div class="">
         <div class="page-title">
           <div class="title_left">
-            <h3>Creat Compaign</h3>
+            <h3>Creat Campaign</h3>
           </div>
           <div class="title_right">
             <div class="input-group pull-right"> 
@@ -161,12 +161,12 @@
                
                   <div class="row">
                     <div class="form-group col-xs-12 col-sm-3">
-                      <label class="control-label" for="first-name">Compaign Start Date <span class="required">*</span> </label>
+                      <label class="control-label" for="first-name">Campaign Start Date <span class="required">*</span> </label>
                       <fieldset>
                         <div class="control-group">
                           <div class="controls">
                             <div class="xdisplay_inputx form-group has-feedback">
-                              <input name="campaignstartdate" required value="" type="text" class="form-control has-feedback-left" id="single_cal2" placeholder="Select Date" aria-describedby="inputSuccess2Status2">
+                              <input readonly name="campaignstartdate" required value="" type="text" class="form-control has-feedback-left" id="single_cal2" placeholder="Select Date" aria-describedby="inputSuccess2Status2">
                               <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span> <span id="inputSuccess2Status2" class="sr-only">(success)</span> </div>
                           </div>
                         </div>
@@ -242,14 +242,14 @@
                     </div></td>
                       <td>
                       <div class="form-group col-xs-12 col-sm-4">
-                      <input required name="inventoryquantity[]" type="text" placeholder="Type Quantity" class="form-control">
+                      <input required name="inventoryquantity[]" type="text" placeholder="" class="form-control">
                     </div></td>
                       <td><div class="form-group col-xs-12 col-sm-6">
-                      <input required name="inventoryduration[]" type="text" placeholder="Type Duration" class="form-control">
+                      <input required name="inventoryduration[]" type="text" placeholder="" class="form-control">
                     </div></td>
                       <td>
                       <div class="form-group col-xs-12 col-sm-6">
-                      <input required   name="inventoryamount[]" type="text" placeholder="Amount" class="form-control txt">
+                      <input required   name="inventoryamount[]" type="text" placeholder="" class="form-control txt">
                     </div>
                       </td>
                       
@@ -304,10 +304,10 @@
                         
                       </select>
                     </div></td>
-                      <td><input required name="planquantity[]" type="text" placeholder="Type Quantity" class="form-control"></td>
-                      <td><input required name="planduration[]" type="text" placeholder="Type Duration" class="form-control"></td>
-                      <td><input   required name="planamount[]" type="text" placeholder="Amount" class="form-control txt"></td>
-                      <td><input name="plancarryforwrd[]" type="text" placeholder="Carray Forword" class="form-control"></td>
+                      <td><input required name="planquantity[]" type="text" placeholder="" class="form-control"></td>
+                      <td><input required name="planduration[]" type="text" placeholder="" class="form-control"></td>
+                      <td><input   required name="planamount[]" type="text" placeholder="" class="form-control txt"></td>
+                      <td><input name="plancarryforwrd[]" type="text" placeholder="" class="form-control"></td>
                       <td>12/17/2015</td>
                       <td>12/17/2014</td>
 					  <td><button class="btn btn-success" type="button" onclick="displayResult1();get_plans(document.getElementById('userid').value);">Add</button></td>

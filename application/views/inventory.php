@@ -118,7 +118,7 @@
       <div class="">
         <div class="page-title">
           <div class="title_left">
-            <h3>inventory</h3>
+            <h3>Inventory</h3>
           </div>
           <div class="title_right">
             <div class="input-group pull-right"> 
@@ -163,7 +163,7 @@
                           Free </label>
                           <label>
                           <input type="radio"  class="flat" name="type" <?php if(!empty($campaignid) ||!empty($inventoryupdate[0]->CampaignID)){ echo"checked";}?> value="Campaign">
-                          Compaign </label>
+                          Campaign </label>
                       </div>     
              </div>         
            
@@ -275,7 +275,7 @@
                         <div class="control-group">
                           <div class="controls">
                             <div class="xdisplay_inputx form-group has-feedback">
-                              <input required <?php if(!empty($inventoryupdate)){ echo"readonly";}else{echo"id='single_cal2'";}?> type="text" name="start_date" class="form-control has-feedback-left" value="<?=isset($inventoryupdate[0]->StartDate)?$inventoryupdate[0]->StartDate:''?>"   placeholder="Select Date" aria-describedby="inputSuccess2Status2">
+                              <input readonly required <?php if(!empty($inventoryupdate)){ echo"readonly";}else{echo"id='single_cal2'";}?> type="text" name="start_date" class="form-control has-feedback-left" value="<?=isset($inventoryupdate[0]->StartDate)?$inventoryupdate[0]->StartDate:''?>"   placeholder="Select Date" aria-describedby="inputSuccess2Status2">
                               <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span> <span id="inputSuccess2Status2" class="sr-only">(success)</span> </div>
                           </div>
                         </div>
@@ -286,14 +286,14 @@
                   <div class="form-group">
                     <label class="control-label col-md-2 col-sm-2 col-xs-12">Duration</label>
                     <div class="col-md-10 col-sm-10 col-xs-12 contxt">
-                     <input required type="text" placeholder="Type Duration" class="form-control" value="<?=isset($inventoryupdate[0]->Duration)?$inventoryupdate[0]->Duration:''?>" <?php if(!empty($inventoryupdate)){ echo"readonly";}?> name="duration">
+                     <input  required type="text" placeholder="" class="form-control" value="<?=isset($inventoryupdate[0]->Duration)?$inventoryupdate[0]->Duration:''?>" <?php if(!empty($inventoryupdate)){ echo"readonly";}?> name="duration">
                     </div>
                   </div>
                   
                   <div class="form-group">
                     <label class="control-label col-md-2 col-sm-2 col-xs-12">Weightage</label>
                     <div class="col-md-10 col-sm-10 col-xs-12 contxt">
-                     <input required type="text" placeholder="Type Weight" class="form-control" value="<?=isset($inventoryupdate[0]->Weightage)?$inventoryupdate[0]->Weightage:''?>" name="weightage">
+                     <input required type="text" placeholder="" class="form-control" value="<?=isset($inventoryupdate[0]->Weightage)?$inventoryupdate[0]->Weightage:''?>" name="weightage">
                     </div>
                   </div>
                   

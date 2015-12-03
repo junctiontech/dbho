@@ -118,7 +118,7 @@
       <div class="">
         <div class="page-title">
           <div class="title_left">
-            <h3>inventory</h3>
+            <h3>Inventory</h3>
           </div>
           <div class="title_right">
             <div class="input-group pull-right"> 
@@ -268,7 +268,7 @@
                 <table class="table table-bordered table-hover vert-aliins">
                   <thead>
                     <tr>
-                      <th>Compaign Name </th>
+                      <th>Campaign Name </th>
                       <th>Company Name</th>
                       <th>Email ID </th>
                       <th>Mobile No</th>
