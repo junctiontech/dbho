@@ -27,6 +27,9 @@
 <link href="<?=base_url();?>css/select/select2.min.css" rel="stylesheet">
 <!-- switchery -->
 <link rel="stylesheet" href="<?=base_url();?>css/switchery/switchery.min.css" />
+
+<link rel="stylesheet" href="<?=base_url();?>css/datepicker.css" />
+
 <script src="<?=base_url();?>js/jquery.min.js"></script>
 
 <!--[if lt IE 9]>
@@ -120,11 +123,7 @@
           <div class="title_left">
             <h3>Inventory</h3>
           </div>
-          <div class="title_right">
-            <div class="input-group pull-right"> 
-             <div class="nav toggle paddman12"> <a id="menu_toggle2"><button class="btn btn-primary" type="button">Full Screen</button></a> </div>
-            </div>
-          </div>
+          
         </div>
         <div class="clearfix"></div>
         <script type="text/javascript">
@@ -275,7 +274,7 @@
                         <div class="control-group">
                           <div class="controls">
                             <div class="xdisplay_inputx form-group has-feedback">
-                              <input readonly required <?php if(!empty($inventoryupdate)){ echo"readonly";}else{echo"id='single_cal2'";}?> type="text" name="start_date" class="form-control has-feedback-left" value="<?=isset($inventoryupdate[0]->StartDate)?$inventoryupdate[0]->StartDate:''?>"   placeholder="Select Date" aria-describedby="inputSuccess2Status2">
+                              <input  readonly required <?php if(!empty($inventoryupdate)){ echo"readonly";}else{echo"id='single_cal2'";}?> type="text" name="start_date" class="form-control has-feedback-left" value="<?=isset($inventoryupdate[0]->StartDate)?$inventoryupdate[0]->StartDate:''?>"   placeholder="Select Date" aria-describedby="inputSuccess2Status2">
                               <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span> <span id="inputSuccess2Status2" class="sr-only">(success)</span> </div>
                           </div>
                         </div>
@@ -598,15 +597,20 @@
 <script type="text/javascript">
         $(document).ready(function () {
             
-            $('#single_cal2').daterangepicker({
+            $('#single_cal2').datepicker({
                 singleDatePicker: true,
-                calender_style: "picker_2"
+				startDate: new Date(),
+				calender_style: "picker_2"
             }, function (start, end, label) {
                 console.log(start.toISOString(), end.toISOString(), label);
             });
              
         });
+		
     </script> 
+	
+	<script src="<?=base_url();?>js/bootstrap-datepicker.js"></script> 
+	
 <!-- /editor -->
 </body>
 </html>

@@ -56,12 +56,12 @@ class Manage_user_plan extends CI_Controller {
 			$plantitle=explode("-",$this->input->post('plantitle'));
 			$planusertype=$this->input->post('planusertype');
 			$planorder=$this->input->post('planorder');
-			$plantype=$this->input->post('plantype');
+			$listingtype=$this->input->post('listingtype');
 			$planstatus=$this->input->post('planstatus');
 			date_default_timezone_set("Asia/Kolkata");
 			$date=date("Y-m-d h:i:s");
 			
-			if(!empty($plantitle[1]) && !empty($planusertype) && !empty($planorder) && !empty($plantype) && !empty($planstatus)){
+			if(!empty($plantitle[1]) && !empty($planusertype) && !empty($planorder) && !empty($listingtype) && !empty($planstatus)){
 				
 					if(!empty($this->input->post('planid'))){
 						

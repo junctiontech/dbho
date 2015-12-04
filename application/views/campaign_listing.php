@@ -48,7 +48,11 @@
     padding: 5px 7px;
     text-align: center;
 }
-        
+        #loading-indicator {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+}
         
         </style>
 
@@ -131,13 +135,9 @@
       <div class="">
         <div class="page-title">
           <div class="title_left">
-            <h3>Creat Campaign</h3>
+            <h3>Campaign Listing</h3>
           </div>
-          <div class="title_right">
-            <div class="input-group pull-right"> 
-             <div class="nav toggle paddman12"> <a id="menu_toggle2"><button class="btn btn-primary" type="button">Full Screen</button></a> </div>
-            </div>
-          </div>
+          
         </div>
         <div class="clearfix"></div>
         <script type="text/javascript">
@@ -154,7 +154,7 @@
           <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
               <div class="x_title">
-                <h2>Campaign</h2>
+                <h2>Campaign Search</h2>
                 <ul class="nav navbar-right panel_toolbox">
                   <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a> </li>
                   <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
@@ -186,7 +186,7 @@
                     
                     <div class="form-group col-xs-12 col-sm-2">
                       <label for="middle-name" class="control-label">Campaign Name</label>
-                      <input type="text" placeholder="Enter Your Company" class="form-control">
+                      <input type="text" placeholder="Enter Your Campaign" class="form-control">
                     </div>
                     
                     <div class="form-group col-xs-12 col-sm-2">
@@ -284,6 +284,7 @@
               
               
               <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+			  <img src="<?=base_url();?>/images/ajax-loader.gif" id="loading-indicator" style="display:none" />
                 <div class="modal-dialog modal-lg">
                   <div class="modal-content moda-scrol">
                   </div>
@@ -597,6 +598,16 @@ $(document).on('hidden.bs.modal', function (e) {
 	var target = $(e.target);
     target.removeData('bs.modal')
           .find(".modal-content").html('');
+});
+
+
+
+$(document).ajaxSend(function(event, request, settings) {
+    $('#loading-indicator').show();
+});
+
+$(document).ajaxComplete(function(event, request, settings) {
+    $('#loading-indicator').hide();
 });
 </script>
 <!-- /editor -->

@@ -123,7 +123,7 @@
           <div class="title_right">
            
               <div class="input-group pull-right">
-              <div class="nav toggle paddman12"> <a id="menu_toggle2"><button class="btn btn-primary" type="button">Full Screen</button></a> </div>
+              
                 <button class="btn btn-success taright" type="button" href="<?=base_url();?>Manage_user_plan/loadmodal" data-toggle="modal" data-target=".bs-example-modal-lg"> <i class="fa fa-plus"></i> Add User Plan</button>
                 </div>
                 
@@ -165,7 +165,7 @@
           <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
               <div class="x_title">
-                <h2>Manage User Form</h2>
+                <h2>Manage User Plan Search</h2>
                 <ul class="nav navbar-right panel_toolbox">
                   <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a> </li>
                   <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
@@ -190,7 +190,7 @@
                     <input type="text" id="last-name" name="last-name" required="required" class="form-control">
                   </div>
                   <div class="form-group col-xs-12 col-sm-3">
-                    <label for="middle-name" class="control-label">Plan Type</label>
+                    <label for="middle-name" class="control-label">Listing Type</label>
                     <input id="middle-name" class="form-control" type="text" name="middle-name">
                   </div>
                   
@@ -256,7 +256,7 @@
                       <th>Plan Title </th>
                       <th>User Type </th>
                       <th>Plan Order </th>
-                      <th>Plan Type </th>
+                      <th>Listing Type </th>
                       <th>Created Date </th>
                       <th class=" no-link last"><span class="nobr">Action</span> </th>
                     </tr>

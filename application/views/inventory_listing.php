@@ -118,14 +118,9 @@
       <div class="">
         <div class="page-title">
           <div class="title_left">
-            <h3>Inventory</h3>
+            <h3>Inventory Listing</h3>
           </div>
-          <div class="title_right">
-            <div class="input-group pull-right"> 
-             <div class="nav toggle paddman12"> <a id="menu_toggle2"><button class="btn btn-primary" type="button">Full Screen</button></a> </div>
-             <button data-target=".bs-example-modal-lg" data-toggle="modal" type="button" class="btn btn-success taright">Export</button>
-            </div>
-          </div>
+          
         </div>
         <div class="clearfix"></div>
         <script type="text/javascript">
@@ -162,7 +157,7 @@
           <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
               <div class="x_title">
-                <h2>Manage User Form</h2>
+                <h2>Inventory Search</h2>
                 <ul class="nav navbar-right panel_toolbox">
                   <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a> </li>
                   <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
@@ -264,8 +259,8 @@
                 </ul>
                 <div class="clearfix"></div>
               </div>
-              <div class="x_content">
-                <table class="table table-bordered table-hover vert-aliins">
+              <div class="x_content table-responsive">
+                <table class=" table table-bordered table-hover vert-aliins">
                   <thead>
                     <tr>
                       <th>Campaign Name </th>

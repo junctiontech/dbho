@@ -6371,10 +6371,12 @@ ul.notifications {
 .select2-container{width:100% !important;}
 .vert-aliins .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td{vertical-align:inherit !important;}
 .valusho h5{padding:7px;}
-.vert-aliins td:nth-child(2) input {width:55px; text-align:center;}
-.vert-aliins td:nth-child(3) input {width:150px; text-align:center;}
-.vert-aliins td:nth-child(4) input {width:150px; text-align:center;}
-.vert-aliins td:nth-child(5) input {width:55px; text-align:center;}
+.vert-aliins td:nth-child(2) input {width:57px; text-align:center;}
+.vert-aliins td:nth-child(3) input {width:57px; text-align:center;}
+.vert-aliins td:nth-child(4) input {width:57px; text-align:center;}
+.vert-aliins td.d:nth-child(4) input {width:89px; text-align:center;}
+.vert-aliins td:nth-child(5) input {width:89px; text-align:center;}
+.vert-aliins td.d:nth-child(5) input {width:57px; text-align:center;}
 .vert-aliins th{background:#D6E0DE; color:#666;}
 .paddman12{ padding-top: 0; width: 107px;}
 .paddman12 a{padding:0px;}

@@ -27,6 +27,7 @@
 <link href="css/select/select2.min.css" rel="stylesheet">
 <!-- switchery -->
 <link rel="stylesheet" href="css/switchery/switchery.min.css" />
+<link rel="stylesheet" href="<?=base_url();?>css/datepicker.css" />
 <script src="js/jquery.min.js"></script>
 
 <!--[if lt IE 9]>
@@ -120,12 +121,7 @@
           <div class="title_left">
             <h3>Creat Campaign</h3>
           </div>
-          <div class="title_right">
-            <div class="input-group pull-right"> 
-             <div class="nav toggle paddman12"> <a id="menu_toggle2"><button class="btn btn-primary" type="button">Full Screen</button></a> </div>
-             <button data-target=".bs-example-modal-lg" data-toggle="modal" type="button" class="btn btn-success taright">Export</button>
-            </div>
-          </div>
+          
         </div>
 		 
         <div class="clearfix"></div>
@@ -217,7 +213,7 @@
                       <th>Qty</th>
                       <th>Duration (Days) </th>
                       <th>Amount (Rs)</th>
-                      <th>Creat</th>
+                      <th><button class="btn btn-success" type="button" onclick="displayResult()">Add</button></th>
                     </tr>
                   </thead>
                   <tbody>
@@ -253,7 +249,7 @@
                     </div>
                       </td>
                       
-                      <td><button class="btn btn-success" type="button" onclick="displayResult()">Add</button></td>
+                      <td><p>Remove</p></td>
                       
                     </tr>
                     
@@ -289,7 +285,7 @@
                       <th>Carry forward (days)</th>
                       <th>Last Expiry</th>
                       <th>Current Expiry Date</th>
-					  <th>Create</th>
+					  <th><button class="btn btn-success" type="button" onclick="displayResult1();get_plans(document.getElementById('userid').value);">Add</button></th>
                     </tr>
                   </thead>
                   <tbody>
@@ -306,11 +302,11 @@
                     </div></td>
                       <td><input required name="planquantity[]" type="text" placeholder="" class="form-control"></td>
                       <td><input required name="planduration[]" type="text" placeholder="" class="form-control"></td>
-                      <td><input   required name="planamount[]" type="text" placeholder="" class="form-control txt"></td>
-                      <td><input name="plancarryforwrd[]" type="text" placeholder="" class="form-control"></td>
+                      <td class="d"><input   required name="planamount[]" type="text" placeholder="" class="form-control txt"></td>
+                      <td class="d"><input name="plancarryforwrd[]" type="text" placeholder="" class="form-control"></td>
                       <td>12/17/2015</td>
                       <td>12/17/2014</td>
-					  <td><button class="btn btn-success" type="button" onclick="displayResult1();get_plans(document.getElementById('userid').value);">Add</button></td>
+					  <td><p>Remove</p></td>
                     </tr>
                    
                   </tbody>
@@ -322,7 +318,7 @@
                 <div class="clearfix"></div>
           
                <div class="valusho pull-left"> <button class="btn btn-info btn-lg" type="submit" name="submit" value="submit">Create</button></div>
-              <div class="valusho pull-right"> <h5> Compaign Amount :  Rs <span id="sum">0</span> </h5></div>
+              <div class="valusho pull-right"> <h5> Compaign Amount :  Rs <span id="sum">0.00</span> </h5></div>
               
            </form>
                   
@@ -607,8 +603,9 @@
 <script type="text/javascript">
         $(document).ready(function () {
             
-            $('#single_cal2').daterangepicker({
+            $('#single_cal2').datepicker({
                 singleDatePicker: true,
+				startDate: new Date(),
                 calender_style: "picker_2"
             }, function (start, end, label) {
                 console.log(start.toISOString(), end.toISOString(), label);
@@ -643,7 +640,7 @@ function displayResult1()
 	if(document.getElementById("user_plans") != null) {
 	document.getElementById("user_plans").setAttribute("id","old_user_plans");
 }
-document.getElementById("myTable1").insertRow(-1).innerHTML = '<td><div id="user_plans" class="form-group col-xs-12 "><select required name="planid[]" class="select2_group form-control"> <option value=""> Select Plan</option><?php foreach($plan as $plan1){?><option value="<?=isset($plan1->planID)?$plan1->planID:''?>"><?=isset($plan1->planTitle)?$plan1->planTitle:''?></option><?php } ?> </select> </div></td><td><input required name="planquantity[]" type="text" placeholder="" class="form-control"></td> <td><input required name="planduration[]" type="text" placeholder="" class="form-control"></td> <td><input onkeyup="calculateSum();"  required name="planamount[]" type="text" placeholder="" class="form-control txt"></td> <td><input name="plancarryforwrd[]" type="text" placeholder="" class="form-control"></td> <td>12/17/2015</td> <td>12/17/2014</td><td><p>Remove</p></td>';
+document.getElementById("myTable1").insertRow(-1).innerHTML = '<td><div id="user_plans" class="form-group col-xs-12 "><select required name="planid[]" class="select2_group form-control"> <option value=""> Select Plan</option><?php foreach($plan as $plan1){?><option value="<?=isset($plan1->planID)?$plan1->planID:''?>"><?=isset($plan1->planTitle)?$plan1->planTitle:''?></option><?php } ?> </select> </div></td><td><input required name="planquantity[]" type="text" placeholder="" class="form-control"></td> <td><input required name="planduration[]" type="text" placeholder="" class="form-control"></td> <td class="d"><input onkeyup="calculateSum();"  required name="planamount[]" type="text" placeholder="" class="form-control txt"></td> <td class="d"><input name="plancarryforwrd[]" type="text" placeholder="" class="form-control"></td> <td>12/17/2015</td> <td>12/17/2014</td><td><p>Remove</p></td>';
 }
 $('#myTable1').on('click','td p',function(){
 $(this).closest('tr').remove();
@@ -654,6 +651,7 @@ $(this).closest('tr').remove();
 </script>
 <script type="text/javascript" src="js/script.js"></script>
 <script type="text/javascript" src="js/common_functions.js"></script>	
+<script src="<?=base_url();?>js/bootstrap-datepicker.js"></script> 
 <!-- /editor -->
 </body>
 </html>

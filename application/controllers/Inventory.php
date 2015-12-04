@@ -373,7 +373,7 @@ class Inventory extends CI_Controller {
 
 /*Inventory_listing view Load Start.............................................................................................................*/
 
-	function Inventory_listing($class=false,$section=false,$subject=false,$date=false)
+	function Inventory_listing()
 	{	
 		
 		$this->data['inventory_list']=$this->inventory_model->get_inventorylist();
