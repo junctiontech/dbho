@@ -280,9 +280,10 @@
               
               
               <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+			  <center><img src="<?=base_url();?>/images/ajax-loader.gif" id="loading-indicator" style="display:none" /></center>
 			  
                 <div class="modal-dialog modal-lg">
-				<center><img src="<?=base_url();?>/images/ajax-loader.gif" id="loading-indicator" style="display:none" /></center>
+				
                   <div class="modal-content moda-scrol">
                   </div>
                 </div>
