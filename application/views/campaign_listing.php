@@ -49,7 +49,23 @@
     text-align: center;
 }
       
-        
+	 #loading-indicator { 
+  left: 0;
+  margin-top: 100px;
+  bottom: 0;
+  right: 0;
+  background: #2c2e2f;
+  z-index: 10000;
+  zoom: 1;
+  filter: alpha(opacity=100);
+  -webkit-opacity: 1;
+  -moz-opacity: 1;
+  opacity: 1;
+  -webkit-transition: all 800ms ease-in-out;
+  -moz-transition: all 800ms ease-in-out;
+  -o-transition: all 800ms ease-in-out;
+  transition: all 800ms ease-in-out;
+     }   
         </style>
 
 </head>
@@ -281,7 +297,7 @@
               
               <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
 			 
-			  
+			  <center><img src="<?=base_url();?>/images/ajax-loader.gif" id="loading-indicator" style="display:none" /></center>
                 <div class="modal-dialog modal-lg">
 				
                   <div class="modal-content moda-scrol">
