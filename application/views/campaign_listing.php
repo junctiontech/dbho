@@ -285,7 +285,7 @@
                 <div class="modal-dialog modal-lg">
 				
                   <div class="modal-content moda-scrol">
-				   <center><img src="<?=base_url();?>/images/ajax-loader.gif" id="loading-indicator" style="display:none" /></center>
+				   
                   </div>
                 </div>
               </div>

@@ -1,3 +1,4 @@
+<center><img src="<?=base_url();?>/images/ajax-loader.gif" id="loading-indicator" style="display:none" /></center>
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span> </button>
 <h4 class="modal-title" id="myModalLabel">Campaign</h4>
