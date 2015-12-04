@@ -48,11 +48,7 @@
     padding: 5px 7px;
     text-align: center;
 }
-        #loading-indicator {
-  position: absolute;
-  left: 10px;
-  top: 10px;
-}
+      
         
         </style>
 
