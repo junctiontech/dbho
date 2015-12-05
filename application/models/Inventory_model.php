@@ -159,7 +159,7 @@ class Inventory_model extends CI_Model
 	{		
 			$db3 = $this->load->database('both', TRUE);
 			
-			$qry = $db3->query("select dbho_campaignmaster.campaignID,cityID,dbho_campaignmaster.userID,userCompanyName,dbho_campaignmaster.created,dbho_campaigninventory.inventoryID,inventoryDescription from dbho_campaignmaster,homeonline.rp_user_details,dbho_campaigninventory,dbho_inventorymaster,dbho_inventorytype where
+			$qry = $db3->query("select dbho_campaignmaster.campaignID,cityID,dbho_campaignmaster.userID,duration,userCompanyName,dbho_campaignmaster.created,dbho_campaigninventory.inventoryID,inventoryDescription from dbho_campaignmaster,homeonline.rp_user_details,dbho_campaigninventory,dbho_inventorymaster,dbho_inventorytype where
 									dbho_campaignmaster.campaignID='$campaignid' and
 									dbho_campaignmaster.campaignID=dbho_campaigninventory.campaignID and
 									dbho_campaigninventory.inventoryID='$inventoryconsumptionid' and
@@ -176,7 +176,7 @@ class Inventory_model extends CI_Model
 	{		
 			$db3 = $this->load->database('both', TRUE);
 			
-			$qry = $db3->query("select quantity,duration from dbho_campaignmaster,dbho_campaigninventory where
+			$qry = $db3->query("select quantity,duration,startDate from dbho_campaignmaster,dbho_campaigninventory where
 									dbho_campaignmaster.campaignID='$campaignid' and
 									dbho_campaignmaster.userID='$user_id' and
 									dbho_campaignmaster.campaignID=dbho_campaigninventory.campaignID and

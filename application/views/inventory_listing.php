@@ -291,7 +291,7 @@
                       <td><?=isset($inventory_list->projectName)?$inventory_list->projectName:''?></td>
                       <td><?=isset($inventory_list->StartDate)?$inventory_list->StartDate:''?></td>
                        <td><?=isset($inventory_list->Duration)?$inventory_list->Duration:''?></td>
-                       <td><?=isset($inventory_list->StartDate)?$inventory_list->StartDate:''?></td>
+                       <td><?php if(!empty($inventory_list->StartDate) || !empty($inventory_list->Duration)){ $date=explode("/",$inventory_list->StartDate);$enddate=$date[1]+$inventory_list->Duration-1; $newendate="$date[0]/$enddate/$date[2]"; echo $newendate; }?></td>
                        <td><?=isset($inventory_list->Weightage)?$inventory_list->Weightage:''?></td>
                        <td>
                        <a class="btn btn-app paddpsush">

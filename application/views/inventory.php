@@ -154,19 +154,14 @@
 		 <!-- Alert section End-->
            <form class="form-horizontal form-label-left" action="<?=base_url();?>Inventory/Add_inventory" method="post" enctype="multipart/form-data">
            
-           <div class="form-group">
-           <div class="col-md-12 col-sm-12 col-xs-12">
-              <div class="radio mabott10">
-                        <label>
-                          <input type="radio"  class="flat" <?php if(!empty($campaignid)){ }else{echo"checked";}?> name="type" value="Free">
-                          Free </label>
-                          <label>
-                          <input type="radio"  class="flat" name="type" <?php if(!empty($campaignid) ||!empty($inventoryupdate[0]->CampaignID)){ echo"checked";}?> value="Campaign">
-                          Campaign </label>
-                      </div>     
-             </div>         
            
-           </div>
+			<div class="form-group">
+			<label class="control-label col-md-2 col-sm-2 col-xs-12">Type</label>
+			<div class="col-md-10 col-sm-10 col-xs-12">
+                    <label class="control-label col-md-2 col-sm-2 col-xs-12"> <label class="control-label col-md-2 col-sm-2 col-xs-12"><?php if(!empty($campaignid) ||!empty($inventoryupdate[0]->CampaignID)){ echo"Campaign";}else{echo"Fee";}?> </label></label>
+            </div>
+			</div>
+			
 		   <?php if(!empty($inventoryconsumptionid)){?>
 				<input type="hidden" name="inventoryconsumptionid" value="<?=isset($inventoryconsumptionid)?$inventoryconsumptionid:''?>" readonly />
 		   <?php } ?>
@@ -285,7 +280,7 @@
                   <div class="form-group">
                     <label class="control-label col-md-2 col-sm-2 col-xs-12">Duration</label>
                     <div class="col-md-10 col-sm-10 col-xs-12 contxt">
-                     <input  required type="text" placeholder="" class="form-control" value="<?=isset($inventoryupdate[0]->Duration)?$inventoryupdate[0]->Duration:''?>" <?php if(!empty($inventoryupdate)){ echo"readonly";}?> name="duration">
+                     <input  required type="text" placeholder="" class="form-control" <?php if(!empty($campaigndetails[0]->duration)){ echo"readonly"; } ?> value="<?=isset($campaigndetails[0]->duration)?$campaigndetails[0]->duration:''?><?=isset($inventoryupdate[0]->Duration)?$inventoryupdate[0]->Duration:''?>" <?php if(!empty($inventoryupdate)){ echo"readonly";}?> name="duration">
                     </div>
                   </div>
                   
@@ -293,13 +288,13 @@
 				  <div class="form-group">
                                     <label class="control-label col-md-2 col-sm-2 col-xs-12">Weightage</label>
                                     <div class="col-md-10 col-sm-10 col-xs-12">
-                                    <select required name="weightage" class="select2_group form-control">
+                                    <select required="required" name="weightage" class="select2_group form-control">
 									<option>Select Weightage</option>
-                                    <option value="1" <?php if(!empty($inventoryupdate[0]->Weightage)){ if($inventoryupdate[0]->Weightage=="1"){ echo"selected";} } ?>>1</option>
-									<option value="2" <?php if(!empty($inventoryupdate[0]->Weightage)){ if($inventoryupdate[0]->Weightage=="2"){ echo"selected";} } ?>>2</option>
-									<option value="3" <?php if(!empty($inventoryupdate[0]->Weightage)){ if($inventoryupdate[0]->Weightage=="3"){ echo"selected";} } ?>>3</option>
-									<option value="4" <?php if(!empty($inventoryupdate[0]->Weightage)){ if($inventoryupdate[0]->Weightage=="4"){ echo"selected";} } ?>>4</option>
-									<option value="5" <?php if(!empty($inventoryupdate[0]->Weightage)){ if($inventoryupdate[0]->Weightage=="5"){ echo"selected";} } ?>>5</option>
+                                    <option value="100" <?php if(!empty($inventoryupdate[0]->Weightage)){ if($inventoryupdate[0]->Weightage=="100"){ echo"selected";} } ?>>100</option>
+									<option value="200" <?php if(!empty($inventoryupdate[0]->Weightage)){ if($inventoryupdate[0]->Weightage=="200"){ echo"selected";} } ?>>200</option>
+									<option value="300" <?php if(!empty($inventoryupdate[0]->Weightage)){ if($inventoryupdate[0]->Weightage=="300"){ echo"selected";} } ?>>300</option>
+									<option value="400" <?php if(!empty($inventoryupdate[0]->Weightage)){ if($inventoryupdate[0]->Weightage=="400"){ echo"selected";} } ?>>400</option>
+									<option value="500" <?php if(!empty($inventoryupdate[0]->Weightage)){ if($inventoryupdate[0]->Weightage=="500"){ echo"selected";} } ?>>500</option>
                                     </select>
                                     </div>
                                     </div>

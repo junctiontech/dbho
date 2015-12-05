@@ -23,11 +23,18 @@
 <tbody>
 <?php foreach ($inventorylist as $inventorylists){?>
 <tr>
-<td><a href="<?=base_url();?>Inventory/index/<?=isset($inventorylists->inventoryID)?$inventorylists->inventoryID:''?>/<?=isset($inventorylists->campaignID)?$inventorylists->campaignID:''?>"><?=isset($inventorylists->inventoryDescription)?$inventorylists->inventoryDescription:''?></a></td>
+<?php if(!empty($inventorylists->inventoryID)&&!empty($inventorylists->campaignID)&&!empty($inventorylists->userID)){
+	$campaigninventorydetails=$this->inventory_model->campaigninventory_availablityquantity($inventorylists->inventoryID,$inventorylists->campaignID,$inventorylists->userID);
+	if(!empty($campaigninventorydetails)){
+		$remain=$inventorylists->duration-count($campaigninventorydetails);
+	}
+	}?>
+<td><a <?php if(!empty($campaigninventorydetails)){if($remain==0){ ?> onclick="confirm('This Inventory Is Booked!!');" href="javascript:;" <?php }else{?>  href="<?=base_url();?>Inventory/index/<?=isset($inventorylists->inventoryID)?$inventorylists->inventoryID:''?>/<?=isset($inventorylists->campaignID)?$inventorylists->campaignID:''?>"  <?php }}else{?>  href="<?=base_url();?>Inventory/index/<?=isset($inventorylists->inventoryID)?$inventorylists->inventoryID:''?>/<?=isset($inventorylists->campaignID)?$inventorylists->campaignID:''?>" <?php }
+?>><?=isset($inventorylists->inventoryDescription)?$inventorylists->inventoryDescription:''?></a></td>
 <td><?=isset($inventorylists->cityName)?$inventorylists->cityName:''?></td>
 <td><?=isset($inventorylists->quantity)?$inventorylists->quantity:''?></td>
 <td><?=isset($inventorylists->duration)?$inventorylists->duration:''?></td>
-<td><?=isset($inventorylists->duration)?$inventorylists->duration:''?></td>
+<td><?=isset($remain)?$remain:''?></td>
 </tr>
 <?php } ?>
 
@@ -80,5 +87,5 @@
 <div class="clearfix"></div>
 <div class="modal-footer">
 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-<button type="button" class="btn btn-primary">Save changes</button>
+
 </div>

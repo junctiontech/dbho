@@ -9,6 +9,7 @@ class Campaign extends CI_Controller {
 		$this->data[]="";
 		$this->data['url'] = base_url();
 		$this->load->model('campaign_model');
+		$this->load->model('inventory_model');
 		$this->load->library('parser');
 		$this->data['base_url']=base_url();
 		$this->load->library('session');

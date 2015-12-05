@@ -114,7 +114,7 @@ class Inventory extends CI_Controller {
 			date_default_timezone_set("Asia/Kolkata");
 			$date=date("Y-m-d h:i:s");
 			
-				if(!empty($type) && !empty($user_id) && !empty($inventoryid) && !empty($city_id) && !empty($project_id)  && !empty($start_date) && !empty($duration) && !empty($weightage) && !empty($remark) )
+				if(!empty($user_id) && !empty($inventoryid) && !empty($city_id) && !empty($project_id)  && !empty($start_date) && !empty($duration) && !empty($weightage) && !empty($remark) )
 				{
 				
 					if(empty($this->input->post('inventoryconsumptionid')))
@@ -127,7 +127,13 @@ class Inventory extends CI_Controller {
 						
 								if(!empty($campaigninventorydetails))
 								{
-						
+													if(strtotime($start_date)<strtotime($campaigninventorydetails[0]->startDate))
+													{	$camDate=$campaigninventorydetails[0]->startDate;
+												
+														$this->session->set_flashdata('message_type', 'error');
+														$this->session->set_flashdata('message', $this->config->item("index")."Start Date Should Not Before Campaign Start Date. Campaign Start Date Is $camDate !!");
+														redirect('Inventory');
+													}
 									$datess="";
 									
 										if($duration>1)
@@ -157,6 +163,8 @@ class Inventory extends CI_Controller {
 													}
 													
 													if($duration>$campaigninventorydetails[0]->duration){
+														print_r($duration);echo"<br>";
+														print_r($campaigninventorydetails[0]->duration);die;
 																	$due=$campaigninventorydetails[0]->duration;
 																	$this->session->set_flashdata('message_type', 'error');
 																	$this->session->set_flashdata('message', $this->config->item("index")."This Inventory Has Max Duration $due . Please Insert Duration Less Than Or Equal To $due !!");
