@@ -14,14 +14,20 @@ function get_planpriority(plantypeid)
 }
 
 function get_usertype(userid)
-{
+{ 
 	$.ajax({
 				type: "POST",
 				url : base_url+'common_functions/get_usertype',
 				data: {userid: userid  },
 			})	
 				.done(function(msg){
+					if(msg !=''){
 					document.getElementById('user_type').value=msg;
+					$( '#showhidden' ).css( "pointer-events", "auto" );
+					}else{
+						document.getElementById('user_type').value="";
+						$( '#showhidden' ).css( "pointer-events", "none" );
+					}
 					return false;	
 				});
 		
@@ -38,12 +44,16 @@ function get_plans(userid)
 				data: {userid: userid  },
 			})	
 				.done(function(msg){
+					if(msg !=''){
 					$('#user_plans').html(msg);
+					}
 					return false;	
 				});
 		
 		return false;
-}
+}else{
+					$('#user_plans').html("");	
+					}
 }
 
 

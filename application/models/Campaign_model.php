@@ -116,7 +116,7 @@ class Campaign_model extends CI_Model
 	
 	function get_campaignlist()
 	{		$db2 = $this->load->database('both', TRUE);
-			$qry = $db2->query("select dbho_campaignmaster.campaignID,userCompanyName,userEmail,userPhone,startDate,dbho_campaignmaster.created, sum(dbho_campaigninventory.amount) + sum(dbho_campaignplan.Amount) as amount from dbho_campaignmaster,homeonline.rp_users,homeonline.rp_user_details,dbho_campaigninventory,dbho_campaignplan where
+			$qry = $db2->query("select dbho_campaignmaster.campaignID,userCompanyName,userEmail,userPhone,startDate,expiry_date_campaign,dbho_campaignmaster.created, sum(dbho_campaigninventory.amount) + sum(dbho_campaignplan.Amount) as amount from dbho_campaignmaster,homeonline.rp_users,homeonline.rp_user_details,dbho_campaigninventory,dbho_campaignplan where
 									dbho_campaignmaster.userID=rp_users.userID and 
 									rp_users.userID=rp_user_details.userID and
 									dbho_campaignmaster.campaignID=dbho_campaigninventory.campaignID and

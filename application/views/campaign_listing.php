@@ -283,7 +283,7 @@
                       <td><?=isset($campaignlists->userEmail)?$campaignlists->userEmail:''?></td>
                       <td><?=isset($campaignlists->userPhone)?$campaignlists->userPhone:''?></td>
                       
-                       <td><?=isset($campaignlists->startDate)?$campaignlists->startDate:''?></td>
+                       <td><?=isset($campaignlists->expiry_date_campaign)?$campaignlists->expiry_date_campaign:''?></td>
                        <td><?=isset($campaignlists->amount)?$campaignlists->amount:''?></td>
                        <td><button class="btn btn-success" type="button" data-toggle="modal" href="<?=base_url();?>campaign/campaign_modal/<?=isset($campaignlists->campaignID)?$campaignlists->campaignID:''?>" data-target=".bs-example-modal-lg">View</button></td>
                        

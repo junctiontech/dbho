@@ -198,8 +198,8 @@
                  
                
               </div>
-              
-              <div class="row">
+              <div id="showhidden" style="pointer-events:none">
+              <div class="row" >
         
           <div class="col-md-12 col-sm-12 col-xs-12">
           <div class="row">
@@ -274,7 +274,7 @@
     
       </div>
              
-              <div class="x_content">
+              <div class="x_content" id="showhidden" >
                 <table id="myTable1" class="table table-bordered table-hover vert-aliins">
                   <thead>
                     <tr>
@@ -316,10 +316,10 @@
                 
                 
                 <div class="clearfix"></div>
-          
+         
                <div class="valusho pull-left"> <button class="btn btn-info btn-lg" type="submit" name="submit" value="submit">Create</button></div>
               <div class="valusho pull-right"> <h5> Compaign Amount :  Rs <span id="sum">0.00</span> </h5></div>
-              
+              </div>
            </form>
                   
           </div>
@@ -610,8 +610,13 @@
             }, function (start, end, label) {
                 console.log(start.toISOString(), end.toISOString(), label);
             });
-             
-        });
+          
+			
+        
+	   });
+	   
+	   
+	  
     </script> 
 	
 	<script type="text/javascript">

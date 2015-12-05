@@ -31,17 +31,19 @@ class Common_functions extends CI_Controller {
 		$userid = $this->input->post('userid');
 		
 		$user_type = $this->utilities->get_usertype($userid);
+		if(!empty($user_type)){
 		print_r($user_type[0]->userTypeName);
+		}
 	}
 	
 	public function get_planbyusertype()
-	{
+	{ 
 		$userid = $this->input->post('userid');
 		if(!empty($userid)){
 		$user_type = $this->utilities->get_usertype($userid);
 		$usertypeid=$user_type[0]->userTypeID;
 		$user_typeplan = $this->utilities->get_planbyusertype($usertypeid);
-		
+		if(!empty($user_typeplan)){
 		echo"<select required name='planid[]' class='select2_group form-control'>"; 
 		echo "<option value=''>Select Plan</option>";
 		foreach($user_typeplan as $plan1){
@@ -49,6 +51,7 @@ class Common_functions extends CI_Controller {
 		echo "</option>";
 		}
 		echo"</select>";
+		}
 		}
 	}
 	
