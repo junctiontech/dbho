@@ -35,13 +35,13 @@ function get_usertype(userid)
 }
 
 
-function get_plans(userid)
-{
+function get_plans(userid,rowcount)
+{	
 	if(userid){
 	$.ajax({
 				type: "POST",
 				url : base_url+'common_functions/get_planbyusertype',
-				data: {userid: userid  },
+				data: {userid: userid , rowcount:rowcount },
 			})	
 				.done(function(msg){
 					if(msg !=''){
@@ -131,8 +131,9 @@ $(document).ready(function(){
 	}
 	
 	
-	function checkplanavailable(planid)
+	function checkplanavailable(planid,rowid)
 {	
+	var id=rowid.split("_");
 	var userid=document.getElementById("userid").value;
 	
 	if(planid && userid)
@@ -149,14 +150,14 @@ $(document).ready(function(){
 					{
 						var topic = eval(msg);
 						$.each(topic, function(i,v){
-							document.getElementById('carrayforword_0').value=(v.quantity);
-							document.getElementById('lastexpiry_0').value=(v.currentExpiry);
+							document.getElementById('carrayforword_'+id[1]).value=(v.quantity);
+							document.getElementById('lastexpiry_'+id[1]).value=(v.currentExpiry);
 							
 							});
 					
 					}else{
-						//$( '#carrayforword_0' ).setAttribute( "readonly");
-						document.getElementById("carrayforword_0").setAttribute("readonly","true");
+						document.getElementById("carrayforword_"+id[1]).setAttribute("readonly","true");
+						document.getElementById("carrayforword_"+id[1]).value="";
 					}	
 				});
 		

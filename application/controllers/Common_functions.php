@@ -39,12 +39,18 @@ class Common_functions extends CI_Controller {
 	public function get_planbyusertype()
 	{ 
 		$userid = $this->input->post('userid');
+		$rowcount = $this->input->post('rowcount');
+		if(!empty($rowcount)){
+			
+		}else{
+			$rowcount=0;
+		}
 		if(!empty($userid)){
 		$user_type = $this->utilities->get_usertype($userid);
 		$usertypeid=$user_type[0]->userTypeID;
 		$user_typeplan = $this->utilities->get_planbyusertype($usertypeid);
 		if(!empty($user_typeplan)){
-		echo"<select onchange='checkplanavailable(this.value)' required name='planid[]' class='select2_group form-control'>"; 
+		echo"<select onchange='checkplanavailable(this.value,this.id)' id='plan_$rowcount' required name='planid[]' class='select2_group form-control newin'>"; 
 		echo "<option value=''>Select Plan</option>";
 		foreach($user_typeplan as $plan1){
 		echo "<option value=".$plan1->planID.">$plan1->planTitle";

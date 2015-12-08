@@ -285,13 +285,13 @@
                       <th>Carry forward (Qty)</th>
                       <th>Last Expiry</th>
                       <th>Current Expiry Date</th>
-					  <th><button class="btn btn-success" type="button" onclick="displayResult1();get_plans(document.getElementById('userid').value);">Add</button></th>
+					  <th><button class="btn btn-success" type="button" onclick="displayResult1();get_plans(document.getElementById('userid').value,document.getElementById('myTable1').rows.length);">Add</button></th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr>
                       <td><div id="user_plans" class="form-group col-xs-12 col-sm-12">
-                      <select onchange="checkplanavailable(this.value)" required name="planid[]" class="select2_group form-control">
+                      <select onchange="checkplanavailable(this.value,this.id)" id="plan_0" required name="planid[]" class="select2_group form-control">
                         
                         <option value=""> Select Plan</option>
                         <?php foreach($plan as $plan1){?>
@@ -648,13 +648,13 @@ function displayResult1()
 		
 	document.getElementById("user_plans").setAttribute("id","old_user_plans");
 	
-}
+}	
 		
 				var table=document.getElementById("myTable1");
     			var rowCount=table.rows.length;
     			var	last_row = rowCount+1;
     			
-document.getElementById("myTable1").insertRow(-1).innerHTML = '<td><div id="user_plans" class="form-group col-xs-12 "><select required name="planid[]" class="select2_group form-control"> <option value=""> Select Plan</option><?php foreach($plan as $plan1){?><option value="<?=isset($plan1->planID)?$plan1->planID:''?>"><?=isset($plan1->planTitle)?$plan1->planTitle:''?></option><?php } ?> </select> </div></td><td><input required name="planquantity[]" type="text" placeholder="" class="form-control"></td> <td><input required onblur="calculateexpirydate(this.value,this.id)" id="dura_'+last_row+'" name="planduration[]" type="text" placeholder="" class="form-control"></td> <td class="d"><input onkeyup="calculateSum();"  required name="planamount[]" type="text" placeholder="" class="form-control txt"></td> <td class="d"><input name="plancarryforwrd[]" type="text" placeholder="" class="form-control"></td> <td><input readonly name="lastexpiryplan" type="text" placeholder="" class="form-control lastexpiry"></td><td><input readonly name="currentexpiryplan" id="expira_'+last_row+'" type="text" placeholder="" class="form-control currentexpiry"></td><td><p>Remove</p></td>';
+document.getElementById("myTable1").insertRow(-1).innerHTML = '<td><div id="user_plans" class="form-group col-xs-12 "><select required name="planid[]" class="select2_group form-control"> <option value=""> Select Plan</option><?php foreach($plan as $plan1){?><option value="<?=isset($plan1->planID)?$plan1->planID:''?>"><?=isset($plan1->planTitle)?$plan1->planTitle:''?></option><?php } ?> </select> </div></td><td><input required name="planquantity[]" type="text" placeholder="" class="form-control"></td> <td><input required onblur="calculateexpirydate(this.value,this.id)" id="dura_'+last_row+'" name="planduration[]" type="text" placeholder="" class="form-control"></td> <td class="d"><input onkeyup="calculateSum();"  required name="planamount[]" type="text" placeholder="" class="form-control txt"></td> <td class="d"><input name="plancarryforwrd[]" id="carrayforword_'+last_row+'" type="text" placeholder="" class="form-control"></td> <td><input readonly name="lastexpiryplan" id="lastexpiry_'+last_row+'" type="text" placeholder="" class="form-control lastexpiry"></td><td><input readonly name="currentexpiryplan" id="expira_'+last_row+'" type="text" placeholder="" class="form-control currentexpiry"></td><td><p>Remove</p></td>';
 
 }
 
