@@ -171,63 +171,71 @@
                 <div class="clearfix"></div>
               </div>
               <div class="x_content">
-                <form id="demo-form2" data-parsley-validate class="form-group form-label-left clearfix">
+                <form action="<?=base_url();?>Inventory/Inventory_listing/search" method="post" class="form-group form-label-left clearfix">
                 <div class="row">
                   <div class="form-group col-xs-12 col-sm-3">
-                    <label class="control-label" for="first-name">Inventory Name <span class="required">*</span> </label>
-                    <input type="text" id="first-name" required="required" class="form-control">
+                    <label class="control-label" for="first-name">Inventory Name <span class="required"></span> </label>
+                    <input type="text" id="first-name" name="inventoryname" class="form-control">
                   </div>
                   <div class="form-group col-xs-12 col-sm-3">
-                    <label class="control-label" for="last-name">Campaign Type <span class="required">*</span> </label>
+                    <label class="control-label" for="last-name">Campaign Type <span class="required"></span> </label>
                     <select class="select2_group form-control">
-                        <optgroup label="Alaskan/Hawaiian Time Zone">
-                        <option value="AK">Select</option>
-                        <option value="HI">Hawaii</option>
-                        </optgroup>
+                        <option>select Campaign Type</option>
                       </select>
                   </div>
                   <div class="form-group col-xs-12 col-sm-3">
                     <label for="middle-name" class="control-label">Status</label>
-                    <select class="select2_group form-control">
+                    <select name="status" class="select2_group form-control">
                         <optgroup label="Alaskan/Hawaiian Time Zone">
-                        <option value="AK">Select</option>
-                        <option value="HI">Hawaii</option>
+                        <option ></option>
+                        <option value="Created">Created</option>
+						<option value="Started">Started</option>
+						<option value="Paused">Paused</option>
+						<option value="Postponed">Postponed</option>
+						<option value="Completed">Completed</option>
+						<option value="Cancelled">Cancelled</option>
                         </optgroup>
                       </select>
                   </div>
                   
                   <div class="form-group col-xs-12 col-sm-3">
                     <label for="middle-name" class="control-label">Company Name</label>
-                    <input id="middle-name" class="form-control" type="text" name="middle-name">
+                    <input id="middle-name" class="form-control" type="text" name="companyname">
                   </div>
                   
                   <div class="form-group col-xs-12 col-sm-3">
                     <label for="middle-name" class="control-label">Email ID</label>
-                    <input id="middle-name" class="form-control" type="text" name="middle-name">
+                    <input id="middle-name" class="form-control" type="text" name="emailid">
                   </div>
                   
                   <div class="form-group col-xs-12 col-sm-3">
                     <label for="middle-name" class="control-label">Weightage</label>
-                    <select class="select2_group form-control">
+                    <select name="weightage" class="select2_group form-control">
                         <optgroup label="Alaskan/Hawaiian Time Zone">
-                        <option value="AK">Select</option>
-                        <option value="HI">Hawaii</option>
+                        <option ></option>
+                        <option value="100">100</option>
+						<option value="200">200</option>
+						<option value="300">300</option>
+						<option value="400">400</option>
+						<option value="500">500</option>
                         </optgroup>
                       </select>
                   </div>
                   
                   <div class="form-group col-xs-12 col-sm-3">
                     <label for="middle-name" class="control-label">City</label>
-                    <select class="select2_group form-control">
+                    <select name="city" class="select2_group form-control">
                         <optgroup label="Alaskan/Hawaiian Time Zone">
-                        <option value="AK">Select</option>
-                        <option value="HI">Hawaii</option>
+                        <option ></option>
+						<?php foreach($cities as $cities){?>
+                        <option value="<?=isset($cities->cityID)?$cities->cityID:''?>" <?php if(!empty($campaigndetails[0]->cityID)){ if($campaigndetails[0]->cityID==$cities->cityID){ echo"selected";} } ?> <?php if(!empty($inventoryupdate[0]->City)){ if($inventoryupdate[0]->City==$cities->cityID){ echo"selected";} } ?>><?=isset($cities->cityName)?$cities->cityName:''?></option>
+						<?php } ?>
                         </optgroup>
                       </select>
                   </div>
                   
                   <div class="form-group col-xs-12 col-sm-3 martop20">
-                  <button type="submit" class="btn btn-primary">Reset</button>
+                  <button type="button" onclick="location.href = '<?=base_url();?>Inventory/Inventory_listing';" class="btn btn-primary">Reset</button>
                   <button type="submit" class="btn btn-success">Search</button>
                    
                   </div>

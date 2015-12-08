@@ -17,13 +17,20 @@ class Manage_user_plan extends CI_Controller {
 // Manage_user_plan Started Here.................................................................................................................
 
 /*Manage_user_plan view Load Start.............................................................................................................*/
-	function index($planid=false)
-	{	if($planid){
-		$this->data['planid']=$planid;
-		}
-		$this->data['user_type']=$this->manage_user_plan_model->get_user_type();
-		$this->data['userplans']=$this->manage_user_plan_model->get_userplans();
+	function index($action=false)
+	{	if($action=="search"){
 		
+			$plantitle=$this->input->post('plantitle');
+			$usertype=$this->input->post('username');
+			$this->data['user_type']=$this->manage_user_plan_model->get_user_type($plantitle,$usertype);
+			$this->data['userplans']=$this->manage_user_plan_model->get_userplans($plantitle,$usertype);
+			
+		}else{
+			
+			$this->data['user_type']=$this->manage_user_plan_model->get_user_type();
+			$this->data['userplans']=$this->manage_user_plan_model->get_userplans();
+			
+		}
 		$this->load->view('manage_user_plan',$this->data);
 	}
 /*Manage_user_plan view Load End.............................................................................................................*/

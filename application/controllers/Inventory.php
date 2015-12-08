@@ -381,11 +381,34 @@ class Inventory extends CI_Controller {
 
 /*Inventory_listing view Load Start.............................................................................................................*/
 
-	function Inventory_listing()
+	function Inventory_listing($action=false)
 	{	
-		
-		$this->data['inventory_list']=$this->inventory_model->get_inventorylist();
-		$this->load->view('inventory_listing',$this->data);
+		if($action=="search"){
+			
+			$inventoryname=$this->input->post('inventoryname');
+			$status=$this->input->post('status');
+			$companyname=$this->input->post('companyname');
+			$emailid=$this->input->post('emailid');
+			$weightage=$this->input->post('weightage');
+			$city=$this->input->post('city');
+			
+			$query="";
+			if(!empty($inventoryname)){ $query.="and `inventoryDescription` like TRIM('%$inventoryname%')"; }
+			if(!empty($status)){ $query.="and `Status` like TRIM('%$status%')"; }
+			if(!empty($companyname)){ $query.="and `userCompanyName` like TRIM('%$companyname%')"; }
+			if(!empty($emailid)){ $query.="and `userEmail` like TRIM('%$emailid%')"; }
+			if(!empty($weightage)){ $query.="and `Weightage` like TRIM('%$weightage%')"; }
+			if(!empty($city)){ $query.="and dbho_planinventoryconsumption.City='$city'"; }
+			
+			//print_r($query);die;
+			$this->data['inventory_list']=$this->inventory_model->get_inventorylist($query);
+			//die;
+		}else{
+			
+			$this->data['inventory_list']=$this->inventory_model->get_inventorylist();
+		}	
+			$this->data['cities']=$this->inventory_model->get_city();
+			$this->load->view('inventory_listing',$this->data);
 		
 	}
 	

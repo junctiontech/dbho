@@ -59,14 +59,19 @@ class Manage_user_plan_model extends CI_Model
 	}
 	
 	
-	function get_userplans()
-	{
+	function get_userplans($plantitle=false,$usertype=false)
+	{	
+			if(!empty($plantitle) && !empty($usertype)){
+				$query="and `planTitle` like TRIM('%$plantitle%') and `userTypeName` like TRIM('%$usertype%') ";
+			}else{
+				$query="";
+			}
 			$qry = $this->db->query("select rp_user_plans.planID,planPrice,planDate,planTitle,userTypeName  from rp_user_plans,rp_user_plan_details,rp_user_types,rp_user_type_details where
 			rp_user_plans.planID=rp_user_plan_details.planID and
 			rp_user_plans.userTypeID=rp_user_types.userTypeID and
 			rp_user_types.userTypeID=rp_user_type_details.userTypeID and 
 			rp_user_type_details.languageID='1' and
-			rp_user_plan_details.languageID='1'");	
+			rp_user_plan_details.languageID='1' $query");	
 			return $qry->Result();	
 	}
 	

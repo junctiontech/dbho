@@ -117,7 +117,7 @@ class Inventory_model extends CI_Model
 			return $qry->Result();	
 	}
 	
-	function get_inventorylist()
+	function get_inventorylist($query=false)
 	{		
 			$db3 = $this->load->database('both', TRUE);
 			
@@ -132,8 +132,8 @@ class Inventory_model extends CI_Model
 			dbho_inventorytype.LanguageID='1' and
 			rp_user_details.languageID='1' and
 			rp_city_details.languageID='1' and
-			rp_project_details.languageID='1'");	
-			
+			rp_project_details.languageID='1' $query");	
+			//echo $db3->last_query();
 			return $qry->Result();	
 	}
 	
