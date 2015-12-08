@@ -304,8 +304,8 @@
                       <td><input required onblur="calculateexpirydate(this.value,this.id)" id="dura_0" name="planduration[]" type="text" placeholder="" class="form-control"></td>
                       <td class="d"><input   required name="planamount[]" type="text" placeholder="" class="form-control txt"></td>
                       <td class="d"><input name="plancarryforwrd[]" type="text" placeholder="" class="form-control"></td>
-                      <td><input readonly name="lastexpiryplan" type="text" placeholder="" class="form-control lastexpiry"></td>
-                      <td><input readonly name="currentexpiryplan" id="expira_0"  type="text" placeholder="" class="form-control currentexpiry"></td>
+                      <td><input readonly name="lastexpiryplan[]" type="text" placeholder="" class="form-control lastexpiry"></td>
+                      <td><input readonly name="currentexpiryplan[]" id="expira_0"  type="text" placeholder="" class="form-control currentexpiry"></td>
 					  <td><p>Remove</p></td>
                     </tr>
                    
@@ -663,7 +663,7 @@ $('#myTable1').on('click','td p',function(){
 $(this).closest('tr').remove();
 
 calculateSum();
-calculateexpirydate();
+//calculateexpirydate();
 
 });
 

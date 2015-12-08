@@ -31,7 +31,7 @@ class Campaign_model extends CI_Model
 			}
 	}
 	
-	function insert_campaign($last_id=false,$inventoryid=false,$cityid=false,$inventoryquantity=false,$inventoryduration=false,$inventoryamount=false,$planid=false,$planquantity=false,$planduration=false,$planamount=false,$plancarryforwrd=false,$date=false,$filter=false)
+	function insert_campaign($last_id=false,$inventoryid=false,$cityid=false,$inventoryquantity=false,$inventoryduration=false,$inventoryamount=false,$planid=false,$planquantity=false,$planduration=false,$planamount=false,$plancarryforwrd=false,$currentexpiryplan=false,$date=false,$filter=false)
    {	
 		$db2 = $this->load->database('both', TRUE);
 		 if($filter){
@@ -55,7 +55,8 @@ class Campaign_model extends CI_Model
 							 'Quantity'=>$planquantity,
 							 'Duration'=>$planduration,
 							 'Amount'=>$planamount,
-							 'CarryForward'=>$plancarryforwrd);
+							 'CarryForward'=>$plancarryforwrd,
+							 'currentExpiry'=>$currentexpiryplan);
 				$db2->insert('dbho_campaignplan',$data2);
 				
 			

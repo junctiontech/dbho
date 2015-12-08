@@ -72,6 +72,7 @@ class Campaign extends CI_Controller {
 			$planduration=$data['planduration'][$z];
 			$planamount=$data['planamount'][$z];
 			$plancarryforwrd=$data['plancarryforwrd'][$z];
+			$currentexpiryplan=$data['currentexpiryplan'][$z];
 			
 			if(!empty($campaignstartdate) && !empty($user_id) && !empty($currentexpiry) && !empty($inventoryid) && !empty($cityid) && !empty($inventoryquantity) && !empty($inventoryduration) && !empty($inventoryamount) && !empty($planid) && !empty($planquantity) && !empty($planduration) && !empty($planamount) ){
 			
@@ -104,7 +105,7 @@ class Campaign extends CI_Controller {
 				
 					if(!empty($campaignid)){
 						
-							$this->campaign_model->insert_campaign($campaignid,$inventoryid,$cityid,$inventoryquantity,$inventoryduration,$inventoryamount,$planid,$planquantity,$planduration,$planamount,$plancarryforwrd,$date);
+							$this->campaign_model->insert_campaign($campaignid,$inventoryid,$cityid,$inventoryquantity,$inventoryduration,$inventoryamount,$planid,$planquantity,$planduration,$planamount,$plancarryforwrd,$currentexpiryplan,$date);
 							$this->session->set_flashdata('message_type', 'success');
 							$this->session->set_flashdata('message', $this->config->item("index")." Campaign Added Successfully!!");
 					}else{
