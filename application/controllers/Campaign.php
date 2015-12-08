@@ -40,6 +40,7 @@ class Campaign extends CI_Controller {
 			$campaignstartdate=$this->input->post('campaignstartdate');
 			$usertype=$this->input->post('usertype');
 			$user_id=$this->input->post('user_id');
+			$currentexpiry=$this->input->post('currentexpiry');
 			
 			$data=$this->input->post();
 			for($z=0;$z<=count($data['inventoryid'])-1; $z++)
@@ -72,10 +73,10 @@ class Campaign extends CI_Controller {
 			$planamount=$data['planamount'][$z];
 			$plancarryforwrd=$data['plancarryforwrd'][$z];
 			
-			if(!empty($campaignstartdate) && !empty($user_id) && !empty($inventoryid) && !empty($cityid) && !empty($inventoryquantity) && !empty($inventoryduration) && !empty($inventoryamount) && !empty($planid) && !empty($planquantity) && !empty($planduration) && !empty($planamount) ){
+			if(!empty($campaignstartdate) && !empty($user_id) && !empty($currentexpiry) && !empty($inventoryid) && !empty($cityid) && !empty($inventoryquantity) && !empty($inventoryduration) && !empty($inventoryamount) && !empty($planid) && !empty($planquantity) && !empty($planduration) && !empty($planamount) ){
 			
 			if(empty($campaignid)){
-				$id=$this->campaign_model->insert_campaign_only($campaignstartdate,$user_id);
+				$id=$this->campaign_model->insert_campaign_only($campaignstartdate,$user_id,$currentexpiry);
 				$campaignid=$id;
 			}
 			

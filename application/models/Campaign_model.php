@@ -15,7 +15,7 @@ class Campaign_model extends CI_Model
 		$this->load->database();
 	}
 	
-	function insert_campaign_only($campaignstartdate=false,$user_id=false,$filter=false)
+	function insert_campaign_only($campaignstartdate=false,$user_id=false,$currentexpiry=false,$filter=false)
    {	
 		$db2 = $this->load->database('both', TRUE);
 		 if($filter){
@@ -24,8 +24,7 @@ class Campaign_model extends CI_Model
 				$db2->update($table,$data);
 				
 		}else{
-				$data=array('userID'=>$user_id,
-							'startDate'=>$campaignstartdate);
+				$data=array('userID'=>$user_id,'startDate'=>$campaignstartdate,'expiry_date_campaign'=>$currentexpiry);
 				$db2->insert('dbho_campaignmaster',$data);
 				$last_id = $db2->insert_id();
 				return($last_id);

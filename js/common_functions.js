@@ -88,7 +88,8 @@ $(document).ready(function(){
 		
 	 });
  
-    function calculateSum() {
+    function calculateSum() 
+	{
  
         var sum = 0;
         $(".txt").each(function() {
@@ -100,3 +101,33 @@ $(document).ready(function(){
         });
         $("#sum").html(sum.toFixed(2));
     }
+	
+	function calculateexpirydate(duration,ids) 
+	{		
+		var startdate=document.getElementById("single_cal2").value;
+		var someDate = new Date(startdate);
+		var new1=someDate.setTime(someDate.getTime()-1 +  (duration * 24 * 60 * 60 * 1000));
+		var d=new Date(new1);
+		var datestring = (d.getMonth()+1) + "/" + d.getDate()  + "/" + d.getFullYear() ;
+		
+		var idsplit= ids.split('_') ;
+		var newid = idsplit[1];
+		
+		
+		document.getElementById('expira_'+newid).value=datestring;
+		var dates=[];
+		
+		$(".currentexpiry").each(function() {
+				
+           dates.push(new Date(this.value))
+			
+        });
+		
+		var maxDate=new Date(Math.max.apply(null,dates));
+		var currentexpiry=(maxDate.getMonth()+1) + "/" + maxDate.getDate()  + "/" + maxDate.getFullYear()
+		
+		//var minDate=new Date(Math.min.apply(null,dates));
+		document.getElementById('currentexpiry').value=currentexpiry;
+	}
+	
+	

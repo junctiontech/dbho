@@ -119,7 +119,7 @@
       <div class="">
         <div class="page-title">
           <div class="title_left">
-            <h3>Creat Campaign</h3>
+            <h3>Create Campaign</h3>
           </div>
           
         </div>
@@ -198,7 +198,7 @@
                  
                
               </div>
-              <div id="showhidden" style="pointer-events:none">
+              <div id="showhidden"  style="pointer-events:none">
               <div class="row" >
         
           <div class="col-md-12 col-sm-12 col-xs-12">
@@ -274,7 +274,7 @@
     
       </div>
              
-              <div class="x_content" id="showhidden" >
+              <div class="x_content"  >
                 <table id="myTable1" class="table table-bordered table-hover vert-aliins">
                   <thead>
                     <tr>
@@ -282,7 +282,7 @@
                       <th>Qty</th>
                       <th>Duration (Days)</th>
                       <th>Amount (Rs)</th>
-                      <th>Carry forward (days)</th>
+                      <th>Carry forward (Qty)</th>
                       <th>Last Expiry</th>
                       <th>Current Expiry Date</th>
 					  <th><button class="btn btn-success" type="button" onclick="displayResult1();get_plans(document.getElementById('userid').value);">Add</button></th>
@@ -301,11 +301,11 @@
                       </select>
                     </div></td>
                       <td><input required name="planquantity[]" type="text" placeholder="" class="form-control"></td>
-                      <td><input required name="planduration[]" type="text" placeholder="" class="form-control"></td>
+                      <td><input required onblur="calculateexpirydate(this.value,this.id)" id="dura_0" name="planduration[]" type="text" placeholder="" class="form-control"></td>
                       <td class="d"><input   required name="planamount[]" type="text" placeholder="" class="form-control txt"></td>
                       <td class="d"><input name="plancarryforwrd[]" type="text" placeholder="" class="form-control"></td>
-                      <td>12/17/2015</td>
-                      <td>12/17/2014</td>
+                      <td><input readonly name="lastexpiryplan" type="text" placeholder="" class="form-control lastexpiry"></td>
+                      <td><input readonly name="currentexpiryplan" id="expira_0"  type="text" placeholder="" class="form-control currentexpiry"></td>
 					  <td><p>Remove</p></td>
                     </tr>
                    
@@ -314,7 +314,7 @@
               </div>
             
                 
-                
+                <input readonly name="currentexpiry" id="currentexpiry" type="hidden" placeholder="" class="form-control">
                 <div class="clearfix"></div>
          
                <div class="valusho pull-left"> <button class="btn btn-info btn-lg" type="submit" name="submit" value="submit">Create</button></div>
@@ -631,6 +631,7 @@ document.getElementById("myTable").insertRow(-1).innerHTML = '<td><div  class="f
 }
 $('#myTable').on('click','td p',function(){
 $(this).closest('tr').remove();
+calculateSum();
 });
 
 
@@ -642,15 +643,33 @@ $(this).closest('tr').remove();
 
 function displayResult1()
 {
+	
 	if(document.getElementById("user_plans") != null) {
+		
 	document.getElementById("user_plans").setAttribute("id","old_user_plans");
+	
 }
-document.getElementById("myTable1").insertRow(-1).innerHTML = '<td><div id="user_plans" class="form-group col-xs-12 "><select required name="planid[]" class="select2_group form-control"> <option value=""> Select Plan</option><?php foreach($plan as $plan1){?><option value="<?=isset($plan1->planID)?$plan1->planID:''?>"><?=isset($plan1->planTitle)?$plan1->planTitle:''?></option><?php } ?> </select> </div></td><td><input required name="planquantity[]" type="text" placeholder="" class="form-control"></td> <td><input required name="planduration[]" type="text" placeholder="" class="form-control"></td> <td class="d"><input onkeyup="calculateSum();"  required name="planamount[]" type="text" placeholder="" class="form-control txt"></td> <td class="d"><input name="plancarryforwrd[]" type="text" placeholder="" class="form-control"></td> <td>12/17/2015</td> <td>12/17/2014</td><td><p>Remove</p></td>';
+		
+				var table=document.getElementById("myTable1");
+    			var rowCount=table.rows.length;
+    			var	last_row = rowCount+1;
+    			
+document.getElementById("myTable1").insertRow(-1).innerHTML = '<td><div id="user_plans" class="form-group col-xs-12 "><select required name="planid[]" class="select2_group form-control"> <option value=""> Select Plan</option><?php foreach($plan as $plan1){?><option value="<?=isset($plan1->planID)?$plan1->planID:''?>"><?=isset($plan1->planTitle)?$plan1->planTitle:''?></option><?php } ?> </select> </div></td><td><input required name="planquantity[]" type="text" placeholder="" class="form-control"></td> <td><input required onblur="calculateexpirydate(this.value,this.id)" id="dura_'+last_row+'" name="planduration[]" type="text" placeholder="" class="form-control"></td> <td class="d"><input onkeyup="calculateSum();"  required name="planamount[]" type="text" placeholder="" class="form-control txt"></td> <td class="d"><input name="plancarryforwrd[]" type="text" placeholder="" class="form-control"></td> <td><input readonly name="lastexpiryplan" type="text" placeholder="" class="form-control lastexpiry"></td><td><input readonly name="currentexpiryplan" id="expira_'+last_row+'" type="text" placeholder="" class="form-control currentexpiry"></td><td><p>Remove</p></td>';
+
 }
+
 $('#myTable1').on('click','td p',function(){
+		
 $(this).closest('tr').remove();
+
+calculateSum();
+calculateexpirydate();
+
 });
 
+//function message(){
+	
+	//alert("Please select Start Date And Company Name!!");
 
 
 </script>
