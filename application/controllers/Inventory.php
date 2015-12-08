@@ -400,9 +400,9 @@ class Inventory extends CI_Controller {
 			if(!empty($weightage)){ $query.="and `Weightage` like TRIM('%$weightage%')"; }
 			if(!empty($city)){ $query.="and dbho_planinventoryconsumption.City='$city'"; }
 			
-			//print_r($query);die;
+			
 			$this->data['inventory_list']=$this->inventory_model->get_inventorylist($query);
-			//die;
+			
 		}else{
 			
 			$this->data['inventory_list']=$this->inventory_model->get_inventorylist();

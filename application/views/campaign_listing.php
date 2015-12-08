@@ -180,39 +180,39 @@
                 <div class="clearfix"></div>
               </div>
               <div class="x_content">
-                <form id="demo-form2" data-parsley-validate class="form-group form-label-left clearfix">
+                <form action="<?=base_url();?>Campaign/Campaign_listing/search" method="post" class="form-group form-label-left clearfix">
                   <div class="row">
                     <div class="form-group col-xs-12 col-sm-2">
                       <label for="middle-name" class="control-label">Comapny name</label>
-                      <input type="text" placeholder="Company" class="form-control">
+                      <input name="companyname" type="text" placeholder="Company" class="form-control">
                     </div>
                     
                     <div class="form-group col-xs-12 col-sm-2">
                      <label for="middle-name" class="control-label">Email</label>
-                      <input type="text" placeholder="Enter Your Email" class="form-control">
+                      <input name="email" type="text" placeholder="Enter Your Email" class="form-control">
                     </div>
                     <div class="form-group col-xs-12 col-sm-2">
                       <label for="middle-name" class="control-label">Mobile No</label>
-                      <input type="text" placeholder="Enter Your No" class="form-control">
+                      <input name="mobileno" type="text" placeholder="Enter Your No" class="form-control">
                     </div>
                     
                     <div class="form-group col-xs-12 col-sm-2">
                       <label for="middle-name" class="control-label">Campaign Name</label>
-                      <input type="text" placeholder="Enter Your Campaign" class="form-control">
+                      <input name="campaignname" type="text" placeholder="Enter Your Campaign" class="form-control">
                     </div>
                     
                     <div class="form-group col-xs-12 col-sm-2">
                       <label class="control-label" for="last-name">User Type <span class="required">*</span> </label>
-                      <select class="select2_group form-control">
-                        <optgroup label="Alaskan/Hawaiian Time Zone">
-                        <option value="AK">Select</option>
-                        <option value="HI">Hawaii</option>
-                        </optgroup>
+                      <select name="usertype" class="select2_group form-control">
+                        <option ></option>
+                        <?php foreach($user_type as $user_type){?>
+                        <option value="<?=$user_type->userTypeID?>" <?php if(!empty($updateplan[0]->userTypeID)){ if($updateplan[0]->userTypeID==$user_type->userTypeID){ echo"selected";} } ?>><?=$user_type->userTypeName?></option>
+						<?php } ?>
                       </select>
                     </div>
                     
                     <div class="form-group col-xs-12 col-sm-2 martop20">                      
-                    <button type="submit" class="btn btn-primary">Reset</button>
+                    <button type="button" onclick="location.href = '<?=base_url();?>Campaign/Campaign_listing';" class="btn btn-primary">Reset</button>
                     <button type="submit" class="btn btn-success">Search</button>
           
                     </div>

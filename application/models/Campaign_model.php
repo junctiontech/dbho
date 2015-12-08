@@ -114,14 +114,15 @@ class Campaign_model extends CI_Model
 		return $qry->Result();	
 	}
 	
-	function get_campaignlist()
+	function get_campaignlist($query=false)
 	{		$db2 = $this->load->database('both', TRUE);
 			$qry = $db2->query("select dbho_campaignmaster.campaignID,userCompanyName,userEmail,userPhone,startDate,expiry_date_campaign,dbho_campaignmaster.created, sum(dbho_campaigninventory.amount) + sum(dbho_campaignplan.Amount) as amount from dbho_campaignmaster,homeonline.rp_users,homeonline.rp_user_details,dbho_campaigninventory,dbho_campaignplan where
 									dbho_campaignmaster.userID=rp_users.userID and 
 									rp_users.userID=rp_user_details.userID and
 									dbho_campaignmaster.campaignID=dbho_campaigninventory.campaignID and
 									dbho_campaignmaster.campaignID=dbho_campaignplan.campaignID and
-									rp_user_details.languageID='1' GROUP BY campaignID");
+									rp_user_details.languageID='1' $query
+									GROUP BY campaignID ");
 		//echo $db2->last_query();die;									
 			return $qry->Result();	
 	}
@@ -145,5 +146,7 @@ class Campaign_model extends CI_Model
 									rp_user_plan_details.languageID='1'");
 	return $qry->Result();
 	}
+	
+	
 		
 }

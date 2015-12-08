@@ -133,10 +133,34 @@ class Campaign extends CI_Controller {
 /*Campaign create insert and update End .........................................................................................*/
 
 /*Campaign Listing view Load Start.............................................................................................................*/
-	function Campaign_listing()
+	function Campaign_listing($action=false)
 	{	
-		$this->data['campaignlist']=$this->campaign_model->get_campaignlist();
-		$this->load->view('campaign_listing',$this->data);
+	
+		if($action=="search"){
+			
+			$mobileno=$this->input->post('mobileno');
+			$campaignname=$this->input->post('campaignname');
+			$companyname=$this->input->post('companyname');
+			$emailid=$this->input->post('email');
+			$usertype=$this->input->post('usertype');
+			
+			
+			$query="";
+			if(!empty($mobileno)){ $query.="and `userPhone` like TRIM('%$mobileno%')"; }
+			if(!empty($campaignname)){ $query.="and `userCompanyName` like TRIM('%$campaignname%')"; }
+			if(!empty($companyname)){ $query.="and `userCompanyName` like TRIM('%$companyname%')"; }
+			if(!empty($emailid)){ $query.="and `userEmail` like TRIM('%$emailid%')"; }
+			if(!empty($usertype)){ $query.="and userTypeID='$usertype'"; }
+			
+			
+			
+			$this->data['campaignlist']=$this->campaign_model->get_campaignlist($query);
+			
+		}else{
+				$this->data['campaignlist']=$this->campaign_model->get_campaignlist();
+		}
+			$this->data['user_type']=$this->campaign_model->get_user_type();
+			$this->load->view('campaign_listing',$this->data);
 	}
 /*Campaign Listing view Load End.............................................................................................................*/
 	
