@@ -131,3 +131,36 @@ $(document).ready(function(){
 	}
 	
 	
+	function checkplanavailable(planid)
+{	
+	var userid=document.getElementById("userid").value;
+	
+	if(planid && userid)
+	{
+		$.ajax({
+				type: "POST",
+				url : base_url+'common_functions/checkplanavailable',
+				data: {planid: planid , userid:userid },
+			})
+			
+				.done(function(msg)
+				{
+					if(msg !='')
+					{
+						var topic = eval(msg);
+						$.each(topic, function(i,v){
+							document.getElementById('carrayforword_0').value=(v.quantity);
+							document.getElementById('lastexpiry_0').value=(v.currentExpiry);
+							
+							});
+					
+					}else{
+						//$( '#carrayforword_0' ).setAttribute( "readonly");
+						document.getElementById("carrayforword_0").setAttribute("readonly","true");
+					}	
+				});
+		
+					
+	}
+}
+	

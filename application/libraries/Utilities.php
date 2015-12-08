@@ -71,6 +71,17 @@ class Utilities extends CI_Controller {
 		return $qry->Result();
 	}
 	
+	function checkplanavailable($planid=false,$userid=false)
+	{	
+		$CI = & get_instance();
+		$db2 = $CI->load->database('both', TRUE);
+			$qry = $db2->query("select Quantity,currentExpiry from dbho_campaignmaster,dbho_campaignplan where
+									dbho_campaignmaster.userID='$userid' and 
+									dbho_campaignplan.planID='$planid' and 
+									dbho_campaignmaster.campaignID=dbho_campaignplan.campaignID");
+		return $qry->Result();
+	}
+	
 	
 	
 	

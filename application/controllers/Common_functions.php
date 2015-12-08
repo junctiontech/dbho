@@ -44,7 +44,7 @@ class Common_functions extends CI_Controller {
 		$usertypeid=$user_type[0]->userTypeID;
 		$user_typeplan = $this->utilities->get_planbyusertype($usertypeid);
 		if(!empty($user_typeplan)){
-		echo"<select required name='planid[]' class='select2_group form-control'>"; 
+		echo"<select onchange='checkplanavailable(this.value)' required name='planid[]' class='select2_group form-control'>"; 
 		echo "<option value=''>Select Plan</option>";
 		foreach($user_typeplan as $plan1){
 		echo "<option value=".$plan1->planID.">$plan1->planTitle";
@@ -86,6 +86,42 @@ class Common_functions extends CI_Controller {
 		}
 		
 		}
+	}
+	
+	public function checkplanavailable()
+	{
+		$planid = $this->input->post('planid');
+		$userid = $this->input->post('userid');
+		
+		$plandetails = $this->utilities->checkplanavailable($planid,$userid);
+		
+		
+		if(!empty($plandetails)){
+			$datearray='';
+			$quantityarray='';
+			foreach($plandetails as $plandetailss){
+				
+				$datearray[]=$plandetailss->currentExpiry;
+				$quantityarray[]=$plandetailss->Quantity;
+			}
+			
+			$max = max(array_map('strtotime', $datearray));
+			
+			date_default_timezone_set("Asia/Kolkata");
+			
+			$date=date("m/d/Y");
+			
+			if($max>=strtotime($date))
+			{
+				$indexno=array_search(date("m/d/Y",$max),$datearray);
+				$date1=date("m/d/Y",$max);
+				$newarr[]=array('quantity'=>$quantityarray[$indexno],'currentExpiry'=>"$date1");
+				print_r(json_encode($newarr));
+			}
+			
+		
+		}
+		
 	}
 	
 	 

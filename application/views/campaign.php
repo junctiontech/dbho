@@ -291,7 +291,7 @@
                   <tbody>
                     <tr>
                       <td><div id="user_plans" class="form-group col-xs-12 col-sm-12">
-                      <select required name="planid[]" class="select2_group form-control">
+                      <select onchange="checkplanavailable(this.value)" required name="planid[]" class="select2_group form-control">
                         
                         <option value=""> Select Plan</option>
                         <?php foreach($plan as $plan1){?>
@@ -303,8 +303,8 @@
                       <td><input required name="planquantity[]" type="text" placeholder="" class="form-control"></td>
                       <td><input required onblur="calculateexpirydate(this.value,this.id)" id="dura_0" name="planduration[]" type="text" placeholder="" class="form-control"></td>
                       <td class="d"><input   required name="planamount[]" type="text" placeholder="" class="form-control txt"></td>
-                      <td class="d"><input name="plancarryforwrd[]" type="text" placeholder="" class="form-control"></td>
-                      <td><input readonly name="lastexpiryplan[]" type="text" placeholder="" class="form-control lastexpiry"></td>
+                      <td class="d"><input name="plancarryforwrd[]" id="carrayforword_0" type="text" placeholder="" class="form-control"></td>
+                      <td><input readonly name="lastexpiryplan[]" id="lastexpiry_0" type="text" placeholder="" class="form-control lastexpiry"></td>
                       <td><input readonly name="currentexpiryplan[]" id="expira_0"  type="text" placeholder="" class="form-control currentexpiry"></td>
 					  <td><p>Remove</p></td>
                     </tr>
