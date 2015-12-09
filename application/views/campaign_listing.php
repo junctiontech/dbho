@@ -204,7 +204,7 @@
                     <div class="form-group col-xs-12 col-sm-2">
                       <label class="control-label" for="last-name">User Type <span class="required">*</span> </label>
                       <select name="usertype" class="select2_group form-control">
-                        <option ></option>
+                        <option value="">select user type</option>
                         <?php foreach($user_type as $user_type){?>
                         <option value="<?=$user_type->userTypeID?>" <?php if(!empty($updateplan[0]->userTypeID)){ if($updateplan[0]->userTypeID==$user_type->userTypeID){ echo"selected";} } ?>><?=$user_type->userTypeName?></option>
 						<?php } ?>

@@ -187,7 +187,7 @@
                     <label for="middle-name" class="control-label">Status</label>
                     <select name="status" class="select2_group form-control">
                         <optgroup label="Alaskan/Hawaiian Time Zone">
-                        <option ></option>
+                        <option value="">select status</option>
                         <option value="Created">Created</option>
 						<option value="Started">Started</option>
 						<option value="Paused">Paused</option>
@@ -212,7 +212,7 @@
                     <label for="middle-name" class="control-label">Weightage</label>
                     <select name="weightage" class="select2_group form-control">
                         <optgroup label="Alaskan/Hawaiian Time Zone">
-                        <option ></option>
+                        <option value="">select weightage</option>
                         <option value="100">100</option>
 						<option value="200">200</option>
 						<option value="300">300</option>
@@ -226,7 +226,7 @@
                     <label for="middle-name" class="control-label">City</label>
                     <select name="city" class="select2_group form-control">
                         <optgroup label="Alaskan/Hawaiian Time Zone">
-                        <option ></option>
+                        <option value="">select city</option>
 						<?php foreach($cities as $cities){?>
                         <option value="<?=isset($cities->cityID)?$cities->cityID:''?>" <?php if(!empty($campaigndetails[0]->cityID)){ if($campaigndetails[0]->cityID==$cities->cityID){ echo"selected";} } ?> <?php if(!empty($inventoryupdate[0]->City)){ if($inventoryupdate[0]->City==$cities->cityID){ echo"selected";} } ?>><?=isset($cities->cityName)?$cities->cityName:''?></option>
 						<?php } ?>
