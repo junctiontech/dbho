@@ -1,3 +1,31 @@
+<style type="text/css">
+        #myTable span {
+    background: none repeat scroll 0 0 #e74c3c;
+    border-radius: 3px;
+    color: #fff;
+    cursor: pointer;
+    padding: 5px 7px;
+    text-align: center;
+}
+      
+	 #loading-indicator { 
+  left: 0;
+  margin-top: 300px;
+  bottom: 0;
+  right: 0;
+  background: white;
+  z-index: 10000;
+  zoom: 1;
+  filter: alpha(opacity=100);
+  -webkit-opacity: 1;
+  -moz-opacity: 1;
+  opacity: 1;
+  -webkit-transition: all 800ms ease-in-out;
+  -moz-transition: all 800ms ease-in-out;
+  -o-transition: all 800ms ease-in-out;
+  transition: all 800ms ease-in-out;
+     }   
+        </style>
 <!-- page content -->
     <div class="right_col" role="main">
       <div class="">
@@ -13,6 +41,7 @@
                 </div>
                 
                 <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+				<center><img src="<?=base_url();?>/images/loading.gif" id="loading-indicator" style="display:none" /></center>
                 <div class="modal-dialog modal-lg">
                   <div class="modal-content">
                     <div class="modal-header">
@@ -238,6 +267,80 @@
               .find(".modal-content").html('');
     });
 	
+	/*$(document).ajaxSend(function(event, request, settings) {
+    $('#loading-indicator').show();
+});
+
+$(document).ajaxComplete(function(event, request, settings) {
+    $('#loading-indicator').hide();
+});
+*/
+//validation start..........................................................................
+
+function checkvalidation(){
 	
+	if(document.getElementById('plantittle').value == "" )
+    	{
+    			 document.getElementById('plantittle').focus() ;
+				 document.getElementById('plantittle').placeholder="Please provide Plan Title!" ;
+				 document.getElementById('plantittle').setAttribute('class',' form-control  parsley-error') ;
+				 return false;
+    	}
+		
+		if(document.getElementById('plantype').value == "" )
+    	{
+    			 document.getElementById('plantype').focus() ;
+				 document.getElementById('plantype').placeholder="Please provide Plan Type!" ;
+				 document.getElementById('plantype').setAttribute('class',' form-control parsley-error') ;
+				 return false;
+    	}
+		
+		if(document.getElementById('planorder').value == "" )
+    	{
+    			 document.getElementById('planorder').focus() ;
+				 document.getElementById('planorder').placeholder="Please provide Plan Type!" ;
+				 document.getElementById('planorder').setAttribute('class',' form-control parsley-error') ;
+				 return false;
+    	}
+		if(document.getElementById('shownewtittle').value == "" )
+    	{
+    			 document.getElementById('shownewtittle').focus() ;
+				 document.getElementById('shownewtittle').placeholder="Please provide Plan Type!" ;
+				 document.getElementById('shownewtittle').setAttribute('class',' form-control parsley-error') ;
+				 return false;
+    	}
+		
+	return( true );
+	
+}
+
+function fill(){
+	
+	if(document.getElementById('plantittle').value != "" )
+    	{
+    			 document.getElementById('plantitlemes').setAttribute('class','required fa fa-check') ;
+				 document.getElementById('plantitlemes').style.color='green' ;
+				 document.getElementById('plantittle').setAttribute('class',' form-control ') ;
+    	}
+		
+		if(document.getElementById('plantype').value != "" )
+    	{
+    			  document.getElementById('plantypemes').setAttribute('class','required fa fa-check') ;
+				  document.getElementById('plantypemes').style.color='green';
+				  document.getElementById('plantype').setAttribute('class',' form-control ') ;
+    	}
+		if(document.getElementById('planorder').value != "" )
+    	{
+    			  document.getElementById('planordermes').setAttribute('class','required fa fa-check') ;
+				  document.getElementById('planordermes').style.color='green';
+				  document.getElementById('planorder').setAttribute('class',' form-control ') ;
+    	}
+		if(document.getElementById('shownewtittle').value != "" )
+    	{
+    			  document.getElementById('shownewtittlemes').setAttribute('class','required fa fa-check') ;
+				  document.getElementById('shownewtittlemes').style.color='green';
+				  document.getElementById('shownewtittle').setAttribute('class',' form-control ') ;
+    	}
+}
 	
         </script>

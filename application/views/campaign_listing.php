@@ -10,10 +10,10 @@
       
 	 #loading-indicator { 
   left: 0;
-  margin-top: 100px;
+  margin-top: 300px;
   bottom: 0;
   right: 0;
-  background: #2c2e2f;
+  background: white;
   z-index: 10000;
   zoom: 1;
   filter: alpha(opacity=100);
@@ -173,7 +173,7 @@
               
               <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
 			 
-			  <center><img src="<?=base_url();?>/images/ajax-loader1.gif" id="loading-indicator" style="display:none" /></center>
+			  <center><img src="<?=base_url();?>/images/loading.gif" id="loading-indicator" style="display:none" /></center>
                 <div class="modal-dialog modal-lg">
 				
                   <div class="modal-content moda-scrol">

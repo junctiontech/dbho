@@ -2,7 +2,7 @@
                       <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span> </button>
                       <h4 class="modal-title" id="myModalLabel">Add Plan Type</h4>
                     </div>
-					 <form method="post" action="<?=base_url();?>manage_user_plan/Insertplantype" class="form-horizontal form-label-left">
+					 <form method="post" onsubmit="return(checkvalidation())" action="<?=base_url();?>manage_user_plan/Insertplantype" class="form-horizontal form-label-left">
                     <div class="modal-body">
                       <div class="x_content">
 
@@ -11,18 +11,18 @@
                                     
                                     
                                     <div class="form-group">
-                                    <label class="control-label col-md-2 col-sm-2 col-xs-12">Plan Title</label>
+                                    <label class="control-label col-md-2 col-sm-2 col-xs-12">Plan Title <span id="plantitlemes"  aria-hidden="true"></span></label>
                                     <div class="col-md-10 col-sm-10 col-xs-12">
-                                    <input required name="plantitle" type="text" placeholder="Enter Plan Title" class="form-control">
+                                    <input id="plantitle" onblur="fill()" name="plantitle" type="text" placeholder="Enter Plan Title" class="form-control ">
                                     </div>
                                     </div>
                                     
                                     
                                     <div class="form-group">
-                                    <label class="control-label col-md-2 col-sm-2 col-xs-12">Plan Priority</label>
+                                    <label class="control-label col-md-2 col-sm-2 col-xs-12">Plan Priority <span id="planmes" aria-hidden="true"></span></label>
                                     <div class="col-md-10 col-sm-10 col-xs-12">
-                                    <select name="planpriority" class="select2_group form-control">
-									<option>Select Priority</option>
+                                    <select onchange="fill()" id="planpri" name="planpriority" class=" form-control">
+									<option value="">Select Priority</option>
                                     <option value="1">1</option>
 									<option value="2">2</option>
 									<option value="3">3</option>
@@ -47,7 +47,7 @@
 				  <script>
             $(document).ready(function () {
                 $(".select2_single").select2({
-                    placeholder: "Select a state",
+                    placeholder: "Select a priority",
                     allowClear: true
                 });
                 $(".select2_group").select2({});

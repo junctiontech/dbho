@@ -1,3 +1,31 @@
+<style type="text/css">
+        #myTable span {
+    background: none repeat scroll 0 0 #e74c3c;
+    border-radius: 3px;
+    color: #fff;
+    cursor: pointer;
+    padding: 5px 7px;
+    text-align: center;
+}
+      
+	 #loading-indicator { 
+  left: 0;
+  margin-top: 300px;
+  bottom: 0;
+  right: 0;
+  background: white;
+  z-index: 10000;
+  zoom: 1;
+  filter: alpha(opacity=100);
+  -webkit-opacity: 1;
+  -moz-opacity: 1;
+  opacity: 1;
+  -webkit-transition: all 800ms ease-in-out;
+  -moz-transition: all 800ms ease-in-out;
+  -o-transition: all 800ms ease-in-out;
+  transition: all 800ms ease-in-out;
+     }   
+        </style>
 <!-- page content -->
     <div class="right_col" role="main">
       <div class="">
@@ -16,6 +44,7 @@
           <!--pop up start-->
           
           <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+		  <center><img src="<?=base_url();?>/images/loading.gif" id="loading-indicator" style="display:none" /></center>
                 <div class="modal-dialog modal-lg">
                   <div class="modal-content moda-scrol">
                     
@@ -173,4 +202,12 @@
         target.removeData('bs.modal')
               .find(".modal-content").html('');
     });
+	
+	$(document).ajaxSend(function(event, request, settings) {
+    $('#loading-indicator').show();
+});
+
+$(document).ajaxComplete(function(event, request, settings) {
+    $('#loading-indicator').hide();
+});
     </script> 

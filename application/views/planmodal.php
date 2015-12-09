@@ -4,14 +4,14 @@
                       <h4 class="modal-title" id="myModalLabel">Add User Plan</h4>
                     </div>
                     <div class="modal-body">
-					<form class="form-horizontal form-label-left" action="<?=base_url();?>/manage_user_plan/adduserplan" method="post">
+					<form class="form-horizontal form-label-left" onsubmit="return(checkvalidation())" action="<?=base_url();?>/manage_user_plan/adduserplan" method="post">
 					<input type="hidden" name="planid" value="<?=isset($planid)?$planid:''?>" />
                   <div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Plan Type</label>
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Plan Type <span id="plantitlemes"  aria-hidden="true"></span></label>
 					<div class="col-md-9 col-sm-9 col-xs-12">
-                      <select required onchange="get_planpriority(this.value);" id="plantittle" class="select2_group form-control" name="plantitle">
+                      <select  onchange="get_planpriority(this.value);fill();" id="plantittle" class=" form-control" name="plantitle">
                         
-						<option>Select Plan</option>
+						<option value="">Select Plan</option>
 						<?php foreach($plandetails as $plandetails){?>
                         <option value="<?=isset($plandetails->planTypeID)?$plandetails->planTypeID:''?>-<?=isset($plandetails->planTypeTitle)?$plandetails->planTypeTitle:''?>" <?php  if(!empty($updateplan[0]->planTitle)){   if($plantypeid==$plandetails->planTypeID
 						){ echo"selected";} } ?>><?=isset($plandetails->planTypeTitle)?$plandetails->planTypeTitle:''?></option>
@@ -23,11 +23,11 @@
                   </div>
                   
                   <div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Plan User Type</label>
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Plan User Type <span id="plantypemes"  aria-hidden="true"></span></label>
                     <div class="col-md-9 col-sm-9 col-xs-12">
-                      <select required id="plantype" class="select2_group form-control" name="planusertype" >
+                      <select  onchange="fill();" id="plantype" class=" form-control" name="planusertype" >
                         
-						<option>Select User Type</option>
+						<option value="">Select User Type</option>
 						<?php foreach($user_type as $user_type){?>
                         <option value="<?=$user_type->userTypeID?>" <?php if(!empty($updateplan[0]->userTypeID)){ if($updateplan[0]->userTypeID==$user_type->userTypeID){ echo"selected";} } ?>><?=$user_type->userTypeName?></option>
 						<?php } ?>
@@ -37,9 +37,9 @@
                   </div>
                   
                   <div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Plan Order</label>
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Plan Order <span id="planordermes"  aria-hidden="true"></span></label>
                     <div class="col-md-9 col-sm-9 col-xs-12">
-                      <input required id="planorder" type="text" readonly placeholder="order" class="form-control" name="planorder" value="<?=isset($updateplan[0]->planPrice)?$updateplan[0]->planPrice:''?>">
+                      <input  id="planorder" type="text" readonly placeholder="order" class="form-control" name="planorder" value="<?=isset($updateplan[0]->planPrice)?$updateplan[0]->planPrice:''?>">
                     </div>
                   </div>
                   
@@ -75,7 +75,7 @@
                   </div>
 				  
 					<div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Auto Generated Plan Title</label>
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Auto Generated Plan Title <span id="shownewtittlemes"  aria-hidden="true"></span></label>
                     <div class="col-md-9 col-sm-9 col-xs-12">
                       <input id="shownewtittle" type="text" readonly placeholder="New Plan Title" class="form-control"  value="<?=isset($updateplan[0]->planTitle)?$updateplan[0]->planTitle:''?>">
                     </div>
