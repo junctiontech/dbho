@@ -31,7 +31,11 @@ class Manage_user_plan extends CI_Controller {
 			$this->data['userplans']=$this->manage_user_plan_model->get_userplans();
 			
 		}
-		$this->load->view('manage_user_plan',$this->data);
+		
+			$this->parser->parse('header',$this->data);
+			$this->load->view('manage_user_plan',$this->data);
+			$this->parser->parse('footer',$this->data);
+		
 	}
 /*Manage_user_plan view Load End.............................................................................................................*/
 
@@ -90,7 +94,7 @@ class Manage_user_plan extends CI_Controller {
 					$this->session->set_flashdata('message_type', 'error');
 					$this->session->set_flashdata('message', $this->config->item("index")." Invalid Request!!");
 		}
-			redirect('manage_user_plan');
+			redirect('Manage_user_plan');
 	}
 	
 /*Manage_user_plan create insert and update End .........................................................................................*/
@@ -99,7 +103,10 @@ class Manage_user_plan extends CI_Controller {
 	function AddPlanType()
 	{	
 		$this->data['plantypelist']=$this->manage_user_plan_model->get_plantypelist();
-		$this->load->view('addplantype',$this->data);
+		
+			$this->parser->parse('header',$this->data);
+			$this->load->view('addplantype',$this->data);
+			$this->parser->parse('footer',$this->data);
 	}
 /*Add Plan Type view Load End.............................................................................................................*/
 
@@ -137,7 +144,7 @@ class Manage_user_plan extends CI_Controller {
 			$this->session->set_flashdata('message', $this->config->item("index")." Invalid Request!!");
 		}
 		
-			redirect('manage_user_plan/AddPlanType');
+			redirect('Manage_user_plan/AddPlanType');
 	}
 /*Add Plan Type Insert Into Db End.............................................................................................................*/
 

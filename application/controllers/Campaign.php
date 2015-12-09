@@ -26,7 +26,10 @@ class Campaign extends CI_Controller {
 		$this->data['inventory']=$this->campaign_model->get_inventory();
 		$this->data['plan']=$this->campaign_model->get_plan();
 		
+		$this->parser->parse('header',$this->data);
 		$this->load->view('campaign',$this->data);
+		$this->parser->parse('footer',$this->data);
+		
 	}
 /*Campaign view Load End.............................................................................................................*/
 	
@@ -160,7 +163,11 @@ class Campaign extends CI_Controller {
 				$this->data['campaignlist']=$this->campaign_model->get_campaignlist();
 		}
 			$this->data['user_type']=$this->campaign_model->get_user_type();
+			
+			$this->parser->parse('header',$this->data);
 			$this->load->view('campaign_listing',$this->data);
+			$this->parser->parse('footer',$this->data);
+		
 	}
 /*Campaign Listing view Load End.............................................................................................................*/
 	

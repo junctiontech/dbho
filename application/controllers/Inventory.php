@@ -41,7 +41,10 @@ class Inventory extends CI_Controller {
 			$this->data['company_name']=$this->inventory_model->get_company_name();
 			$this->data['cities']=$this->inventory_model->get_city();
 			$this->data['projects']=$this->inventory_model->get_project();
+			
+			$this->parser->parse('header',$this->data);
 			$this->load->view('inventory',$this->data);
+			$this->parser->parse('footer',$this->data);
 	}
 	
 /*Inventory view Load End.............................................................................................................*/
@@ -408,8 +411,10 @@ class Inventory extends CI_Controller {
 			$this->data['inventory_list']=$this->inventory_model->get_inventorylist();
 		}	
 			$this->data['cities']=$this->inventory_model->get_city();
+			
+			$this->parser->parse('header',$this->data);
 			$this->load->view('inventory_listing',$this->data);
-		
+			$this->parser->parse('footer',$this->data);
 	}
 	
 /*Inventory_listing view Load End.............................................................................................................*/
@@ -419,8 +424,12 @@ class Inventory extends CI_Controller {
 	function AddInventoryType()
 	{	
 		
-		$this->data['inventorytypelist']=$this->inventory_model->get_inventorytypelist();
-		$this->load->view('addinventorytype',$this->data);
+			$this->data['inventorytypelist']=$this->inventory_model->get_inventorytypelist();
+			
+			$this->parser->parse('header',$this->data);
+			$this->load->view('addinventorytype',$this->data);
+			$this->parser->parse('footer',$this->data);
+		
 	}
 	
 /*Add Inventory Type view Load End.............................................................................................................*/
