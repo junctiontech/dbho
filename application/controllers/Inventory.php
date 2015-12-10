@@ -151,9 +151,9 @@ class Inventory extends CI_Controller {
 												}else
 												{
 							
-													$newdates=explode("/",$start_date);
-													$add=$newdates[1]+$k;
-													$datess.="'$newdates[0]/$add/$newdates[2]'";
+													$date = strtotime("$k day", strtotime($start_date));
+														$dated=date("m/d/Y", $date);
+														$datess.="'$dated'";
 													
 												}
 													$inventory_availablityquantity=$this->inventory_model->campaigninventory_availablityquantity($inventoryid,$campaignid,$user_id);
@@ -282,9 +282,9 @@ class Inventory extends CI_Controller {
 													else
 													{
 							
-														$newdates=explode("/",$start_date);
-														$add=$newdates[1]+$k;
-														$datess.="'$newdates[0]/$add/$newdates[2]'";
+														$date = strtotime("$k day", strtotime($start_date));
+														$dated=date("m/d/Y", $date);
+														$datess.="'$dated'";
 													}
 						
 														$inventory_availablity=$this->inventory_model->inventory_availablity($inventoryid,$datess);

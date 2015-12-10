@@ -82,6 +82,14 @@ class Utilities extends CI_Controller {
 		return $qry->Result();
 	}
 	
+	function sumofamount($table=false,$campaignid=false)
+	{	
+		$CI = & get_instance();
+		$db2 = $CI->load->database('both', TRUE);
+			$qry = $db2->query("select sum(amount) as amount  from $table where
+									campaignID='$campaignid' ");
+		return $qry->Result();
+	}
 	
 	
 	

@@ -31,7 +31,7 @@ class Campaign_model extends CI_Model
 			}
 	}
 	
-	function insert_campaign($last_id=false,$inventoryid=false,$cityid=false,$inventoryquantity=false,$inventoryduration=false,$inventoryamount=false,$planid=false,$planquantity=false,$planduration=false,$planamount=false,$plancarryforwrd=false,$currentexpiryplan=false,$lastexpiryplan=false,$date=false,$filter=false)
+	function insert_campaign_inventory($last_id=false,$inventoryid=false,$cityid=false,$inventoryquantity=false,$inventoryduration=false,$inventoryamount=false,$filter=false)
    {	
 		$db2 = $this->load->database('both', TRUE);
 		 if($filter){
@@ -49,6 +49,19 @@ class Campaign_model extends CI_Model
 							 'duration'=>$inventoryduration);
 				$db2->insert('dbho_campaigninventory',$data1);
 				
+			}
+	}
+	
+	
+	function insert_campaign_plan($last_id=false,$planid=false,$planquantity=false,$planduration=false,$planamount=false,$plancarryforwrd=false,$currentexpiryplan=false,$lastexpiryplan=false,$filter=false)
+   {	
+		$db2 = $this->load->database('both', TRUE);
+		 if($filter){
+			 
+				$db2->where($filter);
+				$db2->update($table,$data);
+				
+		}else{
 				
 				$data2=array('campaignID'=>$last_id,
 							 'planID'=>$planid,
@@ -58,8 +71,6 @@ class Campaign_model extends CI_Model
 							 'CarryForward'=>$plancarryforwrd,
 							 'currentExpiry'=>$currentexpiryplan,'LastExpiry'=>$lastexpiryplan);
 				$db2->insert('dbho_campaignplan',$data2);
-				
-			
 				
 			}
 	}
@@ -116,11 +127,10 @@ class Campaign_model extends CI_Model
 	
 	function get_campaignlist($query=false)
 	{		$db2 = $this->load->database('both', TRUE);
-			$qry = $db2->query("select dbho_campaignmaster.campaignID,userCompanyName,userEmail,userPhone,startDate,expiry_date_campaign,dbho_campaignmaster.created, sum(dbho_campaigninventory.amount) + sum(dbho_campaignplan.Amount) as amount from dbho_campaignmaster,homeonline.rp_users,homeonline.rp_user_details,dbho_campaigninventory,dbho_campaignplan where
+			$qry = $db2->query("select dbho_campaignmaster.campaignID,userCompanyName,userEmail,userPhone,startDate,expiry_date_campaign,dbho_campaignmaster.created from dbho_campaignmaster,homeonline.rp_users,homeonline.rp_user_details,dbho_campaigninventory,dbho_campaignplan where
 									dbho_campaignmaster.userID=rp_users.userID and 
 									rp_users.userID=rp_user_details.userID and
-									dbho_campaignmaster.campaignID=dbho_campaigninventory.campaignID and
-									dbho_campaignmaster.campaignID=dbho_campaignplan.campaignID and
+									
 									rp_user_details.languageID='1' $query
 									GROUP BY campaignID ");
 		//echo $db2->last_query();die;									

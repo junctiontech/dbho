@@ -158,9 +158,11 @@
                       <td><?=isset($campaignlists->userCompanyName)?$campaignlists->userCompanyName:''?></td>
                       <td><?=isset($campaignlists->userEmail)?$campaignlists->userEmail:''?></td>
                       <td><?=isset($campaignlists->userPhone)?$campaignlists->userPhone:''?></td>
-                      
                        <td><?=isset($campaignlists->expiry_date_campaign)?$campaignlists->expiry_date_campaign:''?></td>
-                       <td><?=isset($campaignlists->amount)?$campaignlists->amount:''?></td>
+					   <?php $sumofamountofplan=$this->utilities->sumofamount('dbho_campaignplan',isset($campaignlists->campaignID)?$campaignlists->campaignID:'');
+					  $sumofamountofinventory=$this->utilities->sumofamount('dbho_campaigninventory',isset($campaignlists->campaignID)?$campaignlists->campaignID:''); 
+					  ?>
+                       <td><?=(isset($sumofamountofplan[0]->amount)?$sumofamountofplan[0]->amount:0)+(isset($sumofamountofinventory[0]->amount)?$sumofamountofinventory[0]->amount:0)?></td>
                        <td><button class="btn btn-success" type="button" data-toggle="modal" href="<?=base_url();?>campaign/campaign_modal/<?=isset($campaignlists->campaignID)?$campaignlists->campaignID:''?>" data-target=".bs-example-modal-lg">View</button></td>
                        
                      

@@ -11,6 +11,7 @@ class Campaign extends CI_Controller {
 		$this->load->model('campaign_model');
 		$this->load->model('inventory_model');
 		$this->load->library('parser');
+		$this->load->library('utilities');
 		$this->data['base_url']=base_url();
 		$this->load->library('session');
 	}
@@ -46,6 +47,7 @@ class Campaign extends CI_Controller {
 			$currentexpiry=$this->input->post('currentexpiry');
 			
 			$data=$this->input->post();
+			if(!empty($data['inventoryid'])){
 			for($z=0;$z<=count($data['inventoryid'])-1; $z++)
 			{
 				
@@ -70,20 +72,8 @@ class Campaign extends CI_Controller {
 			$inventoryduration=$data['inventoryduration'][$z];
 			$inventoryamount=$data['inventoryamount'][$z];
 			
-			$planid=$data['planid'][$z];
-			$planquantity=$data['planquantity'][$z];
-			$planduration=$data['planduration'][$z];
-			$planamount=$data['planamount'][$z];
-			$plancarryforwrd=$data['plancarryforwrd'][$z];
-			$currentexpiryplan=$data['currentexpiryplan'][$z];
-			$lastexpiryplan=$data['lastexpiryplan'][$z];
 			
-			if(!empty($campaignstartdate) && !empty($user_id) && !empty($currentexpiry) && !empty($inventoryid) && !empty($cityid) && !empty($inventoryquantity) && !empty($inventoryduration) && !empty($inventoryamount) && !empty($planid) && !empty($planquantity) && !empty($planduration) && !empty($planamount) ){
-			
-			if(empty($campaignid)){
-				$id=$this->campaign_model->insert_campaign_only($campaignstartdate,$user_id,$currentexpiry);
-				$campaignid=$id;
-			}
+			if(!empty($campaignstartdate) && !empty($user_id) && !empty($currentexpiry) && !empty($inventoryid) && !empty($cityid) && !empty($inventoryquantity) && !empty($inventoryduration) && !empty($inventoryamount) ){
 			
 			$filter=array('inventoryID'=>$inventoryid);
 			$inventory_details=$this->campaign_model->check('dbho_inventorymaster',$filter);
@@ -103,18 +93,23 @@ class Campaign extends CI_Controller {
 					redirect('Campaign');
 			}
 			
+			if(empty($campaignid)){
+				$id=$this->campaign_model->insert_campaign_only($campaignstartdate,$user_id,$currentexpiry);
+				$campaignid=$id;
+			}
+			
 			date_default_timezone_set("Asia/Kolkata");
 			$date=date("Y-m-d h:i:s");
 			
 				
 					if(!empty($campaignid)){
 						
-							$this->campaign_model->insert_campaign($campaignid,$inventoryid,$cityid,$inventoryquantity,$inventoryduration,$inventoryamount,$planid,$planquantity,$planduration,$planamount,$plancarryforwrd,$currentexpiryplan,$lastexpiryplan,$date);
+							$this->campaign_model->insert_campaign_inventory($campaignid,$inventoryid,$cityid,$inventoryquantity,$inventoryduration,$inventoryamount);
 							$this->session->set_flashdata('message_type', 'success');
 							$this->session->set_flashdata('message', $this->config->item("index")." Campaign Added Successfully!!");
 					}else{
 						$this->session->set_flashdata('message_type', 'error');
-						$this->session->set_flashdata('message', $this->config->item("index")." Some thing wrong while creating campaign. Try Again..!!");
+						$this->session->set_flashdata('message', $this->config->item("index")." Some thing wrong while creating campaign Inventory. Try Again..!!");
 						redirect('Campaign');
 					}
 			}else{
@@ -124,7 +119,44 @@ class Campaign extends CI_Controller {
 			}
 		
 		}
+		}
+		if(!empty($data['planid'])){
+		for($z=0;$z<=count($data['planid'])-1; $z++)
+			{
+				
+			$planid=$data['planid'][$z];
+			$planquantity=$data['planquantity'][$z];
+			$planduration=$data['planduration'][$z];
+			$planamount=$data['planamount'][$z];
+			$plancarryforwrd=$data['plancarryforwrd'][$z];
+			$currentexpiryplan=$data['currentexpiryplan'][$z];
+			$lastexpiryplan=$data['lastexpiryplan'][$z];
+			
+			if(!empty($campaignstartdate) && !empty($user_id) && !empty($currentexpiry) && !empty($planid) && !empty($planquantity) && !empty($planduration) && !empty($planamount) ){
+			
+			if(empty($campaignid)){
+				$id=$this->campaign_model->insert_campaign_only($campaignstartdate,$user_id,$currentexpiry);
+				$campaignid=$id;
+			}
+			
+			if(!empty($campaignid)){
+						
+							$this->campaign_model->insert_campaign_plan($campaignid,$planid,$planquantity,$planduration,$planamount,$plancarryforwrd,$currentexpiryplan,$lastexpiryplan);
+							$this->session->set_flashdata('message_type', 'success');
+							$this->session->set_flashdata('message', $this->config->item("index")." Campaign Added Successfully!!");
+					}else{
+						$this->session->set_flashdata('message_type', 'error');
+						$this->session->set_flashdata('message', $this->config->item("index")." Some thing wrong while creating campaign Plans. Try Again..!!");
+						redirect('Campaign');
+					}
+			}else{
+					$this->session->set_flashdata('message_type', 'error');
+					$this->session->set_flashdata('message', $this->config->item("index")." All Fields Are Mendatory!!");
+					redirect('Campaign');
+			}
 		
+		}
+		}
 		}else{
 					$this->session->set_flashdata('message_type', 'error');
 					$this->session->set_flashdata('message', $this->config->item("index")." Invalid Request!!");

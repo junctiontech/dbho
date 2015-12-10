@@ -45,10 +45,8 @@ class Inventory_model extends CI_Model
 							}
 							else
 							{
-							
-								$newdates=explode("/",$start_date);
-								$add=$newdates[1]+$k;
-								$datess="$newdates[0]/$add/$newdates[2]";
+									$date = strtotime("$k day", strtotime($start_date));
+									$datess=date("m/d/Y", $date);
 							}
 							
 								$data3=array('inventoryID'=>$inventory_id,
