@@ -117,7 +117,7 @@ class Inventory extends CI_Controller {
 			date_default_timezone_set("Asia/Kolkata");
 			$date=date("Y-m-d h:i:s");
 			
-				if(!empty($user_id) && !empty($inventoryid) && !empty($city_id) && !empty($project_id)  && !empty($start_date) && !empty($duration) && !empty($weightage) && !empty($remark) )
+				if(!empty($user_id) && !empty($inventoryid) && !empty($city_id) && !empty($project_id)  && !empty($start_date) && !empty($duration) && !empty($weightage)  )
 				{
 				
 					if(empty($this->input->post('inventoryconsumptionid')))

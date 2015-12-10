@@ -144,6 +144,7 @@
                     placeholder: "With Max Selection limit 4",
                     allowClear: true
                 });
+				
             });
         </script> 
 <!-- /select2 --> 
@@ -210,4 +211,93 @@
 $(document).ajaxComplete(function(event, request, settings) {
     $('#loading-indicator').hide();
 });
+
+
+
+
+//validation start..........................................................................
+
+function checkvalidation(){
+	
+	if(document.getElementById('inventoryid').value == "" )
+    	{
+    			 document.getElementById('inventoryid').focus() ;
+				 document.getElementById('inventoryid').placeholder="Please select Inventory!" ;
+				 document.getElementById('inventoryid').setAttribute('class',' form-control  parsley-error') ;
+				 return false;
+    	}
+		
+		if(document.getElementById('inventoryunit').value == "" )
+    	{
+    			 document.getElementById('inventoryunit').focus() ;
+				 document.getElementById('inventoryunit').placeholder="Please select Unit" ;
+				 document.getElementById('inventoryunit').setAttribute('class',' form-control parsley-error') ;
+				 return false;
+    	}
+		
+		if(document.getElementById('maxquan').value == "" )
+    	{
+    			 document.getElementById('maxquan').focus() ;
+				 document.getElementById('maxquan').placeholder="Please Provide Quantity" ;
+				 document.getElementById('maxquan').setAttribute('class',' form-control parsley-error') ;
+				 return false;
+    	}
+		if(document.getElementById('overid').value == "" )
+    	{
+    			 document.getElementById('overid').focus() ;
+				 document.getElementById('overid').placeholder="Please Select Overdrawing" ;
+				 document.getElementById('overid').setAttribute('class',' form-control parsley-error') ;
+				 return false;
+    	}
+		if(document.getElementById('cityid').value == "" )
+    	{
+    			 document.getElementById('cityid').focus() ;
+				 document.getElementById('cityid').placeholder="Please select City" ;
+				 document.getElementById('cityid').setAttribute('class',' form-control parsley-error') ;
+				 return false;
+    	}
+		
+	return( true );
+	
+}
+
+function fill(){
+	
+	if(document.getElementById('inventoryid').value != "" )
+    	{
+    			 document.getElementById('inventoryidmes').setAttribute('class','required fa fa-check') ;
+				 document.getElementById('inventoryidmes').style.color='green' ;
+				 document.getElementById('inventoryid').setAttribute('class',' form-control ') ;
+    	}
+		
+		if(document.getElementById('inventoryunit').value != "" )
+    	{
+    			  document.getElementById('inventoryunitmes').setAttribute('class','required fa fa-check') ;
+				  document.getElementById('inventoryunitmes').style.color='green';
+				  document.getElementById('inventoryunit').setAttribute('class',' form-control ') ;
+    	}
+		if(document.getElementById('maxquan').value != "" )
+    	{
+    			  document.getElementById('maxquanmes').setAttribute('class','required fa fa-check') ;
+				  document.getElementById('maxquanmes').style.color='green';
+				  document.getElementById('maxquan').setAttribute('class',' form-control ') ;
+    	}
+		if(document.getElementById('overid').value != "" )
+    	{
+    			  document.getElementById('overidmes').setAttribute('class','required fa fa-check') ;
+				  document.getElementById('overidmes').style.color='green';
+				  document.getElementById('overid').setAttribute('class',' form-control ') ;
+    	}
+		if(document.getElementById('cityid').value != "" )
+    	{
+    			  document.getElementById('cityidmes').setAttribute('class','required fa fa-check') ;
+				  document.getElementById('cityidmes').style.color='green';
+				  document.getElementById('cityid').setAttribute('class',' form-control ') ;
+    	}
+}
+	
+
+
+
+
     </script> 

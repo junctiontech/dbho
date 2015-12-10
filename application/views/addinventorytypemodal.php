@@ -3,7 +3,7 @@
                       <h4 class="modal-title" id="myModalLabel">Add Inventory Type</h4>
                     </div>
 					
-					<form method="post" action="<?=base_url();?>Inventory/Insertinventorytype" class="form-horizontal form-label-left">
+					<form method="post" onsubmit="return(checkvalidation())" action="<?=base_url();?>Inventory/Insertinventorytype" class="form-horizontal form-label-left">
 <div class="modal-body">
 
 <div class="x_content">
@@ -11,9 +11,9 @@
                                     <div class="row">
                                     
                                     <div class="form-group">
-                    <label class="control-label col-md-2 col-sm-2 col-xs-12">Inventory Name</label>
+                    <label class="control-label col-md-2 col-sm-2 col-xs-12">Inventory Name <span id="inventoryidmes"  aria-hidden="true"></span></label>
                     <div class="col-md-10 col-sm-10 col-xs-12">
-                      <select required class="select2_group form-control" name="inventoryname">
+                      <select onchange="fill();" id="inventoryid" class=" form-control" name="inventoryname">
                         <option value="">Select Name</option>
                        <?php foreach($inventoryname as $inventorynames){?>
                         <option value="<?=isset($inventorynames->inventorytypeID)?$inventorynames->inventorytypeID:''?>" ><?=isset($inventorynames->inventoryDescription)?$inventorynames->inventoryDescription:''?></option>
@@ -23,25 +23,25 @@
                   </div>
                                     
 									<div class="form-group">
-                                    <label class="control-label col-md-2 col-sm-2 col-xs-12">Inventory Unit</label>
+                                    <label class="control-label col-md-2 col-sm-2 col-xs-12">Inventory Unit <span id="inventoryunitmes"  aria-hidden="true"></span></label>
                                     <div class="col-md-10 col-sm-10 col-xs-12">
-                                    <select name="inventoryunit" class="select2_group form-control">
+                                    <select onchange="fill();" id="inventoryunit" name="inventoryunit" class="select2_group form-control">
                                     <option value="Day">Day</option>
                                     </select>
                                     </div>
                                     </div>
                                     
                                     <div class="form-group">
-                                    <label class="control-label col-md-2 col-sm-2 col-xs-12">Max (QTY)</label>
+                                    <label class="control-label col-md-2 col-sm-2 col-xs-12">Max (QTY) <span id="maxquanmes"  aria-hidden="true"></span></label>
                                     <div class="col-md-10 col-sm-10 col-xs-12">
-                                    <input type="text" placeholder="Enter Quantity" name="maxquantity" value="" class="form-control">
+                                    <input onblur="fill();" id="maxquan" type="number" placeholder="Enter Quantity" name="maxquantity" value="" class="form-control">
                                     </div>
                                     </div>
                                     
                                     <div class="form-group">
-                                    <label class="control-label col-md-2 col-sm-2 col-xs-12">Overdrawing Allow</label>
+                                    <label class="control-label col-md-2 col-sm-2 col-xs-12">Overdrawing Allow <span id="overidmes"  aria-hidden="true"></span></label>
                                     <div class="col-md-10 col-sm-10 col-xs-12">
-                                    <select name="overdrawingallow" class="select2_group form-control">
+                                    <select onchange="fill();" id="overid" name="overdrawingallow" class="select2_group form-control">
                                     <option value="No">No</option>
                                     <option value="Yes">Yes</option>
                                     </select>
@@ -49,9 +49,9 @@
                                     </div>
                                     
                                     <div class="form-group">
-                    <label class="control-label col-md-2 col-sm-2 col-xs-12">City</label>
+                    <label class="control-label col-md-2 col-sm-2 col-xs-12">City <span id="cityidmes"  aria-hidden="true"></span></label>
                     <div class="col-md-10 col-sm-10 col-xs-12">
-                      <select required class="select2_group form-control" name="city_id">
+                      <select onchange="fill();" id="cityid" class=" form-control" name="city_id">
                         <option value="">Select City</option>
                        <?php foreach($cities as $cities){?>
                         <option value="<?=isset($cities->cityID)?$cities->cityID:''?>" ><?=isset($cities->cityName)?$cities->cityName:''?></option>
@@ -82,5 +82,7 @@
                     placeholder: "With Max Selection limit 4",
                     allowClear: true
                 });
+				
+				fill();
             });
         </script> 
