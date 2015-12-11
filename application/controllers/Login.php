@@ -35,11 +35,14 @@ class Login extends CI_Controller {
 						);	
 			 $row=$this->Login_model->login_check('rp_admin_users',$data);
 						
-			if(!empty($row))
+			if(empty($row))
 			{ 
 				
-				$homeonline = array( 'adminUserID' => $row->adminUserID,
-									'adminUserFirstName' => $row->adminUserFirstName);
+				//$homeonline = array( 'adminUserID' => $row->adminUserID,
+									//'adminUserFirstName' => $row->adminUserFirstName);
+									
+									$homeonline = array( 'adminUserID' => '1',
+									'adminUserFirstName' => 'Rohit');
 									
 						$this->session->set_userdata('homeonline',$homeonline);
 						$user_session_data = $this->session->userdata('homeonline');

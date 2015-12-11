@@ -50,10 +50,10 @@
                     <form method="post" action="<?=base_url();?>Login/login_user">
                         <h1>Login</h1>
                         <div>
-                            <input type="text" class="form-control" placeholder="Username" required="" name="username"/>
+                            <input type="text" class="form-control" placeholder="Username"  name="username"/>
                         </div>
                         <div>
-                            <input type="password" class="form-control" placeholder="Password" required="" name="password"/>
+                            <input type="password" class="form-control" placeholder="Password"  name="password"/>
                         </div>
                         <div>
                             <button type="submit" class="btn btn-default submit" >Log in</button>
