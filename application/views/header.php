@@ -65,7 +65,7 @@
             <h3>General</h3>
             <ul class="nav side-menu">
 				<li><a href="<?=base_url();?>Manage_user_plan/AddPlanType"><i class="fa fa-user"></i>Add Plan Type</a></li>
-              <li><a href="<?=base_url();?>"><i class="fa fa-user"></i> Manage Usar Plan </a></li>
+              <li><a href="<?=base_url();?>Manage_user_plan"><i class="fa fa-user"></i> Manage Usar Plan </a></li>
                <li><a href="<?=base_url();?>Inventory"><i class="fa fa-user"></i> Inventory </a></li>
 			   <li><a href="<?=base_url();?>Inventory/AddInventoryType"><i class="fa fa-user"></i>Add Inventory Type</a></li>
 			   <li><a href="<?=base_url();?>Inventory/Inventory_listing"><i class="fa fa-user"></i> Inventory Listing </a></li>
@@ -93,7 +93,7 @@
                 <li><a href="javascript:;"> Profile</a> </li>
                 <li> <a href="javascript:;"> <span class="badge bg-red pull-right">50%</span> <span>Settings</span> </a> </li>
                 <li> <a href="javascript:;">Help</a> </li>
-                <li><a href="javascript:;"><i class="fa fa-sign-out pull-right"></i> Log Out</a> </li>
+                <li><a href="<?=base_url();?>Login/logout"><i class="fa fa-sign-out pull-right"></i> Log Out</a> </li>
               </ul>
             </li>
             <li role="presentation" class="dropdown"> <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false"> <i class="fa fa-envelope-o"></i> <span class="badge bg-red">6</span> </a>

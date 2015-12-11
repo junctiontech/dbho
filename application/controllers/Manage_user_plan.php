@@ -12,6 +12,8 @@ class Manage_user_plan extends CI_Controller {
 		$this->load->library('parser');
 		$this->data['base_url']=base_url();
 		$this->load->library('session');
+		if (!$this->session->userdata('homeonline')){ $this->session->set_flashdata('category_error_login', " Your Session Is Expired!! Please Login Again. "); redirect('Login');}
+	//	print_r($this->session->userdata('homeonline'));die;
 	}
 	
 // Manage_user_plan Started Here.................................................................................................................

@@ -15,6 +15,9 @@ class Common_functions extends CI_Controller {
 		$this->load->library('utilities');
 		$this->data['base_url']=base_url();
 		$this->load->model('manage_user_plan_model');
+		$this->load->library('session');
+		if (!$this->session->userdata('homeonline')){ $this->session->set_flashdata('category_error_login', " Your Session Is Expired!! Please Login Again. "); redirect('Login');}
+
 		
 	}
 	
