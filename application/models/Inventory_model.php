@@ -253,5 +253,14 @@ class Inventory_model extends CI_Model
 									dbho_inventorytype.LanguageID='1'");	
 			return $qry->Result();	
 	}
+	
+	function inventory_availablity_calendar($inventoryid=false)
+	{		
+			$db2 = $this->load->database('both', TRUE);
+			
+			$qry = $db2->query("select * from dbho_planinventoryconsumptiondates where
+									inventoryID=$inventoryid ");
+			return $qry->Result();	
+	}
 		
 }

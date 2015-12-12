@@ -29,6 +29,9 @@
 <link rel="stylesheet" href="<?=base_url();?>css/switchery/switchery.min.css" />
 <script src="<?=base_url();?>js/jquery.min.js"></script>
 <link rel="stylesheet" href="<?=base_url();?>css/datepicker.css" />
+
+<link href="<?=base_url();?>css/calendar/fullcalendar.css" rel="stylesheet">
+        <link href="<?=base_url();?>css/calendar/fullcalendar.print.css" rel="stylesheet" media="print">
 <!--[if lt IE 9]>
         <script src="../assets/js/ie8-responsive-file-warning.js"></script>
         <![endif]-->
@@ -69,6 +72,8 @@
                <li><a href="<?=base_url();?>Inventory"><i class="fa fa-user"></i> Inventory </a></li>
 			   <li><a href="<?=base_url();?>Inventory/AddInventoryType"><i class="fa fa-user"></i>Add Inventory Type</a></li>
 			   <li><a href="<?=base_url();?>Inventory/Inventory_listing"><i class="fa fa-user"></i> Inventory Listing </a></li>
+			   <li><a href="<?=base_url();?>Inventory/InventoryAvailability"><i class="fa fa-user"></i>Check Inventory Avialabilty </a></li>
+			   <li><a href="<?=base_url();?>Inventory/InventoryConsumption"><i class="fa fa-user"></i> Inventory Consumption</a></li>
                <li><a href="<?=base_url();?>Campaign"><i class="fa fa-edit"></i> Creat Campaign </a></li>
 			    <li><a href="<?=base_url();?>Campaign/Campaign_listing"><i class="fa fa-edit"></i> Campaign Listing</a></li>
             </ul>

@@ -488,5 +488,70 @@ class Inventory extends CI_Controller {
 	}
 /*Add Inventory Type Insert Into Db End.............................................................................................................*/
 
+
+/*InventoryAvailability view Load Start.............................................................................................................*/
+	
+	function InventoryAvailability()
+	{	
+		if(!empty($this->input->post('submit')) ){
+			$this->data['inventorytypeid']=$inventorytypeid=$this->input->post('inventoryid');
+			$this->data['cityid']=$cityid=$this->input->post('cityid');
+			if(!empty($inventorytypeid) && !empty($cityid))
+			{
+				$filter=array('inventorytypeID'=>$inventorytypeid,'City'=>$cityid);
+				$inventory_id=$this->inventory_model->check('dbho_inventorymaster',$filter);
+				$event='';
+				if(!empty($inventory_id))
+				{
+							$inventoryid=$inventory_id[0]->inventoryID;
+							$filter1=array('inventoryID'=>$inventoryid);
+							$inventory_details=$this->inventory_model->check('dbho_inventorymaster',$filter1);
+							$maxquantity=$inventory_details[0]->MaximumQuantity;
+							$inventory_availablity=$this->inventory_model->inventory_availablity_calendar($inventoryid);
+							foreach($inventory_availablity as $inventory_availablitys){
+								
+								$date=$inventory_availablitys->date;
+							
+							$event.="{title: 'Inventory',start: new Date(y, m, d ,12,12,2015)},{title: 'Inventory',start: new Date(y, m, d ,12,13,2015)}";
+								
+							}
+							$this->data['event']=$event;
+					
+				}else{
+							$this->session->set_flashdata('message_type', 'error');
+							$this->session->set_flashdata('message', $this->config->item("index")." This Inventory Is Not Found For Selected City!!");
+							redirect('Inventory/InventoryAvailability');
+				}
+			}else{
+							$this->session->set_flashdata('message_type', 'error');
+							$this->session->set_flashdata('message', $this->config->item("index")." All Fields Are Mendatory!!");
+							redirect('Inventory/InventoryAvailability');
+			}
+			
+		}
+		$this->data['cities']=$this->inventory_model->get_city();
+		$this->data['inventory']=$this->inventory_model->get_inventory();
+		$this->parser->parse('header',$this->data);
+		$this->load->view('inventoryavailability',$this->data);
+		$this->parser->parse('footer',$this->data);
+	}
+	
+/*InventoryAvailability view Load End.............................................................................................................*/
+
+
+/*InventoryConsumption view Load Start.............................................................................................................*/
+	
+	function InventoryConsumption()
+	{	
+		//$this->data['inventoryname']=$this->inventory_model->get_inventoryname();
+		//$this->data['cities']=$this->inventory_model->get_city();
+		$this->parser->parse('header',$this->data);
+		$this->load->view('consumptionofinventory',$this->data);
+		$this->parser->parse('footer',$this->data);
+	}
+	
+/*InventoryConsumption view Load End.............................................................................................................*/
+
+
 		
 }

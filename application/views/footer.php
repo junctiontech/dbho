@@ -56,6 +56,8 @@
 <script src="<?=base_url();?>js/autocomplete/jquery.autocomplete.js"></script>
 <script src="<?=base_url();?>js/bootstrap-datepicker.js"></script> 
 <script src="<?=base_url();?>js/custom.js"></script> 
+<script src="<?=base_url();?>js/moment.min.js"></script>
+        <script src="<?=base_url();?>js/calendar/fullcalendar.min.js"></script>
 <script src="<?=base_url();?>js/common_functions.js"></script> 
 <script src="<?=base_url();?>js/script.js"></script> 
 <script type="text/javascript">

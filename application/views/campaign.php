@@ -36,17 +36,17 @@
         
           <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
-             <form  method="post" action="<?=base_url();?>campaign/addcampaign"  class="form-group form-label-left clearfix">
+             <form  method="post" onsubmit="return(checkvalidation())" action="<?=base_url();?>campaign/addcampaign"  class="form-group form-label-left clearfix">
             <div class="x_content">
                
                   <div class="row">
                     <div class="form-group col-xs-12 col-sm-3">
-                      <label class="control-label" for="first-name">Campaign Start Date <span class="required">*</span> </label>
+                      <label class="control-label" for="first-name">Campaign Start Date <span id="single_cal2mes"  aria-hidden="true"></span> </label>
                       <fieldset>
                         <div class="control-group">
                           <div class="controls">
                             <div class="xdisplay_inputx form-group has-feedback">
-                              <input readonly name="campaignstartdate" required value="" type="text" class="form-control has-feedback-left" id="single_cal2" placeholder="Select Date" aria-describedby="inputSuccess2Status2">
+                              <input onchange="fill();" readonly name="campaignstartdate"  value="" type="text" class="form-control has-feedback-left" id="single_cal2" placeholder="Select Date" aria-describedby="inputSuccess2Status2">
                               <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span> <span id="inputSuccess2Status2" class="sr-only">(success)</span> </div>
                           </div>
                         </div>
@@ -54,8 +54,8 @@
                     </div>
 					
 					 <div class="form-group col-xs-12 col-sm-3">
-                      <label class="control-label" for="last-name">Company Name<span class="required">*</span> </label>
-                      <select required class="select2_group form-control" id="userid" name="user_id" onchange="get_usertype(this.value);get_plans(this.value);">
+                      <label class="control-label" for="last-name">Company Name <span id="useridmes"  aria-hidden="true"></span> </label>
+                      <select  class=" form-control" id="userid" name="user_id" onchange="get_usertype(this.value);fill();get_plans(this.value);">
                         
                         <option value="">Select Company Name</option>
 						<?php foreach($company_name as $company_name){?>
@@ -66,7 +66,7 @@
                     </div>
 					
                     <div class="form-group col-xs-12 col-sm-3">
-                      <label class="control-label" for="last-name">User Type <span class="required">*</span> </label>
+                      <label class="control-label" for="last-name">User Type <span id="user_typemes"  aria-hidden="true"></span></label>
                       
 					   <input id="user_type" readonly name=""   value="" type="text" class="form-control has-feedback-left" >
                     </div>
@@ -349,5 +349,73 @@ calculateSum();
 //calculateexpirydate();
 
 });
+
+
+//validation start..........................................................................
+
+function checkvalidation(){
+	
+	if(document.getElementById('single_cal2').value == "" )
+    	{
+    			 document.getElementById('single_cal2').focus() ;
+				 document.getElementById('single_cal2').placeholder="Please select Date!" ;
+				 document.getElementById('single_cal2').setAttribute('class',' form-control has-feedback-left  parsley-error') ;
+				 return false;
+    	}
+		
+		if(document.getElementById('userid').value == "" )
+    	{
+    			 document.getElementById('userid').focus() ;
+				 document.getElementById('userid').placeholder="Please select Company" ;
+				 document.getElementById('userid').setAttribute('class',' form-control parsley-error') ;
+				 return false;
+    	}
+		
+		if(document.getElementById('user_type').value == "" )
+    	{
+    			 document.getElementById('user_type').focus() ;
+				 document.getElementById('user_type').placeholder="Please Provide User Type" ;
+				 document.getElementById('user_type').setAttribute('class',' form-control parsley-error') ;
+				 return false;
+    	}
+		
+		
+	return( true );
+	
+}
+
+function fill(){
+	
+	if(document.getElementById('single_cal2').value != "" )
+    	{
+    			 document.getElementById('single_cal2mes').setAttribute('class','required fa fa-check') ;
+				 document.getElementById('single_cal2mes').style.color='green' ;
+				 document.getElementById('single_cal2').setAttribute('class',' form-control has-feedback-left') ;
+    	}
+		if(document.getElementById('single_cal2').value == "" ){
+				  document.getElementById('single_cal2mes').setAttribute('class','required ') ;
+				  document.getElementById('single_cal2').setAttribute('class',' form-control has-feedback-left parsley-error') ;
+		}
+		
+		if(document.getElementById('userid').value != "" )
+    	{
+    			  document.getElementById('useridmes').setAttribute('class','required fa fa-check') ;
+				  document.getElementById('useridmes').style.color='green';
+				  document.getElementById('userid').setAttribute('class',' form-control ') ;
+    	}else{
+				  document.getElementById('useridmes').setAttribute('class','required ') ;
+				  document.getElementById('userid').setAttribute('class',' form-control parsley-error') ;
+		}
+		if(document.getElementById('user_type').value != "" )
+    	{
+    			  document.getElementById('user_typemes').setAttribute('class','required fa fa-check') ;
+				  document.getElementById('user_typemes').style.color='green';
+				  document.getElementById('user_type').setAttribute('class',' form-control ') ;
+    	}else{
+				 document.getElementById('user_typemes').setAttribute('class','required ') ;
+				  document.getElementById('user_type').setAttribute('class',' form-control parsley-error') ;
+		}
+		
+}
 
 </script>
