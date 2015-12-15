@@ -67,15 +67,28 @@
           <div class="menu_section">
             <h3>General</h3>
             <ul class="nav side-menu">
-				<li><a href="<?=base_url();?>Manage_user_plan/AddPlanType"><i class="fa fa-user"></i>Add Plan Type</a></li>
-              <li><a href="<?=base_url();?>Manage_user_plan"><i class="fa fa-user"></i> Manage Usar Plan </a></li>
-               <li><a href="<?=base_url();?>Inventory"><i class="fa fa-user"></i> Inventory </a></li>
-			   <li><a href="<?=base_url();?>Inventory/AddInventoryType"><i class="fa fa-user"></i>Add Inventory Type</a></li>
-			   <li><a href="<?=base_url();?>Inventory/Inventory_listing"><i class="fa fa-user"></i> Inventory Listing </a></li>
-			   <li><a href="<?=base_url();?>Inventory/InventoryAvailability"><i class="fa fa-user"></i>Check Inventory Avialabilty </a></li>
-			   <li><a href="<?=base_url();?>Inventory/InventoryConsumption"><i class="fa fa-user"></i> Inventory Consumption</a></li>
-               <li><a href="<?=base_url();?>Campaign"><i class="fa fa-edit"></i> Creat Campaign </a></li>
-			    <li><a href="<?=base_url();?>Campaign/Campaign_listing"><i class="fa fa-edit"></i> Campaign Listing</a></li>
+				 <li><a><i class="fa fa-edit"></i> Manage Plan <span class="fa fa-chevron-down"></span></a>
+				  <ul class="nav child_menu" style="display: none">
+					<li><a href="<?=base_url();?>Manage_user_plan/AddPlanType"><i class="fa fa-user"></i>Add Plan Type</a></li>
+					<li><a href="<?=base_url();?>Manage_user_plan"><i class="fa fa-user"></i> Manage Usar Plan </a></li>
+				  </ul>
+				 </li>
+				 <li><a><i class="fa fa-edit"></i> Manage Inventory <span class="fa fa-chevron-down"></span></a>
+					<ul class="nav child_menu" style="display: none">
+					   <li><a href="<?=base_url();?>Inventory"><i class="fa fa-user"></i> Inventory </a></li>
+					   <li><a href="<?=base_url();?>Inventory/AddInventoryType"><i class="fa fa-user"></i>Add Inventory Type</a></li>
+					   <li><a href="<?=base_url();?>Inventory/Inventory_listing"><i class="fa fa-user"></i> Inventory Listing </a></li>
+					   <li><a href="<?=base_url();?>Inventory/InventoryAvailability"><i class="fa fa-user"></i>Check Inventory Avialabilty </a></li>
+					   <li><a href="<?=base_url();?>Inventory/InventoryConsumption"><i class="fa fa-user"></i> Inventory Consumption</a></li>
+				    </ul>
+				 </li>
+				 <li><a><i class="fa fa-edit"></i> Manage Campaign <span class="fa fa-chevron-down"></span></a>
+					<ul class="nav child_menu" style="display: none">
+						<li><a href="<?=base_url();?>Campaign"><i class="fa fa-edit"></i> Creat Campaign </a></li>
+						<li><a href="<?=base_url();?>Campaign/Campaign_listing"><i class="fa fa-edit"></i> Campaign Listing</a></li>
+					</ul>
+				</li>
+					
             </ul>
           </div>
         </div>
