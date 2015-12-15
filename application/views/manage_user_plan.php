@@ -65,20 +65,7 @@
          <div class="row">
           <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
-              <div class="x_title">
-                <h2>Manage User Plan Search</h2>
-                <ul class="nav navbar-right panel_toolbox">
-                  <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a> </li>
-                  <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                    <ul class="dropdown-menu" role="menu">
-                      <li><a href="#">Settings 1</a> </li>
-                      <li><a href="#">Settings 2</a> </li>
-                    </ul>
-                  </li>
-                  <li><a class="close-link"><i class="fa fa-close"></i></a> </li>
-                </ul>
-                <div class="clearfix"></div>
-              </div>
+             
               <div class="x_content">
                 <form action="<?=base_url();?>Manage_user_plan/index/search" method="post"  class="form-group form-label-left clearfix">
                 <div class="row">
@@ -127,23 +114,7 @@
               <div class="x_title">
 
             
-                  <div class="btn-group  btn-group-sm">
-                    <button type="button" class="btn btn-default">Active</button>
-                    <button type="button" class="btn btn-default">Inactive</button>
-                    <button type="button" class="btn btn-default">Select all</button>
-                  </div>
-              
-                
-                <ul class="nav navbar-right panel_toolbox">
-                  <li><a href="#"><i class="fa fa-chevron-up"></i></a> </li>
-                  <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                    <ul class="dropdown-menu" role="menu">
-                      <li><a href="#">Settings 1</a> </li>
-                      <li><a href="#">Settings 2</a> </li>
-                    </ul>
-                  </li>
-                  <li><a href="#"><i class="fa fa-close"></i></a> </li>
-                </ul>
+                <h2>User Plan List</h2>
                 <div class="clearfix"></div>
               </div>
               

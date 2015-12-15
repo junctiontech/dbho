@@ -1,39 +1,154 @@
- <!-- page content -->
-    <div class="right_col" role="main">
-      <div class="">
-        <div class="page-title">
-          <div class="title_left">
-            <h3>Inventory Consumption</h3>
-          </div>
-          <div class="title_right">
-            <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
-              <div class="input-group">
-                <input type="text" class="form-control" placeholder="Search for...">
-                <span class="input-group-btn">
-                <button class="btn btn-default" type="button">Go!</button>
-                </span> </div>
-            </div>
-          </div>
-        </div>
+
+<!-- page content -->
+                <div class="right_col" role="main">
+                    <div class="">
+
+                       
         <div class="clearfix"></div>
-        <div class="row">
+        
+         <div class="row">
           <div class="col-md-12 col-sm-12 col-xs-12">
-            <div class="x_panel" style="height:600px;">
+            <div class="x_panel">
               <div class="x_title">
-                <h2>Inventory Consumption</h2>
-                <ul class="nav navbar-right panel_toolbox">
-                  <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a> </li>
-                  <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                    <ul class="dropdown-menu" role="menu">
-                      <li><a href="#">Settings 1</a> </li>
-                      <li><a href="#">Settings 2</a> </li>
-                    </ul>
-                  </li>
-                  <li><a class="close-link"><i class="fa fa-close"></i></a> </li>
-                </ul>
+                <h2>Check Inventory Consumption</h2>
+                
                 <div class="clearfix"></div>
+              </div>
+              <div class="x_content">
+                <form action="<?=base_url();?>Inventory/InventoryConsumption" method="post"  class="form-group form-label-left clearfix">
+                <div class="row">
+                  <div class="form-group col-xs-12 col-sm-3">
+                    <label class="control-label" for="first-name">Inventory Name <span class="required">*</span> </label>
+                    <select required name="inventoryid" class="select2_group form-control" onchange="getcityforcalendarinventory(this.value);">
+											<option value="">Select Inventory</option>
+											<?php foreach($inventory as $inventory1){?>
+											<option value="<?=isset($inventory1->inventorytypeID)?$inventory1->inventorytypeID:''?>" <?php if(!empty($inventorytypeid)){ if($inventorytypeid==$inventory1->inventorytypeID){ echo"selected";} } ?>><?=isset($inventory1->inventoryDescription)?$inventory1->inventoryDescription:''?></option>
+											<?php } ?>
+										    </select>
+                  </div>
+                  <div class="form-group col-xs-12 col-sm-3">
+                    <label class="control-label" for="last-name">City <span class="required">*</span> </label>
+					<div id="inventorycity" class="form-group col-xs-12 col-sm-12">
+                   <select required name="cityid" class="select2_group form-control ">
+											<option value="">Select City</option>
+											<?php foreach($cities as $cities1){?>
+											<option value="<?=isset($cities1->cityID)?$cities1->cityID:''?>" <?php if(!empty($cityid)){ if($cityid==$cities1->cityID){ echo"selected";} } ?>><?=isset($cities1->cityName)?$cities1->cityName:''?></option>
+											<?php } ?>
+											</select>
+                  </div> </div>
+                  
+                  
+                  <div class="form-group col-xs-12 col-sm-3 martop20">
+                  <button class="btn btn-success" name="submit" value="submit" type="submit">Get!</button>
+                   
+                  </div>
+
+                  </div>
+
+                </form>
               </div>
             </div>
           </div>
         </div>
-      </div>
+        
+        <div class="clearfix"></div>
+		<!-- Alert section For Message-->
+		 <?php  if($this->session->flashdata('message_type')=='success') { ?>
+		  <div class="alert alert-success alert-dismissible fade in" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span> </button>
+                <strong><?=$this->session->flashdata('message')?></strong>  </div>
+		 <?php } if($this->session->flashdata('message_type')=='error') { ?>
+		 <div class="alert alert-danger alert-dismissible fade in" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span> </button>
+                <strong><?=$this->session->flashdata('message')?></strong>  </div>
+		 <?php } ?>
+		 <!-- Alert section End-->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="x_panel">
+                                    <div class="x_title">
+                                        <h2>Calender View To See Inventory Consumption On Date </h2>
+                                        
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <div class="x_content">
+
+                                        <div id='calendar'></div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+                </div>
+	  <script>
+            $(window).load(function () {
+
+                var date = new Date();
+                var d = date.getDate();
+                var m = date.getMonth();
+                var y = date.getFullYear();
+                var started;
+                var categoryClass;
+
+                var calendar = $('#calendar').fullCalendar({
+                    header: {
+                        left: 'prev,next today',
+                        center: 'title',
+                        right: 'month,agendaWeek,agendaDay'
+                    },
+                    selectable: true,
+                    selectHelper: true,
+                    select: function (start, end, allDay) {
+                        $('#fc_create').click();
+
+                        started = start;
+                        ended = end
+
+                        $(".antosubmit").on("click", function () {
+                            var title = $("#title").val();
+                            if (end) {
+                                ended = end
+                            }
+                            categoryClass = $("#event_type").val();
+
+                            if (title) {
+                                calendar.fullCalendar('renderEvent', {
+                                        title: title,
+                                        start: started,
+                                        end: end,
+                                        allDay: allDay
+                                    },
+                                    true // make the event "stick"
+                                );
+                            }
+                            $('#title').val('');
+                            calendar.fullCalendar('unselect');
+
+                            $('.antoclose').click();
+
+                            return false;
+                        });
+                    },
+                    eventClick: function (calEvent, jsEvent, view) {
+                        //alert(calEvent.title, jsEvent, view);
+
+                        $('#fc_edit').click();
+                        $('#title2').val(calEvent.title);
+                        categoryClass = $("#event_type").val();
+
+                        $(".antosubmit2").on("click", function () {
+                            calEvent.title = $("#title2").val();
+
+                            calendar.fullCalendar('updateEvent', calEvent);
+                            $('.antoclose2').click();
+                        });
+                        calendar.fullCalendar('unselect');
+                    },
+                    editable: true,
+                    events: [<?=isset($event)?$event:''?>]
+                });
+            });
+        </script>

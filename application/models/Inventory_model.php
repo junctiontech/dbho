@@ -263,5 +263,17 @@ class Inventory_model extends CI_Model
 									date in ($date)");
 			return $qry->Result();	
 	}
+	
+		
+	function inventory_consumption_calendar($inventoryid=false)
+	{		
+			$db2 = $this->load->database('both', TRUE);
+			
+			$qry = $db2->query("select StartDate,Duration,inventoryID,City,CampaignID,userCompanyName from dbho_planinventoryconsumption,homeonline.rp_users,homeonline.rp_user_details where
+									inventoryID=$inventoryid and
+										dbho_planinventoryconsumption.UserID=rp_users.UserID and
+			rp_users.UserID=rp_user_details.UserID");
+			return $qry->Result();	
+	}
 		
 }

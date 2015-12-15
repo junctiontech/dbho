@@ -577,8 +577,69 @@ class Inventory extends CI_Controller {
 	
 	function InventoryConsumption()
 	{	
-		//$this->data['inventoryname']=$this->inventory_model->get_inventoryname();
-		//$this->data['cities']=$this->inventory_model->get_city();
+		if(!empty($this->input->post('submit')) ){
+			$this->data['inventorytypeid']=$inventorytypeid=$this->input->post('inventoryid');
+			$this->data['cityid']=$cityid=$this->input->post('cityid');
+			if(!empty($inventorytypeid) && !empty($cityid))
+			{
+				$filter=array('inventorytypeID'=>$inventorytypeid,'City'=>$cityid);
+				$inventory_id=$this->inventory_model->check('dbho_inventorymaster',$filter);
+				$event='';
+				if(!empty($inventory_id))
+				{
+							$inventoryid=$inventory_id[0]->inventoryID;
+							
+							$inventory_consumption=$this->inventory_model->inventory_consumption_calendar($inventoryid);
+							$count=count($inventory_consumption);
+							$i=1;
+							
+								foreach($inventory_consumption as $inventory_consumption){
+										$startdate=$inventory_consumption->StartDate;
+										$duro=$inventory_consumption->Duration-1; $date = strtotime("$duro day", strtotime($inventory_consumption->StartDate));
+										$enddate= date("m/d/Y", $date);
+										if(!empty($inventory_consumption->CampaignID)){
+										$campaign_name=$this->utilities->get_campaign_name($inventory_consumption->CampaignID); 
+										
+										if(!empty($campaign_name)){
+											$company=$inventory_consumption->userCompanyName;
+											$created=$campaign_name[0]->created;
+											$campaignname= "$company   $created";
+										}else{
+										$campaignname="Free";
+										}
+										}else{
+											$campaignname="Free";
+										}
+										$color= sprintf('#%06X', mt_rand(0, 0xFFFFFF));
+										
+										
+									$event.="{title: '$campaignname',start: new Date(new Date('$startdate').setTime(new Date('$startdate').getTime()-1 +  ( 24 * 60 * 60 * 1000))),end:new Date(new Date('$enddate').setTime(new Date('$enddate').getTime()-1 +  ( 24 * 60 * 60 * 1000))),color:'$color'}";
+									
+									
+									if($i<$count){
+										$event.=",";
+									}
+									$i++;
+								
+								}
+							  
+							$this->data['event']=$event;
+							//print_r($event);die;
+					
+				}else{
+							$this->session->set_flashdata('message_type', 'error');
+							$this->session->set_flashdata('message', $this->config->item("index")." This Inventory Is Not Found For Selected City!!");
+							redirect('Inventory/InventoryConsumption');
+				}
+			}else{
+							$this->session->set_flashdata('message_type', 'error');
+							$this->session->set_flashdata('message', $this->config->item("index")." All Fields Are Mendatory!!");
+							redirect('Inventory/InventoryConsumption');
+			}
+			
+		}
+		$this->data['cities']=$this->inventory_model->get_city();
+		$this->data['inventory']=$this->inventory_model->get_inventory();
 		$this->parser->parse('header',$this->data);
 		$this->load->view('consumptionofinventory',$this->data);
 		$this->parser->parse('footer',$this->data);
