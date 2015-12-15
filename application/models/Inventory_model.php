@@ -254,12 +254,13 @@ class Inventory_model extends CI_Model
 			return $qry->Result();	
 	}
 	
-	function inventory_availablity_calendar($inventoryid=false)
+	function inventory_availablity_calendar($inventoryid=false,$date=false)
 	{		
 			$db2 = $this->load->database('both', TRUE);
 			
 			$qry = $db2->query("select * from dbho_planinventoryconsumptiondates where
-									inventoryID=$inventoryid ");
+									inventoryID=$inventoryid and
+									date in ($date)");
 			return $qry->Result();	
 	}
 		

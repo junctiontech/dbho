@@ -77,6 +77,26 @@ function getcityforinventory(inventoryid)
 }
 }
 
+function getcityforcalendarinventory(inventoryid)
+{	
+	if(inventoryid){
+	$.ajax({
+				type: "POST",
+				url : base_url+'common_functions/getcityforcalendarinventory',
+				data: {inventoryid: inventoryid  },
+			})	
+				.done(function(msg){
+					
+					if(msg !=''){
+					$('#inventorycity').html(msg);
+					}
+					return false;	
+				});
+		
+		return false;
+}
+}
+
 $(document).ready(function(){
  
         $(".txt").each(function() {

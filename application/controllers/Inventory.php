@@ -493,6 +493,7 @@ class Inventory extends CI_Controller {
 	
 	function InventoryAvailability()
 	{	
+		
 		if(!empty($this->input->post('submit')) ){
 			$this->data['inventorytypeid']=$inventorytypeid=$this->input->post('inventoryid');
 			$this->data['cityid']=$cityid=$this->input->post('cityid');
@@ -507,15 +508,48 @@ class Inventory extends CI_Controller {
 							$filter1=array('inventoryID'=>$inventoryid);
 							$inventory_details=$this->inventory_model->check('dbho_inventorymaster',$filter1);
 							$maxquantity=$inventory_details[0]->MaximumQuantity;
-							$inventory_availablity=$this->inventory_model->inventory_availablity_calendar($inventoryid);
-							foreach($inventory_availablity as $inventory_availablitys){
-								
-								$date=$inventory_availablitys->date;
+							$startingmonth=11;
+							$startingyear=2015;
+							$datesettting=date("m/d/Y");
+							$dateexplode=explode("/",$datesettting);
+							$endyear=$dateexplode[2]+1;
+							for($startingyear;$startingyear<=$endyear;$startingyear++)
+							{
+								$year=$startingyear;
+							  for($month=1;$month<=12;$month++)
+							  { $DaysInMonth=cal_days_in_month(CAL_GREGORIAN,$month,$year);
+								for($i=1;$i<=$DaysInMonth;$i++)
+								{
+									$date="'$month/$i/$year'";
+									$inventory_availablity=$this->inventory_model->inventory_availablity_calendar($inventoryid,$date);
+									$countinventory=count($inventory_availablity);
+									if($countinventory>=$maxquantity)
+									{
+										$event.="{title: 'Booked',start: new Date(new Date($date).setTime(new Date($date).getTime()-1 +  ( 24 * 60 * 60 * 1000))),color:'Red'}";
+									}elseif($countinventory<$maxquantity && $countinventory !=0)
+									{
+										$available=$maxquantity-$countinventory;
+										$event.="{title: '$available Available',start: new Date(new Date($date).setTime(new Date($date).getTime()-1 +  ( 24 * 60 * 60 * 1000))),color:'Yellow'}";
+									}elseif($countinventory==0){
+									$event.="{title: 'Available',start: new Date(new Date($date).setTime(new Date($date).getTime()-1 +  ( 24 * 60 * 60 * 1000))),color:'green'}";
+									}
+									
+									if($i<$DaysInMonth){
+										$event.=",";
+									}
+								}
+								if($month<12){
+										$event.=",";
+									}
+							  }
+							  
+							  if($startingyear<$endyear){
+										$event.=",";
+									}
 							
-							$event.="{title: 'Inventory',start: new Date(y, m, d ,12,12,2015)},{title: 'Inventory',start: new Date(y, m, d ,12,13,2015)}";
-								
 							}
 							$this->data['event']=$event;
+							//print_r($event);die;
 					
 				}else{
 							$this->session->set_flashdata('message_type', 'error');
