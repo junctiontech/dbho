@@ -51,6 +51,7 @@
 <script>
             autosize($('.resizable_textarea'));
         </script> 
+		<script src="<?=base_url();?>js/dropzone/dropzone.js"></script> 
 <!-- Autocomplete --> 
 <script type="text/javascript" src="<?=base_url();?>js/autocomplete/countries.js"></script> 
 <script src="<?=base_url();?>js/autocomplete/jquery.autocomplete.js"></script>
@@ -60,6 +61,9 @@
         <script src="<?=base_url();?>js/calendar/fullcalendar.min.js"></script>
 <script src="<?=base_url();?>js/common_functions.js"></script> 
 <script src="<?=base_url();?>js/script.js"></script> 
+<script type="text/javascript" src="<?=base_url();?>js/jquery.smartWizard.js"></script> 
+<script src="http://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places"></script> 
+<script src="<?=base_url();?>js/jquery.geocomplete.js"></script> 
 <script type="text/javascript">
             $(function () {
                 'use strict';

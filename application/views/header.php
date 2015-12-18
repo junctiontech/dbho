@@ -29,6 +29,7 @@
 <link rel="stylesheet" href="<?=base_url();?>css/switchery/switchery.min.css" />
 <script src="<?=base_url();?>js/jquery.min.js"></script>
 <link rel="stylesheet" href="<?=base_url();?>css/datepicker.css" />
+<link href="<?=base_url();?>css/smart_wizard.css" rel="stylesheet" type="text/css">
 
 <link href="<?=base_url();?>css/calendar/fullcalendar.css" rel="stylesheet">
         <link href="<?=base_url();?>css/calendar/fullcalendar.print.css" rel="stylesheet" media="print">
@@ -87,6 +88,9 @@
 						<li><a href="<?=base_url();?>Campaign"><i class="fa fa-edit"></i> Creat Campaign </a></li>
 						<li><a href="<?=base_url();?>Campaign/Campaign_listing"><i class="fa fa-edit"></i> Campaign Listing</a></li>
 					</ul>
+				</li>
+				<li><a href="<?=base_url();?>AddProperty" ><i class="fa fa-edit"></i> Add Property </a>
+					
 				</li>
 					
             </ul>
