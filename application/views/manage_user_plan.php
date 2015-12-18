@@ -41,7 +41,7 @@
                 </div>
                 
                 <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
-				<center><img src="<?=base_url();?>/images/loading.gif" id="loading-indicator" style="display:none" /></center>
+				<center><img src="<?=base_url();?>/images/ajax-loader2.gif" id="loading-indicator" style="display:none" /></center>
                 <div class="modal-dialog modal-lg">
                   <div class="modal-content">
                     <div class="modal-header">
