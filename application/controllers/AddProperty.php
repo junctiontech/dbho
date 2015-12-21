@@ -22,18 +22,37 @@ class AddProperty extends CI_Controller {
 /*AddProperty view Load Start.............................................................................................................*/
 	function index()
 	{	
-		/*$this->data['user_type']=$this->campaign_model->get_user_type();
-		$this->data['company_name']=$this->campaign_model->get_company_name();
-		$this->data['cities']=$this->campaign_model->get_city();
-		$this->data['inventory']=$this->campaign_model->get_inventory();
-		$this->data['plan']=$this->campaign_model->get_plan();*/
-		
+		$this->data['projects']=$this->AddProperty_model->get_project();
+		$this->data['propertytype']=$this->AddProperty_model->getPropertyType();
+		$this->data['user_type']=$this->AddProperty_model->get_user_type();
 		$this->parser->parse('header',$this->data);
 		$this->load->view('addproperty',$this->data);
 		$this->parser->parse('footer',$this->data);
 		
 	}
 /*AddProperty view Load End.............................................................................................................*/
+
+/*AddProperty Get User Start.............................................................................................................*/
+	function GetUser()
+	{	
+			if(!empty($this->input->post('usertypeID')))
+			{
+					$usertype=$this->AddProperty_model->getuser($this->input->post('usertypeID'));
+					if(!empty($usertype)){
+						echo"<option value=''>Select User</option>";
+						foreach($usertype as $usertypes){
+							echo"<option value=".$usertypes->userID.">$usertypes->userEmail</option>";
+						}
+						
+					}else{
+						echo"<option>No user Found!</option>";
+					}
+			}else{
+				
+			}
+		
+	}
+/*AddProperty Get User End.............................................................................................................*/
 	
 
 		

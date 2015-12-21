@@ -4,8 +4,12 @@ function get_planpriority(plantypeid)
 				type: "POST",
 				url : base_url+'common_functions/get_planpriority',
 				data: {plantypeid: plantypeid  },
+				beforeSend: function() {
+				$("#loader").fadeIn();
+			}
 			})	
 				.done(function(msg){
+					$("#loader").fadeOut();
 					document.getElementById('planorder').value=msg;
 					return false;	
 				});
@@ -19,8 +23,12 @@ function get_usertype(userid)
 				type: "POST",
 				url : base_url+'common_functions/get_usertype',
 				data: {userid: userid  },
+				beforeSend: function() {
+				$("#loader").fadeIn();
+			}
 			})	
 				.done(function(msg){
+					$("#loader").fadeOut();
 					if(msg !=''){
 					document.getElementById('user_type').value=msg;
 					$( '#showhidden' ).css( "pointer-events", "auto" );
@@ -42,8 +50,12 @@ function get_plans(userid,rowcount)
 				type: "POST",
 				url : base_url+'common_functions/get_planbyusertype',
 				data: {userid: userid , rowcount:rowcount },
+				beforeSend: function() {
+				$("#loader").fadeIn();
+			}
 			})	
 				.done(function(msg){
+					$("#loader").fadeOut();
 					if(msg !=''){
 					$('#user_plans').html(msg);
 					}
@@ -64,9 +76,12 @@ function getcityforinventory(inventoryid)
 				type: "POST",
 				url : base_url+'common_functions/getcityforinventory',
 				data: {inventoryid: inventoryid  },
+				beforeSend: function() {
+				$("#loader").fadeIn();
+			}
 			})	
 				.done(function(msg){
-					
+					$("#loader").fadeOut();
 					if(msg !=''){
 					$('#inventorycity').html(msg);
 					}
@@ -84,8 +99,12 @@ function getcityforcalendarinventory(inventoryid)
 				type: "POST",
 				url : base_url+'common_functions/getcityforcalendarinventory',
 				data: {inventoryid: inventoryid  },
+				beforeSend: function() {
+				$("#loader").fadeIn();
+			}
 			})	
 				.done(function(msg){
+					$("#loader").fadeOut();
 					
 					if(msg !=''){
 					$('#inventorycity').html(msg);
@@ -110,7 +129,7 @@ $(document).ready(function(){
  
     function calculateSum() 
 	{
- 
+		$("#loader").fadeIn();
         var sum = 0;
         $(".txt").each(function() {
  
@@ -120,10 +139,11 @@ $(document).ready(function(){
  
         });
         $("#sum").html(sum.toFixed(2));
+		$("#loader").fadeOut();
     }
 	
 	function calculateexpirydate(duration,ids) 
-	{		
+	{	$("#loader").fadeIn();	
 		var startdate=document.getElementById("single_cal2").value;
 		var someDate = new Date(startdate);
 		var new1=someDate.setTime(someDate.getTime()-1 +  (duration * 24 * 60 * 60 * 1000));
@@ -148,6 +168,7 @@ $(document).ready(function(){
 		
 		//var minDate=new Date(Math.min.apply(null,dates));
 		document.getElementById('currentexpiry').value=currentexpiry;
+		$("#loader").fadeOut();
 	}
 	
 	
@@ -162,10 +183,14 @@ $(document).ready(function(){
 				type: "POST",
 				url : base_url+'common_functions/checkplanavailable',
 				data: {planid: planid , userid:userid },
+				beforeSend: function() {
+				$("#loader").fadeIn();
+			}
 			})
 			
 				.done(function(msg)
 				{
+					$("#loader").fadeOut();
 					if(msg !='')
 					{
 						var topic = eval(msg);
@@ -184,4 +209,30 @@ $(document).ready(function(){
 					
 	}
 }
+
+$(document).ready(function(){
 	
+	
+$("#usertypeid").change(function(){
+	
+	var usertypeID = $("#"+($(this).attr('id'))).val();
+	
+	$.ajax({
+            type: 'POST', 
+            url: base_url+'AddProperty/GetUser',
+            data: {usertypeID:usertypeID},
+			cache: false,
+			beforeSend: function() {
+				$("#loader").fadeIn();
+			},
+            success:function(result){
+				$("#loader").fadeOut();
+				$("#showuserlabel").html(result);
+             
+            }
+        });
+	
+});	
+
+
+});

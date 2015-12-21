@@ -55,30 +55,30 @@
                         <div class="form-group clearfix">
                           <div class="form-group col-xs-12 col-sm-3" style="padding-top:8px;">
                             <div class="btn-group" data-toggle="buttons">
-                              <label class="btn btn-default">
-                                <input type="radio" name="propertypurpose" value="Sell" id="option1">
+                              <label class="btn btn-default" id="checksell">
+                                <input type="radio" name="propertypurpose" value="Sell" id="sell">
                                 Sell </label>
-                              <label class="btn btn-default">
-                                <input type="radio" name="propertypurpose" value="Rent" id="option2">
+                              <label class="btn btn-default" id="checkrent">
+                                <input type="radio" name="propertypurpose" value="Rent" id="rent">
                                 Rent </label>
                             </div>
                           </div>
                           <div class="form-group col-xs-12 col-sm-5" style="padding-top:8px;">
                             <div class="btn-group" data-toggle="buttons">
-                              <label class="btn btn-default">
-                                <input type="radio" name="type" value="Unit" id="option1">
+                              <label class="btn btn-default" id="unit_individual">
+                                <input type="radio" name="type" value="individual" id="type_individual">
                                 Individual Property </label>
                               <label class="btn btn-default" id="unit_project">
-                                <input type="radio" name="type" value="Property" id="option2">
+                                <input type="radio" name="type" value="Property" id="type_project">
                                 Property Under Project </label>
                             </div>
                           </div>
                           <div class="form-group col-xs-12 col-sm-4" style="padding-top:8px;"> <span id="unit1">
                             <select name="projectid" class="form-control select2_group project-uni">
                               <option value="">Select Project</option>
-                              <option value="HI">KKV cold</option>
-                              <option value="HI">The Homes</option>
-                              <option value="HI">Pradhan Urban Live</option>
+                              <?php foreach($projects as $projects){?>
+                        <option value="<?=isset($projects->projectID)?$projects->projectID:''?>" <?php if(!empty($inventoryupdate[0]->ProjectID)){ if($inventoryupdate[0]->ProjectID==$projects->projectID){ echo"selected";} } ?>><?=isset($projects->projectName)?$projects->projectName:''?></option>
+						<?php } ?>
                             </select>
                             <style>
 					   .parsley-errors-list {display:none;}
@@ -93,6 +93,12 @@
 						$("#unit_project").click(function() {
 							$(".project-uni").removeAttr("disabled");
 						});
+						// add handler to re-disable input boxes on click
+						$("#unit_individual").click(function() {
+							$(".project-uni").selectedIndex = -1;
+							$(".project-uni").attr("disabled", true);
+						});
+						
 					});
 				</script> 
                         </div>
@@ -101,14 +107,9 @@
                           <select name="propertyTypeID" class="  form-control">
                             <option value="">Select</option>
                             <optgroup label="Residential Properties">
-                            <option value="HI">Apartment</option>
-                            <option value="HI">Builder Floor</option>
-                            <option value="HI">Row House</option>
-                            <option value="HI">Villas</option>
-                            <option value="HI">Farm House</option>
-                            <option value="HI">Service Apartment</option>
-                            <option value="HI">Residential Plot</option>
-                            <option value="HI">Studio Apartment</option>
+                           <?php foreach($propertytype as $propertytypes){?>
+                        <option value="<?=isset($propertytypes->propertyTypeID)?$propertytypes->propertyTypeID:''?>" <?php if(!empty($inventoryupdate[0]->ProjectID)){ if($inventoryupdate[0]->ProjectID==$propertytypes->propertyTypeID){ echo"selected";} } ?>><?=isset($propertytypes->propertyTypeName)?$propertytypes->propertyTypeName:''?></option>
+						<?php } ?>
                             </optgroup>
                           </select>
                         </div>
@@ -118,39 +119,26 @@
                         </div>
                         <div class="form-group col-xs-12 col-sm-4">
                           <label style="display:block;" class="control-label">User Type</label>
-                          <div class="btn-group" data-toggle="buttons">
-                            <label class="btn btn-default">
-                              <input type="radio" name="usertype" value="" id="option1">
-                              Agent </label>
-                            <label class="btn btn-default">
-                              <input type="radio" name="usertype" value="" id="option2">
-                              Builder </label>
-                            <label class="btn btn-default">
-                              <input type="radio" name="usertype" value="" id="option3">
-                              Individual </label>
-                          </div>
+                          <select id="usertypeid" class=" form-control" name="usertype" >
+							<option value="">Select User Type</option>
+							<?php foreach($user_type as $user_type){?>
+							<option value="<?=$user_type->userTypeID?>" <?php if(!empty($updateplan[0]->userTypeID)){ if($updateplan[0]->userTypeID==$user_type->userTypeID){ echo"selected";} } ?>><?=$user_type->userTypeName?></option>
+							<?php } ?>
+							
+						  </select>
                         </div>
                         <div class="form-group col-xs-12 col-sm-4">
-                          <label for="middle-name" class="control-label">Agent</label>
-                          <select name="userid" class=" select2_group form-control">
-                            <option value="">Select</option>
-                            <option value="1">Rajeshpal@homeonline.com</option>
-                            <option value="2">sharad@homeonline.com</option>
-                            <option value="3">anand@homeonline.com</option>
-                            <option value="4">shailendra@homeonline.com</option>
-                            <option value="5">rahjesh@homeonline.com</option>
-                            </optgroup>
+                          <label for="middle-name" class="control-label showuserlabel" ></label>
+                          <select name="userid" class=" select2_group form-control" id="showuserlabel">
+                            <option value="">Please Select Usertype First</option>
+                            
                           </select>
                         </div>
                         <div class="form-group col-xs-12 col-sm-4 ">
                           <label for="middle-name" class="control-label">User Plan</label>
                           <select name="planid" class=" select2_group form-control">
                             <option value="">Select</option>
-                            <option value="1">Free Listing Plan</option>
-                            <option value="2">Silver Plan</option>
-                            <option value="3">Gold Plan</option>
-                            <option value="4">Platinum Plan</option>
-                            </optgroup>
+                           </optgroup>
                           </select>
                         </div>
                       </div>
@@ -756,7 +744,7 @@
                                       </div>
                                     </div>
                                     <div class="form-group clearfix">
-                                      <label class="control-label col-md-2 col-sm-2 col-xs-12 martop15">Show Rent as <i class="fa fa-rupee text-right"></i></label>
+                                      <label class="control-label col-md-2 col-sm-2 col-xs-12 martop15 price_as"><i class="fa fa-rupee text-right"></i></label>
                                       <div class="col-md-8 col-sm-8 col-xs-12">
                                         <div class="radio mabott10">
                                           <label>
@@ -2193,6 +2181,28 @@
 	
 	
 	 <script>
+	 
+	
+	 /*Coding start for sell/rent */
+	 
+	 $(function() 
+	 {
+						// add handler to re-enable input boxes on click
+						$("#checksell").click(function() {
+							$(".price_as").html("Show Sell As <i class='fa fa-rupee text-right'>");
+						});
+						
+						$("#checkrent").click(function() {
+							$(".price_as").html("Show Rent As <i class='fa fa-rupee text-right'>");
+						});
+						
+					});
+	 
+	 /*Coding start for sell/rent */
+	 
+	 
+	 
+
       $(function(){
         $("#geocomplete").geocomplete({
           map: ".map_canvas",
@@ -2228,50 +2238,7 @@
             });
         </script> 
 <!-- /input tags --> 
-<!-- form validation --> 
-<script type="text/javascript">
-            $(document).ready(function () {
-                $.listen('parsley:field:validate', function () {
-                    validateFront();
-                });
-                $('#demo-form .btn').on('click', function () {
-                    $('#demo-form').parsley().validate();
-                    validateFront();
-                });
-                var validateFront = function () {
-                    if (true === $('#demo-form').parsley().isValid()) {
-                        $('.bs-callout-info').removeClass('hidden');
-                        $('.bs-callout-warning').addClass('hidden');
-                    } else {
-                        $('.bs-callout-info').addClass('hidden');
-                        $('.bs-callout-warning').removeClass('hidden');
-                    }
-                };
-            });
 
-            $(document).ready(function () {
-                $.listen('parsley:field:validate', function () {
-                    validateFront();
-                });
-                $('#demo-form2 .btn').on('click', function () {
-                    $('#demo-form2').parsley().validate();
-                    validateFront();
-                });
-                var validateFront = function () {
-                    if (true === $('#demo-form2').parsley().isValid()) {
-                        $('.bs-callout-info').removeClass('hidden');
-                        $('.bs-callout-warning').addClass('hidden');
-                    } else {
-                        $('.bs-callout-info').addClass('hidden');
-                        $('.bs-callout-warning').removeClass('hidden');
-                    }
-                };
-            });
-            try {
-                hljs.initHighlightingOnLoad();
-            } catch (err) {}
-        </script> 
-<!-- /form validation --> 
 <!-- editor --> 
 <script>
             $(document).ready(function () {
@@ -2409,3 +2376,4 @@
       }     
 		});
 </script>
+
