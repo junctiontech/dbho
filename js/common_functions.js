@@ -210,9 +210,65 @@ $(document).ready(function(){
 	}
 }
 
+
+function generatenameproperty() 
+	{   
+		$("#loader").fadeIn();
+		var purpose='';
+		var propertytype='';
+		var inproject='';
+		var rooms='';
+		
+		if($('#sell').is(':checked')) { 
+				var purpose=document.getElementById('sell').value;
+		}
+		if($('#rent').is(':checked')){
+				var purpose=document.getElementById('rent').value;
+		}
+		
+		var projectid = $("#projectid option:selected").val();
+		
+		if(projectid !=''){
+				var inproject= ' in ' + $("#projectid option:selected").text();
+		}
+		
+		if(document.getElementById("bedroom") != null) {
+			if($("#bedroom option:selected").val() !=''){
+			var rooms= $("#bedroom option:selected").text() + 'BHK ';
+			}
+		}
+	
+		var propertytype = $("#propertytype option:selected").text();
+		
+		var newtittle = rooms + propertytype + ' For ' + purpose + inproject;
+		document.getElementById('propertyname').value='';
+		document.getElementById('propertyname').value=newtittle;
+		$("#loader").fadeOut();
+}
+
+function InsertProperty(id) 
+	{   
+		
+		var data = $("#form-"+id).serialize();
+		var formid=id;
+		$.ajax({
+         data: data,
+         type: "post",
+         url: base_url+'AddProperty/InsertProperty',
+		 beforeSend: function() {
+				$("#loader").fadeIn();
+			},
+         success: function(result){
+			 $("#loader").fadeOut();
+             // alert(result);
+         }
+});
+		
+}
+
 $(document).ready(function(){
 	
-	
+/*Get User For Add Property............................. Start*/	
 $("#usertypeid").change(function(){
 	
 	var usertypeID = $("#"+($(this).attr('id'))).val();
@@ -233,6 +289,53 @@ $("#usertypeid").change(function(){
         });
 	
 });	
+/*Get User For Add Property............................. End*/	
 
+/*Get UserPlan For Add Property............................. Start*/	
+$("#showuserlabel").change(function(){
+	
+	var userID = $("#"+($(this).attr('id'))).val();
+	$.ajax({
+            type: 'POST', 
+            url: base_url+'AddProperty/GetUserplan',
+            data: {userID:userID},
+			cache: false,
+			beforeSend: function() {
+				$("#loader").fadeIn();
+			},
+            success:function(result){
+				$("#loader").fadeOut();
+				$("#userplan").html(result);
+             
+            }
+        });
+	
+});	
+/*Get UserPlan For Add Property............................. End*/	
+
+
+/*Get Attributes For Add Property............................. Start*/	
+
+$("#propertytype").change(function(){
+	
+	var propertytypeid = $("#"+($(this).attr('id'))).val();
+	
+	$.ajax({
+            type: 'POST', 
+            url: base_url+'AddProperty/Getattributes',
+            data: {propertytypeid:propertytypeid},
+			cache: false,
+			beforeSend: function() {
+				$("#loader").fadeIn();
+			},
+            success:function(result){
+				$("#loader").fadeOut();
+				$("#showattributes").html(result);
+             
+            }
+        });
+	
+});	
+/*Get Attributes For Add Property............................. End*/
 
 });

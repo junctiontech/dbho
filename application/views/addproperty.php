@@ -50,23 +50,23 @@
                 <div id="step-1">
                   <h2 class="StepTitle">Basic Information</h2>
                   <div class="x_content">
-                    <form id="demo-form2"  class="form-group form-label-left clearfix">
+                    <form id="form-1" method="post" class="form-group form-label-left clearfix">
                       <div class="row">
                         <div class="form-group clearfix">
                           <div class="form-group col-xs-12 col-sm-3" style="padding-top:8px;">
                             <div class="btn-group" data-toggle="buttons">
                               <label class="btn btn-default" id="checksell">
-                                <input type="radio" name="propertypurpose" value="Sell" id="sell">
+                                <input type="radio" name="propertyPurpose" value="Sell" id="sell" onchange="generatenameproperty();">
                                 Sell </label>
                               <label class="btn btn-default" id="checkrent">
-                                <input type="radio" name="propertypurpose" value="Rent" id="rent">
+                                <input type="radio" name="propertyPurpose" value="Rent" id="rent" onchange="generatenameproperty();">
                                 Rent </label>
                             </div>
                           </div>
                           <div class="form-group col-xs-12 col-sm-5" style="padding-top:8px;">
                             <div class="btn-group" data-toggle="buttons">
                               <label class="btn btn-default" id="unit_individual">
-                                <input type="radio" name="type" value="individual" id="type_individual">
+                                <input type="radio" name="type" value="Unit" id="type_individual">
                                 Individual Property </label>
                               <label class="btn btn-default" id="unit_project">
                                 <input type="radio" name="type" value="Property" id="type_project">
@@ -74,8 +74,8 @@
                             </div>
                           </div>
                           <div class="form-group col-xs-12 col-sm-4" style="padding-top:8px;"> <span id="unit1">
-                            <select name="projectid" class="form-control select2_group project-uni">
-                              <option value="">Select Project</option>
+                            <select name="projectID" class="form-control select2_group project-uni" id="projectid" onchange="generatenameproperty();">
+                              <option value="" class="em">Select Project</option>
                               <?php foreach($projects as $projects){?>
                         <option value="<?=isset($projects->projectID)?$projects->projectID:''?>" <?php if(!empty($inventoryupdate[0]->ProjectID)){ if($inventoryupdate[0]->ProjectID==$projects->projectID){ echo"selected";} } ?>><?=isset($projects->projectName)?$projects->projectName:''?></option>
 						<?php } ?>
@@ -95,8 +95,9 @@
 						});
 						// add handler to re-disable input boxes on click
 						$("#unit_individual").click(function() {
-							$(".project-uni").selectedIndex = -1;
-							$(".project-uni").attr("disabled", true);
+						$("#projectid").find("option:selected").prop("selected", false)
+						$(".project-uni").attr("disabled", true);
+						generatenameproperty();
 						});
 						
 					});
@@ -104,7 +105,7 @@
                         </div>
                         <div class="form-group col-xs-12 col-sm-6">
                           <label class="control-label" for="first-name">Property Type <span class="required">*</span> </label>
-                          <select name="propertyTypeID" class="  form-control">
+                          <select name="propertyTypeID" class="  form-control" id="propertytype" onchange="generatenameproperty();">
                             <option value="">Select</option>
                             <optgroup label="Residential Properties">
                            <?php foreach($propertytype as $propertytypes){?>
@@ -115,7 +116,7 @@
                         </div>
                         <div class="form-group col-xs-12 col-sm-6">
                           <label class="control-label" for="first-name">Property Name <span class="required">*</span> </label>
-                          <input name="propertyname" type="text" id="first-name" required="required" class="form-control">
+                          <input name="propertyName" type="text" id="propertyname" readonly required="required" class="form-control">
                         </div>
                         <div class="form-group col-xs-12 col-sm-4">
                           <label style="display:block;" class="control-label">User Type</label>
@@ -129,17 +130,19 @@
                         </div>
                         <div class="form-group col-xs-12 col-sm-4">
                           <label for="middle-name" class="control-label showuserlabel" ></label>
-                          <select name="userid" class=" select2_group form-control" id="showuserlabel">
+                          <select name="userID" class=" select2_group form-control" id="showuserlabel" >
                             <option value="">Please Select Usertype First</option>
                             
                           </select>
                         </div>
                         <div class="form-group col-xs-12 col-sm-4 ">
                           <label for="middle-name" class="control-label">User Plan</label>
-                          <select name="planid" class=" select2_group form-control">
+						 
+                          <select name="planid" class=" select2_group form-control" id="userplan">
                             <option value="">Select</option>
                            </optgroup>
                           </select>
+						  
                         </div>
                       </div>
                       <div class="row">
@@ -179,7 +182,7 @@
                             <div class="btn-group"> <a class="btn" data-edit="undo" title="Undo (Ctrl/Cmd+Z)"><i class="icon-undo"></i></a> <a class="btn" data-edit="redo" title="Redo (Ctrl/Cmd+Y)"><i class="icon-repeat"></i></a> </div>
                           </div>
                           <div id="editor"> </div>
-                          <textarea name="description" id="descr" style="display:none;"></textarea>
+                          <textarea name="propertyDescription" id="descr" style="display:none;"></textarea>
                           <br />
                         </div>
                         <div class="form-group col-xs-12 col-sm-12"> </div>
@@ -189,157 +192,8 @@
                           
                           <!-- start accordion -->
                           <div class="accordion" id="accordion1" role="tablist" aria-multiselectable="true">
-                            <div class="panel"> <a class="panel-heading" role="tab" id="headingOne1" data-toggle="collapse" data-parent="#accordion1" href="#collapseOne1" aria-expanded="false" aria-controls="collapseOne1">
-                              <h4 class="panel-title StepTitle">Property Specification</h4>
-                              </a>
-                              <div id="collapseOne1" class="panel-collapse collapse " role="tabpanel" aria-labelledby="headingOne">
-                                <div class="panel-body black-filed">
-                                  <div class="form-group col-xs-12 col-sm-4 martop20">
-                                    <label class="control-label" for="last-name">Bed Rooms </label>
-                                    <select class="  form-control">
-                                      <optgroup label="Select">
-                                      <option value="AK">1</option>
-                                      <option value="HI">2</option>
-                                      </optgroup>
-                                    </select>
-                                  </div>
-                                  <div class="form-group col-xs-12 col-sm-4 martop20">
-                                    <label class="control-label" for="last-name">Bath Rooms </label>
-                                    <select class="  form-control">
-                                      <optgroup label="Select">
-                                      <option value="AK">1</option>
-                                      <option value="HI">2</option>
-                                      </optgroup>
-                                    </select>
-                                  </div>
-                                  <div class="form-group col-xs-12 col-sm-4 martop20">
-                                    <label class="control-label" for="last-name">Balcony </label>
-                                    <select class="  form-control">
-                                      <optgroup label="Select">
-                                      <option value="AK">1</option>
-                                      <option value="HI">2</option>
-                                      </optgroup>
-                                    </select>
-                                  </div>
-                                  <!--<div class="form-group col-xs-12 col-sm-4 ">
-                                    <label class="control-label" for="last-name">Wash Dry Area </label>
-                                    <select class="  form-control">
-                                      <optgroup label="Select">
-                                      <option value="AK">1</option>
-                                      <option value="HI">2</option>
-                                      </optgroup>
-                                    </select>
-                                  </div>-->
-                                  <div class="form-group col-xs-12 col-sm-4 ">
-                                    <label class="control-label" for="last-name">Parking </label>
-                                    <select class="  form-control">
-                                      <optgroup label="Select">
-                                      <option value="AK">1</option>
-                                      <option value="HI">2</option>
-                                      </optgroup>
-                                    </select>
-                                  </div>
-                                  <div class="form-group col-xs-12 col-sm-4 ">
-                                    <label class="control-label" for="last-name">Society Name </label>
-                                    <input id="middle-name" class="form-control" type="text" name="middle-name">
-                                  </div>
-                                  <div class="form-group col-xs-12 col-sm-4 ">
-                                    <label class="control-label" for="last-name">Ownership Type </label>
-                                    <select class="  form-control">
-                                      <optgroup label="Select">
-                                      <option value="AK">1</option>
-                                      <option value="HI">2</option>
-                                      </optgroup>
-                                    </select>
-                                  </div>
-                                  <div class="form-group col-xs-12 col-sm-4">
-                                    <label class="control-label" for="last-name">Main Entrance Facing </label>
-                                    <select class="  form-control">
-                                      <optgroup label="Select">
-                                      <option value="AK">North</option>
-                                      <option value="HI">East</option>
-                                      <option value="HI">West</option>
-                                      <option value="HI">South</option>
-                                      <option value="HI">North-East</option>
-                                      <option value="HI">North-West</option>
-                                      <option value="HI">South-East</option>
-                                      <option value="HI">South-West</option>
-                                      </optgroup>
-                                    </select>
-                                  </div>
-                                  <div class="form-group col-xs-12 col-sm-4 ">
-                                    <label class="control-label" for="last-name">Servant Room </label>
-                                    <select class="  form-control">
-                                      <optgroup label="Select">
-                                      <option value="AK">1</option>
-                                      <option value="HI">2</option>
-                                      </optgroup>
-                                    </select>
-                                  </div>
-                                  <div class="form-group col-xs-12 col-sm-4 ">
-                                    <label class="control-label" for="last-name">Gated Community</label>
-                                    <select class="  form-control">
-                                      <optgroup label="Select">
-                                      <option value="AK">1</option>
-                                      <option value="HI">2</option>
-                                      </optgroup>
-                                    </select>
-                                  </div>
-                                  <div class="form-group col-xs-12 col-sm-4 ">
-                                    <label class="control-label" for="last-name">Registered Society</label>
-                                    <select class="  form-control">
-                                      <optgroup label="Select">
-                                      <option value="AK">1</option>
-                                      <option value="HI">2</option>
-                                      </optgroup>
-                                    </select>
-                                  </div>
-                                  <div class="form-group col-xs-12 col-sm-4 ">
-                                    <label class="control-label" for="last-name">Total Floor</label>
-                                    <select class="  form-control">
-                                      <optgroup label="Select">
-                                      <option value="AK">1</option>
-                                      <option value="HI">2</option>
-                                      </optgroup>
-                                    </select>
-                                  </div>
-                                  <div class="form-group col-xs-12 col-sm-4 ">
-                                    <label class="control-label" for="last-name">Furnishing Status</label>
-                                    <select class="  form-control">
-                                      <optgroup label="Select">
-                                      <option value="AK">1</option>
-                                      <option value="HI">2</option>
-                                      </optgroup>
-                                    </select>
-                                  </div>
-                                  <div class="form-group col-xs-12 col-sm-4">
-                                    <label class="control-label" for="last-name">Floor No.</label>
-                                    <select class="  form-control">
-                                      <optgroup label="Select">
-                                      <option value="AK">Lower Basement</option>
-                                      <option value="HI">Upper Basement</option>
-                                      <option value="AK">Ground</option>
-                                      <option value="AK">1</option>
-                                      <option value="HI">2</option>
-                                      <option value="AK">3</option>
-                                      <option value="HI">4</option>
-                                      <option value="AK">5</option>
-                                      <option value="HI">6</option>
-                                      <option value="AK">7</option>
-                                      <option value="HI">8</option>
-                                      </optgroup>
-                                    </select>
-                                  </div>
-                                  <div class="form-group col-xs-12 col-sm-4">
-                                    <label class="control-label" for="last-name" style="display:block;">Water Supply</label>
-                                    <span class="checkbozsty">
-                                    <input type="checkbox" checked="" value="57" name="multiselect_Amenities_Security_6">
-                                    Muncipal Corp</span> <span class="checkbozsty">
-                                    <input type="checkbox" checked="" value="58" name="multiselect_Amenities_ReservedParking_6">
-                                    Bore Well</span> </div>
-                                </div>
-                              </div>
-                            </div>
+                            <div id="showattributes">
+							</div>
                             <div class="panel"> <a class="panel-heading" role="tab" id="headingOne12" data-toggle="collapse" data-parent="#accordion1" href="#collapseOne12" aria-expanded="false" aria-controls="collapseOne12">
                               <h4 class="panel-title StepTitle">Area</h4>
                               </a>
@@ -1025,35 +879,35 @@
                               <h4 class="StepTitle">Property Location </h4>
                               <div class="form-group col-xs-12 col-sm-4 martop20 ">
                                 <label class="control-label" for="last-name">Location Info </label>
-                                <input id="geocomplete" class="form-control" type="text" name="middle-name">
+                                <input id="geocomplete" class="form-control" type="text" name="propertyAddress1">
                               </div>
                               <div class="form-group col-xs-12 col-sm-4 martop20">
                                 <label class="control-label" for="last-name">Locality </label>
-                                <input id="sublocality" class="form-control" type="text" name="middle-name">
+                                <input id="sublocality" class="form-control" type="text" name="sublocality">
                               </div>
                               <div class="form-group col-xs-12 col-sm-4 martop20">
                                 <label class="control-label" for="last-name">Country </label>
-                                <input id="country" class="form-control" type="text" name="middle-name">
+                                <input id="country"  class="form-control" type="text" name="country">
                               </div>
                               <div class="form-group col-xs-12 col-sm-4 ">
                                 <label class="control-label" for="last-name">State </label>
-                                <input id="administrative_area_level_1" class="form-control" type="text" name="middle-name">
+                                <input id="administrative_area_level_1" class="form-control" type="text" name="administrative_area_level_1">
                               </div>
                               <div class="form-group col-xs-12 col-sm-4 ">
                                 <label class="control-label" for="last-name">City / Area </label>
-                                <input id="locality" class="form-control" type="text" name="middle-name">
+                                <input id="locality" class="form-control" type="text" name="locality">
                               </div>
                               <div class="form-group col-xs-12 col-sm-4 ">
                                 <label class="control-label" for="last-name">Zip / Postal Code </label>
-                                <input id="postal_code" class="form-control" type="text" name="middle-name">
+                                <input id="postal_code" class="form-control" type="text" name="postal_code">
                               </div>
                               <div class="form-group col-xs-12 col-sm-4 ">
                                 <label class="control-label" for="last-name">Latitude </label>
-                                <input id="middle-name" class="form-control" type="text" name="middle-name">
+                                <input id="lat" class="form-control" type="text" name="lat">
                               </div>
                               <div class="form-group col-xs-12 col-sm-4 ">
                                 <label class="control-label" for="last-name">Longitude </label>
-                                <input id="middle-name" class="form-control" type="text" name="middle-name">
+                                <input id="lng" class="form-control" type="text" name="lng">
                               </div>
                               <div class="form-group col-xs-12 col-sm-12 mapinfo map_canvas" style="height: 400px"> </div>
                             </div>
@@ -1087,7 +941,7 @@
                               <div class="col-md-12 col-sm-12 col-xs-12">
                                 <div class="x_panel marlemin">
                                   <div class="form-group col-md-2 col-xs-12 col-sm-2 martop15">
-                                    <form action="choices/add-property.html" class="dropzone" style="border: 1px dashed #e5e5e5; height: 131px; ">
+                                    <form id="formimage" class="dropzone" style="border: 1px dashed #e5e5e5; height: 131px; ">
                                     </form>
                                   </div>
                                   <div class="form-group col-md-8 col-xs-12 col-sm-8 martop15">
@@ -1323,6 +1177,7 @@
                         </a>
                         <div id="collapseOne2" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
                           <div class="panel-body">
+						  <form id="form-2" method="post" class="form-group form-label-left clearfix">
                             <div class="form-group col-xs-12 col-sm-12">
                               <label class="control-label" for="last-name">Title </label>
                               <input id="middle-name" class="form-control" type="text" name="middle-name">
@@ -1335,6 +1190,7 @@
                               <label class="control-label" for="last-name">Meta Description </label>
                               <textarea placeholder="" rows="2" class="form-control"></textarea>
                             </div>
+							</form>
                           </div>
                         </div>
                       </div>
@@ -1347,9 +1203,12 @@
                   <div class="x_content head-sty"> 
                     
                     <!-- start accordion -->
+					<form id="form-3" method="post" class="form-group form-label-left clearfix">
                     <div class="accordion" id="accordion4" role="tablist" aria-multiselectable="true">
+					
                       <div class="panel"> <a class="panel-heading" role="tab" id="headingOne1" data-toggle="collapse" data-parent="#accordion3" href="#collapseOne3" aria-expanded="false" aria-controls="collapseOne3">
-                        <h4 class="panel-title StepTitle">Bed Room 1</h4>
+                         
+						<h4 class="panel-title StepTitle">Bed Room 1</h4>
                         </a>
                         <div id="collapseOne3" class="panel-collapse collapse " role="tabpanel" aria-labelledby="headingOne">
                           <div class="panel-body">
@@ -1708,6 +1567,7 @@
                           Solar Water Heater</span> </div>
                       </div>
                     </div>
+					</form>
                   </div>
                   
                   <!-- end of accordion --> 
@@ -2153,6 +2013,7 @@
                       </div>
                     </div>
                     <div class="row">
+					<form id="form-4" method="post" class="form-group form-label-left clearfix">
                       <div class="col-md-2 col-sm-2 col-xs-12">
                         <label class="control-label" for="last-name" style="display:block;">Status </label>
                         <div class="btn-group" data-toggle="buttons">
@@ -2164,6 +2025,7 @@
                             Draft </label>
                         </div>
                       </div>
+					  </form
                     </div>
                   </div>
                 </div>
@@ -2242,7 +2104,8 @@
 <!-- editor --> 
 <script>
             $(document).ready(function () {
-                $('.xcxc').click(function () {
+                $('#editor').keyup(function () {
+					
                     $('#descr').val($('#editor').html());
                 });
             });

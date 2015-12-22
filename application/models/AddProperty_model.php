@@ -66,6 +66,65 @@ class AddProperty_model extends CI_Model
 
 	}
 	
+	public function Getattributesgroups($propertyTypeID=false)
+	{
+			$this->db->select('distinct (t1.attributeGroupID),t1.propertyTypeID,t2.name');
+			$this->db->from('rp_attribute_group t1');
+			$this->db->join('rp_attribute_group_details t2','t2.attributeGroupID=t1.attributeGroupID AND t1.propertyTypeID="'.$propertyTypeID.'"','inner');
+			$this->db->join('rp_attribute_to_group t3','t3.attributeGroupID=t1.attributeGroupID AND t2.languageID=1','inner');
+			$query = $this->db->get();
+			return $query->result();
+
+	}
+	
+	public function GetAttributes($attributeGroupID=false)
+	{
+				$this->db->select('t2.attributeID,t2.attrInputType,t3.attrName');
+				$this->db->from('rp_attribute_to_group t1');
+				$this->db->join('rp_attributes t2','t1.attributeID=t2.attributeID','inner');
+				$this->db->join('rp_attribute_details t3','t3.attributeID=t2.attributeID AND t3.languageID=1 AND t2.attrStatus="A" AND t1.attributeGroupID="'.$attributeGroupID.'"','inner');
+				$query = $this->db->get();
+			return $query->result();
+
+	}
+	
+	public function GetAttributesoption($attribute=false)
+	{
+				$this->db->select('t2.attrOptionID,t2.attrOptName,t1.attributeID,t1.attrClassName');
+				$this->db->from('rp_attribute_options t1');
+				$this->db->join('rp_attribute_option_details t2','t1.attrOptionID=t2.attrOptionID AND t2.languageID=1 AND t1.attributeID="'.$attribute.'"','inner');
+				$query = $this->db->get();
+			return $query->result();
+
+	}
+	
+	
+	function GetUserplan($userid=false)
+	{		$db2 = $this->load->database('both', TRUE);
+			$qry = $db2->query("select dbho_campaignplan.planID,planTitle from dbho_campaignmaster,dbho_campaignplan,homeonline.rp_user_plan_details where
+									dbho_campaignmaster.userID=$userid and
+									dbho_campaignmaster.campaignID=dbho_campaignplan.campaignID and
+									dbho_campaignplan.planID=rp_user_plan_details.planID and
+									rp_user_plan_details.languageID='1'");	
+			return $qry->Result();	
+	}
+	
+	public function InsertProperty($table=false,$data=false,$filter=false)
+	{
+		if(empty($filter))
+		{
+				$this->db->insert($table,$data);
+				$lastid=$this->db->insert_id();
+				return $lastid;
+		}else
+		{
+				$this->db->where($filter);
+				$this->db->update($table,$data);
+		}
+				
+
+	}
+	
 	
 		
 }

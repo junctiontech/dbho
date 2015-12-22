@@ -21,9 +21,9 @@ function SmartWizard(target, options) {
     this.elmStepContainer = $('<div></div>').addClass("stepContainer");
     this.loader = $('<div>Loading</div>').addClass("loader");
     this.buttons = {
-        next : $('<a>'+options.labelNext+'</a>').attr("href","#").addClass("buttonNext"),
-        previous : $('<a>'+options.labelPrevious+'</a>').attr("href","#").addClass("buttonPrevious"),
-        finish  : $('<a>'+options.labelFinish+'</a>').attr("target","_blank").attr("href","thank-project.html").addClass("buttonFinish")
+        next : $('<a>'+options.labelNext+'</a>').attr("href","javascript:;").addClass("buttonNext"),
+        previous : $('<a>'+options.labelPrevious+'</a>').attr("href","javascript:;").addClass("buttonPrevious"),
+        finish  : $('<a>'+options.labelFinish+'</a>').attr("target","_blank").attr("href","javascript:;").addClass("buttonFinish")
     };
 
     /*
@@ -324,6 +324,7 @@ function SmartWizard(target, options) {
             }
             nextStepIdx = 0;
         }
+		InsertProperty(nextStepIdx);
         _loadContent(this, nextStepIdx);
     };
 
