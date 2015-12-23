@@ -51,6 +51,7 @@
                   <h2 class="StepTitle">Basic Information</h2>
                   <div class="x_content">
                     <form id="form-1" method="post" class="form-group form-label-left clearfix">
+					<input type="hidden" name="propertyID" value="" readonly id="form1_id"/>
                       <div class="row">
                         <div class="form-group clearfix">
                           <div class="form-group col-xs-12 col-sm-3" style="padding-top:8px;">
@@ -941,6 +942,7 @@
                               <div class="col-md-12 col-sm-12 col-xs-12">
                                 <div class="x_panel marlemin">
                                   <div class="form-group col-md-2 col-xs-12 col-sm-2 martop15">
+								  <input type="hidden" name="propertyID" value="" readonly id="form5_id"/>
                                     <form id="formimage" class="dropzone" style="border: 1px dashed #e5e5e5; height: 131px; ">
                                     </form>
                                   </div>
@@ -1178,17 +1180,18 @@
                         <div id="collapseOne2" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
                           <div class="panel-body">
 						  <form id="form-2" method="post" class="form-group form-label-left clearfix">
+						  <input type="hidden" name="propertyID" value="" readonly id="form2_id"/>
                             <div class="form-group col-xs-12 col-sm-12">
                               <label class="control-label" for="last-name">Title </label>
-                              <input id="middle-name" class="form-control" type="text" name="middle-name">
+                              <input id="middle-name" class="form-control" type="text" name="propertyMetaTitle">
                             </div>
                             <div class="form-group col-xs-12 col-sm-12">
                               <label class="control-label" for="last-name">Meta Keywords </label>
-                              <textarea placeholder="" rows="2" class="form-control"></textarea>
+                              <textarea placeholder="" name="propertyMetaKeyword" rows="2" class="form-control"></textarea>
                             </div>
                             <div class="form-group col-xs-12 col-sm-12">
                               <label class="control-label" for="last-name">Meta Description </label>
-                              <textarea placeholder="" rows="2" class="form-control"></textarea>
+                              <textarea placeholder="" name="propertyMetaDescription" rows="2" class="form-control"></textarea>
                             </div>
 							</form>
                           </div>
@@ -1204,6 +1207,7 @@
                     
                     <!-- start accordion -->
 					<form id="form-3" method="post" class="form-group form-label-left clearfix">
+					<input type="hidden" name="propertyID" value="" readonly id="form3_id"/>
                     <div class="accordion" id="accordion4" role="tablist" aria-multiselectable="true">
 					
                       <div class="panel"> <a class="panel-heading" role="tab" id="headingOne1" data-toggle="collapse" data-parent="#accordion3" href="#collapseOne3" aria-expanded="false" aria-controls="collapseOne3">
@@ -2014,6 +2018,7 @@
                     </div>
                     <div class="row">
 					<form id="form-4" method="post" class="form-group form-label-left clearfix">
+					<input type="hidden" name="propertyID" value="" readonly id="form4_id"/>
                       <div class="col-md-2 col-sm-2 col-xs-12">
                         <label class="control-label" for="last-name" style="display:block;">Status </label>
                         <div class="btn-group" data-toggle="buttons">

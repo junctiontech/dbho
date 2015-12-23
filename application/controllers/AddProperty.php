@@ -159,23 +159,25 @@ class AddProperty extends CI_Controller {
 /*AddProperty Get Attributes End.............................................................................................................*/
 	
 /*AddProperty Insert Data Start.............................................................................................................*/
-	function InsertProperty()
+	function InsertProperty($formid=false)
 	{	
 		$data=$_POST;
-		
+		//print_r();die;
 		$date=date("Y-m-d");
-		/*$formid=$this->input->post('formid');
-		$formname="form-";
-		$formname.=$formid;
-		*/
 		
+		if(!empty($formid))
+		{
+			$formname="form-";
+			$formname.=$formid;
+		}
 		if(!empty($data))
 			{
+				$data1=array();
+				$data2=array();
 				
-			/*if($formname="form-1")
-				{*/	
-					$data1=array();
-					$data2=array();
+				if($formname=="form-1")
+				{
+					
 					foreach($data as $key=> $datas)
 					{
 						if($key=="userID")
@@ -273,21 +275,75 @@ class AddProperty extends CI_Controller {
 						  $data2['propertyCurrentStatus']= $datas;
 						}
 						
-						
-						
-						
 					}
-					$propertykey=strtoupper(bin2hex(mcrypt_create_iv(4, MCRYPT_DEV_RANDOM)));
-					$data1['propertyKey']= $propertykey;
-					$data1['propertyAddedDate']= $date;
-					//print_r($data1);die;
-					$propertyid=$this->AddProperty_model->InsertProperty('rp_properties',$data1);
-					$data2['propertyID']= $propertyid;
-					$data2['languageID']= 1;
-					//print_r($data2);die;
-					$this->AddProperty_model->InsertProperty('rp_property_details',$data2);
-				//}
+					
+					if(!empty($data['propertyID'])){
 						
+						$data1['propertyUpdateDate']= $date;
+						$filter=array('propertyID'=>$data['propertyID']);
+						$this->AddProperty_model->InsertProperty('rp_properties',$data1,$filter);
+						
+						$filter1=array('propertyID'=>$data['propertyID']);
+						$data2['languageID']= 1;
+						$this->AddProperty_model->InsertProperty('rp_property_details',$data2,$filter1);
+						
+					}else
+					{
+						$propertykey=strtoupper(bin2hex(mcrypt_create_iv(4, MCRYPT_DEV_RANDOM)));
+					
+						$data1['propertyKey']= $propertykey;
+						$data1['propertyAddedDate']= $date;
+						
+						$propertyid=$this->AddProperty_model->InsertProperty('rp_properties',$data1);
+						
+						$data2['propertyID']= $propertyid;
+						$data2['languageID']= 1;
+						
+						$this->AddProperty_model->InsertProperty('rp_property_details',$data2);
+					}
+					
+				}
+				elseif($formname=="form-2")
+				{
+					if(!empty($data['propertyID']))
+					{
+						foreach($data as $key=> $datas)
+					{
+						if($key=="propertyMetaTitle")
+						{
+						 $data1['propertyMetaTitle']=$datas;
+						}
+						
+						if($key=="propertyMetaKeyword")
+						{
+						  $data1['propertyMetaKeyword']= $datas;
+						}
+						
+						if($key=="propertyMetaDescription")
+						{
+						  $data1['propertyMetaDescription']= $datas;
+						}
+					}
+						$filter1=array('propertyID'=>$data['propertyID']);
+						$this->AddProperty_model->InsertProperty('rp_property_details',$data1,$filter1);
+					}
+					
+				}elseif($formname=="form-3")
+				{
+					
+					
+				}
+				elseif($formname=="form-4")
+				{
+					
+					
+				}
+				elseif($formname=="form-image")
+				{
+					
+					
+				}
+					if(!empty($propertyid)){ echo $propertyid;	}else{ if(!empty($data['propertyID'])){ echo $data['propertyID']; }}
 					
 			}else{
 				echo"Add Property Fail!!";

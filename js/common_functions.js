@@ -254,13 +254,18 @@ function InsertProperty(id)
 		$.ajax({
          data: data,
          type: "post",
-         url: base_url+'AddProperty/InsertProperty',
+         url: base_url+'AddProperty/InsertProperty/'+formid,
 		 beforeSend: function() {
 				$("#loader").fadeIn();
 			},
          success: function(result){
 			 $("#loader").fadeOut();
-             // alert(result);
+			// alert(result);
+			  document.getElementById("form1_id").value=result;
+			  document.getElementById("form2_id").value=result;
+			  document.getElementById("form3_id").value=result;
+			  document.getElementById("form4_id").value=result;
+			  document.getElementById("form5_id").value=result;
          }
 });
 		
