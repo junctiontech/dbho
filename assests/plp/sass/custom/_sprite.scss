@@ -1,0 +1,364 @@
+$icons: sprite-map("sprite/*.png");
+
+
+.sprite{
+   background-image: sprite-url($icons);display: inline-block; 
+}
+.sprite-bf::before,.sprite-af::after{
+   background-image: sprite-url($icons);
+   display: inline-block; 
+   content: "";
+}  
+ 
+.mail-cont{
+    &::before{
+     background-position: sprite-position($icons,mail); 
+    }
+}  
+.mail-loc{ 
+    &::before{
+     background-position: sprite-position($icons,loc); 
+    }
+}
+.post{
+    &::before{
+       background-position: sprite-position($icons,free-arrow); 
+    }
+}
+.lst-prop{
+    &:before{
+     background-position: sprite-position($icons,lst-icon); 
+    }
+}
+.map-prop{
+    &:before{
+     background-position: sprite-position($icons,map-icon); 
+    }
+}
+.fb{ 
+     background-position: sprite-position($icons,fb); 
+}
+.twitter{ 
+     background-position: sprite-position($icons,twitter); 
+}
+.linked{ 
+     background-position: sprite-position($icons,linked); 
+}
+.google-plus{ 
+     background-position: sprite-position($icons,google-plus); 
+}
+.pin-rest{
+     background-position: sprite-position($icons,pin-rest); 
+}
+.mail-news{ 
+     background-position: sprite-position($icons,mail-sp); 
+}
+.sticky-arrow {
+     &:after{
+        background-position: sprite-position($icons,activity-up);
+     }
+}
+.sticky-arrow {
+    &.up{
+         &:after{
+            
+             background-position: sprite-position($icons,activity-down);
+         }
+    }
+}
+.project-gal-loc, .hot-deals-loc{
+    &:before{
+        background-position: sprite-position($icons,project-gal-loc);
+    }
+}
+.support-phone{
+    &:before{
+        background-position: sprite-position($icons,support-phone);
+    }
+}
+.support-mob{
+    &:before{
+        background-position: sprite-position($icons,support-mob);
+    }
+}
+
+
+.lst-prop.active{
+    &:before{
+     background-position: sprite-position($icons,lst-icon); 
+    }
+}
+.lst-prop{
+    &:before{
+     background-position: sprite-position($icons,lst-icon-inactive); 
+    }
+}
+.map-prop{
+    &:before{
+     background-position: sprite-position($icons,map-icon); 
+    }
+}
+.map-prop.active{
+    &:before{
+     background-position: sprite-position($icons,map-icon-active); 
+    }
+}  
+.loct{
+    &:before{
+     background-position: sprite-position($icons,loc-list); 
+    } 
+}
+.add-whish{
+    &:before{
+     background-position: sprite-position($icons,wish-icon); 
+    }
+}
+.add-whish:hover{ 
+    &:before{
+     background-position: sprite-position($icons,wish-icon-hover); 
+    }
+}
+.add-whish.addedshort{ 
+    &:before{
+     background-position: sprite-position($icons,added-short); 
+    } 
+}
+
+
+.reprt-prb{
+    &:before{
+     background-position: sprite-position($icons,flag); 
+    }
+} 
+.reprt-prb:hover,.reprt-prb.added-report{
+    &:before{
+     background-position: sprite-position($icons,flag-hover); 
+    }
+}
+.no-record-img{
+    &:before{
+     background-position: sprite-position($icons,no-record); 
+    }
+}
+.reload-captcha{
+    &:before{
+     background-position: sprite-position($icons,captcha-reload); 
+    }
+}
+.arrow-sprt{
+     &:before{
+     background-position: sprite-position($icons,arrow-result); 
+    }
+}
+.map-loc-detail{
+     &:before{
+     background-position: sprite-position($icons,map-detail-loc); 
+    }
+}
+
+.drop-listing{
+     &::after{
+     background-position: sprite-position($icons,drop-search-list); 
+    }
+}
+.rst-srch{
+     &:before{
+     background-position: sprite-position($icons,reset-search); 
+    }
+}
+.alrt-srch{
+     &:before{
+     background-position: sprite-position($icons,bell-search); 
+    }
+}
+.gen-ament{
+    &:before{
+     background-position: sprite-position($icons,genertor); 
+    }
+    }
+.swim-ament{
+    &:before{
+     background-position: sprite-position($icons,swimingpool); 
+    }
+    }
+.gym-ament{
+    &:before{
+     background-position: sprite-position($icons,gym); 
+    }
+    }
+.games-ament{
+    &:before{
+     background-position: sprite-position($icons,ground); 
+    }
+    }
+
+.zomin{
+    &:before{
+     background-position: sprite-position($icons,zom-in); 
+    }
+}
+.zomout{
+    &:before{ 
+     background-position: sprite-position($icons,zom-out);  
+    }
+}
+.reset-small{
+    &:before{
+     background-position: sprite-position($icons,reset-small);  
+    }
+}
+
+.talk{
+    &:before{
+        background-position: sprite-position($icons,talk);
+    }
+}
+.compare{
+    &:before{
+        background-position: sprite-position($icons,compare);
+    }
+}  
+.shortlist{
+    &:before{
+        background-position: sprite-position($icons,shortlist);
+    } 
+} 
+.email{
+    &:before{
+        background-position: sprite-position($icons,email);
+    }
+}   
+
+.calander-icon{ 
+     background-position: sprite-position($icons,calander-icon); 
+}
+.compare-close {
+    background-position: sprite-position($icons,compare-close);
+    width: sprite-width($icons,compare-close);
+    height: sprite-height($icons,compare-close);
+}
+.cmp-gym {
+    &:before{
+        background-position: sprite-position($icons,compare-gym);
+        width: sprite-width($icons,compare-gym);
+        height: sprite-height($icons,compare-gym);
+    }
+}  
+.cmp-security {
+    &:before{
+        background-position: sprite-position($icons,compare-security);
+        width: sprite-width($icons,compare-security);
+        height: sprite-height($icons,compare-security);
+    }
+}  
+.cmp-swimming {
+    &:before{
+        background-position: sprite-position($icons,compare-swimming);
+        width: sprite-width($icons,compare-swimming);
+        height: sprite-height($icons,compare-swimming);
+    }
+} 
+.cmp-medicine {
+    &:before{
+        background-position: sprite-position($icons,medicineshop);
+        width: sprite-width($icons,medicineshop);
+        height: sprite-height($icons,medicineshop);
+    }
+} 
+
+.cmp-shopmall {
+    &:before{
+        background-position: sprite-position($icons,shoppingmall);
+        width: sprite-width($icons,shoppingmall);
+        height: sprite-height($icons,shoppingmall);
+    }
+} 
+.cmp-yes {
+    background-position: sprite-position($icons,compare-yes);
+    width: sprite-width($icons,compare-yes);
+    height: sprite-height($icons,compare-yes);
+} 
+.cmp-no {
+    background-position: sprite-position($icons,compare-no);
+    width: sprite-width($icons,compare-no);
+    height: sprite-height($icons,compare-no);
+} 
+.removeit {
+    background-position: sprite-position($icons,remove);
+    width: sprite-width($icons,remove);
+    height: sprite-height($icons,remove);    
+} 
+.cmp-cctv {
+    &:before{
+        background-position: sprite-position($icons,cctv);
+        width: sprite-width($icons,cctv);
+        height: sprite-height($icons,cctv);
+    }
+} 
+.cmp-club {
+    &:before{
+        background-position: sprite-position($icons,clubhouse);
+        width: sprite-width($icons,clubhouse);
+        height: sprite-height($icons,clubhouse);
+    }
+}
+.arrow-top-more{
+    &:before{
+     background-position: sprite-position($icons,arrow-more);
+    }
+}
+.place{
+    span{
+    &:before{
+        background-position: sprite-position($icons,trend-loc);
+    }
+    }
+}
+.save-time{
+    &:before{
+        background-position: sprite-position($icons,save-time);
+    }
+}
+.access-files{
+    &:before{
+        background-position: sprite-position($icons,access-files);
+    }
+}
+.track{
+    &:before{
+        background-position: sprite-position($icons,track);
+    }
+}
+
+.post-property{
+    &:before{
+        background-position: sprite-position($icons,post-property);
+    }
+}
+.premium{
+    &:before{
+        background-position: sprite-position($icons,premium);
+    }
+}
+.comment{
+    &:before{
+        background-position: sprite-position($icons,comment);
+    }
+}
+
+    .spt-start{
+    &:before{
+        background-position: sprite-position($icons,map-start);
+    }
+}
+.spt-prop{
+    &:before{
+        background-position: sprite-position($icons,property-point);
+    }
+}
+.search-ip{
+    &:before{
+        background-position: sprite-position($icons,search-map);
+    }
+}
+

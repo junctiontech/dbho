@@ -762,113 +762,15 @@
                               </a>
                               <div id="collapseTwo1" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
                                 <div class="panel-body">
-                                  <div class="form-group col-xs-12 col-sm-12 martop20"> <span class="checkbozsty">
-                                    <input type="checkbox" checked="" value="57" name="multiselect_Amenities_Security_6">
-                                    Security</span> <span class="checkbozsty">
-                                    <input type="checkbox" checked="" value="58" name="multiselect_Amenities_ReservedParking_6">
-                                    Reserved Parking</span> <span class="checkbozsty">
-                                    <input type="checkbox" checked="" value="59" name="multiselect_Amenities_VisitorParking_6">
-                                    Visitor Parking</span> <span class="checkbozsty">
-                                    <input type="checkbox" value="246" name="multiselect_Amenities_WiFi_6">
-                                    Gymnasium</span> <span class="checkbozsty">
-                                    <input type="checkbox" checked="" value="333" name="multiselect_Amenities_ROWaterSystem_6">
-                                    Lift</span> <span class="checkbozsty">
-                                    <input type="checkbox" checked="" value="337" name="multiselect_Amenities_VaastuCompliant_6">
-                                    Waste Disposal</span> <span class="checkbozsty">
-                                    <input type="checkbox" checked="" value="338" name="multiselect_Amenities_Intercom_6">
-                                    Power Back Up</span> <span class="checkbozsty">
-                                    <input type="checkbox" checked="" value="360" name="multiselect_Amenities_PipeGas_6">
-                                    R O Water System</span> <span class="checkbozsty">
-                                    <input type="checkbox" checked="" value="373" name="multiselect_Amenities_CentralizedAC_6">
-                                    Conference Room</span> <span class="checkbozsty">
-                                    <input type="checkbox" checked="" value="448" name="multiselect_Amenities_24hourswatersupply_6">
-                                    Fire fighting Equipments</span> <span class="checkbozsty">
-                                    <input type="checkbox" checked="" value="449" name="multiselect_Amenities_CCTV_6">
-                                    Laundary Service</span> <span class="checkbozsty">
-                                    <input type="checkbox" checked="" value="450" name="multiselect_Amenities_DTHTVFacilities_6">
-                                    Vaastu Compliant</span> <span class="checkbozsty">
-                                    <input type="checkbox" checked="" value="451" name="multiselect_Amenities_Guestaccomadation_6">
-                                    Intercom</span> <span class="checkbozsty">
-                                    <input type="checkbox" checked="" value="452" name="multiselect_Amenities_LaundryService_6">
-                                    Club House</span> <span class="checkbozsty">
-                                    <input type="checkbox" checked="" value="453" name="multiselect_Amenities_PowerBackup_6">
-                                    WiFi</span> <span class="checkbozsty">
-                                    <input type="checkbox" checked="" value="453" name="multiselect_Amenities_PowerBackup_6">
-                                    Rain Water Harvesting</span> <span class="checkbozsty">
-                                    <input type="checkbox" checked="" value="453" name="multiselect_Amenities_PowerBackup_6">
-                                    Swimming Pool</span> <span class="checkbozsty">
-                                    <input type="checkbox" checked="" value="453" name="multiselect_Amenities_PowerBackup_6">
-                                    Landscape - Flower Garden</span> <span class="checkbozsty">
-                                    <input type="checkbox" checked="" value="453" name="multiselect_Amenities_PowerBackup_6">
-                                    Property Staff - Maintenace Staff</span> <span class="checkbozsty">
-                                    <input type="checkbox" checked="" value="453" name="multiselect_Amenities_PowerBackup_6">
-                                    School</span> <span class="checkbozsty">
-                                    <input type="checkbox" checked="" value="453" name="multiselect_Amenities_PowerBackup_6">
-                                    ATM</span> <span class="checkbozsty">
-                                    <input type="checkbox" checked="" value="453" name="multiselect_Amenities_PowerBackup_6">
-                                    Worship</span> <span class="checkbozsty">
-                                    <input type="checkbox" checked="" value="453" name="multiselect_Amenities_PowerBackup_6">
-                                    Water Plant</span> <span class="checkbozsty">
-                                    <input type="checkbox" checked="" value="453" name="multiselect_Amenities_PowerBackup_6">
-                                    Bank</span> <span class="checkbozsty">
-                                    <input type="checkbox" checked="" value="453" name="multiselect_Amenities_PowerBackup_6">
-                                    Pipe Gas</span> <span class="checkbozsty">
-                                    <input type="checkbox" checked="" value="453" name="multiselect_Amenities_PowerBackup_6">
-                                    Shopping Center - Retail Shop</span> <span class="checkbozsty">
-                                    <input type="checkbox" checked="" value="453" name="multiselect_Amenities_PowerBackup_6">
-                                    Banquet Hall</span> <span class="checkbozsty">
-                                    <input type="checkbox" checked="" value="453" name="multiselect_Amenities_PowerBackup_6">
-                                    24 Hours Water Supply</span> <span class="checkbozsty">
-                                    <input type="checkbox" checked="" value="453" name="multiselect_Amenities_PowerBackup_6">
-                                    Aerobic Room</span> <span class="checkbozsty">
-                                    <input type="checkbox" checked="" value="453" name="multiselect_Amenities_PowerBackup_6">
-                                    Amphithreater</span> <span class="checkbozsty">
-                                    <input type="checkbox" checked="" value="453" name="multiselect_Amenities_PowerBackup_6">
-                                    Barbeque Pit</span> <span class="checkbozsty">
-                                    <input type="checkbox" checked="" value="453" name="multiselect_Amenities_PowerBackup_6">
-                                    Basketball-Tennis Court</span> <span class="checkbozsty">
-                                    <input type="checkbox" checked="" value="453" name="multiselect_Amenities_PowerBackup_6">
-                                    Day care center</span> <span class="checkbozsty">
-                                    <input type="checkbox" checked="" value="453" name="multiselect_Amenities_PowerBackup_6">
-                                    DTH TV Facilities</span> <span class="checkbozsty">
-                                    <input type="checkbox" checked="" value="453" name="multiselect_Amenities_PowerBackup_6">
-                                    Early Learning Centre - Play Group</span> <span class="checkbozsty">
-                                    <input type="checkbox" checked="" value="453" name="multiselect_Amenities_PowerBackup_6">
-                                    Golf Course</span> <span class="checkbozsty">
-                                    <input type="checkbox" checked="" value="453" name="multiselect_Amenities_PowerBackup_6">
-                                    Guest Accomadation</span> <span class="checkbozsty">
-                                    <input type="checkbox" checked="" value="453" name="multiselect_Amenities_PowerBackup_6">
-                                    Indoor Games Room</span> <span class="checkbozsty">
-                                    <input type="checkbox" checked="" value="453" name="multiselect_Amenities_PowerBackup_6">
-                                    Indoor Squash - badminton Court</span> <span class="checkbozsty">
-                                    <input type="checkbox" checked="" value="453" name="multiselect_Amenities_PowerBackup_6">
-                                    Kids Club</span> <span class="checkbozsty">
-                                    <input type="checkbox" checked="" value="453" name="multiselect_Amenities_PowerBackup_6">
-                                    Kids Play Area</span> <span class="checkbozsty">
-                                    <input type="checkbox" checked="" value="453" name="multiselect_Amenities_PowerBackup_6">
-                                    Meditiation Center</span> <span class="checkbozsty">
-                                    <input type="checkbox" checked="" value="453" name="multiselect_Amenities_PowerBackup_6">
-                                    Multiporpose Hall</span> <span class="checkbozsty">
-                                    <input type="checkbox" checked="" value="453" name="multiselect_Amenities_PowerBackup_6">
-                                    Paved Compound</span> <span class="checkbozsty">
-                                    <input type="checkbox" checked="" value="453" name="multiselect_Amenities_PowerBackup_6">
-                                    Recreational Pool - Facilities</span> <span class="checkbozsty">
-                                    <input type="checkbox" checked="" value="453" name="multiselect_Amenities_PowerBackup_6">
-                                    Rentable Community Space</span> <span class="checkbozsty">
-                                    <input type="checkbox" checked="" value="453" name="multiselect_Amenities_PowerBackup_6">
-                                    Service - Goods Lift</span> <span class="checkbozsty">
-                                    <input type="checkbox" checked="" value="453" name="multiselect_Amenities_PowerBackup_6">
-                                    Sewage Treatment Plan</span> <span class="checkbozsty">
-                                    <input type="checkbox" checked="" value="453" name="multiselect_Amenities_PowerBackup_6">
-                                    Skating Court</span> <span class="checkbozsty">
-                                    <input type="checkbox" checked="" value="453" name="multiselect_Amenities_PowerBackup_6">
-                                    Strolling Cycling and Jogging Track</span> <span class="checkbozsty">
-                                    <input type="checkbox" checked="" value="453" name="multiselect_Amenities_PowerBackup_6">
-                                    Waiting Lounge</span> <span class="checkbozsty">
-                                    <input type="checkbox" checked="" value="453" name="multiselect_Amenities_PowerBackup_6">
-                                    CCTV</span> <span class="checkbozsty">
-                                    <input type="checkbox" checked="" value="453" name="multiselect_Amenities_PowerBackup_6">
-                                    Centralized AC</span> . </div>
+                                  <div class="form-group col-xs-12 col-sm-12 martop20">
+									<?php $Attributeoption=$this->AddProperty_model->GetAttributesoption(6);
+									foreach($Attributeoption as $Attributeoptions){?>
+								    <span class="checkbozsty">
+                                    <input type="checkbox" value="<?=$Attributeoptions->attrOptionID?>" name="Amenities">
+                                    <?=$Attributeoptions->attrOptName?></span>
+									<?php } ?>
+									. 
+								  </div>
                                 </div>
                               </div>
                             </div>
@@ -941,24 +843,14 @@
                             <div class="row">
                               <div class="col-md-12 col-sm-12 col-xs-12">
                                 <div class="x_panel marlemin">
-                                  <div class="form-group col-md-2 col-xs-12 col-sm-2 martop15">
-								  <input type="hidden" name="propertyID" value="" readonly id="form5_id"/>
-                                    <form id="formimage" class="dropzone" style="border: 1px dashed #e5e5e5; height: 131px; ">
-                                    </form>
+                                  <div class="form-group col-md-12 col-xs-12 col-sm-2 martop15">
+								   <form  action="<?php echo base_url();?>AddProperty/uploadimage" class="dropzone" style="border: 1px dashed #e5e5e5;  ">
+                                    <input type="hidden" name="propertyID" value="" readonly id="form5_id" />
+									 <input type="hidden" name="imagecategory" value="1" readonly />
+								   </form>
                                   </div>
-                                  <div class="form-group col-md-8 col-xs-12 col-sm-8 martop15">
-                                    <div class="phoadd">
-                                      <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
-                                      <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae.</p>
-                                      <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto .</p>
-                                      <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque.</p>
-                                    </div>
-                                  </div>
-                                  <div class="form-group col-md-2 col-xs-12 col-sm-2 martop15">
-                                    <div class="sample">
-                                      <p>Sample Exterior View</p>
-                                      <img src="images/sample.jpg"> </div>
-                                  </div>
+                                  
+                                  
                                   <div class="form-group col-md-12 col-xs-12 col-sm-12 martop15">
                                     <p>Accepted formats are .jpg, .gif, .bmp & .png. Maximum size allowed is 4 MB</p>
                                   </div>
@@ -970,23 +862,14 @@
                             <div class="row">
                               <div class="col-md-12 col-sm-12 col-xs-12">
                                 <div class="x_panel marlemin">
-                                  <div class="form-group col-md-2 col-xs-12 col-sm-2 martop15">
-                                    <form action="choices/add-property.html" class="dropzone" style="border: 1px dashed #e5e5e5; height: 131px; ">
+                                  <div class="form-group col-md-12 col-xs-12 col-sm-2 martop15">
+                                    <form action="<?php echo base_url();?>AddProperty/uploadimage" class="dropzone" style="border: 1px dashed #e5e5e5;  ">
+									<input type="hidden" name="propertyID" value="" readonly  class="form5_id"/>
+									 <input type="hidden" name="imagecategory" value="2" readonly />
                                     </form>
                                   </div>
-                                  <div class="form-group col-md-8 col-xs-12 col-sm-8 martop15">
-                                    <div class="phoadd">
-                                      <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
-                                      <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae.</p>
-                                      <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto .</p>
-                                      <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque.</p>
-                                    </div>
-                                  </div>
-                                  <div class="form-group col-md-2 col-xs-12 col-sm-2 martop15">
-                                    <div class="sample">
-                                      <p>Sample Exterior View</p>
-                                      <img src="images/sample2.jpg"> </div>
-                                  </div>
+                                  
+                                  
                                 </div>
                               </div>
                             </div>
@@ -995,23 +878,14 @@
                             <div class="row">
                               <div class="col-md-12 col-sm-12 col-xs-12">
                                 <div class="x_panel marlemin">
-                                  <div class="form-group col-md-2 col-xs-12 col-sm-2 martop15">
-                                    <form action="choices/add-property.html" class="dropzone" style="border: 1px dashed #e5e5e5; height: 131px; ">
+                                  <div class="form-group col-md-12 col-xs-12 col-sm-2 martop15">
+                                    <form action="<?php echo base_url();?>AddProperty/uploadimage" class="dropzone" style="border: 1px dashed #e5e5e5;  ">
+									<input type="hidden" name="propertyID" value="" readonly  class="form5_id"/>
+									 <input type="hidden" name="imagecategory" value="3" readonly />
                                     </form>
                                   </div>
-                                  <div class="form-group col-md-8 col-xs-12 col-sm-8 martop15">
-                                    <div class="phoadd">
-                                      <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
-                                      <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae.</p>
-                                      <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto .</p>
-                                      <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque.</p>
-                                    </div>
-                                  </div>
-                                  <div class="form-group col-md-2 col-xs-12 col-sm-2 martop15">
-                                    <div class="sample">
-                                      <p>Sample Exterior View</p>
-                                      <img src="images/sample.jpg"> </div>
-                                  </div>
+                                  
+                                  
                                 </div>
                               </div>
                             </div>
@@ -1020,23 +894,14 @@
                             <div class="row">
                               <div class="col-md-12 col-sm-12 col-xs-12">
                                 <div class="x_panel marlemin">
-                                  <div class="form-group col-md-2 col-xs-12 col-sm-2 martop15">
-                                    <form action="choices/add-property.html" class="dropzone" style="border: 1px dashed #e5e5e5; height: 131px; ">
+                                  <div class="form-group col-md-12 col-xs-12 col-sm-2 martop15">
+                                    <form action="<?php echo base_url();?>AddProperty/uploadimage" class="dropzone" style="border: 1px dashed #e5e5e5; height: 131px; ">
+									<input type="hidden" name="propertyID" value="" readonly  class="form5_id"/>
+									 <input type="hidden" name="imagecategory" value="4" readonly />
                                     </form>
                                   </div>
-                                  <div class="form-group col-md-8 col-xs-12 col-sm-8 martop15">
-                                    <div class="phoadd">
-                                      <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
-                                      <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae.</p>
-                                      <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto .</p>
-                                      <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque.</p>
-                                    </div>
-                                  </div>
-                                  <div class="form-group col-md-2 col-xs-12 col-sm-2 martop15">
-                                    <div class="sample">
-                                      <p>Sample Exterior View</p>
-                                      <img src="images/sample2.jpg"> </div>
-                                  </div>
+                                  
+                                  
                                 </div>
                               </div>
                             </div>
@@ -1045,23 +910,13 @@
                             <div class="row">
                               <div class="col-md-12 col-sm-12 col-xs-12">
                                 <div class="x_panel marlemin">
-                                  <div class="form-group col-md-2 col-xs-12 col-sm-2 martop15">
-                                    <form action="choices/add-property.html" class="dropzone" style="border: 1px dashed #e5e5e5; height: 131px; ">
+                                  <div class="form-group col-md-12 col-xs-12 col-sm-2 martop15">
+                                    <form action="<?php echo base_url();?>AddProperty/uploadimage" class="dropzone" style="border: 1px dashed #e5e5e5;  ">
+									<input type="hidden" name="propertyID" value="" readonly  class="form5_id"/>
+									 <input type="hidden" name="imagecategory" value="5" readonly />
                                     </form>
                                   </div>
-                                  <div class="form-group col-md-8 col-xs-12 col-sm-8 martop15">
-                                    <div class="phoadd">
-                                      <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
-                                      <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae.</p>
-                                      <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto .</p>
-                                      <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque.</p>
-                                    </div>
-                                  </div>
-                                  <div class="form-group col-md-2 col-xs-12 col-sm-2 martop15">
-                                    <div class="sample">
-                                      <p>Sample Exterior View</p>
-                                      <img src="images/sample.jpg"> </div>
-                                  </div>
+                                  
                                 </div>
                               </div>
                             </div>
@@ -1070,23 +925,13 @@
                             <div class="row">
                               <div class="col-md-12 col-sm-12 col-xs-12">
                                 <div class="x_panel marlemin">
-                                  <div class="form-group col-md-2 col-xs-12 col-sm-2 martop15">
-                                    <form action="choices/add-property.html" class="dropzone" style="border: 1px dashed #e5e5e5; height: 131px; ">
+                                  <div class="form-group col-md-12 col-xs-12 col-sm-2 martop15">
+                                    <form action="<?php echo base_url();?>AddProperty/uploadimage" class="dropzone" style="border: 1px dashed #e5e5e5;  ">
+									<input type="hidden" name="propertyID" value="" readonly  class="form5_id"/>
+									 <input type="hidden" name="imagecategory" value="6" readonly />
                                     </form>
                                   </div>
-                                  <div class="form-group col-md-8 col-xs-12 col-sm-8 martop15">
-                                    <div class="phoadd">
-                                      <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
-                                      <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae.</p>
-                                      <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto .</p>
-                                      <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque.</p>
-                                    </div>
-                                  </div>
-                                  <div class="form-group col-md-2 col-xs-12 col-sm-2 martop15">
-                                    <div class="sample">
-                                      <p>Sample Exterior View</p>
-                                      <img src="images/sample.jpg"> </div>
-                                  </div>
+                                 
                                 </div>
                               </div>
                             </div>
@@ -1095,23 +940,13 @@
                             <div class="row">
                               <div class="col-md-12 col-sm-12 col-xs-12">
                                 <div class="x_panel marlemin">
-                                  <div class="form-group col-md-2 col-xs-12 col-sm-2 martop15">
-                                    <form action="choices/add-property.html" class="dropzone" style="border: 1px dashed #e5e5e5; height: 131px; ">
+                                  <div class="form-group col-md-12 col-xs-12 col-sm-2 martop15">
+                                    <form action="<?php echo base_url();?>AddProperty/uploadimage" class="dropzone" style="border: 1px dashed #e5e5e5;  ">
+									<input type="hidden" name="propertyID" value="" readonly  class="form5_id"/>
+									 <input type="hidden" name="imagecategory" value="7" readonly />
                                     </form>
                                   </div>
-                                  <div class="form-group col-md-8 col-xs-12 col-sm-8 martop15">
-                                    <div class="phoadd">
-                                      <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
-                                      <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae.</p>
-                                      <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto .</p>
-                                      <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque.</p>
-                                    </div>
-                                  </div>
-                                  <div class="form-group col-md-2 col-xs-12 col-sm-2 martop15">
-                                    <div class="sample">
-                                      <p>Sample Exterior View</p>
-                                      <img src="images/sample.jpg"> </div>
-                                  </div>
+                                 
                                 </div>
                               </div>
                             </div>
@@ -1120,23 +955,13 @@
                             <div class="row">
                               <div class="col-md-12 col-sm-12 col-xs-12">
                                 <div class="x_panel marlemin">
-                                  <div class="form-group col-md-2 col-xs-12 col-sm-2 martop15">
-                                    <form action="choices/add-property.html" class="dropzone" style="border: 1px dashed #e5e5e5; height: 131px; ">
+                                  <div class="form-group col-md-12 col-xs-12 col-sm-2 martop15">
+                                    <form action="<?php echo base_url();?>AddProperty/uploadimage" class="dropzone" style="border: 1px dashed #e5e5e5; ">
+									<input type="hidden" name="propertyID" value="" readonly  class="form5_id"/>
+									 <input type="hidden" name="imagecategory" value="8" readonly />
                                     </form>
                                   </div>
-                                  <div class="form-group col-md-8 col-xs-12 col-sm-8 martop15">
-                                    <div class="phoadd">
-                                      <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
-                                      <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae.</p>
-                                      <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto .</p>
-                                      <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque.</p>
-                                    </div>
-                                  </div>
-                                  <div class="form-group col-md-2 col-xs-12 col-sm-2 martop15">
-                                    <div class="sample">
-                                      <p>Sample Exterior View</p>
-                                      <img src="images/sample.jpg"> </div>
-                                  </div>
+                                  
                                 </div>
                               </div>
                             </div>
@@ -1145,23 +970,14 @@
                             <div class="row">
                               <div class="col-md-12 col-sm-12 col-xs-12">
                                 <div class="x_panel marlemin">
-                                  <div class="form-group col-md-2 col-xs-12 col-sm-2 martop15">
-                                    <form action="choices/add-property.html" class="dropzone" style="border: 1px dashed #e5e5e5; height: 131px; ">
+                                  <div class="form-group col-md-12 col-xs-12 col-sm-2 martop15">
+                                    <form action="<?php echo base_url();?>AddProperty/uploadimage" class="dropzone" style="border: 1px dashed #e5e5e5;  ">
+									<input type="hidden" name="propertyID" value="" readonly  class="form5_id"/>
+									 <input type="hidden" name="imagecategory" value="9" readonly />
                                     </form>
                                   </div>
-                                  <div class="form-group col-md-8 col-xs-12 col-sm-8 martop15">
-                                    <div class="phoadd">
-                                      <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
-                                      <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae.</p>
-                                      <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto .</p>
-                                      <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque.</p>
-                                    </div>
-                                  </div>
-                                  <div class="form-group col-md-2 col-xs-12 col-sm-2 martop15">
-                                    <div class="sample">
-                                      <p>Sample Exterior View</p>
-                                      <img src="images/sample.jpg"> </div>
-                                  </div>
+                                  
+                                  
                                 </div>
                               </div>
                             </div>
@@ -1212,81 +1028,83 @@
 					
                       <div class="panel"> <a class="panel-heading" role="tab" id="headingOne1" data-toggle="collapse" data-parent="#accordion3" href="#collapseOne3" aria-expanded="false" aria-controls="collapseOne3">
                          
-						<h4 class="panel-title StepTitle">Bed Room 1</h4>
+						<h4 class="panel-title StepTitle">Bed Room</h4>
                         </a>
                         <div id="collapseOne3" class="panel-collapse collapse " role="tabpanel" aria-labelledby="headingOne">
                           <div class="panel-body">
                             <div class="row">
                               <div class="form-group col-sm-2">
                                 <label>Flooring Type</label>
-                                <select class="form-control">
-                                  <option>Marble</option>
-                                  <option>Wood</option>
-                                  <option>Ceramic</option>
-                                  <option>Stone</option>
-                                  <option>Laminate</option>
-                                  <option>Anti Skid Tiles</option>
+                                <select name="flooringType" class="form-control">
+								 <option value="">select</option>
+                                  <option value="Marble">Marble</option>
+                                  <option value="Wood">Wood</option>
+                                  <option value="Ceramic">Ceramic</option>
+                                  <option value="Stone">Stone</option>
+                                  <option value="Laminate">Laminate</option>
+                                  <option value="AntiSkidTiles">Anti Skid Tiles</option>
                                 </select>
                               </div>
                             </div>
                             <div class=" clearfix"> <span class="checkbozsty-1">
-                              <input type="checkbox" checked="" value="57" name="multiselect_Amenities_Security_6">
+                              <input type="checkbox"  value="TV" name="others[]">
                               TV</span> <span class="checkbozsty-1">
-                              <input type="checkbox" checked="" value="58" name="multiselect_Amenities_ReservedParking_6">
+                              <input type="checkbox"  value="AC" name="others[]">
                               AC</span> <span class="checkbozsty-1">
-                              <input type="checkbox" checked="" value="59" name="multiselect_Amenities_VisitorParking_6">
+                              <input type="checkbox"  value="Bed" name="others[]">
                               Bed</span> <span class="checkbozsty-1">
-                              <input type="checkbox" value="246" name="multiselect_Amenities_WiFi_6">
+                              <input type="checkbox" value="DressingTable" name="others[]">
                               Dressing Table</span> <span class="checkbozsty-1">
-                              <input type="checkbox" checked="" value="333" name="multiselect_Amenities_ROWaterSystem_6">
+                              <input type="checkbox"  value="Wardrobe" name="others[]">
                               Wardrobe</span> <span class="checkbozsty-1">
-                              <input type="checkbox" checked="" value="337" name="multiselect_Amenities_VaastuCompliant_6">
+                              <input type="checkbox"  value="FalseSeiling" name="others[]">
                               False Seiling</span> <span class="checkbozsty-1">
-                              <input type="checkbox" checked="" value="338" name="multiselect_Amenities_Intercom_6">
+                              <input type="checkbox"  value="AttachedBalcony" name="others[]">
                               Attached Balcony</span> <span class="checkbozsty-1">
-                              <input type="checkbox" checked="" value="360" name="multiselect_Amenities_PipeGas_6">
+                              <input type="checkbox"  value="AttachedBathroom" name="others[]">
                               Attached Bathroom</span> <span class="checkbozsty-1">
-                              <input type="checkbox" checked="" value="373" name="multiselect_Amenities_CentralizedAC_6">
+                              <input type="checkbox"  value="Ventilation" name="others[]">
                               Ventilation</span> </div>
                           </div>
                         </div>
                       </div>
                       <div class="panel"> <a class="panel-heading" role="tab" id="headingOne1" data-toggle="collapse" data-parent="#accordion4" href="#collapseOne4" aria-expanded="false" aria-controls="collapseOne4">
-                        <h4 class="panel-title StepTitle">Living Room 1</h4>
+                        <h4 class="panel-title StepTitle">Living Room</h4>
                         </a>
                         <div id="collapseOne4" class="panel-collapse collapse " role="tabpanel" aria-labelledby="headingOne">
                           <div class="panel-body">
                             <div class="row">
                               <div class="form-group col-sm-2">
                                 <label>Flooring Type</label>
-                                <select class="form-control">
-                                  <option>Marble</option>
-                                  <option>Wood</option>
-                                  <option>Ceramic</option>
-                                  <option>Stone</option>
-                                  <option>Laminate</option>
-                                  <option>Anti Skid Tiles</option>
+                                <select name="flooringTypelivingroom" class="form-control">
+                                  <option value="">select</option>
+                                  <option value="Marble">Marble</option>
+                                  <option value="Wood">Wood</option>
+                                  <option value="Ceramic">Ceramic</option>
+                                  <option value="Stone">Stone</option>
+                                  <option value="Laminate">Laminate</option>
+                                  <option value="AntiSkidTiles">Anti Skid Tiles</option>
                                 </select>
                               </div>
                             </div>
                             <div class=" clearfix"> <span class="checkbozsty-1">
-                              <input type="checkbox" checked="" value="57" name="multiselect_Amenities_Security_6">
+                              <input type="checkbox"  value="Sofa" name="otherslivingroom[]">
                               Sofa</span> <span class="checkbozsty-1">
-                              <input type="checkbox" checked="" value="58" name="multiselect_Amenities_ReservedParking_6">
+                              <input type="checkbox"  value="DiningTable" name="otherslivingroom[]">
                               Dining Table</span> <span class="checkbozsty-1">
-                              <input type="checkbox" checked="" value="59" name="multiselect_Amenities_VisitorParking_6">
+                              <input type="checkbox"  value="AC" name="otherslivingroom[]">
                               AC</span> <span class="checkbozsty-1">
-                              <input type="checkbox" value="246" name="multiselect_Amenities_WiFi_6">
+                              <input type="checkbox" value="ShoeRack" name="otherslivingroom[]">
                               Shoe Rack</span> <span class="checkbozsty-1">
-                              <input type="checkbox" checked="" value="333" name="multiselect_Amenities_ROWaterSystem_6">
+                              <input type="checkbox"  value="TV" name="otherslivingroom[]">
                               TV</span> <span class="checkbozsty-1">
-                              <input type="checkbox" checked="" value="337" name="multiselect_Amenities_VaastuCompliant_6">
+                              <input type="checkbox"  value="FalseSeiling" name="otherslivingroom[]">
                               False Seiling</span> </div>
                           </div>
                         </div>
                       </div>
                       <div class="panel"> <a class="panel-heading" role="tab" id="headingOne1" data-toggle="collapse" data-parent="#accordion5" href="#collapseOne5" aria-expanded="false" aria-controls="collapseOne5">
-                        <h4 class="panel-title StepTitle">Bath Room 1</h4>
+                        <h4 class="panel-title StepTitle">Bath Room </h4>
                         </a>
                         <div id="collapseOne5" class="panel-collapse collapse " role="tabpanel" aria-labelledby="headingOne">
                           <div class="panel-body">
@@ -1294,13 +1112,14 @@
                               <div class="col-xs-12 col-md-4">
                                 <div class="form-group">
                                   <label>Flooring Type</label>
-                                  <select class="form-control">
-                                    <option>Marble</option>
-                                    <option>Wood</option>
-                                    <option>Ceramic</option>
-                                    <option>Stone</option>
-                                    <option>Laminate</option>
-                                    <option>Anti Skid Tiles</option>
+                                  <select name="flooringTypebathroom" class="form-control">
+                                  <option value="">select</option>
+                                  <option value="Marble">Marble</option>
+                                  <option value="Wood">Wood</option>
+                                  <option value="Ceramic">Ceramic</option>
+                                  <option value="Stone">Stone</option>
+                                  <option value="Laminate">Laminate</option>
+                                  <option value="AntiSkidTiles">Anti Skid Tiles</option>
                                   </select>
                                 </div>
                               </div>
@@ -1312,10 +1131,10 @@
                                   <div class="x_content-1">
                                     <div class="radio mabott10">
                                       <label>
-                                        <input type="radio" class="flat" checked name="iCheck">
+                                        <input type="radio" class="flat" value="Geyser" name="hotwatersupply">
                                         Geyser </label>
                                       <label>
-                                        <input type="radio" class="flat"  name="iCheck">
+                                        <input type="radio" class="flat" value="Gas"  name="hotwatersupply">
                                         Gas </label>
                                     </div>
                                   </div>
@@ -1329,10 +1148,10 @@
                                   <div class="x_content-1">
                                     <div class="radio mabott10">
                                       <label>
-                                        <input type="radio" class="flat" checked name="iCheck">
+                                        <input type="radio" class="flat" value="Indian" name="toilet">
                                         Indian </label>
                                       <label>
-                                        <input type="radio" class="flat"  name="iCheck">
+                                        <input type="radio" class="flat" value="Western" name="toilet">
                                         Western </label>
                                     </div>
                                   </div>
@@ -1341,24 +1160,24 @@
                             </div>
                             <div class="">
                               <div class="clearfix"> <span class="checkbozsty-1">
-                                <input type="checkbox" checked="" value="57" name="multiselect_Amenities_Security_6">
+                                <input type="checkbox"  value="GlassPartition" name="othersbathroom[]">
                                 Glass Partition</span> <span class="checkbozsty-1">
-                                <input type="checkbox" checked="" value="58" name="multiselect_Amenities_ReservedParking_6">
+                                <input type="checkbox"  value="BathTub" name="othersbathroom[]">
                                 Bath Tub</span> <span class="checkbozsty-1">
-                                <input type="checkbox" checked="" value="59" name="multiselect_Amenities_VisitorParking_6">
+                                <input type="checkbox"  value="Axhaustfan" name="othersbathroom[]">
                                 Axhaust fan</span> <span class="checkbozsty-1">
-                                <input type="checkbox" value="246" name="multiselect_Amenities_WiFi_6">
+                                <input type="checkbox" value="Windows" name="othersbathroom[]">
                                 Windows</span> <span class="checkbozsty-1">
-                                <input type="checkbox" checked="" value="333" name="multiselect_Amenities_ROWaterSystem_6">
+                                <input type="checkbox"  value="ShowerCurtain" name="othersbathroom[]">
                                 Shower Curtain</span> <span class="checkbozsty-1">
-                                <input type="checkbox" checked="" value="337" name="multiselect_Amenities_VaastuCompliant_6">
+                                <input type="checkbox"  value="Cabinet" name="othersbathroom[]">
                                 Cabinet</span> </div>
                             </div>
                           </div>
                         </div>
                       </div>
                       <div class="panel"> <a class="panel-heading" role="tab" id="headingOne1" data-toggle="collapse" data-parent="#accordion6" href="#collapseOne6" aria-expanded="false" aria-controls="collapseOne6">
-                        <h4 class="panel-title StepTitle">kitchen 1</h4>
+                        <h4 class="panel-title StepTitle">kitchen </h4>
                         </a>
                         <div id="collapseOne6" class="panel-collapse collapse " role="tabpanel" aria-labelledby="headingOne">
                           <div class="panel-body">
@@ -1366,13 +1185,14 @@
                               <div class="col-xs-12 col-md-4">
                                 <div class="form-group">
                                   <label>Platform</label>
-                                  <select class="form-control">
-                                    <option>Simple</option>
-                                    <option>Granite</option>
-                                    <option>Marble</option>
-                                    <option>Wooden</option>
-                                    <option>Ceramic</option>
-                                    <option>Kota Sin</option>
+                                  <select name="platform" class="form-control">
+									<option value="">Select</option>
+                                    <option value="Simple">Simple</option>
+                                    <option value="Granite">Granite</option>
+                                    <option value="Marble">Marble</option>
+                                    <option value="Wooden">Wooden</option>
+                                    <option value="Ceramic">Ceramic</option>
+                                    <option value="Kotasin">Kota Sin</option>
                                   </select>
                                 </div>
                               </div>
@@ -1384,10 +1204,10 @@
                                   <div class="x_content-1">
                                     <div class="radio mabott10">
                                       <label>
-                                        <input type="radio" class="flat" checked name="iCheck">
+                                        <input type="radio" class="flat" value="Modular" name="Cabinet">
                                         Modular </label>
                                       <label>
-                                        <input type="radio" class="flat"  name="iCheck">
+                                        <input type="radio" class="flat" value="NA" name="Cabinet">
                                         NA </label>
                                     </div>
                                   </div>
@@ -1396,17 +1216,17 @@
                             </div>
                             <div class="">
                               <div class="clearfix"> <span class="checkbozsty-1">
-                                <input type="checkbox" checked="" value="57" name="multiselect_Amenities_Security_6">
+                                <input type="checkbox"  value="Refrigerator" name="otherskitchen[]">
                                 Refrigerator</span> <span class="checkbozsty-1">
-                                <input type="checkbox" checked="" value="58" name="multiselect_Amenities_ReservedParking_6">
+                                <input type="checkbox"  value="Waterpurifier" name="otherskitchen[]">
                                 Water purifier</span> <span class="checkbozsty-1">
-                                <input type="checkbox" checked="" value="59" name="multiselect_Amenities_VisitorParking_6">
+                                <input type="checkbox"  value="Loft" name="otherskitchen[]">
                                 Loft</span> <span class="checkbozsty-1">
-                                <input type="checkbox" value="246" name="multiselect_Amenities_WiFi_6">
+                                <input type="checkbox" value="GasPipline" name="otherskitchen[]">
                                 Gas Pipline</span> <span class="checkbozsty-1">
-                                <input type="checkbox" checked="" value="333" name="multiselect_Amenities_ROWaterSystem_6">
+                                <input type="checkbox"  value="Microwave" name="otherskitchen[]">
                                 Microwave</span> <span class="checkbozsty-1">
-                                <input type="checkbox" checked="" value="337" name="multiselect_Amenities_VaastuCompliant_6">
+                                <input type="checkbox"  value="Chimaey" name="otherskitchen[]">
                                 Chimaey</span> </div>
                             </div>
                           </div>
@@ -1428,13 +1248,13 @@
                         <div class="x_content-1">
                           <div class="radio mabott10">
                             <label>
-                              <input type="radio" class="flat" checked name="iCheck">
+                              <input type="radio" class="flat" value="Veg" name="food">
                               Veg</label>
                             <label>
-                              <input type="radio" class="flat"  name="iCheck">
+                              <input type="radio" class="flat" value="NonVeg" name="food">
                               Non-Veg</label>
                             <label>
-                              <input type="radio" class="flat"  name="iCheck">
+                              <input type="radio" class="flat" value="NoPreferences" name="food">
                               No Preferences</label>
                           </div>
                         </div>
@@ -1446,10 +1266,10 @@
                         <div class="x_content-1">
                           <div class="radio mabott10">
                             <label>
-                              <input type="radio" class="flat" checked name="iCheck">
+                              <input type="radio" class="flat" value="yes" name="petsallowed">
                               Yes</label>
                             <label>
-                              <input type="radio" class="flat"  name="iCheck">
+                              <input type="radio" class="flat" value="no" name="petsallowed">
                               No</label>
                           </div>
                         </div>
@@ -1461,13 +1281,13 @@
                         <div class="x_content-1">
                           <div class="radio mabott10">
                             <label>
-                              <input type="radio" class="flat" checked name="iCheck">
+                              <input type="radio" class="flat" value="Partial" name="powerbackup">
                               Partial</label>
                             <label>
-                              <input type="radio" class="flat"  name="iCheck">
+                              <input type="radio" class="flat" value="Full" name="powerbackup">
                               Full</label>
                             <label>
-                              <input type="radio" class="flat"  name="iCheck">
+                              <input type="radio" class="flat" value="nobackup"  name="powerbackup">
                               no backup</label>
                           </div>
                         </div>
@@ -1477,22 +1297,24 @@
                       <div class="col-sm-3">
                         <div class="form-group">
                           <label>Lease Type</label>
-                          <select class="form-control">
-                            <option>Family</option>
-                            <option>Bachelors</option>
-                            <option>Company</option>
-                            <option>No Restriction</option>
+                          <select name="LeaseType" class="form-control">
+						  <option value="">select</option>
+                            <option value="Family">Family</option>
+                            <option value="Bachelors">Bachelors</option>
+                            <option value="Company">Company</option>
+                            <option value="NoRestriction">No Restriction</option>
                           </select>
                         </div>
                       </div>
                       <div class="col-sm-3">
                         <div class="form-group">
                           <label>No of Lifts</label>
-                          <select class="form-control">
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
+                          <select name="nooflifts" class="form-control">
+						  <option value="">select</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
                           </select>
                         </div>
                       </div>
@@ -1505,25 +1327,25 @@
                         <div class="x_content-1">
                           <div class="radio mabott10">
                             <label>
-                              <input type="radio" class="flat" checked name="iCheck">
+                              <input type="radio" class="flat" value="BarbedWire" name="boundarywall">
                               Barbed Wire</label>
                             <label>
-                              <input type="radio" class="flat"  name="iCheck">
+                              <input type="radio" class="flat" value="Grill" name="boundarywall">
                               Grill</label>
                             <label>
-                              <input type="radio" class="flat"  name="iCheck">
+                              <input type="radio" class="flat" value="Glass"  name="boundarywall">
                               Glass</label>
                             <label>
-                              <input type="radio" class="flat"  name="iCheck">
+                              <input type="radio" class="flat" value="ElectricWiring" name="boundarywall">
                               Electric Wiring</label>
                             <label>
-                              <input type="radio" class="flat"  name="iCheck">
+                              <input type="radio" class="flat" value="brickwall"  name="boundarywall">
                               brick wall</label>
                             <label>
-                              <input type="radio" class="flat"  name="iCheck">
+                              <input type="radio" class="flat" value="CementedWall"  name="boundarywall">
                               Cemented Wall</label>
                             <label>
-                              <input type="radio" class="flat"  name="iCheck">
+                              <input type="radio" class="flat" value="NA"  name="boundarywall">
                               NA</label>
                           </div>
                         </div>
@@ -1535,9 +1357,9 @@
                           <h4>Water Backup</h4>
                         </div>
                         <div class="clearfix"> <span class="checkbozsty-1">
-                          <input type="checkbox" checked="" value="500" name="multiselect_Amenities_VaastuCompliant_6">
+                          <input type="checkbox"  value="GroundTanks" name="waterbackup">
                           Grounded Tanks</span> <span class="checkbozsty-1">
-                          <input type="checkbox" checked="" value="501" name="multiselect_Amenities_Security_6">
+                          <input type="checkbox"  value="terracetanks" name="waterbackup">
                           Pterrace Tankse</span> </div>
                       </div>
                     </div>
@@ -1547,27 +1369,27 @@
                           <h4>Miscellaneous</h4>
                         </div>
                         <div class="clearfix"> <span class="checkbozsty-1">
-                          <input type="checkbox" checked="" value="39" name="multiselect_Amenities_VaastuCompliant_6">
+                          <input type="checkbox"  value="serventroom" name="Miscellaneous[]">
                           Servent Room</span> <span class="checkbozsty-1">
-                          <input type="checkbox" checked="" value="57" name="multiselect_Amenities_Security_6">
+                          <input type="checkbox"  value="privateterrace" name="Miscellaneous[]">
                           Private Terrace</span> <span class="checkbozsty-1">
-                          <input type="checkbox" checked="" value="58" name="multiselect_Amenities_ReservedParking_6">
+                          <input type="checkbox"  value="prayerroom" name="Miscellaneous[]">
                           Prayer Room</span> <span class="checkbozsty-1">
-                          <input type="checkbox" checked="" value="59" name="multiselect_Amenities_VisitorParking_6">
+                          <input type="checkbox"  value="terrace" name="Miscellaneous[]">
                           Terrace</span> <span class="checkbozsty-1">
-                          <input type="checkbox" value="246" name="multiselect_Amenities_WiFi_6">
+                          <input type="checkbox" value="rentnegotiable" name="Miscellaneous[]">
                           Rent Negotiable</span> <span class="checkbozsty-1">
-                          <input type="checkbox" checked="" value="333" name="multiselect_Amenities_ROWaterSystem_6">
+                          <input type="checkbox"  value="securitydeposit" name="Miscellaneous[]">
                           Security Deposit</span> <span class="checkbozsty-1">
-                          <input type="checkbox" checked="" value="338" name="multiselect_Amenities_VaastuCompliant_6">
+                          <input type="checkbox"  value="securitynegotiable" name="Miscellaneous[]">
                           Security Negotiable</span> <span class="checkbozsty-1">
-                          <input type="checkbox" checked="" value="39" name="multiselect_Amenities_VisitorParking_6">
+                          <input type="checkbox"  value="societyoverheadtank" name="Miscellaneous[]">
                           Society OverHead Tank</span> <span class="checkbozsty-1">
-                          <input type="checkbox" value="246" name="multiselect_Amenities_WiFi_6">
+                          <input type="checkbox" value="smokedetector" name="Miscellaneous[]">
                           Smoke Detector</span> <span class="checkbozsty-1">
-                          <input type="checkbox" checked="" value="334" name="multiselect_Amenities_ROWaterSystem_6">
+                          <input type="checkbox"  value="firehydrantsystem" name="Miscellaneous[]">
                           Fire Hydrant System</span> <span class="checkbozsty-1">
-                          <input type="checkbox" checked="" value="339" name="multiselect_Amenities_VaastuCompliant_6">
+                          <input type="checkbox"  value="solarwaterheater" name="Miscellaneous[]">
                           Solar Water Heater</span> </div>
                       </div>
                     </div>
@@ -2243,5 +2065,8 @@
         alert('Finish Clicked');
       }     
 		});
+		
+		
+		
 </script>
 

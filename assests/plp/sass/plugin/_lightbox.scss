@@ -1,0 +1,35 @@
+.lightbox{
+    .tab--nav{
+        padding: 20px 0;
+        a{
+            color: #fff;
+        }
+    }
+    .tab-content{
+        padding-top: 10px;
+    }
+}
+.close-popup{
+    display: inline-block;
+    &::before{
+            content: "\f00d";
+width: 56px;
+    height: 56px;
+    position: absolute;
+    right: 40px;
+    top: 8px;
+    font-size: 42px;
+    color: #fff !important;
+    text-shadow: inherit;
+    opacity: 1;
+    text-align: center;
+    }
+    &:hover{
+        color: #e9e9e9;
+        opacity: 1;
+    }
+}
+.modal-backdrop.in{
+    opacity: 0.8;
+    filter: alpha(opacity=80);
+}

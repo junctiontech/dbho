@@ -90,7 +90,9 @@ class AddProperty extends CI_Controller {
 						$atti=1;
 						foreach($AttributesGroup as $AttributesGroups)
 						{
-							
+							if($AttributesGroups->name !="Flooring" && $AttributesGroups->name !="Fittings" && $AttributesGroups->name !="Walls")
+							{
+												
 							echo"<div class=\"panel\"> <a class=\"panel-heading\" role=\"tab\" id=\"headingOneA$atti\" data-toggle=\"collapse\" data-parent=\"#accordionA$atti\" href=\"#collapseOneA$atti\" aria-expanded=\"false\" aria-controls=\"collapseOneA$atti\">";
                               echo"<h4 class=\"panel-title StepTitle\">$AttributesGroups->name</h4>";
 								echo"</a>";
@@ -102,7 +104,10 @@ class AddProperty extends CI_Controller {
 											{
 												foreach($Attribute as $Attributes)
 												{
+													if($Attributes->attrName !="Amenities" )
+													{
 													$Attributeoption=$this->AddProperty_model->GetAttributesoption($Attributes->attributeID);
+													
 													if($Attributes->attrInputType=="select"){
 													
 													  echo"<div class=\"form-group col-xs-12 col-sm-4 martop20\">";
@@ -140,12 +145,14 @@ class AddProperty extends CI_Controller {
 														//echo"<br>";
 													}
 												}
+												}
 											}
 								
                               echo"</div>";
                             echo"</div>";
 							 echo"</div>";
 							$atti++;
+						}
 						}
 						
 					}else{
@@ -352,7 +359,98 @@ class AddProperty extends CI_Controller {
 	}
 /*AddProperty Insert Data End.............................................................................................................*/
 
-	
+	public function uploadimage()
+	{
+		
+		$propertyID=$this->input->post('propertyID');
+		$imagecategory=$this->input->post('imagecategory');
+		
+		if(!empty($propertyID) && !empty($imagecategory))
+		{
+			
+			if($_FILES['file']['name']!='')
+			{
+				$data['image_z1']= $_FILES['file']['name'];
+				$image=sha1($_FILES['file']['name']).time().rand(0, 9);
+				
+					if(!empty($_FILES['file']['name']))
+					{
+				
+						$config =  array(
+						'upload_path'	  => './propertyImages/',
+						'file_name'       => $image,
+						'allowed_types'   => "gif|jpg|png|jpeg|JPG|JPEG|PNG|JPG",
+						'overwrite'       => true);
+						
+							$this->upload->initialize($config);
+							$this->load->library('upload');
+				 
+								if($this->upload->do_upload("file"))
+								{
+									$upload_data = $this->upload->data();
+									$image=$upload_data['file_name'];
+									$data=array('propertyID'=>$propertyID,'imageCatID'=>$imagecategory,'propertyImageName'=>$image,'isCoverImage'=>'No','propertyImagePriority'=>'1','propertyImageStatus'=>'Active');
+									$propertyImageID=$this->AddProperty_model->InsertProperty('rp_property_images',$data);
+									$data1=array('propertyImageID'=>$propertyImageID,'languageID'=>'1','propertyImageTitle'=>'','propertyImageAltTag'=>'');
+									$this->AddProperty_model->InsertProperty('rp_property_image_details',$data1);
+								}else
+								{
+										echo $this->upload->display_errors()."file upload failed";
+								}
+					}
+			}
+		
+		}
+		
+		
+		
+		
+		
+	}
 	
 		
+
+
+/*Preview Of Add Property...................................................................................................................................................*/
+public function propertyPreview(){
+			$data = array();
+			
+			$propertyID = $this->uri->segment(3);
+			$this->load->model('Properties_model');
+			
+			$data['individualUserList'] = $this->Properties_model->IndividualUserList();
+			
+			$data['property'] = $this->Properties_model->getPropertyName($propertyID);
+			
+			$data['propertyImage'] = $this->Properties_model->getPropertyImage($propertyID);
+			//echo "<pre>====";print_r($data['propertyImage']);
+			
+			$data['usertype'] = $this->Properties_model->getUserType($data['property'][0]->userID);
+
+			$data['userTypeDropdown'] = $this->Properties_model->getUser($data['property'][0]->userID,$data['usertype'][0]->userTypeID);
+
+			$data['propertyPrice'] = $this->Properties_model->getPropertyPrice($data['property'][0]->propertyID);
+			//echo "<pre>1====";print_r($data['propertyPrice']);			
+		
+			$data['userAddress'] = $this->Properties_model->getUserAddress($data['property'][0]->userID);
+	
+			$data['propertyLoc'] = $this->Properties_model->getPropertyLoc($data['property'][0]->propertyID);
+			//echo "<li>======> ".$data['propertyLoc'][0]->cityLocID;
+			if(!empty($data['propertyLoc'][0]->cityLocID)){
+			$data['cityname'] = $this->Properties_model->getPropertyCityName($data['propertyLoc'][0]->cityLocID);
+			}
+			$data['type'] = $this->Properties_model->getPropertyPreviewType($propertyID);
+			
+			/************************** get all attributes ************************************************/
+			$data['PropertySpecInfo'] = $this->Properties_model->getPropertySpecInfo($data['property'][0]->propertyID);
+			//echo "<pre>1====";print_r($data['PropertySpecInfo']);
+			$data['PropertyAttributes'] = $this->Properties_model->getPropertyAttributes($data['property'][0]->propertyTypeID,$data['property'][0]->propertyID);
+			$data['PropertyAmenitiesInfo'] = $this->Properties_model->getPropertyAmenitiesInfo($data['property'][0]->propertyID);
+			//echo "<pre>AM====";print_r($data['PropertyAmenitiesInfo']);
+			$this->load->view('PropertyPreview',$data);
+
+	}
+
+
 }
+?>

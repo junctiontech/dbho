@@ -1,0 +1,69 @@
+//
+// Breadcrumbs
+// --------------------------------------------------
+
+
+.breadcrumb {
+  padding:8px 2px;
+  //margin-bottom: $line-height-computed;
+  list-style: none;
+  background-color:transparent;
+  border-radius: $border-radius-base;
+  margin: 0;
+
+  > li {
+    display: inline-block;
+    font-size: 13px;
+    color: $gray;
+    + li:before {
+      content: "\003e"; // Unicode space added since inline-block means non-collapsing white-space
+      padding: 0 5px;
+      color: $gray-light;
+        
+    }
+      a{
+        color: inherit;
+          &:hover{
+              color: $brand-primary;
+          }
+      }
+  }
+
+  > .active {
+    color: $input-color-placeholder;
+  }
+}
+
+.breadcrumb {
+    &.style2{
+        @include border-radius(0);
+        padding: 5px 20px 3px;
+        margin-bottom: 12px;
+        background-color: $gray-lightest;
+        border-bottom: 1px solid $gray-lighter;
+        font-family: $font-semibold;
+        > li {
+
+        + li:before {
+          font-family: 'FontAwesome' ;
+          content: "\f054";
+          font-size: 8px;
+          padding: 0 5px;
+          color: $gray-light;
+
+        }  
+        }
+
+        a{
+            color: $gray-darker;
+
+        }
+        .active{
+            color: lighten($gray-light, 15%);
+            &::before{
+                color: lighten($gray-light, 15%);
+            }
+            
+        }
+    }
+}

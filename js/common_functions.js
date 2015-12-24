@@ -266,6 +266,7 @@ function InsertProperty(id)
 			  document.getElementById("form3_id").value=result;
 			  document.getElementById("form4_id").value=result;
 			  document.getElementById("form5_id").value=result;
+			  $('.form5_id').val(result);
          }
 });
 		
@@ -334,6 +335,7 @@ $("#propertytype").change(function(){
 				$("#loader").fadeIn();
 			},
             success:function(result){
+				//alert(result);
 				$("#loader").fadeOut();
 				$("#showattributes").html(result);
              
