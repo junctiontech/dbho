@@ -135,9 +135,8 @@ class AddProperty_model extends CI_Model
 	
 	public function deleteattributesandvalues($filter=false)
 	{
-				$this->db->where($filter);
-				$this->db->join('rp_property_attribute_value_details t2','t1.attrValueID=t2.attrValueID ','inner');
-				$this->db->delete('rp_property_attribute_values t1');
+		$this->db->query("DELETE rp_property_attribute_values,rp_property_attribute_value_details FROM rp_property_attribute_values JOIN rp_property_attribute_value_details ON rp_property_attribute_value_details.attrValueID = rp_property_attribute_values.attrValueID WHERE rp_property_attribute_values.propertyID ='$filter'");
+				
 
 	}
 	

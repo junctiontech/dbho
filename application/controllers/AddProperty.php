@@ -273,20 +273,65 @@ class AddProperty extends CI_Controller {
 						}else{											//Attributes strat............................................
 							
 							
-							/*if($key=="Amenities"){				
-							
-							if(!empty($datas))
+							if(!empty($key))
 							{
-								foreach($datas as $amenities){
 									
-									$amenitiesarr=explode("-",$amenities);
-									$amenitiesdata[]=array('attributeID'=>$amenitiesarr[0],'attrOptionID'=>$amenitiesarr[1]);
-									$amenitiesvalue[]=array('attrDetValue'=>$amenitiesarr[2]);
+									$typeofattribute=explode("-",$key);
 									
-								}
-							}
+									if(count($typeofattribute)>1)
+									{
+										
+										if($typeofattribute[0]=="select")
+										{
+											if(!empty($datas))
+												{
+													$optionidselect=explode("-",$datas);
+													
+													$selectattribute[]=array('attributeID'=>$typeofattribute[1],'attrOptionID'=>$optionidselect[0]);
+													$selectattributeval[]=$optionidselect[1];
+													
+												}
+											
+											
+										}elseif($typeofattribute[0]=="text")
+										{
+											if(!empty($datas))
+												{
+													$selectattribute[]=array('attributeID'=>$typeofattribute[1],'attrOptionID'=>0);
+													$selectattributeval[]=$datas;
+													
+												}
+											
+										}elseif($typeofattribute[0]=="multi")
+										{
+											if(!empty($datas))
+												{
+													foreach($datas as $attributemulti)
+													{
+									
+													$optionidselect=explode("-",$datas);
+													$selectattribute[]=array('attributeID'=>$typeofattribute[1],'attrOptionID'=>$optionidselect[0]);
+													$selectattributeval[]=$optionidselect[1];
+														
+													}
+												}
+											
+											
+										}
+									}
 							
-							}*/
+									if(!empty($datas))
+									{
+										foreach($datas as $amenities){
+											
+											$amenitiesarr=explode("-",$amenities);
+											$amenitiesdata[]=array('attributeID'=>$amenitiesarr[0],'attrOptionID'=>$amenitiesarr[1]);
+											$amenitiesvalue[]=array('attrDetValue'=>$amenitiesarr[2]);
+											
+										}
+									}
+							
+							}
 							
 							
 						}
@@ -314,8 +359,7 @@ class AddProperty extends CI_Controller {
 						if(!empty($amenitiesdata) && !empty($amenitiesvalue))
 						{	$i=0;
 							
-							$this->AddProperty_model->deleteattributesandvalues('rp_property_attribute_values',$filter1);
-							die;
+							$this->AddProperty_model->deleteattributesandvalues($data['propertyID']);
 							foreach($amenitiesdata as $amenitiesdatainsert)
 							{	
 								$amenitiesdatainsert['propertyID']=$data['propertyID'];
@@ -334,7 +378,8 @@ class AddProperty extends CI_Controller {
 					
 						$data1['propertyKey']= $propertykey;
 						$data1['propertyAddedDate']= $date;
-						
+						$data1['propertyAddedDate']= $date;
+						$data1['propertyStatus']= 'Draft';
 						$propertyid=$this->AddProperty_model->InsertProperty('rp_properties',$data1);
 						
 						$data2['propertyID']= $propertyid;
