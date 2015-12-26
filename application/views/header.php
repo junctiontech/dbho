@@ -104,9 +104,15 @@
 						<li><a href="<?=base_url();?>Campaign/Campaign_listing"><i class="fa fa-edit"></i> Campaign Listing</a></li>
 					</ul>
 				</li>
-				<li><a href="<?=base_url();?>AddProperty" ><i class="fa fa-edit"></i> Add Property </a>
-					
+				<li>
+					<a href="<?=base_url();?>AddProperty" ><i class="fa fa-edit"></i> Add Property </a>
 				</li>
+				<li><a><i class="fa fa-edit"></i> Project <span class="fa fa-chevron-down"></span></a>
+				  <ul class="nav child_menu" style="display: none">
+					<li><a href="<?=base_url();?>AddProject/ProjectList"><i class="fa fa-user"></i> Project List </a></li>
+					<li><a href="<?=base_url();?>AddProject" ><i class="fa fa-edit"></i> Add Project </a></li>
+				  </ul>
+				 </li>
 					
             </ul>
           </div>

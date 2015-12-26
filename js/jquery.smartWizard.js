@@ -330,7 +330,7 @@ function SmartWizard(target, options,test) {
 			InsertProperty(nextStepIdx);
 		}
 		if(returntype="project"){
-			
+			InsertProject(nextStepIdx);
 		}
         _loadContent(this, nextStepIdx);
     };

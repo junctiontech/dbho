@@ -60,6 +60,7 @@
 <script src="<?=base_url();?>js/moment.min.js"></script>
         <script src="<?=base_url();?>js/calendar/fullcalendar.min.js"></script>
 <script src="<?=base_url();?>js/common_functions.js"></script> 
+<script src="<?=base_url();?>js/project.js"></script>
 <script src="<?=base_url();?>js/script.js"></script> 
 <script type="text/javascript" src="<?=base_url();?>js/jquery.smartWizard.js"></script> 
 <script src="http://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places"></script> 
