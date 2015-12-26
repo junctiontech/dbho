@@ -874,17 +874,12 @@ AND t1.languageID =1','inner');
 	
 	public function getPropertyImage($propertyID = null){
 		 
-	   $this->db->select('APID');
-	   $this->db->from('rp_appointment_property');
-	   $this->db->where('LPID="'.$propertyID.'"');
+	   $this->db->select('*');
+	   $this->db->from(' rp_property_images');
+	   $this->db->where('propertyID="'.$propertyID.'"');
 	   $query = $this->db->get();
 	   
-	   $result = $query->result();
-	   $APID = $result[0]->APID;
-	   $this->db->select('*');
-	   $this->db->from('rp_app_images');
-	   $this->db->where('appointment_id="'.$APID.'"');
-	   $query = $this->db->get();
+	  
 	   //echo $this->db->last_query();
 	   return $result = $query->result();
 

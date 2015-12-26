@@ -184,7 +184,8 @@ class AddProperty extends CI_Controller {
 				
 				if($formname=="form-1")
 				{
-					
+					$propertyprice=array();
+				
 					foreach($data as $key=> $datas)
 					{
 						if($key=="userID")
@@ -282,6 +283,12 @@ class AddProperty extends CI_Controller {
 						  $data2['propertyCurrentStatus']= $datas;
 						}
 						
+						
+						if($key=="propertyPrice")
+						{
+						  $propertyprice['propertyPrice']= $datas;
+						}
+						
 					}
 					
 					if(!empty($data['propertyID'])){
@@ -293,6 +300,12 @@ class AddProperty extends CI_Controller {
 						$filter1=array('propertyID'=>$data['propertyID']);
 						$data2['languageID']= 1;
 						$this->AddProperty_model->InsertProperty('rp_property_details',$data2,$filter1);
+						
+						if(!empty($propertyprice))
+						{
+							$propertyprice['currencyID']=3;
+							$this->AddProperty_model->InsertProperty('rp_property_price',$propertyprice,$filter1);
+						}
 						
 					}else
 					{
@@ -307,6 +320,13 @@ class AddProperty extends CI_Controller {
 						$data2['languageID']= 1;
 						
 						$this->AddProperty_model->InsertProperty('rp_property_details',$data2);
+						
+						if(!empty($propertyprice))
+						{
+							$propertyprice['currencyID']=3;
+							$propertyprice['propertyID']= $propertyid;
+							$this->AddProperty_model->InsertProperty('rp_property_price',$propertyprice);
+						}
 					}
 					
 				}
@@ -335,8 +355,95 @@ class AddProperty extends CI_Controller {
 						$this->AddProperty_model->InsertProperty('rp_property_details',$data1,$filter1);
 					}
 					
-				}elseif($formname=="form-3")
+				}
+				elseif($formname=="form-3")
 				{
+					
+					if(!empty($data['propertyID']))
+					{
+						$bedroom=array();
+						$livingroom=array();$bathroom=array();$kitchen=array();
+							//..................................................................Bed Room
+							if(!empty($data['flooringTypebedroom']))
+							{
+								$bedroom['flooringType']=$data['flooringTypebedroom'];
+							}
+							if(!empty($data['othersbedroom']))
+							{
+									$otherscomaseparated=implode(",",$data['othersbedroom']);
+									$bedroom['others']=$otherscomaseparated;
+							}
+							
+							if(!empty($bedroom))
+							{
+								$bedroom['propertyID']=$data['propertyID'];
+								$this->AddProperty_model->Insertotherinfo('dbho_bed_room',$bedroom);
+							}
+							//.......................................................................Living Room
+							if(!empty($data['flooringTypelivingroom']))
+							{
+								$livingroom['flooringType']=$data['flooringTypelivingroom'];
+							}
+							if(!empty($data['otherslivingroom']))
+							{
+									$otherscomaseparated=implode(",",$data['otherslivingroom']);
+									$livingroom['others']=$otherscomaseparated;
+							}
+							
+							if(!empty($livingroom))
+							{
+								$livingroom['propertyID']=$data['propertyID'];
+								$this->AddProperty_model->Insertotherinfo('dbho_living_room',$livingroom);
+							}
+							//.......................................................................................Bath  Room
+							if(!empty($data['flooringTypebathroom']))
+							{
+								$bathroom['flooringType']=$data['flooringTypebathroom'];
+							}
+							if(!empty($data['hotwatersupply']))
+							{
+								$bathroom['hotwatersupply']=$data['hotwatersupply'];
+							}
+							if(!empty($data['toilet']))
+							{
+								$bathroom['toilet']=$data['toilet'];
+							}
+							if(!empty($data['othersbathroom']))
+							{
+									$otherscomaseparated=implode(",",$data['othersbathroom']);
+									$bathroom['others']=$otherscomaseparated;
+							}
+							
+							if(!empty($bathroom))
+							{
+								$bathroom['propertyID']=$data['propertyID'];
+								$this->AddProperty_model->Insertotherinfo('dbho_bath_room',$bathroom);
+							}
+							//.......................................................................................................
+							if(!empty($data['platform']))
+							{
+								$kitchen['platformType']=$data['platform'];
+							}
+							if(!empty($data['Cabinet']))
+							{
+								$kitchen['cabinet']=$data['Cabinet'];
+							}
+							
+							if(!empty($data['otherskitchen']))
+							{
+									$otherscomaseparated=implode(",",$data['otherskitchen']);
+									$kitchen['others']=$otherscomaseparated;
+							}
+							
+							if(!empty($kitchen))
+							{
+								$kitchen['propertyID']=$data['propertyID'];
+								$this->AddProperty_model->Insertotherinfo('dbho_kitchen',$kitchen);
+							}
+							//.....................................................................................................
+							
+							
+					}
 					
 					
 				}
@@ -345,11 +452,7 @@ class AddProperty extends CI_Controller {
 					
 					
 				}
-				elseif($formname=="form-image")
-				{
-					
-					
-				}
+				
 					if(!empty($propertyid)){ echo $propertyid;	}else{ if(!empty($data['propertyID'])){ echo $data['propertyID']; }}
 					
 			}else{
@@ -411,7 +514,7 @@ class AddProperty extends CI_Controller {
 		
 
 
-/*Preview Of Add Property...................................................................................................................................................*/
+/*Preview Of Added Property...................................................................................................................................................*/
 public function propertyPreview(){
 			$data = array();
 			

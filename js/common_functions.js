@@ -260,7 +260,7 @@ function InsertProperty(id)
 			},
          success: function(result){
 			 $("#loader").fadeOut();
-			// alert(result);
+			//alert(result);
 			  document.getElementById("form1_id").value=result;
 			  document.getElementById("form2_id").value=result;
 			  document.getElementById("form3_id").value=result;

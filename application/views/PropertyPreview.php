@@ -238,7 +238,7 @@
                                 foreach ($propertyImage as $key => $value) {
 							 ?>
                               <li>
-									<img src="http://dbproperties.ooo/vhosts/mobile/img/<?php echo $value->image;?>" title="" />
+									<img src="<?=base_url();?>propertyImages/<?php echo $value->propertyImageName;?>" title="" />
 							 </li>                            
                                 <?php
 									}

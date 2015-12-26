@@ -125,6 +125,14 @@ class AddProperty_model extends CI_Model
 
 	}
 	
+	public function Insertotherinfo($table=false,$data=false)
+	{
+		$db2 = $this->load->database('both', TRUE);
+		
+				$db2->insert($table,$data);
+		
+	}
+	
 	
 		
 }
