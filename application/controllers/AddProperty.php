@@ -113,11 +113,11 @@ class AddProperty extends CI_Controller {
 													  echo"<div class=\"form-group col-xs-12 col-sm-4 martop20\">";
 														echo"<label class=\"control-label\" for=\"last-name\">$Attributes->attrName </label>";
 														if($Attributes->attrName=="Bed Rooms"){ $call="onchange='generatenameproperty();'"; $id="id='bedroom'";}else{$call=''; $id='';}
-														echo"<select class=\"form-control\" $call $id>";
+														echo"<select name=\"select-$Attributes->attributeID\" class=\"form-control\" $call $id>";
 														  echo"<optgroup label=\"Select\">";
 														  echo"<option value=\"\">select</option>";
 														  foreach($Attributeoption as $Attributeoptions){
-														  echo"<option value=\"$Attributeoptions->attrOptionID\">$Attributeoptions->attrOptName</option>";
+														  echo"<option value=\"$Attributeoptions->attrOptionID-$Attributeoptions->attrOptName\">$Attributeoptions->attrOptName</option>";
 														  }
 														  echo"</optgroup>";
 														echo"</select>";
@@ -127,7 +127,7 @@ class AddProperty extends CI_Controller {
 													if($Attributes->attrInputType=="texbox"){
 													  echo"<div class=\"form-group col-xs-12 col-sm-4 \">";
 														echo"<label class=\"control-label\" for=\"last-name\">$Attributes->attrName </label>";
-														echo"<input id=\"middle-name\" class=\"form-control\" type=\"text\" name=\"middle-name\">";
+														echo"<input id=\"middle-name\" class=\"form-control\" type=\"text\" name=\"text-$Attributes->attributeID\">";
 													  echo"</div>";
 													}
 													  
@@ -138,7 +138,7 @@ class AddProperty extends CI_Controller {
 														foreach($Attributeoption as $Attributeoptions){
 														  
 														echo"<span class=\"checkbozsty\">";
-														echo"<input type=\"checkbox\"  value=\"$Attributeoptions->attrOptionID\" name=\"multiselect_Amenities_Security_6\">";
+														echo"<input type=\"checkbox\"  value=\"$Attributeoptions->attrOptionID-$Attributeoptions->attrOptName\" name=\"multi-$Attributes->attributeID[]\">";
 														echo"$Attributeoptions->attrOptName</span>";
 														}
 														echo"</div>";
@@ -169,7 +169,7 @@ class AddProperty extends CI_Controller {
 	function InsertProperty($formid=false)
 	{	
 		$data=$_POST;
-		//print_r();die;
+		//print_r($data);
 		$date=date("Y-m-d");
 		
 		if(!empty($formid))
@@ -185,109 +185,113 @@ class AddProperty extends CI_Controller {
 				if($formname=="form-1")
 				{
 					$propertyprice=array();
-				
+					$selectattribute=array();
+					$textattribute=array();
+					$multiattribute=array();
+					$amenitiesdata=array();
+					$amenitiesvalue=array();
+					
 					foreach($data as $key=> $datas)
 					{
 						if($key=="userID")
 						{
 						 $data1['userID']=$datas;
-						}
-						
-						if($key=="propertyTypeID")
+						 
+						}elseif($key=="propertyTypeID")
 						{
 						  $data1['propertyTypeID']= $datas;
-						}
-						
-						if($key=="propertyPurpose")
+						}elseif($key=="propertyPurpose")
 						{
 						  $data1['propertyPurpose']= $datas;
-						}
-						
-						if($key=="lat")
+						}elseif($key=="lat")
 						{
 						  $data1['propertyLatitude']= $datas;
-						}
-						
-						if($key=="lng")
+						}elseif($key=="lng")
 						{
 						  $data1['propertyLongitude']= $datas;
-						}
-						
-						if($key=="countryID")
+						}elseif($key=="countryID")
 						{
 						  $data1['countryID']= $datas;
-						}
-						
-						if($key=="stateID")
+						}elseif($key=="stateID")
 						{
 						  $data1['stateID']= $datas;
-						}
-						
-						if($key=="cityID")
+						}elseif($key=="cityID")
 						{
 						  $data1['cityID']= $datas;
-						}
-						
-						if($key=="cityLocID")
+						}elseif($key=="cityLocID")
 						{
 						  $data1['cityLocID']= $datas;
-						}
-						if($key=="postal_code")
+						}elseif($key=="postal_code")
 						{
 						  $data1['propertyZipCode']= $datas;
-						}
-						if($key=="propertyStatus")
+						}elseif($key=="propertyStatus")
 						{
 						  $data1['propertyStatus']= $datas;
-						}
-						if($key=="projectID")
+						}elseif($key=="projectID")
 						{
 						  $data1['projectID']= $datas;
-						}
-						if($key=="type")
+						}elseif($key=="type")
 						{
 						  $data1['type']= $datas;
-						}
-						if($key=="isNegotiable")
+						}elseif($key=="isNegotiable")
 						{
 						  $data1['isNegotiable']= $datas;
-						}
-						//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-						if($key=="propertyName")
+						}elseif($key=="propertyName")           //Data 2 start..................................................
 						{
 						  $data2['propertyName']= $datas;
-						}
-						
-						if($key=="propertyAddress1")
+						}elseif($key=="propertyAddress1")
 						{
 						  $data2['propertyAddress1']= $datas;
-						}
-						
-						if($key=="sublocality")
+						}elseif($key=="sublocality")
 						{
 						  $data2['propertyAddress2']= $datas;
-						}
-						
-						if($key=="propertyDescription")
+						}elseif($key=="propertyDescription")
 						{
 						  $data2['propertyDescription']= $datas;
-						}
-						
-						if($key=="sublocality")
+						}elseif($key=="sublocality")
 						{
 						  $data2['propertyLocality']= $datas;
-						}
-						
-						if($key=="propertyCurrentStatus")
+						}elseif($key=="propertyCurrentStatus")
 						{
 						  $data2['propertyCurrentStatus']= $datas;
-						}
-						
-						
-						if($key=="propertyPrice")
+						}elseif($key=="propertyPrice")
 						{
 						  $propertyprice['propertyPrice']= $datas;
+						}elseif($key=="Amenities"){					//Amenities Start.........................................
+							
+							if(!empty($datas))
+							{
+								foreach($datas as $amenities){
+									
+									$amenitiesarr=explode("-",$amenities);
+									$amenitiesdata[]=array('attributeID'=>$amenitiesarr[0],'attrOptionID'=>$amenitiesarr[1]);
+									$amenitiesvalue[]=array('attrDetValue'=>$amenitiesarr[2]);
+									
+								}
+							}
+							
+						}else{											//Attributes strat............................................
+							
+							
+							/*if($key=="Amenities"){				
+							
+							if(!empty($datas))
+							{
+								foreach($datas as $amenities){
+									
+									$amenitiesarr=explode("-",$amenities);
+									$amenitiesdata[]=array('attributeID'=>$amenitiesarr[0],'attrOptionID'=>$amenitiesarr[1]);
+									$amenitiesvalue[]=array('attrDetValue'=>$amenitiesarr[2]);
+									
+								}
+							}
+							
+							}*/
+							
+							
 						}
+						
+						
 						
 					}
 					
@@ -306,6 +310,23 @@ class AddProperty extends CI_Controller {
 							$propertyprice['currencyID']=3;
 							$this->AddProperty_model->InsertProperty('rp_property_price',$propertyprice,$filter1);
 						}
+						
+						if(!empty($amenitiesdata) && !empty($amenitiesvalue))
+						{	$i=0;
+							
+							$this->AddProperty_model->deleteattributesandvalues('rp_property_attribute_values',$filter1);
+							die;
+							foreach($amenitiesdata as $amenitiesdatainsert)
+							{	
+								$amenitiesdatainsert['propertyID']=$data['propertyID'];
+								$attributevalueId=$this->AddProperty_model->InsertProperty('rp_property_attribute_values',$amenitiesdatainsert);
+								$amenitiesvalue[$i]['attrValueID']=$attributevalueId;
+								$amenitiesvalue[$i]['languageID']=1;
+								$this->AddProperty_model->InsertProperty('rp_property_attribute_value_details',$amenitiesvalue[$i]);
+								$i++;
+							}
+						}
+						
 						
 					}else
 					{
@@ -327,6 +348,21 @@ class AddProperty extends CI_Controller {
 							$propertyprice['propertyID']= $propertyid;
 							$this->AddProperty_model->InsertProperty('rp_property_price',$propertyprice);
 						}
+						
+						if(!empty($amenitiesdata) && !empty($amenitiesvalue))
+						{	$i=0;
+							
+							foreach($amenitiesdata as $amenitiesdatainsert)
+							{	
+								$amenitiesdatainsert['propertyID']=$propertyid;
+								$attributevalueId=$this->AddProperty_model->InsertProperty('rp_property_attribute_values',$amenitiesdatainsert);
+								$amenitiesvalue[$i]['attrValueID']=$attributevalueId;
+								$amenitiesvalue[$i]['languageID']=1;
+								$this->AddProperty_model->InsertProperty('rp_property_attribute_value_details',$amenitiesvalue[$i]);
+								$i++;
+							}
+						}
+						
 					}
 					
 				}

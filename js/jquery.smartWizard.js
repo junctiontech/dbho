@@ -11,8 +11,9 @@
  * http://tech-laboratory.blogspot.com
  */
 
-function SmartWizard(target, options) {
-    this.target       = target;
+function SmartWizard(target, options,test) {
+	
+	this.target       = target;
     this.options      = options;
     this.curStepIdx   = options.selected;
     this.steps        = $(target).children("ul").children("li").children("a"); // Get all anchors
@@ -324,7 +325,13 @@ function SmartWizard(target, options) {
             }
             nextStepIdx = 0;
         }
-		InsertProperty(nextStepIdx);
+		var returntype =checktype();
+		if(returntype="property"){
+			InsertProperty(nextStepIdx);
+		}
+		if(returntype="project"){
+			
+		}
         _loadContent(this, nextStepIdx);
     };
 

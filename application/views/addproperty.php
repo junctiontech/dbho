@@ -204,7 +204,7 @@
                                     <div class="form-group clearfix">
                                       <label class="control-label col-md-2 col-sm-2 col-xs-12 martop15" style="text-align:right">Covered Area</label>
                                       <div class="col-md-2 col-sm-2 col-xs-12">
-                                        <input id="middle-name" placeholder="Covered Area" class="form-control" type="text" name="middle-name">
+                                        <input id="middle-name" placeholder="Covered Area" class="form-control" type="text" name="">
                                       </div>
                                       <div class="col-md-2 col-sm-2 col-xs-12">
                                         <select class="select2_group form-control">
@@ -222,7 +222,7 @@
                                     <div class="form-group clearfix">
                                       <label class="control-label col-md-2 col-sm-2 col-xs-12 martop15" style="text-align:right">Plot Area</label>
                                       <div class="col-md-2 col-sm-2 col-xs-12">
-                                        <input id="middle-name" placeholder="Plot Area" class="form-control" type="text" name="middle-name">
+                                        <input id="middle-name" placeholder="Plot Area" class="form-control" type="text" name="">
                                       </div>
                                       <div class="col-md-2 col-sm-2 col-xs-12">
                                         <select class="select2_group form-control">
@@ -240,7 +240,7 @@
                                     <div class="form-group clearfix">
                                       <label class="control-label col-md-2 col-sm-2 col-xs-12 martop15" style="text-align:right">Carpet Area</label>
                                       <div class="col-md-2 col-sm-2 col-xs-12">
-                                        <input id="middle-name" placeholder="Carpet Area" class="form-control" type="text" name="middle-name">
+                                        <input id="middle-name" placeholder="Carpet Area" class="form-control" type="text" name="">
                                       </div>
                                       <div class="col-md-2 col-sm-2 col-xs-12">
                                         <select class="select2_group form-control">
@@ -276,7 +276,7 @@
                                     <div class="form-group clearfix">
                                       <label class="control-label col-md-2 col-sm-2 col-xs-12 martop15">Price per Sq-ft <i class="fa fa-rupee text-right"></i></label>
                                       <div class="col-md-8 col-sm-8 col-xs-12">
-                                        <input id="middle-name" class="form-control" type="text" name="middle-name">
+                                        <input id="middle-name" class="form-control" type="text" name="">
                                       </div>
                                     </div>
                                     <div class="form-group clearfix">
@@ -284,13 +284,13 @@
                                       <div class="col-md-8 col-sm-8 col-xs-12">
                                         <div class="radio mabott10">
                                           <label>
-                                            <input type="radio" class="flat" checked name="iCheck">
+                                            <input type="radio" class="flat" checked name="">
                                             1 Lac </label>
                                           <label>
-                                            <input type="radio" class="flat" name="iCheck">
+                                            <input type="radio" class="flat" name="">
                                             1 Lac Negotiable </label>
                                           <label>
-                                            <input type="radio" class="flat" name="iCheck">
+                                            <input type="radio" class="flat" name="">
                                             Call For Price </label>
                                         </div>
                                       </div>
@@ -300,13 +300,13 @@
                                       <div class="col-md-10 col-sm-10 col-xs-12">
                                         <div class="checkbox cklabl">
                                           <label>
-                                            <input type="checkbox" name="hobbies[]" id="hobby1" value="ski" data-parsley-mincheck="2" required class="flat" />
+                                            <input type="checkbox" name="" id="hobby1" value="ski" data-parsley-mincheck="2" required class="flat" />
                                             PLC </label>
                                           <label>
-                                            <input type="checkbox" name="hobbies[]" id="hobby1" value="ski" data-parsley-mincheck="2" required class="flat" />
+                                            <input type="checkbox" name="" id="hobby1" value="ski" data-parsley-mincheck="2" required class="flat" />
                                             Car Parking </label>
                                           <label>
-                                            <input type="checkbox" name="hobbies[]" id="hobby1" value="ski" data-parsley-mincheck="2" required class="flat" />
+                                            <input type="checkbox" name="" id="hobby1" value="ski" data-parsley-mincheck="2" required class="flat" />
                                             Club Membership </label>
                                         </div>
                                       </div>
@@ -314,13 +314,13 @@
                                     <div class="form-group clearfix">
                                       <label class="control-label col-md-2 col-sm-2 col-xs-12 martop15">Booking/Token Amount <i class="fa fa-rupee text-right"></i></label>
                                       <div class="col-md-8 col-sm-8 col-xs-12">
-                                        <input id="middle-name" class="form-control" placeholder="Booking/Token Amount" type="text" name="middle-name">
+                                        <input id="middle-name" class="form-control" placeholder="Booking/Token Amount" type="text" name="">
                                       </div>
                                     </div>
                                     <div class="form-group clearfix">
                                       <label class="control-label col-md-2 col-sm-2 col-xs-12 martop15">Maintenance Charges <i class="fa fa-rupee text-right"></i></label>
                                       <div class="col-md-4 col-sm-4 col-xs-12">
-                                        <input id="middle-name" class="form-control" placeholder="Maintenance Charges" type="text" name="middle-name">
+                                        <input id="middle-name" class="form-control" placeholder="Maintenance Charges" type="text" name="">
                                       </div>
                                       <div class="col-md-4 col-sm-4 col-xs-12">
                                         <select class="select2_group form-control">
@@ -337,7 +337,7 @@
                                     <div class="form-group clearfix">
                                       <label class="control-label col-md-2 col-sm-2 col-xs-12 martop15">Other Charges <i class="fa fa-rupee text-right"></i></label>
                                       <div class="col-md-8 col-sm-8 col-xs-12">
-                                        <input id="middle-name" class="form-control" placeholder="Other Charges" type="text" name="middle-name">
+                                        <input id="middle-name" class="form-control" placeholder="Other Charges" type="text" name="">
                                       </div>
                                       <div class="col-md-4 col-sm-4 col-xs-12"> </div>
                                     </div>
@@ -356,10 +356,10 @@
                                       <div class="col-md-10 col-sm-10 col-xs-12 martop15">
                                         <div class="radio mabott10">
                                           <label>
-                                            <input type="radio" class="flat" checked name="iCheck">
+                                            <input type="radio" class="flat" checked name="">
                                             New Property </label>
                                           <label>
-                                            <input type="radio" class="flat" name="iCheck">
+                                            <input type="radio" class="flat" name="">
                                             Resale </label>
                                         </div>
                                       </div>
@@ -369,10 +369,10 @@
                                       <div class="col-md-10 col-sm-10 col-xs-12">
                                         <div class="radio mabott10">
                                           <label>
-                                            <input type="radio" class="flat" checked name="iCheck">
+                                            <input type="radio" class="flat" checked name="">
                                             Under Construction </label>
                                           <label>
-                                            <input type="radio" class="flat" name="iCheck">
+                                            <input type="radio" class="flat" name="">
                                             Ready To Move </label>
                                         </div>
                                       </div>
@@ -447,7 +447,7 @@
 									<?php $Attributeoption=$this->AddProperty_model->GetAttributesoption(6);
 									foreach($Attributeoption as $Attributeoptions){?>
 								    <span class="checkbozsty">
-                                    <input type="checkbox" value="<?=$Attributeoptions->attrOptionID?>" name="Amenities">
+                                    <input type="checkbox" value="6-<?=$Attributeoptions->attrOptionID?>-<?=$Attributeoptions->attrOptName?>" name="Amenities[]">
                                     <?=$Attributeoptions->attrOptName?></span>
 									<?php } ?>
 									. 
@@ -1745,9 +1745,13 @@
         $('#wizard').smartWizard('showMessage','Finish Clicked');
         alert('Finish Clicked');
       }     
+		
 		});
 		
-		
+		function checktype(){
+			
+			return 'property';
+		}
 		
 </script>
 
