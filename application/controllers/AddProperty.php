@@ -364,17 +364,17 @@ class AddProperty extends CI_Controller {
 						}
 						
 						if(!empty($selectattribute) && !empty($selectattributeval))
-						{	$i=0;
+						{	$j=0;
 							
 							$this->AddProperty_model->deleteattributesandvalues($data['propertyID']);
 							foreach($selectattribute as $selectattributeinsert)
 							{	
 								$selectattributeinsert['propertyID']=$data['propertyID'];
 								$attributevalueId=$this->AddProperty_model->InsertProperty('rp_property_attribute_values',$selectattributeinsert);
-								$selectattributeval[$i]['attrValueID']=$attributevalueId;
-								$selectattributeval[$i]['languageID']=1;
-								$this->AddProperty_model->InsertProperty('rp_property_attribute_value_details',$selectattributeval[$i]);
-								$i++;
+								$selectattributeval[$j]['attrValueID']=$attributevalueId;
+								$selectattributeval[$j]['languageID']=1;
+								$this->AddProperty_model->InsertProperty('rp_property_attribute_value_details',$selectattributeval[$j]);
+								$j++;
 							}
 						}
 						
@@ -416,16 +416,18 @@ class AddProperty extends CI_Controller {
 						}
 						
 						if(!empty($selectattribute) && !empty($selectattributeval))
-						{	$i=0;
+						{	$j=0;
 							
 							foreach($selectattribute as $selectattributeinsert)
 							{	
 								$selectattributeinsert['propertyID']=$propertyid;
+								
 								$attributevalueId=$this->AddProperty_model->InsertProperty('rp_property_attribute_values',$selectattributeinsert);
-								$selectattributeval[$i]['attrValueID']=$attributevalueId;
-								$selectattributeval[$i]['languageID']=1;
-								$this->AddProperty_model->InsertProperty('rp_property_attribute_value_details',$selectattributeval[$i]);
-								$i++;
+								$selectattributeval[$j]['attrValueID']=$attributevalueId;
+								$selectattributeval[$j]['languageID']=1;
+								print_r($attributevalueId);print_r($selectattributeval);die;
+								$this->AddProperty_model->InsertProperty('rp_property_attribute_value_details',$selectattributeval[$j]);
+								$j++;
 							}
 						}
 						
@@ -615,6 +617,29 @@ class AddProperty extends CI_Controller {
 	}
 	
 		
+/*Property List view Load Start.............................................................................................................*/
+	function PropertyListing()
+	{	
+		$this->data['propertylisting']=$this->AddProperty_model->get_propertylisting();
+		$this->parser->parse('header',$this->data);
+		$this->load->view('propertylist',$this->data);
+		$this->parser->parse('footer',$this->data);
+		
+	}
+/*Property List view Load Start.............................................................................................................*/
+
+/*Property Log view Load Start.............................................................................................................*/
+	function PropertyLog()
+	{	
+		//$this->data['projects']=$this->AddProperty_model->get_project();
+		//$this->data['propertytype']=$this->AddProperty_model->getPropertyType();
+		//$this->data['user_type']=$this->AddProperty_model->get_user_type();
+		$this->parser->parse('header',$this->data);
+		$this->load->view('propertylog',$this->data);
+		$this->parser->parse('footer',$this->data);
+		
+	}
+/*Property Log view Load Start.............................................................................................................*/
 
 
 /*Preview Of Added Property...................................................................................................................................................*/

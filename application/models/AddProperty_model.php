@@ -136,11 +136,18 @@ class AddProperty_model extends CI_Model
 	public function deleteattributesandvalues($filter=false)
 	{
 		$this->db->query("DELETE rp_property_attribute_values,rp_property_attribute_value_details FROM rp_property_attribute_values JOIN rp_property_attribute_value_details ON rp_property_attribute_value_details.attrValueID = rp_property_attribute_values.attrValueID WHERE rp_property_attribute_values.propertyID ='$filter'");
-				
-
 	}
 	
-	
+	function get_propertylisting()
+	{		
+			$qry = $this->db->query("select rp_properties.propertyID,propertyStatus,propertyAddedDate,propertyName,userEmail,userTypeName from rp_properties,rp_property_details,rp_users,rp_user_type_details where
+									rp_properties.propertyID=rp_property_details.propertyID and
+									rp_properties.userID=rp_users.userID and
+									rp_users.userTypeID=rp_user_type_details.userTypeID and
+									rp_property_details.languageID='1' and
+									rp_user_type_details.languageID='1'");	
+			return $qry->Result();	
+	}
 	
 		
 }

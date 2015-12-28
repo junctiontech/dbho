@@ -328,8 +328,7 @@ function SmartWizard(target, options,test) {
 		var returntype =checktype();
 		if(returntype="property"){
 			InsertProperty(nextStepIdx);
-		}
-		if(returntype="project"){
+		}else{
 			InsertProject(nextStepIdx);
 		}
         _loadContent(this, nextStepIdx);
