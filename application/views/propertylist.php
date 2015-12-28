@@ -114,7 +114,7 @@
                        <a href="<?=base_url();?>AddProperty/PropertyLog/<?=isset($propertylistings->propertyID)?$propertylistings->propertyID:''?>" title="Log" alt="Log"><i class="fa fa-archive"></i></a>
                        <a href="<?=base_url();?>AddProperty/Deleteproperty/<?=isset($propertylistings->propertyID)?$propertylistings->propertyID:''?>" title="Delete" alt="Delete"><i class="fa fa-trash"></i></a><br>
                        <a href="#" title="Pause" alt="Pause"><i class="fa fa-pause"></i></a>
-                       <a href="#" title="Refresh" alt="Refresh"><i class="fa fa-refresh"></i></a>
+                       <a href="<?=base_url();?>AddProperty/propertyPreview/<?=isset($propertylistings->propertyID)?$propertylistings->propertyID:''?>" target="_blank" title="Preview" alt="Refresh"><i class="fa fa-refresh"></i></a>
                        <a <?php if($propertylistings->propertyStatus!="Active"){ echo "href='/AddProperty/ActivateProperty/$propertylistings->propertyID'";}?> title="Active" alt="Active"><i class="fa fa-lightbulb-o"></i></a>
                        </div>
                        </td>

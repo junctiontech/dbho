@@ -289,7 +289,7 @@ class AddProperty extends CI_Controller {
 													$optionidselect=explode("-",$datas);
 													
 													$selectattribute[]=array('attributeID'=>$typeofattribute[1],'attrOptionID'=>$optionidselect[0]);
-													$selectattributeval[]=$optionidselect[1];
+													$selectattributeval[]=array('attrDetValue'=>$optionidselect[1]);
 													
 												}
 											
@@ -299,7 +299,7 @@ class AddProperty extends CI_Controller {
 											if(!empty($datas))
 												{
 													$selectattribute[]=array('attributeID'=>$typeofattribute[1],'attrOptionID'=>0);
-													$selectattributeval[]=$datas;
+													$selectattributeval[]=array('attrDetValue'=>$datas);
 													
 												}
 											
@@ -312,7 +312,7 @@ class AddProperty extends CI_Controller {
 									
 													$optionidmulti=explode("-",$attributemulti);
 													$selectattribute[]=array('attributeID'=>$typeofattribute[1],'attrOptionID'=>$optionidmulti[0]);
-													$selectattributeval[]=$optionidmulti[1];
+													$selectattributeval[]=array('attrDetValue'=>$optionidmulti[1]);
 														
 													}
 												}
@@ -425,7 +425,7 @@ class AddProperty extends CI_Controller {
 								$attributevalueId=$this->AddProperty_model->InsertProperty('rp_property_attribute_values',$selectattributeinsert);
 								$selectattributeval[$j]['attrValueID']=$attributevalueId;
 								$selectattributeval[$j]['languageID']=1;
-								print_r($attributevalueId);print_r($selectattributeval);die;
+								//print_r($attributevalueId);print_r($selectattributeval);die;
 								$this->AddProperty_model->InsertProperty('rp_property_attribute_value_details',$selectattributeval[$j]);
 								$j++;
 							}

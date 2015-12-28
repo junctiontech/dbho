@@ -29,7 +29,7 @@
 </head>
 <body data-spy="scroll" data-target=".navbar" data-offset="250"> 
     <div id="outer">
-	<input type="hidden" value="<?php echo $property[0]->propertyID?>" name="propertyid" id="propertyid" />
+	<input type="hidden" value="<?=isset($property[0]->propertyID)?$property[0]->propertyID:''?>" name="propertyid" id="propertyid" />
         <!--START:CommonTopmenu.tpl-->
         <a id="nav-expander" class="nav-expander icon"></a>
     <!--Start: Nav -->
@@ -159,7 +159,10 @@
               echo $propertyPrice[0]->propertyPrice;
               //echo " K";
             }else{
-              echo ($propertyPrice[0]->propertyPrice/100000);
+				
+				
+              echo $propertyPrice[0]->propertyPrice/100000;
+				
               echo " Lac";
             }
              
@@ -310,7 +313,11 @@
                                <?php 
                                    foreach ($PropertySpecInfo as $key => $value) {
                                     if($value->attrName=="Built Up Area"){
+										if(!empty($propertyPrice[0]->propertyPrice) && !empty($value->attrDetValue)){
                                       echo floor($propertyPrice[0]->propertyPrice/$value->attrDetValue);
+										}else{
+											echo"Null";
+										}
                                     }
                                   }                                 
                                    ?>
