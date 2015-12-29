@@ -21,7 +21,7 @@ class AddProject extends CI_Controller {
 		/*......................Add Project view Load Start......................*/
 	function index($filter=false)
 	{	//echo $filter;die;
-		if(!empty($filter))
+		if(!empty($filter)) 
 		{
 			$ProjectFilterData=$this->data['ProjectFilterData']=$this->AddProject_model->GetProjectDataDetail($filter,$this->data['LanguageId']);// print_r($ProjectFilterData);die;
 			
