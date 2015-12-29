@@ -331,6 +331,9 @@ function SmartWizard(target, options,test) {
 			if(nextStepIdx==2){
 				shownoofbedrooms(nextStepIdx);
 			}
+			if(nextStepIdx==3){
+				showpreview(nextStepIdx);
+			}
 			InsertProperty(nextStepIdx);
 		}else{
 			InsertProject(nextStepIdx);

@@ -946,6 +946,496 @@ class AddProperty extends CI_Controller {
 	}
 /*Get No Of Bed Rooms Kitchens etc from db for insert End.............................................................................................................*/
 
+/*Show preview on 4th Step from db inserted Data Start.............................................................................................................*/
+	function Showpreview()
+	{	
+		if(!empty($this->input->post('propertyid')))
+			{
+				$filter=array('propertyID'=>$this->input->post('propertyid'));
+				$propertytabledetails=$this->AddProperty_model->Shownpreview($this->input->post('propertyid'));
+				
+				if(!empty($propertytabledetails))
+				{
+					if(!empty($propertytabledetails[0]->propertyPurpose)){$purpose=$propertytabledetails[0]->propertyPurpose;}else{$purpose="Not Mentioned";}
+					
+					if(!empty($propertytabledetails[0]->projectID))
+					{
+								$under="Property Under Project";
+								$projectid=$propertytabledetails[0]->projectID;
+								$projectnames=$this->AddProperty_model->get_project(" and rp_projects.projectID=$projectid");
+								$projectname=$projectnames[0]->projectName;
+					}else{ $under="Individual Property";$projectname="No"; }
+					
+					if(!empty($propertytabledetails[0]->propertyTypeID)){$propertytypeid=$propertytabledetails[0]->propertyTypeID;
+						$propertytypenames=$this->AddProperty_model->getPropertyType(" AND t2.propertyTypeID=$propertytypeid");
+						$propertytypename=$propertytypenames[0]->propertyTypeName;
+					}else{$propertytypename="NO";}
+					
+					if(!empty($propertytabledetails[0]->propertyName)){$propertyname=$propertytabledetails[0]->propertyName;}else{$propertyname="NO";}
+					
+					if(!empty($propertytabledetails[0]->propertyStatus)){$propertystatus=$propertytabledetails[0]->propertyStatus;}else{$propertystatus="NO";}
+					
+					if(!empty($propertytabledetails[0]->propertyAddedDate)){$propertydate=$propertytabledetails[0]->propertyAddedDate;}else{$propertydate="NO";}
+					
+					if(!empty($propertytabledetails[0]->userID)){$userID=$propertytabledetails[0]->userID;
+								$userdetails=$this->AddProperty_model->getuserforpreview($userID);
+								$usertypeid=$userdetails[0]->userTypeID;
+								$usertypedetails=$this->AddProperty_model->get_user_type(" and rp_user_types.userTypeID=$usertypeid");
+								$useremail=$userdetails[0]->userEmail;$usertype=$usertypedetails[0]->userTypeName;$userplan="Not Mentioned";
+					}else{$useremail="Not Mentioned";$usertype="Not Mentioned";$userplan="Not Mentioned";}
+					
+					$getpropertyprice=$this->AddProperty_model->Getotherdata('rp_property_price',$filter);
+					if(!empty($getpropertyprice[0]->propertyPrice)){$propertyprice=$getpropertyprice[0]->propertyPrice;}else{$propertyprice="Not Mentioned";}
+					
+					if(!empty($propertytabledetails[0]->isNegotiable)){$isNegotiable=$propertytabledetails[0]->isNegotiable;}else{$isNegotiable="Not Mentioned";}
+					
+					if(!empty($propertytabledetails[0]->propertyDescription)){$propertyDescription=$propertytabledetails[0]->propertyDescription;}else{$propertyDescription="Not Mentioned";}
+					
+					echo"<div style=\"margin-top:20px;\" class=\"row labcol\">
+                      <div class=\"col-sm-3\">
+                        <div class=\"form-group botbott\">
+                          <label>$purpose</label>
+                          <p>$purpose</p>
+                        </div>
+                      </div>
+                      <div class=\"col-sm-3\">
+                        <div class=\"form-group botbott\">
+                          <label> $under</label>
+                          <p>$under </p>
+                        </div>
+                      </div>
+                      <div class=\"col-sm-3\">
+                        <div class=\"form-group botbott\">
+                          <label>Select Project</label>
+                          <p>$projectname</p>
+                        </div>
+                      </div>
+                      <div class=\"col-sm-3\">
+                        <div class=\"form-group botbott\">
+                          <label>Property Type</label>
+                          <p>$propertytypename </p>
+                        </div>
+                      </div>
+                      <div class=\"col-sm-3\">
+                        <div class=\"form-group botbott\">
+                          <label> Property Name</label>
+                          <p>$propertyname </p>
+                        </div>
+                      </div>
+                      <div class=\"col-sm-3\">
+                        <div class=\"form-group botbott\">
+                          <label> Current Status</label>
+                          <p>$propertystatus </p>
+                        </div>
+                      </div>
+                      <div class=\"col-sm-3\">
+                        <div class=\"form-group botbott\">
+                          <label> Date</label>
+                          <p>$propertydate </p>
+                        </div>
+                      </div>
+                      <div class=\"col-sm-3\">
+                        <div class=\"form-group botbott\">
+                          <label> User Type</label>
+                          <p>$usertype </p>
+                        </div>
+                      </div>
+                      <div class=\"col-sm-3\">
+                        <div class=\"form-group botbott\">
+                          <label> $usertype</label>
+                          <p>$useremail </p>
+                        </div>
+                      </div>
+                      <div class=\"col-sm-3\">
+                        <div class=\"form-group botbott\">
+                          <label> User Plan</label>
+                          <p>$userplan </p>
+                        </div>
+                      </div>
+                      <div class=\"col-sm-3\">
+                        <div class=\"form-group botbott\">
+                          <label> Price</label>
+                          <p>$propertyprice </p>
+                        </div>
+                      </div>
+                      <div class=\"col-sm-3\">
+                        <div class=\"form-group botbott\">
+                          <label> Negotiable </label>
+                          <p>$isNegotiable </p>
+                        </div>
+                      </div>
+                    </div>
+                    <div style=\"margin-top:20px;\" class=\"row labcol\">
+                      <div class=\"col-md-12 col-sm-12 col-xs-12\">
+                        <div class=\"form-group botbott\">
+                          <label>Description</label>
+                          <p>$propertyDescription.</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div style=\"margin-top:20px;\" class=\"row labcol\">
+                      <h2 class=\"StepTitle\">Property Specification</h2>
+                      <div class=\"col-sm-3 martop15\">
+                        <div class=\"form-group botbott\">
+                          <label>Bed Rooms </label>
+                          <p>1 </p>
+                        </div>
+                      </div>
+                      <div class=\"col-sm-3 martop15\">
+                        <div class=\"form-group botbott\">
+                          <label>Bath Rooms </label>
+                          <p>2 </p>
+                        </div>
+                      </div>
+                      <div class=\"col-sm-3 martop15\">
+                        <div class=\"form-group botbott\">
+                          <label>Balcony </label>
+                          <p>1 </p>
+                        </div>
+                      </div>
+                      <div class=\"col-sm-3 martop15\">
+                        <div class=\"form-group botbott\">
+                          <label>Wash Dry Area </label>
+                          <p>2 </p>
+                        </div>
+                      </div>
+                      <div class=\"col-sm-3 martop15\">
+                        <div class=\"form-group botbott\">
+                          <label>Parking </label>
+                          <p>2 </p>
+                        </div>";
+                   echo'   </div>
+                      <div class="col-sm-3 martop15">
+                        <div class="form-group botbott">
+                          <label>Structure </label>
+                          <p>ABC </p>
+                        </div>
+                      </div>
+                      <div class="col-sm-3 martop15">
+                        <div class="form-group botbott">
+                          <label>Solar Water Heater </label>
+                          <p>2 </p>
+                        </div>
+                      </div>
+                      <div class="col-sm-3 martop15">
+                        <div class="form-group botbott">
+                          <label>Built Up Area </label>
+                          <p>ABC </p>
+                        </div>
+                      </div>
+                      <div class="col-sm-3 martop15">
+                        <div class="form-group botbott">
+                          <label>Society Name </label>
+                          <p>ABC </p>
+                        </div>
+                      </div>
+                      <div class="col-sm-3 martop15">
+                        <div class="form-group botbott">
+                          <label>Ownership Type </label>
+                          <p>2 </p>
+                        </div>
+                      </div>
+                      <div class="col-sm-3 martop15">
+                        <div class="form-group botbott">
+                          <label>Main Entrance Facing </label>
+                          <p>North </p>
+                        </div>
+                      </div>
+                      <div class="col-sm-3 martop15">
+                        <div class="form-group botbott">
+                          <label>Servant Room </label>
+                          <p>1 </p>
+                        </div>
+                      </div>
+                      <div class="col-sm-3 martop15">
+                        <div class="form-group botbott">
+                          <label>Gated Community </label>
+                          <p>1 </p>
+                        </div>
+                      </div>
+                      <div class="col-sm-3 martop15">
+                        <div class="form-group botbott">
+                          <label>Plot Area </label>
+                          <p>ABC </p>
+                        </div>
+                      </div>
+                      <div class="col-sm-3 martop15">
+                        <div class="form-group botbott">
+                          <label>Registered Society </label>
+                          <p>2 </p>
+                        </div>
+                      </div>
+                      <div class="col-sm-3 martop15">
+                        <div class="form-group botbott">
+                          <label>Sale Status </label>
+                          <p>2 </p>
+                        </div>
+                      </div>
+                      <div class="col-sm-3 martop15">
+                        <div class="form-group botbott">
+                          <label>Furnishing Status </label>
+                          <p>1 </p>
+                        </div>
+                      </div>
+                      <div class="col-sm-3 martop15">
+                        <div class="form-group botbott">
+                          <label>Carpet Area </label>
+                          <p>1 </p>
+                        </div>
+                      </div>
+                      <div class="col-sm-3 martop15">
+                        <div class="form-group botbott">
+                          <label>Age of Building </label>
+                          <p>ABC </p>
+                        </div>
+                      </div>
+                      <div class="col-sm-3 martop15">
+                        <div class="form-group botbott">
+                          <label>Water Supply </label>
+                          <p>Muncipal Corp </p>
+                        </div>
+                      </div>
+                    </div>
+                    <div style="margin-top:20px;" class="row labcol">
+                      <h2 class="StepTitle">Amenities</h2>
+                      <div class="col-sm-3 martop15">
+                        <div class="form-group botbott">
+                          <label> Security </label>
+                          <p>YES </p>
+                        </div>
+                      </div>
+                      <div class="col-sm-3 martop15">
+                        <div class="form-group botbott">
+                          <label>Reserved Parking </label>
+                          <p>YES </p>
+                        </div>
+                      </div>
+                      <div class="col-sm-3 martop15">
+                        <div class="form-group botbott">
+                          <label>Visitor Parking </label>
+                          <p>YES </p>
+                        </div>
+                      </div>
+                      <div class="col-sm-3 martop15">
+                        <div class="form-group botbott">
+                          <label>Gymnasium </label>
+                          <p>YES </p>
+                        </div>
+                      </div>
+                      <div class="col-sm-3 martop15">
+                        <div class="form-group botbott">
+                          <label> Lift </label>
+                          <p>YES </p>
+                        </div>
+                      </div>
+                      <div class="col-sm-3 martop15">
+                        <div class="form-group botbott">
+                          <label>Waste Disposal </label>
+                          <p>YES </p>
+                        </div>
+                      </div>
+                      <div class="col-sm-3 martop15">
+                        <div class="form-group botbott">
+                          <label>Power Back Up </label>
+                          <p>YES </p>
+                        </div>
+                      </div>
+                      <div class="col-sm-3 martop15">
+                        <div class="form-group botbott">
+                          <label>R O Water System </label>
+                          <p>YES </p>
+                        </div>
+                      </div>
+                      <div class="col-sm-3 martop15">
+                        <div class="form-group botbott">
+                          <label>Conference Room </label>
+                          <p>YES </p>
+                        </div>
+                      </div>
+                      <div class="col-sm-3 martop15">
+                        <div class="form-group botbott">
+                          <label>Fire fighting Equipments </label>
+                          <p>YES </p>
+                        </div>
+                      </div>
+                      <div class="col-sm-3 martop15">
+                        <div class="form-group botbott">
+                          <label>Laundary Service </label>
+                          <p>YES </p>
+                        </div>
+                      </div>
+                      <div class="col-sm-3 martop15">
+                        <div class="form-group botbott">
+                          <label>Vaastu Compliant </label>
+                          <p>YES </p>
+                        </div>
+                      </div>
+                    </div>
+                    <div style="margin-top:20px;" class="row labcol">
+                      <h2 class="StepTitle">Property Location </h2>
+                      <div class="col-sm-3 martop15">
+                        <div class="form-group botbott">
+                          <label> Location Info </label>
+                          <p>MP Nagar DB Mall </p>
+                        </div>
+                      </div>
+                      <div class="col-sm-3 martop15">
+                        <div class="form-group botbott">
+                          <label>Locality </label>
+                          <p>MP Nagar </p>
+                        </div>
+                      </div>
+                      <div class="col-sm-3 martop15">
+                        <div class="form-group botbott">
+                          <label>Country </label>
+                          <p>India </p>
+                        </div>
+                      </div>
+                      <div class="col-sm-3 martop15">
+                        <div class="form-group botbott">
+                          <label>State </label>
+                          <p>MP </p>
+                        </div>
+                      </div>
+                      <div class="col-sm-3 martop15">
+                        <div class="form-group botbott">
+                          <label> City / Area </label>
+                          <p>Bhopal </p>
+                        </div>
+                      </div>
+                      <div class="col-sm-3 martop15">
+                        <div class="form-group botbott">
+                          <label>Zip / Postal Code </label>
+                          <p>462011 </p>
+                        </div>
+                      </div>
+                      <div class="col-sm-3 martop15">
+                        <div class="form-group botbott">
+                          <label>Latitude </label>
+                          <p>12345678.32 </p>
+                        </div>
+                      </div>
+                      <div class="col-sm-3 martop15">
+                        <div class="form-group botbott">
+                          <label>Longitude </label>
+                          <p>12345678.32 </p>
+                        </div>
+                      </div>
+                      <div class="col-sm-3 martop15">
+                        <div class="form-group botbott">
+                          <label>Status </label>
+                          <p>Active </p>
+                        </div>
+                      </div>
+                    </div>
+                    <div style="margin-top:20px;" class="row labcol">
+                      <h2 class="StepTitle">Meta Details </h2>
+                      <div class="col-sm-4 martop15">
+                        <div class="form-group botbott">
+                          <label> Title </label>
+                          <p>Xyz</p>
+                        </div>
+                      </div>
+                      <div class="col-sm-4 martop15">
+                        <div class="form-group botbott">
+                          <label>Meta Keywords </label>
+                          <p>Xyz </p>
+                        </div>
+                      </div>
+                      <div class="col-sm-4 martop15">
+                        <div class="form-group botbott">
+                          <label>Meta Description </label>
+                          <p>Xyz </p>
+                        </div>
+                      </div>
+                    </div>
+                    <div style="margin-top:20px;" class="row labcol">
+                      <h2 class="StepTitle">Bed Room 1</h2>
+                      <div class="col-sm-4 martop15">
+                        <div class="form-group botbott">
+                          <label> Flooring Type </label>
+                          <p>Marble </p>
+                        </div>
+                      </div>
+                      <div class="col-sm-4 martop15">
+                        <div class="form-group botbott">
+                          <label>AC </label>
+                          <p>YES </p>
+                        </div>
+                      </div>
+                      <div class="col-sm-4 martop15">
+                        <div class="form-group botbott">
+                          <label>Bed </label>
+                          <p>YES</p>
+                        </div>
+                      </div>
+                      <div class="col-sm-4 martop15">
+                        <div class="form-group botbott">
+                          <label>Dressing Table </label>
+                          <p>YES</p>
+                        </div>
+                      </div>
+                      <div class="col-sm-4 martop15">
+                        <div class="form-group botbott">
+                          <label>Wardrobe </label>
+                          <p>YES</p>
+                        </div>
+                      </div>
+                      <div class="col-sm-4 martop15">
+                        <div class="form-group botbott">
+                          <label>False Seiling </label>
+                          <p>YES</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div style="margin-top:20px;" class="row labcol">
+                      <h2 class="StepTitle">Living Room 1</h2>
+                      <div class="col-sm-4 martop15">
+                        <div class="form-group botbott">
+                          <label> Flooring Type </label>
+                          <p>Wood </p>
+                        </div>
+                      </div>
+                      <div class="col-sm-4 martop15">
+                        <div class="form-group botbott">
+                          <label>Sofa </label>
+                          <p>YES </p>
+                        </div>
+                      </div>
+                      <div class="col-sm-4 martop15">
+                        <div class="form-group botbott">
+                          <label>Dining Table</label>
+                          <p>YES</p>
+                        </div>
+                      </div>
+                      <div class="col-sm-4 martop15">
+                        <div class="form-group botbott">
+                          <label>AC </label>
+                          <p>YES</p>
+                        </div>
+                      </div>
+                      <div class="col-sm-4 martop15">
+                        <div class="form-group botbott">
+                          <label>Shoe Rack </label>
+                          <p>YES</p>
+                        </div>
+                      </div>
+                      <div class="col-sm-4 martop15">
+                        <div class="form-group botbott">
+                          <label>TV </label>
+                          <p>YES</p>
+                        </div>
+                      </div>
+                    </div>';
+					
+					
+					
+				}
+				
+			}
+	}
+/*Show preview on 4th Step from db inserted Data End.............................................................................................................*/
+
 
 /*Preview Of Added Property...................................................................................................................................................*/
 public function propertyPreview(){

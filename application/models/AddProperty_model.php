@@ -31,28 +31,28 @@ class AddProperty_model extends CI_Model
 			}
 	}
 	
-	function get_project()
+	function get_project($addquery=false)
 	{
 			$qry = $this->db->query("select rp_projects.projectID,projectName from rp_projects,rp_project_details where
-									rp_projects.projectID=rp_project_details.projectID and rp_project_details.languageID='1'");	
+									rp_projects.projectID=rp_project_details.projectID and rp_project_details.languageID='1' $addquery");	
 			return $qry->Result();	
 	}
 	
-	public function getPropertyType(){
+	public function getPropertyType($extraquery=false){
 		$this->db->select('t1.propertyTypeID,t1.propertyTypeName,t2.propertyTypeKey');
 		$this->db->from('rp_property_type_details t1');
-		$this->db->join('rp_property_types t2','t1.propertyTypeID = t2.propertyTypeID AND t2.propertyTypeStatus = "active" AND t2.typeName="Property"
-		AND t1.languageID =1','inner');
+		$this->db->join('rp_property_types t2',"t1.propertyTypeID = t2.propertyTypeID AND t2.propertyTypeStatus = 'active' AND t2.typeName='Property'
+		AND t1.languageID =1 $extraquery",'inner');
 		$query = $this->db->get();
 		return $query->result();
 	}
 	
-	function get_user_type()
+	function get_user_type($extraquery=false)
 	{
 			$qry = $this->db->query("select rp_user_types.userTypeID,userTypeName from rp_user_types,rp_user_type_details where
 									rp_user_types.userTypeID=rp_user_type_details.userTypeID and
 									userTypeStatus='Active' and
-									rp_user_type_details.languageID='1'");	
+									rp_user_type_details.languageID='1' $extraquery");	
 			return $qry->Result();	
 	}
 	
@@ -60,6 +60,16 @@ class AddProperty_model extends CI_Model
 		if($userTypeID!=null){
 			$filter=array('userTypeID'=>$userTypeID);
 			$this->db->select('userID,userEmail');
+			$query=$this->db->get_where('rp_users', $filter);
+			return $query->result();
+		}
+
+	}
+	
+	public function getuserforpreview($userid=false){
+		if($userid!=null){
+			$filter=array('userID'=>$userid);
+			$this->db->select('userTypeID,userEmail');
 			$query=$this->db->get_where('rp_users', $filter);
 			return $query->result();
 		}
@@ -159,6 +169,22 @@ class AddProperty_model extends CI_Model
 	   return $result = $query->result();
 
   }
-	
+
+public function Shownpreview($propertyid=false){
+		if($propertyid!=null){
+			$qry = $this->db->query("select * from rp_properties,rp_property_details where
+									rp_properties.propertyID=rp_property_details.propertyID and
+									rp_properties.propertyID='$propertyid' and
+									rp_property_details.languageID='1'");	
+			return $qry->Result();
+		}
+
+	} 
+
+public function Getotherdata($table=false,$filter=false){
+		$query=$this->db->get_where($table,$filter);
+			return $query->result();
+		
+	} 	
 		
 }

@@ -296,12 +296,37 @@ function shownoofbedrooms(id)
 		}	
 }
 
+function showpreview(id) 
+	{   
+		
+		var formid=id;
+		var propertyid=document.getElementById("form4_id").value;
+		if(propertyid !=''){  
+		$.ajax({
+         data: {propertyid:propertyid},
+         type: "post",
+         url: base_url+'AddProperty/Showpreview/'+formid,
+		 beforeSend: function() {
+				$("#loader").fadeIn();
+			},
+         success: function(result){
+			 $("#loader").fadeOut();
+			//alert(result);
+			  $('.showpreview').html(result);
+         }
+			});
+		}else{
+			alert("Property ID is not found!!");
+		}	
+}
+
 $(document).ready(function(){
 	
 /*Get User For Add Property............................. Start*/	
 $("#usertypeid").change(function(){
 	
 	var usertypeID = $("#"+($(this).attr('id'))).val();
+	var usertypename = $("#usertypeid option:selected").text();
 	
 	$.ajax({
             type: 'POST', 
@@ -313,6 +338,7 @@ $("#usertypeid").change(function(){
 			},
             success:function(result){
 				$("#loader").fadeOut();
+				$(".showuserlabel").html(usertypename);
 				$("#showuserlabel").html(result);
              
             }
