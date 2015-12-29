@@ -186,5 +186,12 @@ public function Getotherdata($table=false,$filter=false){
 			return $query->result();
 		
 	} 	
+	
+public function Getotherdatafromnewdb($table=false,$filter=false){
+	$db2 = $this->load->database('both', TRUE);
+		$query=$db2->get_where($table,$filter);
+			return $query->result();
 		
+	}
+	
 }

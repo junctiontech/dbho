@@ -20,8 +20,133 @@ class AddProperty extends CI_Controller {
 // AddProperty Started Here.................................................................................................................
 
 /*AddProperty view Load Start.............................................................................................................*/
-	function index()
-	{	
+	function index($propertyid=false)
+	{
+		
+		if(!empty($propertyid))
+			{
+				$this->data['propertyid']=$propertyid;
+				$filter=array('propertyID'=>$propertyid);
+				$propertytabledetails=$this->AddProperty_model->Shownpreview($propertyid);
+				
+				if(!empty($propertytabledetails))
+				{
+					if(!empty($propertytabledetails[0]->propertyPurpose))
+					{
+						$this->data['purpose']=$propertytabledetails[0]->propertyPurpose;
+					}
+					
+					
+					if(!empty($propertytabledetails[0]->projectID))
+					{
+								$this->data['under']="1";
+								$this->data['projectid']=$propertytabledetails[0]->projectID;
+					}else
+					{ 
+								$this->data['under']="2"; 
+					}
+					
+					if(!empty($propertytabledetails[0]->propertyTypeID))
+					{
+						$this->data['propertytypeid']=$propertytabledetails[0]->propertyTypeID;
+					}
+					
+					if(!empty($propertytabledetails[0]->propertyName))
+					{
+						$this->data['propertyname']=$propertytabledetails[0]->propertyName;
+					}
+					
+					if(!empty($propertytabledetails[0]->propertyStatus))
+					{
+						$this->data['propertystatus']=$propertytabledetails[0]->propertyStatus;
+					}
+					
+					if(!empty($propertytabledetails[0]->propertyAddedDate))
+					{
+						$this->data['propertydate']=$propertytabledetails[0]->propertyAddedDate;
+					}
+					
+					if(!empty($propertytabledetails[0]->userID))
+					{
+								$this->data['userID']=$userID=$propertytabledetails[0]->userID;
+								$userdetails=$this->AddProperty_model->getuserforpreview($userID);
+								$this->data['usertypeid']=$usertypeid=$userdetails[0]->userTypeID;
+								$usertypedetails=$this->AddProperty_model->get_user_type(" and rp_user_types.userTypeID=$usertypeid");
+								$this->data['useremail']=$userdetails[0]->userEmail;$this->data['usertype']=$usertypedetails[0]->userTypeName;;
+					}
+					
+					$getpropertyprice=$this->AddProperty_model->Getotherdata('rp_property_price',$filter);
+					if(!empty($getpropertyprice[0]->propertyPrice))
+					{
+						$this->data['propertyprice']=$getpropertyprice[0]->propertyPrice;}else{$propertyprice="Not Mentioned";
+					}
+					
+					if(!empty($propertytabledetails[0]->isNegotiable))
+					{
+						$isNegotiable=$propertytabledetails[0]->isNegotiable;}else{$isNegotiable="Not Mentioned";
+					}
+					
+					if(!empty($propertytabledetails[0]->propertyDescription))
+					{
+						$this->data['propertyDescription']=$propertytabledetails[0]->propertyDescription;
+					}
+					
+					if(!empty($propertytabledetails[0]->propertyLatitude))
+					{
+						$this->data['propertyLatitude']=$propertytabledetails[0]->propertyLatitude;
+					}
+					
+					if(!empty($propertytabledetails[0]->propertyLongitude))
+					{
+						$this->data['propertyLongitude']=$propertytabledetails[0]->propertyLongitude;
+					}
+					
+					if(!empty($propertytabledetails[0]->propertyZipCode))
+					{
+						$this->data['propertyZipCode']=$propertytabledetails[0]->propertyZipCode;
+					}
+					
+					if(!empty($propertytabledetails[0]->propertyLocality))
+					{
+						$this->data['propertyLocality']=$propertytabledetails[0]->propertyLocality;
+					}
+					
+					if(!empty($propertytabledetails[0]->propertyAddress1))
+					{
+						$this->data['propertyAddress1']=$propertytabledetails[0]->propertyAddress1;
+					}
+					
+					if(!empty($propertytabledetails[0]->propertyMetaTitle))
+					{
+						$this->data['propertyMetaTitle']=$propertytabledetails[0]->propertyMetaTitle;
+					}
+					
+					if(!empty($propertytabledetails[0]->propertyMetaKeyword))
+					{
+						$this->data['propertyMetaKeyword']=$propertytabledetails[0]->propertyMetaKeyword;
+					}
+					
+					if(!empty($propertytabledetails[0]->propertyMetaDescription))
+					{
+						$this->data['propertyMetaDescription']=$propertytabledetails[0]->propertyMetaDescription;
+					}
+					
+					$this->data['propertyimages']=$this->AddProperty_model->Getotherdata('rp_property_images',array('propertyID'=>$propertyid));
+                   // print_r($this->data['propertyimages']);die;
+					
+					/*$getamenities=$this->AddProperty_model->Getotherdata('rp_property_attribute_values',array('propertyID'=>$this->input->post('propertyid'),'attributeID'=>6,'attrOptionID'=>$Attributeoptions->attrOptionID));
+                     
+					if(!empty($getamenities)){echo"<p>YES </p>";}else{echo"<p>NO</p>";}
+                          
+                     $getroomdetails=$this->AddProperty_model->Getotherdatafromnewdb('dbho_bed_room',array('propertyID'=>$this->input->post('propertyid')));
+                     
+						 if(in_array("AC", $bedothers)){ $ac="YES";}else{$ac="NO";}*/
+                       
+				}	
+				
+			}
+
+	
 		$this->data['projects']=$this->AddProperty_model->get_project();
 		$this->data['propertytype']=$this->AddProperty_model->getPropertyType();
 		$this->data['user_type']=$this->AddProperty_model->get_user_type();
@@ -991,6 +1116,22 @@ class AddProperty extends CI_Controller {
 					
 					if(!empty($propertytabledetails[0]->propertyDescription)){$propertyDescription=$propertytabledetails[0]->propertyDescription;}else{$propertyDescription="Not Mentioned";}
 					
+					if(!empty($propertytabledetails[0]->propertyLatitude)){$propertyLatitude=$propertytabledetails[0]->propertyLatitude;}else{$propertyLatitude="Not Mentioned";}
+					
+					if(!empty($propertytabledetails[0]->propertyLongitude)){$propertyLongitude=$propertytabledetails[0]->propertyLongitude;}else{$propertyLongitude="Not Mentioned";}
+					
+					if(!empty($propertytabledetails[0]->propertyZipCode)){$propertyZipCode=$propertytabledetails[0]->propertyZipCode;}else{$propertyZipCode="Not Mentioned";}
+					
+					if(!empty($propertytabledetails[0]->propertyLocality)){$propertyLocality=$propertytabledetails[0]->propertyLocality;}else{$propertyLocality="Not Mentioned";}
+					
+					if(!empty($propertytabledetails[0]->propertyAddress1)){$propertyAddress1=$propertytabledetails[0]->propertyAddress1;}else{$propertyAddress1="Not Mentioned";}
+					
+					if(!empty($propertytabledetails[0]->propertyMetaTitle)){$propertyMetaTitle=$propertytabledetails[0]->propertyMetaTitle;}else{$propertyMetaTitle="Not Mentioned";}
+					
+					if(!empty($propertytabledetails[0]->propertyMetaKeyword)){$propertyMetaKeyword=$propertytabledetails[0]->propertyMetaKeyword;}else{$propertyMetaKeyword="Not Mentioned";}
+					
+					if(!empty($propertytabledetails[0]->propertyMetaDescription)){$propertyMetaDescription=$propertytabledetails[0]->propertyMetaDescription;}else{$propertyMetaDescription="Not Mentioned";}
+					
 					echo"<div style=\"margin-top:20px;\" class=\"row labcol\">
                       <div class=\"col-sm-3\">
                         <div class=\"form-group botbott\">
@@ -1195,131 +1336,74 @@ class AddProperty extends CI_Controller {
                           <p>Muncipal Corp </p>
                         </div>
                       </div>
-                    </div>
-                    <div style="margin-top:20px;" class="row labcol">
-                      <h2 class="StepTitle">Amenities</h2>
-                      <div class="col-sm-3 martop15">
-                        <div class="form-group botbott">
-                          <label> Security </label>
-                          <p>YES </p>
-                        </div>
-                      </div>
-                      <div class="col-sm-3 martop15">
-                        <div class="form-group botbott">
-                          <label>Reserved Parking </label>
-                          <p>YES </p>
-                        </div>
-                      </div>
-                      <div class="col-sm-3 martop15">
-                        <div class="form-group botbott">
-                          <label>Visitor Parking </label>
-                          <p>YES </p>
-                        </div>
-                      </div>
-                      <div class="col-sm-3 martop15">
-                        <div class="form-group botbott">
-                          <label>Gymnasium </label>
-                          <p>YES </p>
-                        </div>
-                      </div>
-                      <div class="col-sm-3 martop15">
-                        <div class="form-group botbott">
-                          <label> Lift </label>
-                          <p>YES </p>
-                        </div>
-                      </div>
-                      <div class="col-sm-3 martop15">
-                        <div class="form-group botbott">
-                          <label>Waste Disposal </label>
-                          <p>YES </p>
-                        </div>
-                      </div>
-                      <div class="col-sm-3 martop15">
-                        <div class="form-group botbott">
-                          <label>Power Back Up </label>
-                          <p>YES </p>
-                        </div>
-                      </div>
-                      <div class="col-sm-3 martop15">
-                        <div class="form-group botbott">
-                          <label>R O Water System </label>
-                          <p>YES </p>
-                        </div>
-                      </div>
-                      <div class="col-sm-3 martop15">
-                        <div class="form-group botbott">
-                          <label>Conference Room </label>
-                          <p>YES </p>
-                        </div>
-                      </div>
-                      <div class="col-sm-3 martop15">
-                        <div class="form-group botbott">
-                          <label>Fire fighting Equipments </label>
-                          <p>YES </p>
-                        </div>
-                      </div>
-                      <div class="col-sm-3 martop15">
-                        <div class="form-group botbott">
-                          <label>Laundary Service </label>
-                          <p>YES </p>
-                        </div>
-                      </div>
-                      <div class="col-sm-3 martop15">
-                        <div class="form-group botbott">
-                          <label>Vaastu Compliant </label>
-                          <p>YES </p>
-                        </div>
-                      </div>
-                    </div>
-                    <div style="margin-top:20px;" class="row labcol">
+                    </div>';
+					
+                  echo"  <div style=\"margin-top:20px;\" class=\"row labcol\">
+                      <h2 class=\"StepTitle\">Amenities</h2>";
+					  $Attributeoption=$this->AddProperty_model->GetAttributesoption(6);
+									foreach($Attributeoption as $Attributeoptions){
+										$getamenities=$this->AddProperty_model->Getotherdata('rp_property_attribute_values',array('propertyID'=>$this->input->post('propertyid'),'attributeID'=>6,'attrOptionID'=>$Attributeoptions->attrOptionID));
+                     
+					 echo" <div class=\"col-sm-3 martop15\">
+                        <div class=\"form-group botbott\">
+                          <label> $Attributeoptions->attrOptName </label>";
+						  
+						  if(!empty($getamenities)){echo"<p>YES </p>";}else{echo"<p>NO</p>";}
+                          
+                       echo" </div>
+                      </div>";
+									}
+                  echo"</div>";
+				  
+                   echo' <div style="margin-top:20px;" class="row labcol">
                       <h2 class="StepTitle">Property Location </h2>
                       <div class="col-sm-3 martop15">
                         <div class="form-group botbott">
-                          <label> Location Info </label>
-                          <p>MP Nagar DB Mall </p>
-                        </div>
+                          <label> Location Info </label>';
+                       echo"   <p>$propertyAddress1 </p>";
+                      echo'  </div>
                       </div>
                       <div class="col-sm-3 martop15">
                         <div class="form-group botbott">
-                          <label>Locality </label>
-                          <p>MP Nagar </p>
-                        </div>
+                          <label>Locality </label>';
+                        echo"  <p>$propertyLocality </p>";
+                       echo' </div>
                       </div>
                       <div class="col-sm-3 martop15">
                         <div class="form-group botbott">
-                          <label>Country </label>
-                          <p>India </p>
-                        </div>
+                          <label>Country </label>';
+                       echo"   <p>India </p>";
+                     echo'   </div>
                       </div>
                       <div class="col-sm-3 martop15">
                         <div class="form-group botbott">
-                          <label>State </label>
-                          <p>MP </p>
-                        </div>
+                          <label>State </label>';
+                        echo"  <p>MP </p>";
+                       echo' </div>
                       </div>
                       <div class="col-sm-3 martop15">
                         <div class="form-group botbott">
-                          <label> City / Area </label>
-                          <p>Bhopal </p>
-                        </div>
+                          <label> City / Area </label>';
+                          echo"<p>Bhopal </p>";
+                        echo'</div>
                       </div>
                       <div class="col-sm-3 martop15">
                         <div class="form-group botbott">
-                          <label>Zip / Postal Code </label>
-                          <p>462011 </p>
-                        </div>
+                          <label>Zip / Postal Code </label>';
+                         echo" <p>$propertyZipCode </p>";
+                     echo'   </div>
                       </div>
                       <div class="col-sm-3 martop15">
                         <div class="form-group botbott">
-                          <label>Latitude </label>
-                          <p>12345678.32 </p>
-                        </div>
+                          <label>Latitude </label>';
+                         echo" <p>$propertyLongitude </p>";
+                       echo' </div>
                       </div>
                       <div class="col-sm-3 martop15">
                         <div class="form-group botbott">
-                          <label>Longitude </label>
-                          <p>12345678.32 </p>
-                        </div>
+                          <label>Longitude </label>';
+                         echo" <p>$propertyLatitude </p>";
+                       echo' </div>
                       </div>
                       <div class="col-sm-3 martop15">
                         <div class="form-group botbott">
@@ -1332,101 +1416,209 @@ class AddProperty extends CI_Controller {
                       <h2 class="StepTitle">Meta Details </h2>
                       <div class="col-sm-4 martop15">
                         <div class="form-group botbott">
-                          <label> Title </label>
-                          <p>Xyz</p>
-                        </div>
+                          <label> Title </label>';
+                         echo" <p>$propertyMetaTitle</p>";
+                       echo' </div>
                       </div>
                       <div class="col-sm-4 martop15">
                         <div class="form-group botbott">
-                          <label>Meta Keywords </label>
-                          <p>Xyz </p>
-                        </div>
+                          <label>Meta Keywords </label>';
+                         echo" <p>$propertyMetaKeyword </p>";
+                        echo'</div>
                       </div>
                       <div class="col-sm-4 martop15">
                         <div class="form-group botbott">
-                          <label>Meta Description </label>
-                          <p>Xyz </p>
-                        </div>
-                      </div>
-                    </div>
-                    <div style="margin-top:20px;" class="row labcol">
-                      <h2 class="StepTitle">Bed Room 1</h2>
-                      <div class="col-sm-4 martop15">
-                        <div class="form-group botbott">
-                          <label> Flooring Type </label>
-                          <p>Marble </p>
-                        </div>
-                      </div>
-                      <div class="col-sm-4 martop15">
-                        <div class="form-group botbott">
-                          <label>AC </label>
-                          <p>YES </p>
-                        </div>
-                      </div>
-                      <div class="col-sm-4 martop15">
-                        <div class="form-group botbott">
-                          <label>Bed </label>
-                          <p>YES</p>
-                        </div>
-                      </div>
-                      <div class="col-sm-4 martop15">
-                        <div class="form-group botbott">
-                          <label>Dressing Table </label>
-                          <p>YES</p>
-                        </div>
-                      </div>
-                      <div class="col-sm-4 martop15">
-                        <div class="form-group botbott">
-                          <label>Wardrobe </label>
-                          <p>YES</p>
-                        </div>
-                      </div>
-                      <div class="col-sm-4 martop15">
-                        <div class="form-group botbott">
-                          <label>False Seiling </label>
-                          <p>YES</p>
-                        </div>
-                      </div>
-                    </div>
-                    <div style="margin-top:20px;" class="row labcol">
-                      <h2 class="StepTitle">Living Room 1</h2>
-                      <div class="col-sm-4 martop15">
-                        <div class="form-group botbott">
-                          <label> Flooring Type </label>
-                          <p>Wood </p>
-                        </div>
-                      </div>
-                      <div class="col-sm-4 martop15">
-                        <div class="form-group botbott">
-                          <label>Sofa </label>
-                          <p>YES </p>
-                        </div>
-                      </div>
-                      <div class="col-sm-4 martop15">
-                        <div class="form-group botbott">
-                          <label>Dining Table</label>
-                          <p>YES</p>
-                        </div>
-                      </div>
-                      <div class="col-sm-4 martop15">
-                        <div class="form-group botbott">
-                          <label>AC </label>
-                          <p>YES</p>
-                        </div>
-                      </div>
-                      <div class="col-sm-4 martop15">
-                        <div class="form-group botbott">
-                          <label>Shoe Rack </label>
-                          <p>YES</p>
-                        </div>
-                      </div>
-                      <div class="col-sm-4 martop15">
-                        <div class="form-group botbott">
-                          <label>TV </label>
-                          <p>YES</p>
-                        </div>
+                          <label>Meta Description </label>';
+                          echo"<p>$propertyMetaDescription </p>";
+						  
+				
+							 
+							 echo'  </div>
                       </div>
                     </div>';
+					
+					$getroomdetails=$this->AddProperty_model->Getotherdatafromnewdb('dbho_bed_room',array('propertyID'=>$this->input->post('propertyid')));
+                     if(!empty($getroomdetails)){
+						  $count=1;
+						 foreach($getroomdetails as $getroomdetailss){
+							$bedothers=explode(",",$getroomdetailss->others);
+                    echo'<div style="margin-top:20px;" class="row labcol">';
+                   echo"   <h2 class=\"StepTitle\">Bed Room $count</h2>";
+                    echo'  <div class="col-sm-4 martop15">
+                        <div class="form-group botbott">
+                          <label> Flooring Type </label>';
+                         echo" <p>$getroomdetailss->flooringType </p>";
+                       echo' </div>
+                      </div>
+                      <div class="col-sm-4 martop15">
+                        <div class="form-group botbott">
+                          <label>AC </label>';
+						  if(in_array("AC", $bedothers)){ $ac="YES";}else{$ac="NO";}
+                         echo" <p>$ac </p>";
+                       echo' </div>
+                      </div>
+                      <div class="col-sm-4 martop15">
+                        <div class="form-group botbott">
+                          <label>Bed </label>';
+						   if(in_array("Bed", $bedothers)){ $Bed="YES";}else{$Bed="NO";}
+                          echo"<p>$Bed</p>";
+                      echo'  </div>
+                      </div>
+                      <div class="col-sm-4 martop15">
+                        <div class="form-group botbott">
+                          <label>Dressing Table </label>';
+						  if(in_array("DressingTable", $bedothers)){ $DressingTable="YES";}else{$DressingTable="NO";}
+                          echo"<p>$DressingTable</p>";
+                       echo' </div>
+                      </div>
+                      <div class="col-sm-4 martop15">
+                        <div class="form-group botbott">
+                          <label>Wardrobe </label>';
+						   if(in_array("Wardrobe", $bedothers)){ $Wardrobe="YES";}else{$Wardrobe="NO";}
+                         echo" <p>$Wardrobe</p>";
+                       echo' </div>
+                      </div>
+                      <div class="col-sm-4 martop15">
+                        <div class="form-group botbott">
+                          <label>False Seiling </label>';
+						   if(in_array("FalseSeiling", $bedothers)){ $FalseSeiling="YES";}else{$FalseSeiling="NO";}
+                          echo"<p>$FalseSeiling</p>";
+                       echo' </div>
+                      </div>
+                    </div>';
+							 
+						$count++; }
+					 }
+					 
+					 $getlivingroomdetails=$this->AddProperty_model->Getotherdatafromnewdb('dbho_living_room',array('propertyID'=>$this->input->post('propertyid')));
+                     if(!empty($getlivingroomdetails)){
+						  $count=1;
+						 foreach($getlivingroomdetails as $getlivingroomdetailss){
+							$livingothers=explode(",",$getlivingroomdetailss->others);
+                    echo'<div style="margin-top:20px;" class="row labcol">';
+                   echo"   <h2 class=\"StepTitle\">Living Room $count</h2>";
+                    echo'  <div class="col-sm-4 martop15">
+                        <div class="form-group botbott">
+                          <label> Flooring Type </label>';
+                         echo" <p>$getlivingroomdetailss->flooringType </p>";
+                       echo' </div>
+                      </div>
+                      <div class="col-sm-4 martop15">
+                        <div class="form-group botbott">
+                          <label>Sofa </label>';
+						  if(in_array("Sofa", $livingothers)){ $Sofa="YES";}else{$Sofa="NO";}
+                         echo" <p>$Sofa </p>";
+                       echo' </div>
+                      </div>
+                      <div class="col-sm-4 martop15">
+                        <div class="form-group botbott">
+                          <label>Dining Table </label>';
+						   if(in_array("DiningTable", $livingothers)){ $DiningTable="YES";}else{$DiningTable="NO";}
+                          echo"<p>$DiningTable</p>";
+                      echo'  </div>
+                      </div>
+                      <div class="col-sm-4 martop15">
+                        <div class="form-group botbott">
+                          <label>AC </label>';
+						  if(in_array("AC", $livingothers)){ $AC="YES";}else{$AC="NO";}
+                          echo"<p>$AC</p>";
+                       echo' </div>
+                      </div>
+                      <div class="col-sm-4 martop15">
+                        <div class="form-group botbott">
+                          <label>Shoe Rack </label>';
+						   if(in_array("ShoeRack", $livingothers)){ $ShoeRack="YES";}else{$ShoeRack="NO";}
+                         echo" <p>$ShoeRack</p>";
+                       echo' </div>
+                      </div>
+                      <div class="col-sm-4 martop15">
+                        <div class="form-group botbott">
+                          <label>TV </label>';
+						   if(in_array("TV", $livingothers)){ $TV="YES";}else{$TV="NO";}
+                          echo"<p>$TV</p>";
+                       echo' </div>
+                      </div>
+                    </div>';
+							 
+						$count++; }
+					 }
+                      
+					
+					$getbathroomdetails=$this->AddProperty_model->Getotherdatafromnewdb('dbho_bath_room',array('propertyID'=>$this->input->post('propertyid')));
+                     if(!empty($getbathroomdetails)){
+						  $count=1;
+						 foreach($getbathroomdetails as $getbathroomdetailss){
+							$bathothers=explode(",",$getbathroomdetailss->others);
+                    echo'<div style="margin-top:20px;" class="row labcol">';
+                   echo"   <h2 class=\"StepTitle\">Bath Room $count</h2>";
+                    echo'  <div class="col-sm-4 martop15">
+                        <div class="form-group botbott">
+                          <label> Flooring Type </label>';
+                         echo" <p>$getbathroomdetailss->flooringType </p>";
+                       echo' </div>
+                      </div>';
+					 
+					 echo '<div class="col-sm-4 martop15">
+                        <div class="form-group botbott">
+                          <label> Hot Water Supply </label>';
+                         echo" <p>$getbathroomdetailss->hotwatersupply </p>";
+                       echo' </div>
+                      </div>';
+					  
+					  echo '<div class="col-sm-4 martop15">
+                        <div class="form-group botbott">
+                          <label> Toilet </label>';
+                         echo" <p>$getbathroomdetailss->toilet </p>";
+                       echo' </div>
+                      </div>';
+						
+                      echo'<div class="col-sm-4 martop15">
+                        <div class="form-group botbott">
+                          <label>Glass Partition </label>';
+						  if(in_array("GlassPartition", $bathothers)){ $GlassPartition="YES";}else{$GlassPartition="NO";}
+                         echo" <p>$GlassPartition </p>";
+                       echo' </div>
+                      </div>
+                      <div class="col-sm-4 martop15">
+                        <div class="form-group botbott">
+                          <label>Bath Tub </label>';
+						   if(in_array("BathTub", $bathothers)){ $BathTub="YES";}else{$BathTub="NO";}
+                          echo"<p>$BathTub</p>";
+                      echo'  </div>
+                      </div>
+                      <div class="col-sm-4 martop15">
+                        <div class="form-group botbott">
+                          <label>Axhaust fan </label>';
+						  if(in_array("Axhaustfan", $bathothers)){ $Axhaustfan="YES";}else{$Axhaustfan="NO";}
+                          echo"<p>$Axhaustfan</p>";
+                       echo' </div>
+                      </div>
+                      <div class="col-sm-4 martop15">
+                        <div class="form-group botbott">
+                          <label>Windows </label>';
+						   if(in_array("Windows", $bathothers)){ $Windows="YES";}else{$Windows="NO";}
+                         echo" <p>$Windows</p>";
+                       echo' </div>
+                      </div>
+                      <div class="col-sm-4 martop15">
+                        <div class="form-group botbott">
+                          <label>Shower Curtain </label>';
+						   if(in_array("ShowerCurtain", $bathothers)){ $ShowerCurtain="YES";}else{$ShowerCurtain="NO";}
+                          echo"<p>$ShowerCurtain</p>";
+                       echo' </div>
+                      </div>
+					  <div class="col-sm-4 martop15">
+                        <div class="form-group botbott">
+                          <label>Cabinet </label>';
+						   if(in_array("Cabinet", $bathothers)){ $Cabinet="YES";}else{$Cabinet="NO";}
+                          echo"<p>$Cabinet</p>";
+                       echo' </div>
+                      </div>
+                    </div>';
+							 
+						$count++; }
+					 }
+                   
 					
 					
 					

@@ -51,26 +51,26 @@
                   <h2 class="StepTitle">Basic Information</h2>
                   <div class="x_content">
                     <form id="form-1" method="post" class="form-group form-label-left clearfix">
-					<input type="hidden" name="propertyID" value="" readonly id="form1_id"/>
+					<input type="hidden" name="propertyID" value="<?=isset($propertyid)?$propertyid:''?>" readonly id="form1_id"/>
                       <div class="row">
                         <div class="form-group clearfix">
                           <div class="form-group col-xs-12 col-sm-3" style="padding-top:8px;">
                             <div class="btn-group" data-toggle="buttons">
-                              <label class="btn btn-default" id="checksell">
-                                <input type="radio" name="propertyPurpose" value="Sell" id="sell" onchange="generatenameproperty();">
+                              <label class="btn btn-default <?php if(!empty($purpose)){if($purpose=="sell"){echo" active";}}?>" id="checksell">
+                                <input type="radio" <?php if(!empty($purpose)){if($purpose=="sell"){echo"checked";}}?> name="propertyPurpose" value="Sell" id="sell" onchange="generatenameproperty();">
                                 Sell </label>
-                              <label class="btn btn-default" id="checkrent">
-                                <input type="radio" name="propertyPurpose" value="Rent" id="rent" onchange="generatenameproperty();">
+                              <label class="btn btn-default <?php if(!empty($purpose)){if($purpose=="Rent"){echo" active";}}?>" id="checkrent">
+                                <input type="radio" <?php if(!empty($purpose)){if($purpose=="Rent"){echo"checked";}}?> name="propertyPurpose" value="Rent" id="rent" onchange="generatenameproperty();">
                                 Rent </label>
                             </div>
                           </div>
                           <div class="form-group col-xs-12 col-sm-5" style="padding-top:8px;">
                             <div class="btn-group" data-toggle="buttons">
-                              <label class="btn btn-default" id="unit_individual">
-                                <input type="radio" name="type" value="Unit" id="type_individual">
+                              <label class="btn btn-default <?php if(!empty($under)){if($under==2){echo" active";}}?>" id="unit_individual">
+                                <input type="radio" name="type" <?php if(!empty($under)){if($under==2){echo" checked";}}?> value="Unit" id="type_individual">
                                 Individual Property </label>
-                              <label class="btn btn-default" id="unit_project">
-                                <input type="radio" name="type" value="Property" id="type_project">
+                              <label class="btn btn-default <?php if(!empty($under)){if($under==1){echo" active";}}?>" id="unit_project">
+                                <input type="radio" name="type" <?php if(!empty($under)){if($under==1){echo" checked";}}?> value="Property" id="type_project">
                                 Property Under Project </label>
                             </div>
                           </div>
@@ -78,7 +78,7 @@
                             <select name="projectID" class="form-control select2_group project-uni" id="projectid" onchange="generatenameproperty();">
                               <option value="" class="em">Select Project</option>
                               <?php foreach($projects as $projects){?>
-                        <option value="<?=isset($projects->projectID)?$projects->projectID:''?>" <?php if(!empty($inventoryupdate[0]->ProjectID)){ if($inventoryupdate[0]->ProjectID==$projects->projectID){ echo"selected";} } ?>><?=isset($projects->projectName)?$projects->projectName:''?></option>
+                        <option value="<?=isset($projects->projectID)?$projects->projectID:''?>" <?php if(!empty($projectid)){ if($projectid==$projects->projectID){ echo"selected";} } ?>><?=isset($projects->projectName)?$projects->projectName:''?></option>
 						<?php } ?>
                             </select>
                             <style>
@@ -110,30 +110,32 @@
                             <option value="">Select</option>
                             <optgroup label="Residential Properties">
                            <?php foreach($propertytype as $propertytypes){?>
-                        <option value="<?=isset($propertytypes->propertyTypeID)?$propertytypes->propertyTypeID:''?>" <?php if(!empty($inventoryupdate[0]->ProjectID)){ if($inventoryupdate[0]->ProjectID==$propertytypes->propertyTypeID){ echo"selected";} } ?>><?=isset($propertytypes->propertyTypeName)?$propertytypes->propertyTypeName:''?></option>
+                        <option value="<?=isset($propertytypes->propertyTypeID)?$propertytypes->propertyTypeID:''?>" <?php if(!empty($propertytypeid)){ if($propertytypeid==$propertytypes->propertyTypeID){ echo"selected";} } ?>><?=isset($propertytypes->propertyTypeName)?$propertytypes->propertyTypeName:''?></option>
 						<?php } ?>
                             </optgroup>
                           </select>
                         </div>
                         <div class="form-group col-xs-12 col-sm-6">
                           <label class="control-label" for="first-name">Property Name <span class="required">*</span> </label>
-                          <input name="propertyName" type="text" id="propertyname" readonly required="required" class="form-control">
+                          <input name="propertyName" type="text" value="<?=isset($propertyname)?$propertyname:''?>" id="propertyname" readonly required="required" class="form-control">
                         </div>
                         <div class="form-group col-xs-12 col-sm-4">
                           <label style="display:block;" class="control-label">User Type</label>
                           <select id="usertypeid" class=" form-control" name="usertype" >
 							<option value="">Select User Type</option>
 							<?php foreach($user_type as $user_type){?>
-							<option value="<?=$user_type->userTypeID?>" <?php if(!empty($updateplan[0]->userTypeID)){ if($updateplan[0]->userTypeID==$user_type->userTypeID){ echo"selected";} } ?>><?=$user_type->userTypeName?></option>
+							<option value="<?=$user_type->userTypeID?>" <?php if(!empty($usertypeid)){ if($usertypeid==$user_type->userTypeID){ echo"selected";} } ?>><?=$user_type->userTypeName?></option>
 							<?php } ?>
 							
 						  </select>
                         </div>
                         <div class="form-group col-xs-12 col-sm-4">
-                          <label for="middle-name" class="control-label showuserlabel" ></label>
+                          <label for="middle-name" class="control-label showuserlabel" ><?=isset($usertype)?$usertype:''?></label>
                           <select name="userID" class=" select2_group form-control" id="showuserlabel" >
                             <option value="">Please Select Usertype First</option>
-                            
+							<?php if(!empty($userID)){?>
+                            <option value="<?isset($userID)?$userID:''?>" selected><?=isset($useremail)?$useremail:''?></option>
+							<?php } ?>
                           </select>
                         </div>
                         <div class="form-group col-xs-12 col-sm-4 ">
@@ -182,8 +184,8 @@
                             </div>
                             <div class="btn-group"> <a class="btn" data-edit="undo" title="Undo (Ctrl/Cmd+Z)"><i class="icon-undo"></i></a> <a class="btn" data-edit="redo" title="Redo (Ctrl/Cmd+Y)"><i class="icon-repeat"></i></a> </div>
                           </div>
-                          <div id="editor"> </div>
-                          <textarea name="propertyDescription" id="descr" style="display:none;"></textarea>
+                          <div id="editor"><?=isset($propertyDescription)?$propertyDescription:''?> </div>
+                          <textarea name="propertyDescription" id="descr" style="display:none;"><?=isset($propertyDescription)?$propertyDescription:''?></textarea>
                           <br />
                         </div>
                         <div class="form-group col-xs-12 col-sm-12"> </div>
@@ -266,11 +268,11 @@
                                 <div class="panel-body">
                                   <div class="row">
                                     <div class="form-group clearfix">
-                                      <label class="control-label col-md-2 col-sm-2 col-xs-12 martop20">Expected Price <i class="fa fa-rupee text-right"></i></label>
+                                      <label class="control-label col-md-2 col-sm-2 col-xs-12 martop15">Expected Price <i class="fa fa-rupee text-right"></i></label>
                                       
                                       
-                                      <div class="col-md-4 col-sm-4 col-xs-12 flo12"> 
-                                        <input id="middle-name" class="form-control pull-left" placeholder="Enter Total Price" type="text" name="propertyPrice">
+                                      <div class="col-md-8 col-sm-8 col-xs-12 "> 
+                                        <input id="middle-name" class="form-control pull-left" placeholder="Enter Total Price" value="<?=isset($propertyprice)?$propertyprice:''?>" type="text" name="propertyPrice">
                                       </div>
                                     </div>
                                     <div class="form-group clearfix">
@@ -463,11 +465,11 @@
                               <h4 class="StepTitle">Property Location </h4>
                               <div class="form-group col-xs-12 col-sm-4 martop20 ">
                                 <label class="control-label" for="last-name">Location Info </label>
-                                <input id="geocomplete" class="form-control" type="text" name="propertyAddress1">
+                                <input id="geocomplete" class="form-control" value="<?=isset($propertyAddress1)?$propertyAddress1:''?>" type="text" name="propertyAddress1">
                               </div>
                               <div class="form-group col-xs-12 col-sm-4 martop20">
                                 <label class="control-label" for="last-name">Locality </label>
-                                <input id="sublocality" class="form-control" type="text" name="sublocality">
+                                <input id="sublocality" class="form-control" type="text" name="sublocality" value="<?=isset($propertyLocality)?$propertyLocality:''?>">
                               </div>
                               <div class="form-group col-xs-12 col-sm-4 martop20">
                                 <label class="control-label" for="last-name">Country </label>
@@ -483,15 +485,15 @@
                               </div>
                               <div class="form-group col-xs-12 col-sm-4 ">
                                 <label class="control-label" for="last-name">Zip / Postal Code </label>
-                                <input id="postal_code" class="form-control" type="text" name="postal_code">
+                                <input id="postal_code" class="form-control" type="text" name="postal_code" value="<?=isset($propertyZipCode)?$propertyZipCode:''?>">
                               </div>
                               <div class="form-group col-xs-12 col-sm-4 ">
                                 <label class="control-label" for="last-name">Latitude </label>
-                                <input id="lat" class="form-control" type="text" name="lat">
+                                <input id="lat" class="form-control" type="text" name="lat" value="<?=isset($propertyLatitude)?$propertyLatitude:''?>">
                               </div>
                               <div class="form-group col-xs-12 col-sm-4 ">
                                 <label class="control-label" for="last-name">Longitude </label>
-                                <input id="lng" class="form-control" type="text" name="lng">
+                                <input id="lng" class="form-control" type="text" name="lng" value="<?=isset($propertyLongitude)?$propertyLongitude:''?>">
                               </div>
                               <div class="form-group col-xs-12 col-sm-12 mapinfo map_canvas" style="height: 400px"> </div>
                             </div>
@@ -526,12 +528,34 @@
                                 <div class="x_panel marlemin">
                                   <div class="form-group col-md-12 col-xs-12 col-sm-2 martop15">
 								   <form  action="<?php echo base_url();?>AddProperty/uploadimage" class="dropzone" style="border: 1px dashed #e5e5e5;  ">
-                                    <input type="hidden" name="propertyID" value="" readonly id="form5_id" />
+                                    <input type="hidden" name="propertyID" value="<?=isset($propertyid)?$propertyid:''?>" readonly id="form5_id" />
 									 <input type="hidden" name="imagecategory" value="1" readonly />
 								   </form>
                                   </div>
-                                  
-                                  
+								  <?php if(!empty($propertyimages)){ ?>
+                                  <div class="x_content">
+									<div class="row">
+									<?php foreach($propertyimages as $propertyimagess){ ?>
+										<div class="col-md-55">
+                                            <div class="thumbnail">
+                                                <div class="image view view-first">
+                                                    <img style="width: 100%; display: block;" src="<?=base_url();?>propertyImages/<?=isset($propertyimagess->propertyImageName)?$propertyimagess->propertyImageName:''?>" alt="image" />
+                                                    <div class="mask">
+                                                        <div class="tools tools-bottom">
+                                                            
+                                                            <a href="#"><i class="fa fa-times"></i></a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="caption">
+                                                    <p><?php if(!empty($propertyimagess->imageCatID)){ if($propertyimagess->imageCatID==1){ echo"Exterior View";} if($propertyimagess->imageCatID==2){ echo"Living Room";} if($propertyimagess->imageCatID==3){ echo"Bed Room";} if($propertyimagess->imageCatID==4){ echo"Bath Room";} if($propertyimagess->imageCatID==5){ echo"Kitchen";} if($propertyimagess->imageCatID==6){ echo"Floor Plan";} if($propertyimagess->imageCatID==7){ echo"Master Plan";} if($propertyimagess->imageCatID==8){ echo"Location Map";} if($propertyimagess->imageCatID==9){ echo"Others ";} } ?></p>
+                                                </div>
+                                            </div>
+                                        </div>
+										<?php }  ?>
+										</div>
+										</div>
+                                  <?php  } ?>
                                   <div class="form-group col-md-12 col-xs-12 col-sm-12 martop15">
                                     <p>Accepted formats are .jpg, .gif, .bmp & .png. Maximum size allowed is 4 MB</p>
                                   </div>
@@ -545,7 +569,7 @@
                                 <div class="x_panel marlemin">
                                   <div class="form-group col-md-12 col-xs-12 col-sm-2 martop15">
                                     <form action="<?php echo base_url();?>AddProperty/uploadimage" class="dropzone" style="border: 1px dashed #e5e5e5;  ">
-									<input type="hidden" name="propertyID" value="" readonly  class="form5_id"/>
+									<input type="hidden" name="propertyID" value="<?=isset($propertyid)?$propertyid:''?>" readonly  class="form5_id"/>
 									 <input type="hidden" name="imagecategory" value="2" readonly />
                                     </form>
                                   </div>
@@ -561,7 +585,7 @@
                                 <div class="x_panel marlemin">
                                   <div class="form-group col-md-12 col-xs-12 col-sm-2 martop15">
                                     <form action="<?php echo base_url();?>AddProperty/uploadimage" class="dropzone" style="border: 1px dashed #e5e5e5;  ">
-									<input type="hidden" name="propertyID" value="" readonly  class="form5_id"/>
+									<input type="hidden" name="propertyID" value="<?=isset($propertyid)?$propertyid:''?>" readonly  class="form5_id"/>
 									 <input type="hidden" name="imagecategory" value="3" readonly />
                                     </form>
                                   </div>
@@ -577,7 +601,7 @@
                                 <div class="x_panel marlemin">
                                   <div class="form-group col-md-12 col-xs-12 col-sm-2 martop15">
                                     <form action="<?php echo base_url();?>AddProperty/uploadimage" class="dropzone" style="border: 1px dashed #e5e5e5; height: 131px; ">
-									<input type="hidden" name="propertyID" value="" readonly  class="form5_id"/>
+									<input type="hidden" name="propertyID" value="<?=isset($propertyid)?$propertyid:''?>" readonly  class="form5_id"/>
 									 <input type="hidden" name="imagecategory" value="4" readonly />
                                     </form>
                                   </div>
@@ -593,7 +617,7 @@
                                 <div class="x_panel marlemin">
                                   <div class="form-group col-md-12 col-xs-12 col-sm-2 martop15">
                                     <form action="<?php echo base_url();?>AddProperty/uploadimage" class="dropzone" style="border: 1px dashed #e5e5e5;  ">
-									<input type="hidden" name="propertyID" value="" readonly  class="form5_id"/>
+									<input type="hidden" name="propertyID" value="<?=isset($propertyid)?$propertyid:''?>" readonly  class="form5_id"/>
 									 <input type="hidden" name="imagecategory" value="5" readonly />
                                     </form>
                                   </div>
@@ -608,7 +632,7 @@
                                 <div class="x_panel marlemin">
                                   <div class="form-group col-md-12 col-xs-12 col-sm-2 martop15">
                                     <form action="<?php echo base_url();?>AddProperty/uploadimage" class="dropzone" style="border: 1px dashed #e5e5e5;  ">
-									<input type="hidden" name="propertyID" value="" readonly  class="form5_id"/>
+									<input type="hidden" name="propertyID" value="<?=isset($propertyid)?$propertyid:''?>" readonly  class="form5_id"/>
 									 <input type="hidden" name="imagecategory" value="6" readonly />
                                     </form>
                                   </div>
@@ -623,7 +647,7 @@
                                 <div class="x_panel marlemin">
                                   <div class="form-group col-md-12 col-xs-12 col-sm-2 martop15">
                                     <form action="<?php echo base_url();?>AddProperty/uploadimage" class="dropzone" style="border: 1px dashed #e5e5e5;  ">
-									<input type="hidden" name="propertyID" value="" readonly  class="form5_id"/>
+									<input type="hidden" name="propertyID" value="<?=isset($propertyid)?$propertyid:''?>" readonly  class="form5_id"/>
 									 <input type="hidden" name="imagecategory" value="7" readonly />
                                     </form>
                                   </div>
@@ -638,7 +662,7 @@
                                 <div class="x_panel marlemin">
                                   <div class="form-group col-md-12 col-xs-12 col-sm-2 martop15">
                                     <form action="<?php echo base_url();?>AddProperty/uploadimage" class="dropzone" style="border: 1px dashed #e5e5e5; ">
-									<input type="hidden" name="propertyID" value="" readonly  class="form5_id"/>
+									<input type="hidden" name="propertyID" value="<?=isset($propertyid)?$propertyid:''?>" readonly  class="form5_id"/>
 									 <input type="hidden" name="imagecategory" value="8" readonly />
                                     </form>
                                   </div>
@@ -653,7 +677,7 @@
                                 <div class="x_panel marlemin">
                                   <div class="form-group col-md-12 col-xs-12 col-sm-2 martop15">
                                     <form action="<?php echo base_url();?>AddProperty/uploadimage" class="dropzone" style="border: 1px dashed #e5e5e5;  ">
-									<input type="hidden" name="propertyID" value="" readonly  class="form5_id"/>
+									<input type="hidden" name="propertyID" value="<?=isset($propertyid)?$propertyid:''?>" readonly  class="form5_id"/>
 									 <input type="hidden" name="imagecategory" value="9" readonly />
                                     </form>
                                   </div>
@@ -677,18 +701,18 @@
                         <div id="collapseOne2" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
                           <div class="panel-body">
 						  <form id="form-2" method="post" class="form-group form-label-left clearfix">
-						  <input type="hidden" name="propertyID" value="" readonly id="form2_id"/>
+						  <input type="hidden" name="propertyID" value="<?=isset($propertyid)?$propertyid:''?>" readonly id="form2_id"/>
                             <div class="form-group col-xs-12 col-sm-12">
                               <label class="control-label" for="last-name">Title </label>
-                              <input id="middle-name" class="form-control" type="text" name="propertyMetaTitle">
+                              <input id="middle-name" class="form-control" type="text" name="propertyMetaTitle" value="<?=isset($propertyMetaTitle)?$propertyMetaTitle:''?>">
                             </div>
                             <div class="form-group col-xs-12 col-sm-12">
                               <label class="control-label" for="last-name">Meta Keywords </label>
-                              <textarea placeholder="" name="propertyMetaKeyword" rows="2" class="form-control"></textarea>
+                              <textarea placeholder="" name="propertyMetaKeyword" rows="2" class="form-control"><?=isset($propertyMetaKeyword)?$propertyMetaKeyword:''?></textarea>
                             </div>
                             <div class="form-group col-xs-12 col-sm-12">
                               <label class="control-label" for="last-name">Meta Description </label>
-                              <textarea placeholder="" name="propertyMetaDescription" rows="2" class="form-control"></textarea>
+                              <textarea placeholder="" name="propertyMetaDescription" rows="2" class="form-control"><?=isset($propertyMetaDescription)?$propertyMetaDescription:''?></textarea>
                             </div>
 							</form>
                           </div>
@@ -704,7 +728,7 @@
                     
                     <!-- start accordion -->
 					<form id="form-3" method="post" class="form-group form-label-left clearfix">
-					<input type="hidden" name="propertyID" value="" readonly id="form3_id"/>
+					<input type="hidden" name="propertyID" value="<?=isset($propertyid)?$propertyid:''?>" readonly id="form3_id"/>
                     <div class="accordion" id="accordion4" role="tablist" aria-multiselectable="true">
 					
                       <div class="showbedrooms"></div>
@@ -885,15 +909,15 @@
                     <div class="showpreview"></div>
                     <div class="row">
 					<form id="form-4" method="post" class="form-group form-label-left clearfix">
-					<input type="hidden" name="propertyID" value="" readonly id="form4_id"/>
+					<input type="hidden" name="propertyID" value="<?=isset($propertyid)?$propertyid:''?>" readonly id="form4_id"/>
                       <div class="col-md-2 col-sm-2 col-xs-12">
                         <label class="control-label" for="last-name" style="display:block;">Status </label>
                         <div class="btn-group" data-toggle="buttons">
                           <label class="btn btn-default">
-                            <input type="radio" name="options" id="option1">
+                            <input type="radio" name="propertystatus" value="Active" id="option1">
                             Active </label>
                           <label class="btn btn-default">
-                            <input type="radio" name="options" id="option2">
+                            <input type="radio" name="propertystatus" value="Draft" id="option2">
                             Draft </label>
                         </div>
                       </div>
