@@ -169,7 +169,7 @@ class AddProperty extends CI_Controller {
 	function InsertProperty($formid=false)
 	{	
 		$data=$_POST;
-		//print_r($data);
+		//print_r($data);die;
 		$date=date("Y-m-d");
 		
 		if(!empty($formid))
@@ -425,7 +425,6 @@ class AddProperty extends CI_Controller {
 								$attributevalueId=$this->AddProperty_model->InsertProperty('rp_property_attribute_values',$selectattributeinsert);
 								$selectattributeval[$j]['attrValueID']=$attributevalueId;
 								$selectattributeval[$j]['languageID']=1;
-								//print_r($attributevalueId);print_r($selectattributeval);die;
 								$this->AddProperty_model->InsertProperty('rp_property_attribute_value_details',$selectattributeval[$j]);
 								$j++;
 							}
@@ -466,84 +465,117 @@ class AddProperty extends CI_Controller {
 					
 					if(!empty($data['propertyID']))
 					{
-						$bedroom=array();
-						$livingroom=array();$bathroom=array();$kitchen=array();
+						
+						
 							//..................................................................Bed Room
-							if(!empty($data['flooringTypebedroom']))
-							{
-								$bedroom['flooringType']=$data['flooringTypebedroom'];
+							if(!empty($data['flooringTypebedroom'])){
+							$bedi=1;
+							foreach($data['flooringTypebedroom'] as $flooringTypebedroom)
+							{	$bedroom=array();
+								if(!empty($flooringTypebedroom))
+								{
+									$bedroom['flooringType']=$flooringTypebedroom;
+								}
+								if(!empty($data["$bedi-othersbedroom"]))
+								{
+										$otherscomaseparated=implode(",",$data["$bedi-othersbedroom"]);
+										$bedroom['others']=$otherscomaseparated;
+								}
+								
+								if(!empty($bedroom))
+								{
+									$bedroom['propertyID']=$data['propertyID'];
+									$this->AddProperty_model->Insertotherinfo('dbho_bed_room',$bedroom);
+								}
+								$bedi++;
 							}
-							if(!empty($data['othersbedroom']))
-							{
-									$otherscomaseparated=implode(",",$data['othersbedroom']);
-									$bedroom['others']=$otherscomaseparated;
-							}
-							
-							if(!empty($bedroom))
-							{
-								$bedroom['propertyID']=$data['propertyID'];
-								$this->AddProperty_model->Insertotherinfo('dbho_bed_room',$bedroom);
 							}
 							//.......................................................................Living Room
-							if(!empty($data['flooringTypelivingroom']))
+							if(!empty($data['flooringTypelivingroom'])){
+							$livingi=1;
+							foreach($data['flooringTypelivingroom'] as $flooringTypelivingroom)
 							{
-								$livingroom['flooringType']=$data['flooringTypelivingroom'];
+								$livingroom=array();
+								if(!empty($flooringTypelivingroom))
+								{
+									$livingroom['flooringType']=$flooringTypelivingroom;
+								}
+								if(!empty($data["$livingi-otherslivingroom"]))
+								{
+										$otherscomaseparated=implode(",",$data["$livingi-otherslivingroom"]);
+										$livingroom['others']=$otherscomaseparated;
+								}
+								
+								if(!empty($livingroom))
+								{
+									$livingroom['propertyID']=$data['propertyID'];
+									$this->AddProperty_model->Insertotherinfo('dbho_living_room',$livingroom);
+								}
+								$livingi++;
 							}
-							if(!empty($data['otherslivingroom']))
-							{
-									$otherscomaseparated=implode(",",$data['otherslivingroom']);
-									$livingroom['others']=$otherscomaseparated;
-							}
-							
-							if(!empty($livingroom))
-							{
-								$livingroom['propertyID']=$data['propertyID'];
-								$this->AddProperty_model->Insertotherinfo('dbho_living_room',$livingroom);
 							}
 							//.......................................................................................Bath  Room
-							if(!empty($data['flooringTypebathroom']))
-							{
-								$bathroom['flooringType']=$data['flooringTypebathroom'];
+							if(!empty($data['flooringTypebathroom'])){
+							$bathi=1;
+							foreach($data['flooringTypebathroom'] as $flooringTypebathroom)
+							{	
+								$bathroom=array();$kitchen=array();
+								
+								if(!empty($flooringTypebathroom))
+								{
+									$bathroom['flooringType']=$flooringTypebathroom;
+								}
+								if(!empty($data['hotwatersupply'][$bathi-1]))
+								{
+									$bathroom['hotwatersupply']=$data['hotwatersupply'][$bathi-1];
+								}
+								if(!empty($data['toilet'][$bathi-1]))
+								{
+									$bathroom['toilet']=$data['toilet'][$bathi-1];
+								}
+								if(!empty($data["$bathi-othersbathroom"]))
+								{
+										$otherscomaseparated=implode(",",$data["$bathi-othersbathroom"]);
+										$bathroom['others']=$otherscomaseparated;
+								}
+								
+								if(!empty($bathroom))
+								{
+									$bathroom['propertyID']=$data['propertyID'];
+									$this->AddProperty_model->Insertotherinfo('dbho_bath_room',$bathroom);
+								}
+								$bathi++;
 							}
-							if(!empty($data['hotwatersupply']))
-							{
-								$bathroom['hotwatersupply']=$data['hotwatersupply'];
+							}							
+							//.......................................................................................................Kitchen
+							if(!empty($data['platform'])){
+							$kitcheni=1;
+							foreach($data['platform'] as $platform)
+							{	
+								$kitchen=array();
+								
+								if(!empty($data['platform']))
+								{
+									$kitchen['platformType']=$platform;
+								}
+								if(!empty($data['Cabinet'][$kitcheni]))
+								{
+									$kitchen['cabinet']=$data['Cabinet'][$kitcheni];
+								}
+								
+								if(!empty($data["$kitcheni-otherskitchen"]))
+								{
+										$otherscomaseparated=implode(",",$data["$kitcheni-otherskitchen"]);
+										$kitchen['others']=$otherscomaseparated;
+								}
+								
+								if(!empty($kitchen))
+								{
+									$kitchen['propertyID']=$data['propertyID'];
+									$this->AddProperty_model->Insertotherinfo('dbho_kitchen',$kitchen);
+								}
+								$kitcheni++;
 							}
-							if(!empty($data['toilet']))
-							{
-								$bathroom['toilet']=$data['toilet'];
-							}
-							if(!empty($data['othersbathroom']))
-							{
-									$otherscomaseparated=implode(",",$data['othersbathroom']);
-									$bathroom['others']=$otherscomaseparated;
-							}
-							
-							if(!empty($bathroom))
-							{
-								$bathroom['propertyID']=$data['propertyID'];
-								$this->AddProperty_model->Insertotherinfo('dbho_bath_room',$bathroom);
-							}
-							//.......................................................................................................
-							if(!empty($data['platform']))
-							{
-								$kitchen['platformType']=$data['platform'];
-							}
-							if(!empty($data['Cabinet']))
-							{
-								$kitchen['cabinet']=$data['Cabinet'];
-							}
-							
-							if(!empty($data['otherskitchen']))
-							{
-									$otherscomaseparated=implode(",",$data['otherskitchen']);
-									$kitchen['others']=$otherscomaseparated;
-							}
-							
-							if(!empty($kitchen))
-							{
-								$kitchen['propertyID']=$data['propertyID'];
-								$this->AddProperty_model->Insertotherinfo('dbho_kitchen',$kitchen);
 							}
 							//.....................................................................................................
 							
@@ -640,6 +672,279 @@ class AddProperty extends CI_Controller {
 		
 	}
 /*Property Log view Load Start.............................................................................................................*/
+
+/*Get No Of Bed Rooms Kitchens etc from db for insert Start.............................................................................................................*/
+	function Shownoofbedrooms()
+	{	
+		if(!empty($this->input->post('propertyid')))
+			{
+				$NoOfBedRooms=$this->AddProperty_model->Shownoofbedrooms('rp_property_attribute_values',array('propertyID'=>$this->input->post('propertyid'),'attributeID'=>1));
+				
+				if(!empty($NoOfBedRooms))
+				{	
+					if(!empty($NoOfBedRooms[0]->attrDetValue))
+					{	
+						for($i=1;$i<=$NoOfBedRooms[0]->attrDetValue;$i++)
+						{
+							echo "<div class=\"panel\"> <a class=\"panel-heading\" role=\"tab\" id=\"headingOne1\" data-toggle=\"collapse\" data-parent=\"#accordion3\" href=\"#collapseOneR$i\" aria-expanded=\"false\" aria-controls=\"collapseOne3\">";
+                         
+							echo"	<h4 class=\"panel-title StepTitle\">Bed Room $i</h4>
+								</a>";
+							echo"	<div id=\"collapseOneR$i\" class=\"panel-collapse collapse\" role=\"tabpanel\" aria-labelledby=\"headingOne\">";
+								echo'  <div class="panel-body">
+									<div class="row">
+									  <div class="form-group col-sm-2">
+										<label>Flooring Type</label>
+										<select name="flooringTypebedroom[]" class="form-control">
+										 <option value="">select</option>
+										  <option value="Marble">Marble</option>
+										  <option value="Wood">Wood</option>
+										  <option value="Ceramic">Ceramic</option>
+										  <option value="Stone">Stone</option>
+										  <option value="Laminate">Laminate</option>
+										  <option value="AntiSkidTiles">Anti Skid Tiles</option>
+										</select>
+									  </div>
+									</div>';
+								echo"	<div class=\" clearfix\"> <span class=\"checkbozsty-1\">
+									  <input type=\"checkbox\"  value=\"TV\" name=\"$i-othersbedroom[]\">
+									  TV</span> <span class=\"checkbozsty-1\">
+									  <input type=\"checkbox\"  value=\"AC\" name=\"$i-othersbedroom[]\">
+									  AC</span> <span class=\"checkbozsty-1\">
+									  <input type=\"checkbox\"  value=\"Bed\" name=\"$i-othersbedroom[]\">
+									  Bed</span> <span class=\"checkbozsty-1\">
+									  <input type=\"checkbox\" value=\"DressingTable\" name=\"$i-othersbedroom[]\">
+									  Dressing Table</span> <span class=\"checkbozsty-1\">
+									  <input type=\"checkbox\"  value=\"Wardrobe\" name=\"$i-othersbedroom[]\">
+									  Wardrobe</span> <span class=\"checkbozsty-1\">
+									  <input type=\"checkbox\"  value=\"FalseSeiling\" name=\"$i-othersbedroom[]\">
+									  False Seiling</span> <span class=\"checkbozsty-1\">
+									  <input type=\"checkbox\"  value=\"AttachedBalcony\" name=\"$i-othersbedroom[]\">
+									  Attached Balcony</span> <span class=\"checkbozsty-1\">
+									  <input type=\"checkbox\"  value=\"AttachedBathroom\" name=\"$i-othersbedroom[]\">
+									  Attached Bathroom</span> <span class=\"checkbozsty-1\">
+									  <input type=\"checkbox\"  value=\"Ventilation\" name=\"$i-othersbedroom[]\">
+									  Ventilation</span> </div>
+								  </div>
+								</div>
+							</div>";
+						}
+					}
+					
+				}
+				
+				$NoOfLivingRooms=$this->AddProperty_model->Shownoofbedrooms('rp_property_attribute_values',array('propertyID'=>$this->input->post('propertyid'),'attributeID'=>28));
+				
+				if(!empty($NoOfLivingRooms))
+				{	
+					if(!empty($NoOfLivingRooms[0]->attrDetValue))
+					{	
+						for($i=1;$i<=$NoOfLivingRooms[0]->attrDetValue;$i++)
+						{
+							echo "<div class=\"panel\"> <a class=\"panel-heading\" role=\"tab\" id=\"headingOne1\" data-toggle=\"collapse\" data-parent=\"#accordion3\" href=\"#collapseOneL$i\" aria-expanded=\"false\" aria-controls=\"collapseOne3\">";
+                         
+							echo"<h4 class=\"panel-title StepTitle\">Living Room $i</h4>
+								</a>";
+							echo"	<div id=\"collapseOneL$i\" class=\"panel-collapse collapse\" role=\"tabpanel\" aria-labelledby=\"headingOne\">";
+								echo'<div class="panel-body">
+                            <div class="row">
+                              <div class="form-group col-sm-2">
+                                <label>Flooring Type</label>
+                                <select name="flooringTypelivingroom[]" class="form-control">
+                                  <option value="">select</option>
+                                  <option value="Marble">Marble</option>
+                                  <option value="Wood">Wood</option>
+                                  <option value="Ceramic">Ceramic</option>
+                                  <option value="Stone">Stone</option>
+                                  <option value="Laminate">Laminate</option>
+                                  <option value="AntiSkidTiles">Anti Skid Tiles</option>
+                                </select>
+                              </div>
+                            </div>
+                            <div class=" clearfix"> <span class="checkbozsty-1">';
+                           echo"   <input type=\"checkbox\"  value=\"Sofa\" name=\"$i-otherslivingroom[]\">
+                              Sofa</span> <span class=\"checkbozsty-1\">
+                              <input type=\"checkbox\"  value=\"DiningTable\" name=\"$i-otherslivingroom[]\">
+                              Dining Table</span> <span class=\"checkbozsty-1\">
+                              <input type=\"checkbox\"  value=\"AC\" name=\"$i-otherslivingroom[]\">
+                              AC</span> <span class=\"checkbozsty-1\">
+                              <input type=\"checkbox\" value=\"ShoeRack\" name=\"$i-otherslivingroom[]\">
+                              Shoe Rack</span> <span class=\"checkbozsty-1\">
+                              <input type=\"checkbox\"  value=\"TV\" name=\"$i-otherslivingroom[]\">
+                              TV</span> <span class=\"checkbozsty-1\">
+                              <input type=\"checkbox\"  value=\"FalseSeiling\" name=\"$i-otherslivingroom[]\">
+                              False Seiling</span> </div>
+                          </div>
+                        </div>
+                      </div>";
+						}
+					}
+					
+				}
+				
+				$NoOfBathRooms=$this->AddProperty_model->Shownoofbedrooms('rp_property_attribute_values',array('propertyID'=>$this->input->post('propertyid'),'attributeID'=>3));
+				
+				if(!empty($NoOfBathRooms))
+				{	
+					if(!empty($NoOfBathRooms[0]->attrDetValue))
+					{	
+						for($i=1;$i<=$NoOfBathRooms[0]->attrDetValue;$i++)
+						{
+							echo "<div class=\"panel\"> <a class=\"panel-heading\" role=\"tab\" id=\"headingOne1\" data-toggle=\"collapse\" data-parent=\"#accordion3\" href=\"#collapseOneB$i\" aria-expanded=\"false\" aria-controls=\"collapseOne3\">";
+                         
+							echo"	<h4 class=\"panel-title StepTitle\">Bath Room $i</h4>
+								</a>";
+							echo"	<div id=\"collapseOneB$i\" class=\"panel-collapse collapse\" role=\"tabpanel\" aria-labelledby=\"headingOne\">";
+							
+								echo'<div class="panel-body">
+                            <div class="row">
+                              <div class="col-xs-12 col-md-4">
+                                <div class="form-group">
+                                  <label>Flooring Type</label>
+                                  <select name="flooringTypebathroom[]" class="form-control">
+                                  <option value="">select</option>
+                                  <option value="Marble">Marble</option>
+                                  <option value="Wood">Wood</option>
+                                  <option value="Ceramic">Ceramic</option>
+                                  <option value="Stone">Stone</option>
+                                  <option value="Laminate">Laminate</option>
+                                  <option value="AntiSkidTiles">Anti Skid Tiles</option>
+                                  </select>
+                                </div>
+                              </div>
+                              <div class="col-xs-12 col-md-4">
+                                <div class="x_panel-1">
+                                  <div class="x_title-1">
+                                    <h4>Hot Water Supply</h4>
+                                  </div>
+                                  <div class="x_content-1">
+                                    <div class="radio mabott10">
+                                      <label>
+                                        <input type="radio" class="flat" value="Geyser" name="hotwatersupply[]">
+                                        Geyser </label>
+                                      <label>
+                                        <input type="radio" class="flat" value="Gas"  name="hotwatersupply[]">
+                                        Gas </label>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-xs-12 col-md-4">
+                                <div class="x_panel-1">
+                                  <div class="x_title-1">
+                                    <h4>Toilet</h4>
+                                  </div>
+                                  <div class="x_content-1">
+                                    <div class="radio mabott10">
+                                      <label>
+                                        <input type="radio" class="flat" value="Indian" name="toilet[]">
+                                        Indian </label>
+                                      <label>
+                                        <input type="radio" class="flat" value="Western" name="toilet[]">
+                                        Western </label>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="">
+                              <div class="clearfix"> <span class="checkbozsty-1">';
+                           echo"     <input type=\"checkbox\"  value=\"GlassPartition\" name=\"$i-othersbathroom[]\">
+                                Glass Partition</span> <span class=\"checkbozsty-1\">
+                                <input type=\"checkbox\"  value=\"BathTub\" name=\"$i-othersbathroom[]\">
+                                Bath Tub</span> <span class=\"checkbozsty-1\">
+                                <input type=\"checkbox\"  value=\"Axhaustfan\" name=\"$i-othersbathroom[]\">
+                                Axhaust fan</span> <span class=\"checkbozsty-1\">
+                                <input type=\"checkbox\" value=\"Windows\" name=\"$i-othersbathroom[]\">
+                                Windows</span> <span class=\"checkbozsty-1\">
+                                <input type=\"checkbox\"  value=\"ShowerCurtain\" name=\"$i-othersbathroom[]\">
+                                Shower Curtain</span> <span class=\"checkbozsty-1\">
+                                <input type=\"checkbox\"  value=\"Cabinet\" name=\"$i-othersbathroom[]\">
+                                Cabinet</span> </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>";
+						}
+					}
+					
+				}
+				
+				$NoOfKitchenRooms=$this->AddProperty_model->Shownoofbedrooms('rp_property_attribute_values',array('propertyID'=>$this->input->post('propertyid'),'attributeID'=>27));
+				
+				if(!empty($NoOfKitchenRooms))
+				{	
+					if(!empty($NoOfKitchenRooms[0]->attrDetValue))
+					{	
+						for($i=1;$i<=$NoOfKitchenRooms[0]->attrDetValue;$i++)
+						{
+							echo "<div class=\"panel\"> <a class=\"panel-heading\" role=\"tab\" id=\"headingOne1\" data-toggle=\"collapse\" data-parent=\"#accordion3\" href=\"#collapseOneK$i\" aria-expanded=\"false\" aria-controls=\"collapseOne3\">";
+                         
+							echo"	<h4 class=\"panel-title StepTitle\">Kitchen $i</h4>
+								</a>";
+							echo"	<div id=\"collapseOneK$i\" class=\"panel-collapse collapse\" role=\"tabpanel\" aria-labelledby=\"headingOne\">";
+							
+								echo'<div class="panel-body">
+                            <div class="row">
+                              <div class="col-xs-12 col-md-4">
+                                <div class="form-group">
+                                  <label>Platform</label>
+                                  <select name="platform[]" class="form-control">
+									<option value="">Select</option>
+                                    <option value="Simple">Simple</option>
+                                    <option value="Granite">Granite</option>
+                                    <option value="Marble">Marble</option>
+                                    <option value="Wooden">Wooden</option>
+                                    <option value="Ceramic">Ceramic</option>
+                                    <option value="Kotasin">Kota Sin</option>
+                                  </select>
+                                </div>
+                              </div>
+                              <div class="col-xs-12 col-md-4">
+                                <div class="x_panel-1">
+                                  <div class="x_title-1">
+                                    <h4>Cabinet</h4>
+                                  </div>
+                                  <div class="x_content-1">
+                                    <div class="radio mabott10">
+                                      <label>
+                                        <input type="radio" class="flat" value="Modular" name="Cabinet[]">
+                                        Modular </label>
+                                      <label>
+                                        <input type="radio" class="flat" value="NA" name="Cabinet[]">
+                                        NA </label>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="">
+                              <div class="clearfix"> <span class="checkbozsty-1">';
+                            echo"    <input type=\"checkbox\"  value=\"Refrigerator\" name=\"$i-otherskitchen[]\">
+                                Refrigerator</span> <span class=\"checkbozsty-1\">
+                                <input type=\"checkbox\"  value=\"Waterpurifier\" name=\"$i-otherskitchen[]\">
+                                Water purifier</span> <span class=\"checkbozsty-1\">
+                                <input type=\"checkbox\"  value=\"Loft\" name=\"$i-otherskitchen[]\">
+                                Loft</span> <span class=\"checkbozsty-1\">
+                                <input type=\"checkbox\" value=\"GasPipline\" name=\"$i-otherskitchen[]\">
+                                Gas Pipline</span> <span class=\"checkbozsty-1\">
+                                <input type=\"checkbox\"  value=\"Microwave\" name=\"$i-otherskitchen[]\">
+                                Microwave</span> <span class=\"checkbozsty-1\">
+                                <input type=\"checkbox\"  value=\"Chimaey\" name=\"$i-otherskitchen[]\">
+                                Chimaey</span> </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>";
+						}
+					}
+					
+				}
+				
+			}
+		
+	}
+/*Get No Of Bed Rooms Kitchens etc from db for insert End.............................................................................................................*/
 
 
 /*Preview Of Added Property...................................................................................................................................................*/

@@ -326,7 +326,11 @@ function SmartWizard(target, options,test) {
             nextStepIdx = 0;
         }
 		var returntype =checktype();
-		if(returntype="property"){
+		if(returntype=="property"){
+			
+			if(nextStepIdx==2){
+				shownoofbedrooms(nextStepIdx);
+			}
 			InsertProperty(nextStepIdx);
 		}else{
 			InsertProject(nextStepIdx);

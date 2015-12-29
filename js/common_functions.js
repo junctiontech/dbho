@@ -272,6 +272,30 @@ function InsertProperty(id)
 		
 }
 
+function shownoofbedrooms(id) 
+	{   
+		
+		var formid=id;
+		var propertyid=document.getElementById("form3_id").value;
+		if(propertyid !=''){  
+		$.ajax({
+         data: {propertyid:propertyid},
+         type: "post",
+         url: base_url+'AddProperty/Shownoofbedrooms/'+formid,
+		 beforeSend: function() {
+				$("#loader").fadeIn();
+			},
+         success: function(result){
+			 $("#loader").fadeOut();
+			
+			  $('.showbedrooms').html(result);
+         }
+			});
+		}else{
+			alert("Property ID is not found!!");
+		}	
+}
+
 $(document).ready(function(){
 	
 /*Get User For Add Property............................. Start*/	

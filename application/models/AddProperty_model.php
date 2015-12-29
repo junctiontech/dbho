@@ -41,7 +41,7 @@ class AddProperty_model extends CI_Model
 	public function getPropertyType(){
 		$this->db->select('t1.propertyTypeID,t1.propertyTypeName,t2.propertyTypeKey');
 		$this->db->from('rp_property_type_details t1');
-		$this->db->join('rp_property_types t2','t1.propertyTypeID = t2.propertyTypeID AND t2.propertyTypeStatus = "active"
+		$this->db->join('rp_property_types t2','t1.propertyTypeID = t2.propertyTypeID AND t2.propertyTypeStatus = "active" AND t2.typeName="Property"
 		AND t1.languageID =1','inner');
 		$query = $this->db->get();
 		return $query->result();
@@ -148,6 +148,17 @@ class AddProperty_model extends CI_Model
 									rp_user_type_details.languageID='1'");	
 			return $qry->Result();	
 	}
+	
+	public function Shownoofbedrooms($table=false,$propertyID=false){
+		 
+	   $this->db->select('attrDetValue');
+	   $this->db->from('rp_property_attribute_values t1');
+	   $this->db->join('rp_property_attribute_value_details t2','t1.attrValueID=t2.attrValueID AND t2.languageID=1 ','inner');
+	   $this->db->where($propertyID);
+	   $query = $this->db->get();
+	   return $result = $query->result();
+
+  }
 	
 		
 }
