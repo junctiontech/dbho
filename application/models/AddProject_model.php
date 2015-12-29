@@ -20,7 +20,8 @@ class AddProject_model extends CI_Model
 		$query=$this->db->get_where($table,$filter);
 		return $query->result();
 	}
-	public function getPropertyType(){
+	
+	function getPropertyType(){
 		$this->db->select('t1.propertyTypeID,t1.propertyTypeName,t2.propertyTypeKey');
 		$this->db->from('rp_property_type_details t1');
 		$this->db->join('rp_property_types t2','t1.propertyTypeID = t2.propertyTypeID AND t2.propertyTypeStatus = "active"
@@ -93,9 +94,59 @@ class AddProject_model extends CI_Model
 
 	}
 	
+	/*function GetProjectList()
+	{
+		$qry=$this->db->query("select rp_projects.*,rp_project_details.*,rp_users.*,rp_user_details.* from rp_projects,rp_project_details,rp_users,rp_user_details where rp_projects.projectID=rp_project_details.projectID and rp_projects.userID=rp_users.userID and rp_users.userID=rp_user_details.userID and rp_project_details.languageID=1 and rp_user_details.languageID=1 ");
+		return $qry->result();
+	}*/
+	
 	function GetProjectList()
 	{
-		$qry=$this->db->query('select rp_projects.*,rp_project_details.*,rp_users.*,rp_user_details.* from rp_projects,rp_project_details,rp_users,rp_user_details where rp_projects.projectID=rp_project_details.projectID and rp_projects.userID=rp_users.userID and rp_users.userID=rp_user_details.userID and rp_project_details.languageID=1 and rp_user_details.languageID=1 ');
+		$qry=$this->db->query("select rp_projects.projectID,rp_projects.projectAddedDate,rp_project_details.projectName,rp_users.userEmail,rp_user_details.userFirstName,rp_user_types.userTypeStatus,rp_user_type_details.userTypeName from rp_projects,rp_project_details,rp_users,rp_user_details,rp_user_to_type,rp_user_types,rp_user_type_details where rp_projects.projectID=rp_project_details.projectID and rp_projects.userID=rp_users.userID and rp_users.userID=rp_user_details.userID and rp_projects.userID=rp_user_to_type.userID and rp_user_to_type.userTypeID =rp_user_types.userTypeID and rp_user_types.userTypeStatus='Active' and rp_user_types.userTypeID=rp_user_type_details.userTypeID and rp_user_type_details.languageID=1 and rp_project_details.languageID=1 and rp_user_details.languageID=1");
 		return $qry->result();
+	}
+	
+	function GetProjectDataDetail($filter=false,$languageID=false)
+	{
+		$qry=$this->db->query("select rp_projects.*,rp_project_details.*,rp_users.*,rp_user_details.* from rp_projects,rp_project_details,rp_users,rp_user_details where rp_projects.projectID=$filter and rp_project_details.projectID=$filter and rp_projects.userID=rp_users.userID and rp_users.userID=rp_user_details.userID and rp_project_details.languageID=$languageID and rp_user_details.languageID=$languageID");
+		return $qry->result();
+	}
+	
+	
+	function GetProjectFilterDataList($filter1=false)
+	{	//echo $filter1;echo $filter2;die;
+		$qry=$this->db->query("select rp_projects.projectID,rp_projects.projectAddedDate,rp_project_details.projectName,rp_users.userEmail,rp_user_details.userFirstName,rp_user_types.userTypeStatus,rp_user_type_details.userTypeName from rp_projects,rp_project_details,rp_users,rp_user_details,rp_user_to_type,rp_user_types,rp_user_type_details where rp_user_type_details.userTypeName='$filter1' and rp_projects.projectID=rp_project_details.projectID and rp_projects.userID=rp_users.userID and rp_users.userID=rp_user_details.userID and rp_projects.userID=rp_user_to_type.userID and rp_user_to_type.userTypeID=rp_user_types.userTypeID and rp_user_types.userTypeStatus='Active' and rp_user_types.userTypeID=rp_user_type_details.userTypeID and rp_user_type_details.languageID=1 and rp_project_details.languageID=1 and rp_user_details.languageID=1");
+		return $qry->result();
+	}
+	
+	function GetProjectPaymentDetail($filter=false,$languageID=false)
+	{
+		$qry=$this->db->query("select * from `rp_project_payment_info` where projectID=$filter and languageID=$languageID");
+		return $qry->result();
+	}
+	
+	function GetProjectImageDetail($filter=false,$languageID=false)
+	{
+		$qry=$this->db->query("select rp_project_images.*,rp_project_image_details.* from rp_project_images,rp_project_image_details where rp_project_images.projectID=$filter and rp_project_images.projectImageID=rp_project_image_details.projectImageID and rp_project_image_details.languageID=$languageID");
+		return $qry->result();
+	}
+	
+	function GetProjectVideoDetail($filter=false,$languageID=false)
+	{
+		$qry=$this->db->query("select rp_project_videos.*,rp_project_video_details.* from rp_project_videos,rp_project_video_details where rp_project_videos.projectID=$filter and rp_project_videos.projectVideoID=rp_project_video_details.projectVideoID and rp_project_video_details.languageID=$languageID");
+		return $qry->result();
+	}
+	
+	function GetSingleData($table=false,$filter=false)
+	{
+		$qry=$this->db->get_where($table,$filter);
+		return $qry->result();
+	}
+	
+	function DeleteSingleData($table=false,$filter=false)
+	{
+		$this->db->where($filter);
+		$qry=$this->db->delete($table);
+		return $qry;
 	}
 }

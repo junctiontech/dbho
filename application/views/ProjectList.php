@@ -44,16 +44,16 @@
             
             
         <div class="x_content">
-			<form id="demo-form2" data-parsley-validate class="form-group form-label-left clearfix">
+			<form id="" method="post" action="<?=base_url();?>AddProject/ProjectList" data-parsley-validate class="form-group form-label-left clearfix" >
 				<div class="row">
 				  <div class="form-group col-xs-12 col-sm-2">
 					<label class="control-label" for="first-name">User Type</label>
-					<input type="text" id="first-name" required="required" class="form-control">
+					<input type="text" name="userTypeName" id="first-name" required="required" class="form-control">
 				  </div>
 				  
 				  <div class="form-group col-xs-12 col-sm-2">
 					<label class="control-label" for="first-name">Account</label>
-					<input type="text" id="first-name" required="required" class="form-control">
+					<input type="text" name="userAccount" id="first-name" required="required" class="form-control">
 				  </div>
 				  <div class="form-group col-xs-12 col-sm-2">
 					 <label class="control-label" for="first-name">Activated By</label>
@@ -114,17 +114,17 @@
                     </tr>
                   </thead>
                   <tbody>
-				  <?php foreach($ProjectList as $list){ ?>
+				  <?php $i=1; foreach($ProjectList as $list){ ?>
                     <tr>
-					  <td>1</td>
-                      <td><?=$list->userFirstName;?></td>
-                      <td><?=$list->projectName;?><br>Silver Plan</td>
-                      <td><?=$list->userEmail;?><br>pal2@homeonline.com</td>
+					  <td><?=$i;?></td>
+                      <td><?=$list->userTypeName;?></td>
+                      <td><?=$list->projectName;?><br>plan</td>
+                      <td><?=$list->userEmail;?><br><?=$list->userEmail;?></td>
                       <td><?=$list->userEmail;?></td>
                       <td><?=$list->projectAddedDate;?></td>
                        <td>
                        <div class="action-icons">
-                       <a href="<?=base_url();?><?=$list->projectID;?>" title="Edit" alt="Edit"><i class="fa fa-edit"></i></a>
+                       <a href="<?=base_url();?>AddProject/index/<?=$list->projectID;?>" title="Edit" alt="Edit"><i class="fa fa-edit"></i></a>
                        <a href="#" title="Log" alt="Log"><i class="fa fa-archive"></i></a>
                        <a href="#" title="Delete" alt="Delete"><i class="fa fa-trash"></i></a><br>
                        <a href="#" title="Pause" alt="Pause"><i class="fa fa-pause"></i></a>
@@ -134,7 +134,7 @@
                        </td>
                        <td><i class="fa fa-check" title="Active"></i></td>
                      </tr>
-					<?php } ?>
+					<?php $i++; } ?>
                    </tbody>
                 </table>
                 </div>

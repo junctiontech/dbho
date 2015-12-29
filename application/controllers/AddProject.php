@@ -19,8 +19,18 @@ class AddProject extends CI_Controller {
 
 
 		/*......................Add Project view Load Start......................*/
-	function index()
-	{	
+	function index($filter=false)
+	{	//echo $filter;die;
+		if(!empty($filter))
+		{
+			$ProjectFilterData=$this->data['ProjectFilterData']=$this->AddProject_model->GetProjectDataDetail($filter,$this->data['LanguageId']);// print_r($ProjectFilterData);die;
+			
+			$ProjectPaymentInfo=$this->data['ProjectPaymentInfo']=$this->AddProject_model->GetProjectPaymentDetail($filter,$this->data['LanguageId']);//print_r($ProjectFilterData);die;
+			
+			$ProjectImageInfo=$this->data['ProjectImageInfo']=$this->AddProject_model->GetProjectImageDetail($filter,$this->data['LanguageId']);//print_r($ProjectImageInfo);die;
+			
+			$ProjectVideoInfo=$this->data['ProjectVideoInfo']=$this->AddProject_model->GetProjectVideoDetail($filter,$this->data['LanguageId']);//print_r($ProjectImageInfo);die;
+		}
 		$UserType=$this->data['UserType']=$this->AddProject_model->GetMultipleData('rp_user_type_details',array('languageID'=>$this->data['LanguageId']));//print_r($UserType);die;$UserType
 		$ProjectType=$this->data['ProjectType']=$this->AddProject_model->GetMultipleData('rp_property_types',array('typeName'=>'Project','propertyTypeStatus'=>'Active'));
 		$this->data['propertytype']=$this->AddProject_model->getPropertyType();
@@ -33,6 +43,7 @@ class AddProject extends CI_Controller {
 	
 	function UserTypeDetail()
 	{
+		$userids=$this->input->post('userid');
 		$UserTypeId= $this->input->post('UserTypeId');//echo $UserTypeId;die;
 		$UserId=$this->data['UserId']=$this->AddProject_model->GetMultipleData('rp_user_type_details',array('userTypeID'=>$UserTypeId,'languageID'=>$this->data['LanguageId'])); //print_r($UserId);die;
 		$UserTypeName=$UserId[0]->userTypeName;
@@ -47,7 +58,7 @@ class AddProject extends CI_Controller {
 			 {
 				$UserDetail=$this->data['UserDetail']=$this->AddProject_model->GetMultipleData('rp_user_details',array('userID'=>$list->userID,'languageID'=>$this->data['LanguageId'])); //print_r($UserId);
 			 foreach ($UserDetail as $list){ ?> 
-				 <option value="<?php echo $list->userID; ?>"><?php echo ucwords(str_replace('_', ' ', $list->userCompanyName)); ?>( <?php echo ucwords($list->userFirstName); ?>&nbsp;<?php echo ucwords($list->userLastName); ?> )</option>
+				 <option value="<?php echo $list->userID; ?>" <?php if(!empty($userids) && $userids==$list->userID){ echo 'selected'; } ?> ><?php echo ucwords(str_replace('_', ' ', $list->userCompanyName)); ?>( <?php echo ucwords($list->userFirstName); ?>&nbsp;<?php echo ucwords($list->userLastName); ?> )</option>
 			 <?php } }?>
 		   </select>
 		</div>
@@ -108,7 +119,7 @@ class AddProject extends CI_Controller {
 			<div class="form-group col-xs-12 col-sm-3">
 				<label class="control-label" for="last-name">Date</label>
 				<div class="xdisplay_inputx form-group has-feedback">
-					<input type="text" name="Date" class="form-control has-feedback-left" <?php if($StatusValue=='2'){ ?> id="single_cal2" <?php  }?> placeholder="Select Date" aria-describedby="inputSuccess2Status2" <?php if($StatusValue!=='2'){ ?> readonly <?php  }?>>
+					<input type="text" name="Date" class="form-control has-feedback-left" <?php if($StatusValue=='Redy To Move'){ ?> id="single_cal2" <?php  }?> placeholder="Select Date" aria-describedby="inputSuccess2Status2" <?php if($StatusValue!=='Redy To Move'){ ?> readonly <?php  }?>>
 					<span class="fa fa-calendar-o form-control-feedback left" style="left:5px;" aria-hidden="true"></span> <span id="inputSuccess2Status2" class="sr-only">(success)</span> 
 				</div>
 			</div>
@@ -126,91 +137,6 @@ class AddProject extends CI_Controller {
 			</script> 
 		<?php 
 	}
-	/*
-function ProjectTypes()
-	{	
-			if(!empty($this->input->post('projectTypeId')))
-			{
-					$AttributesGroup=$this->AddProject_model->Getattributesgroups($this->input->post('projectTypeId'));
-					
-					if(!empty($AttributesGroup)){
-						
-						$atti=1;
-						foreach($AttributesGroup as $AttributesGroups)
-						{
-							echo"<div class=\"panel\"> <a class=\"panel-heading\" role=\"tab\" id=\"headingOneA$atti\" data-toggle=\"collapse\" data-parent=\"#accordionA$atti\" href=\"#collapseOneA$atti\" aria-expanded=\"false\" aria-controls=\"collapseOneA$atti\">";
-                              echo"<h4 class=\"panel-title StepTitle\">$AttributesGroups->name</h4>";
-								echo"</a>";
-									echo"<div id=\"collapseOneA$atti\" class=\"panel-collapse collapse \" role=\"tabpanel\" aria-labelledby=\"headingOne\">";
-										echo"<div class=\"panel-body black-filed\">";
-										
-											$Attribute=$this->AddProject_model->GetAttributes($AttributesGroups->attributeGroupID);
-											if(!empty($Attribute))
-											{
-												foreach($Attribute as $Attributes)
-												{
-													if($Attributes->attrName!=='Amenities')
-													{
-														$Attributeoption=$this->AddProject_model->GetAttributesoption($Attributes->attributeID);
-														if($Attributes->attrInputType=="select"){
-														
-														  echo"<div class=\"form-group col-xs-12 col-sm-4 martop20\">";
-															echo"<label class=\"control-label\" for=\"last-name\">$Attributes->attrName </label>";
-															if($Attributes->attrName=="Bed Rooms"){ $call="onchange='generatenameproperty();'"; $id="id='bedroom'";}else{$call=''; $id='';}
-															echo"<select class=\"form-control\" $call $id>";
-															  echo"<optgroup label=\"Select\">";
-															  echo"<option value=\"\">select</option>";
-															  foreach($Attributeoption as $Attributeoptions){
-															  echo"<option value=\"$Attributeoptions->attrOptionID\">$Attributeoptions->attrOptName</option>";
-															  }
-															  echo"</optgroup>";
-															echo"</select>";
-														  echo"</div>";
-														}
-														 
-														if($Attributes->attrInputType=="texbox"){
-														  echo"<div class=\"form-group col-xs-12 col-sm-4 \">";
-															echo"<label class=\"control-label\" for=\"last-name\">$Attributes->attrName </label>";
-															echo"<input id=\"middle-name\" class=\"form-control\" type=\"text\" name=\"middle-name\">";
-														  echo"</div>";
-														}
-														  
-														if($Attributes->attrInputType=="multiselect"){ 
-														//echo"<br>";
-														  echo"<div class=\"form-group col-xs-12 col-sm-4\">";
-															echo"<label class=\"control-label\" for=\"last-name\" style=\"display:block;\">$Attributes->attrName</label>";
-															foreach($Attributeoption as $Attributeoptions){
-															  
-															echo"<span class=\"checkbozsty\">";
-															echo"<input type=\"checkbox\"  value=\"$Attributeoptions->attrOptionID\" name=\"multiselect_Amenities_Security_6\">";
-															echo"$Attributeoptions->attrOptName</span>";
-															}
-															echo"</div>";
-															//echo"<br>";
-														}
-													}
-													else
-													{
-														
-													}
-												}
-											}
-								
-                              echo"</div>";
-                            echo"</div>";
-							 echo"</div>";
-							$atti++;
-						}
-						
-					}else{
-						echo"List Is Empty!!";
-					}
-			}else{
-				echo"Property Is Not Found!!";
-			}
-		
-	}
-	*/
 	
 	
 	function ProjectType()
@@ -364,18 +290,10 @@ function ProjectTypes()
 	function InsertProject($formid=false)
 	{
 		$data=$_POST;
-	//print_r($data);die;
+		//print_r($data);die;
 		$date=date("Y-m-d");
-		/*$formid=$this->input->post('formid');
-			$formname="form-";
-			$formname.=$formid;
-		*/
-	
 		if(!empty($data))
 		{
-	
-			/*if($formname="form-1")
-			 {*/
 			$data1=array();
 			$data2=array();
 			foreach($data as $key=> $datas)
@@ -385,9 +303,9 @@ function ProjectTypes()
 					$data1['userID']=$datas;
 				}
 	
-				if($key=="propertyTypeID")
+				if($key=="projectTypeID")
 				{
-					$data1['propertyTypeID']= $datas;
+					$data1['projectTypeID']= $datas;
 				}
 	
 				if($key=="lat")
@@ -407,7 +325,7 @@ function ProjectTypes()
 				}
 				
 				
-				//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+				/* ................. Project Details Table Data .................... */
 				if($key=="projectName")
 				{
 					$data2['projectName']= $datas;
@@ -457,19 +375,55 @@ function ProjectTypes()
 				{
 					$data2['projectOgDescription']= $datas;
 				}
+			}	
+			if(!empty($data['projectID']))
+			{
+				$data1['projectAddedDate']= $date;
+				$this->AddProject_model->InsertProject('rp_projects',$data1,array('projectID'=>$data['projectID']));
+				$data2['languageID']= $this->data['LanguageId'];
+				$this->AddProject_model->InsertProject('rp_project_details',$data2,array('projectID'=>$data['projectID']));
+				/************ Payment Information Insert ****************/
+				if($data['paymentInfoLable'])
+				{
+					$delete=$this->AddProject_model->DeleteSingleData('rp_project_payment_info',array('projectID'=>$data['projectID']));
+					if($delete)
+					{
+						for($i=0;$i<count($data['paymentInfoLable']);$i++)
+						{
+							$paymentLable=array(
+											'projectID'=>$data['projectID'],
+											'paymentInfoLabel'=>$data['paymentInfoLable'][$i],
+											'paymentInfoValue'=>$data['paymentInfoValue'][$i],
+											'languageID'=>$this->data['LanguageId'],
+										  );
+							$paymentID=$this->AddProject_model->InsertProject('rp_project_payment_info',$paymentLable);
+						}
+					}
+				}
 			}
-			$projectKey=strtoupper(bin2hex(mcrypt_create_iv(4, MCRYPT_DEV_RANDOM)));
-			$data1['projectKey']= $projectKey;
-			$data1['projectAddedDate']= $date;
-			//print_r($data1);die;
-			$ProjectID=$this->AddProject_model->InsertProject('rp_projects',$data1);
-			$data2['projectID']= $ProjectID;
-			$data2['languageID']= $this->data['LanguageId'];
-			//print_r($data2);die;
-			$this->AddProject_model->InsertProject('rp_project_details',$data2);
-			//}
-			if(!empty($ProjectID)){ echo $ProjectID;	}else{ if(!empty($data['ProjectID'])){ echo $data['ProjectID']; }}
-				
+			else
+			{
+				$projectKey=strtoupper(bin2hex(mcrypt_create_iv(4, MCRYPT_DEV_RANDOM)));
+				$data1['projectKey']= $projectKey;
+				$data1['projectAddedDate']= $date;
+				$projectID=$this->AddProject_model->InsertProject('rp_projects',$data1);
+				//echo $projectID;//die;
+				$data2['projectID']= $projectID;// $data2['projectID'];die;
+				$data2['languageID']= $this->data['LanguageId'];
+				$this->AddProject_model->InsertProject('rp_project_details',$data2);
+				/************ Payment Information Insert ****************/
+				for($i=0;$i<count($data['paymentInfoLable']);$i++)
+				{
+					$paymentLable=array(
+									'projectID'=>$projectID,
+									'paymentInfoLabel'=>$data['paymentInfoLable'][$i],
+									'paymentInfoValue'=>$data['paymentInfoValue'][$i],
+									'languageID'=>$this->data['LanguageId'],
+								  );
+					$paymentID=$this->AddProject_model->InsertProject('rp_project_payment_info',$paymentLable);
+				}
+			}
+			if(!empty($projectID)){ echo $projectID; } else{ if(!empty($data['projectID'])){ echo $data['projectID']; }}
 		}else{
 			echo"Add Project Fail!!";
 		}
@@ -480,8 +434,11 @@ function ProjectTypes()
 	public function uploadimage()
 	{
 		$projectID=$this->input->post('projectID');//echo $projectID;
-		$imagecategory=$this->input->post('imagecategory');//echo $imagecategory;  echo $projectID;die;//alert($this->input->post('imagecategory'));die;echo $propertyID;echo $imagecategory;die;
-		if(!empty($projectID) && !empty($imagecategory))
+		$Elevationimagecategory=$this->input->post('ElevationImageCategory');
+		$ThreeSixtyImageCategory=$this->input->post('ThreeSixtyImageCategory');
+		$imagecategory=$this->input->post('imagecategory');
+		$MasterImage=$this->input->post('MasterImage');
+		if(!empty($projectID))
 		{
 			
 			if($_FILES['file']['name']!='')
@@ -495,7 +452,7 @@ function ProjectTypes()
 						$config =  array(
 						'upload_path'	  => './projectImages/',
 						'file_name'       => $image,
-						'allowed_types'   => "gif|jpg|png|jpeg|JPG|JPEG|PNG|JPG|avi|mov|mp4|flv|mkv|vlc|wmv",
+						'allowed_types'   => "gif|jpg|png|jpeg|JPG|JPEG|PNG|JPG",
 						'overwrite'       => true);
 						
 							$this->upload->initialize($config);
@@ -505,19 +462,37 @@ function ProjectTypes()
 									$upload_data = $this->upload->data();
 									$image=$upload_data['file_name'];
 									/* project Elevation view image insert */
-									$projectElevationImage=array('projectID'=>$projectID,'projectElevationImage'=>$image);
-									$projectElevationImage=$this->AddProject_model->InsertProject('rp_projects',$projectElevationImage,array('projectID'=>$projectID));
+									if(!empty($Elevationimagecategory))
+									{
+										$projectElevationImage=array('projectID'=>$projectID,'projectElevationImage'=>$image);
+										$projectElevationImage=$this->AddProject_model->InsertProject('rp_projects',$projectElevationImage,array('projectID'=>$projectID));
+									}
 									/* project 360 view image insert */
-									$projectThreeSixtyImage=array('projectID'=>$projectID,'projectThreeSixtyImage'=>$image);
-									$projectThreeSixtyImage=$this->AddProject_model->InsertProject('rp_projects',$projectThreeSixtyImage,array('projectID'=>$projectID));
+									if(!empty($ThreeSixtyImageCategory))
+									{
+										$projectThreeSixtyImage=array('projectID'=>$projectID,'projectThreeSixtyImage'=>$image);
+										$projectThreeSixtyImage=$this->AddProject_model->InsertProject('rp_projects',$projectThreeSixtyImage,array('projectID'=>$projectID));
+									}
 									/* project image insert */
 									if($imagecategory==3 || $imagecategory==4 || $imagecategory==5)
 									{
-										$projectImage=array('projectID'=>$projectID,'imageCatID'=>$imagecategory,'projectImageName'=>$image,'isCoverImage'=>'No','projectImagePriority'=>'1','projectImageStatus'=>'Active');
-										$propertyImageID=$this->AddProject_model->InsertProject('rp_project_images',$projectImage);
-										/* project Image Details insert */
-										$projectImageDetails=array('projectImageID'=>$propertyImageID,'languageID'=>$this->data['LanguageId'],'projectImageTitle'=>'','projectImageAltTag'=>'');
-										$this->AddProject_model->InsertProject('rp_project_image_details',$projectImageDetails);
+										$checkPropertyID=$this->AddProject_model->GetSingleData('rp_project_images',array('projectID'=>$projectID,'imageCatID'=>$imagecategory));
+										if(count($checkPropertyID)>0)
+										{
+											$projectImage=array('projectImageName'=>$image);
+											$propertyImageID=$this->AddProject_model->InsertProject('rp_project_images',$projectImage,array('projectID'=>$projectID,'imageCatID'=>$imagecategory));
+											/* project Image Details insert
+											$projectImageDetails=array('languageID'=>$this->data['LanguageId'],'projectImageTitle'=>'','projectImageAltTag'=>'');
+											$this->AddProject_model->InsertProject('rp_project_image_details',$projectImageDetails,array('projectID'=>$projectID);*/
+										}
+										else
+										{
+											$projectImage=array('projectID'=>$projectID,'imageCatID'=>$imagecategory,'projectImageName'=>$image,'isCoverImage'=>'No','projectImagePriority'=>'1','projectImageStatus'=>'Active');
+											$propertyImageID=$this->AddProject_model->InsertProject('rp_project_images',$projectImage);
+											/* project Image Details insert */
+											$projectImageDetails=array('projectImageID'=>$propertyImageID,'languageID'=>$this->data['LanguageId'],'projectImageTitle'=>'','projectImageAltTag'=>'');
+											$this->AddProject_model->InsertProject('rp_project_image_details',$projectImageDetails);
+										}
 									}
 								}else
 								{
@@ -571,7 +546,7 @@ function ProjectTypes()
 		}
 	}
 	
-	function InsertPropertyDetail($formid=false)
+	/*function InsertPropertyDetail($formid=false)
 	{
 		$data=$_POST;
 	print_r($data);die;
@@ -579,13 +554,13 @@ function ProjectTypes()
 		/*$formid=$this->input->post('formid');
 			$formname="form-";
 			$formname.=$formid;
-		*/
+		
 	
 		if(!empty($data))
 		{
 	
 			/*if($formname="form-1")
-			 {*/
+			 {
 			$data1=array();
 			$data2=array();
 			foreach($data as $key=> $datas)
@@ -681,16 +656,36 @@ function ProjectTypes()
 			if(!empty($ProjectID)){ echo $ProjectID;	}else{ if(!empty($data['ProjectID'])){ echo $data['ProjectID']; }}
 				
 		}else{
-			echo"Add Project Fail!!";
+			//echo"Add Project Fail!!";
+			if(!empty($ProjectID)){ echo $ProjectID;	}else{ if(!empty($data['ProjectID'])){ echo $data['ProjectID']; }}
 		}
 	
-	}
+	}*/
 	
-	function ProjectList()
+	function ProjectList($ProjectList=false)
 	{	
-		$ProjectList=$this->data['ProjectList']=$this->AddProject_model->GetProjectList();//print_r($ProjectList);die;
+		if(!empty($this->input->post('userTypeName')))
+		{
+			$filter1=$this->input->post('userTypeName');
+			$filter2=$this->input->post('userAccount');
+			$ProjectList=$this->data['ProjectList']=$this->AddProject_model->GetProjectFilterDataList($filter1,$filter2);//print_r($ProjectList);die;
+		}
+		else
+		{
+			$ProjectList=$this->data['ProjectList']=$this->AddProject_model->GetProjectList();//print_r($ProjectList);die;
+		}
 		$this->parser->parse('header',$this->data);
 		$this->load->view('ProjectList',$this->data);
 		$this->parser->parse('footer',$this->data);
 	}
+	
+	function ProjectFilterDataList()
+	{	
+		
+		if($ProjectList)
+		{
+			redirect('AddProject/ProjectList/'.$ProjectList);
+		}
+	}
+	
 }

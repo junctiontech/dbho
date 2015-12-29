@@ -47,38 +47,29 @@
                   <h2 class="StepTitle">Basic Information</h2>
                   <div class="x_content">
                     <form id="form-1" method="post" class="form-group form-label-left clearfix">
-					<input type="hidden" name="projectID" value="" readonly id="form1_id"/>
+					<input type="hidden" name="projectID" value="<?php if(!empty($ProjectFilterData)){ echo $ProjectFilterData[0]->projectID; }?>" readonly id="form1_id"/>
                       <div class="row">
                        <div class="form-group col-xs-12 col-sm-2 martop20">
                           <label class="control-label" for="first-name">Project Type </label>
-							<select class=" form-control" name="projectTypeID" onchange="ProjectType(this.value); GetAminitiesAtrribute(this.value);">
+							<select class=" form-control" name="projectTypeID" onchange="ProjectType(this.value);">
                             <option value="0">Select</option>
                            <?php foreach ($ProjectType as $list){ ?>
                             <?php  if($list->propertyTypeDefault=='Yes'){ ?>
 	                        <optgroup label="<?php echo $list->propertyTypeKey;  ?>"> <?php } else{ ?>
-                              <option value="<?php echo $list->propertyTypeID; ?>"><?php  echo ucwords(str_replace('_', ' ', $list->propertyTypeKey)); }?></option>
+                              <option value="<?php echo $list->propertyTypeID; ?>" <?php if(!empty($ProjectFilterData) && $ProjectFilterData[0]->propertyTypeID=$list->propertyTypeID) { echo 'selected';}?> ><?php  echo ucwords(str_replace('_', ' ', $list->propertyTypeKey)); }?></option>
 							</optgroup>
                             <?php } ?>
 							</select>
                         </div>
 						<div class="form-group col-xs-12 col-sm-2 martop20">
                           <label class="control-label" for="first-name">User Type </label>
-                          <select id="usertype" class=" form-control" onchange="UserTypes(this.value)" >
+						  <select id="usertype" class=" form-control" onchange="UserTypes(this.value)" >
                             <option value="0">Select</option>
                   			 <?php foreach ($UserType as $list){ ?> 
-                              	<option value="<?php echo $list->userTypeID;?>" <?php if($list->userTypeID=='2'){ echo 'selected'; } ?> > <?php echo ucwords(str_replace('_', ' ', $list->userTypeName)); ?></option>
+							 <option value="<?php echo $list->userTypeID;?>" <?php if(!empty($ProjectFilterData) && $ProjectFilterData[0]->userTypeID==$list->userTypeID){ echo 'selected'; } else{ if($list->userTypeID=='2'){ echo 'selected'; } }?> > <?php echo ucwords(str_replace('_', ' ', $list->userTypeName)); ?></option>
                          	 <?php } ?>
                           </select>
                         </div>
-                       <!--  <div class="form-group col-xs-12 col-sm-2 martop20">
-                          <label class="control-label" for="first-name">User Type </label>
-                          <select id="" class=" form-control" >
-                            <option value="0">Select</option>
-                  			 <?php foreach ($UserType as $list){ ?> 
-                              	<option value="<?php echo $list->userTypeID; ?>"><?php  echo ucwords(str_replace('_', ' ', $list->userTypeName)); ?></option>
-                         	 <?php } ?>
-                          </select>
-                        </div>-->
                         <div id="userTypeDetail"></div>
                        <!--  <div class="form-group col-xs-12 col-sm-3 martop20">
                           <label class="control-label" for="last-name">Agent</label>
@@ -109,15 +100,15 @@
                       <div class="row">
                         <div class="form-group col-xs-12 col-sm-6">
                           <label class="control-label" for="first-name">Project Name <span class="required">*</span> </label>
-                          <input type="text" name="projectName" id="first-name" required="required" class="form-control">
+                          <input type="text" name="projectName" id="first-name" value="<?php if(!empty($ProjectFilterData)){ echo $ProjectFilterData[0]->projectName;} ?>" required="required" class="form-control">
                         </div>
                         <div class="form-group col-xs-12 col-sm-3">
                           <label class="control-label" for="last-name">Current status</label>
                           <select name="projectCurrentStatus" class=" form-control" id="curuntStatus" onchange="StatusDatePicker(this.value,this.id)">
                            <!-- <option value="0">Select</option> -->
-                            <option value="Upcoming">Upcoming</option>
-                            <option value="Redy To Move">Redy To Move</option>
-                            <option value="under construction">under construction</option>
+                            <option value="Upcoming" <?php  if(!empty($ProjectFilterData[0]->projectCurrentStatus) && $ProjectFilterData[0]->projectCurrentStatus=='Upcoming'){ echo 'selected'; }  ?> >Upcoming</option>
+                            <option value="Redy To Move" <?php  if(!empty($ProjectFilterData[0]->projectCurrentStatus) && $ProjectFilterData[0]->projectCurrentStatus=='Redy To Move'){ echo 'selected'; }  ?> >Redy To Move</option>
+                            <option value="under construction" <?php  if(!empty($ProjectFilterData[0]->projectCurrentStatus) && $ProjectFilterData[0]->projectCurrentStatus=='under construction'){ echo 'selected'; }  ?> >under construction</option>
                           </select>
                         </div>
                         <div id="datepckr"></div>
@@ -164,9 +155,9 @@
                             </div>
                             <div class="btn-group"> <a class="btn" data-edit="undo" title="Undo (Ctrl/Cmd+Z)"><i class="icon-undo"></i></a> <a class="btn" data-edit="redo" title="Redo (Ctrl/Cmd+Y)"><i class="icon-repeat"></i></a> </div>
                           </div>
-                          <div id="editor"> </div>
+                          <div id="editor"><?php  if(!empty($ProjectFilterData[0]->projectDescription)){ echo $ProjectFilterData[0]->projectDescription; }  ?></div>
                           <textarea name="projectDescription" id="descr" style="display:none;"></textarea>
-                          <br />
+                          <br/>
                         </div>
                       </div>
                       <div class="row">
@@ -511,11 +502,11 @@
                               <h4 class="StepTitle">Project Location </h4>
                               <div class="form-group col-xs-12 col-sm-4 martop20 ">
                                 <label class="control-label" for="last-name">Location Info </label>
-                                <input id="geocomplete"  class="form-control" type="text" name="projectAddress1">
+                                <input id="geocomplete"  class="form-control" type="text" value="<?php if(!empty($ProjectFilterData)){ echo $ProjectFilterData[0]->projectAddress1; } ?>" name="projectAddress1">
                               </div>
                               <div class="form-group col-xs-12 col-sm-4 martop20">
                                 <label class="control-label" for="last-name">Locality </label>
-                                <input id="sublocality" class="form-control" type="text" name="sublocality">
+                                <input id="sublocality" class="form-control" type="text" value="" name="sublocality">
                               </div>
                               <div class="form-group col-xs-12 col-sm-4 martop20">
                                 <label class="control-label" for="last-name">Country </label>
@@ -535,17 +526,17 @@
                               </div>
                               <div class="form-group col-xs-12 col-sm-4 ">
                                 <label class="control-label" for="last-name">Latitude </label>
-                                <input id="lat" class="form-control" type="text" name="lat">
+                                <input id="lat" class="form-control" type="text" name="lat" value="<?php if(!empty($ProjectFilterData[0]->projectLatitude)){ echo $ProjectFilterData[0]->projectLatitude; } ?> ">
                               </div>
                               <div class="form-group col-xs-12 col-sm-4 ">
                                 <label class="control-label" for="last-name">Longitude </label>
-                                <input id="lng" class="form-control" type="text" name="lng">
+                                <input id="lng" class="form-control" type="text" name="lng" value="<?php if(!empty($ProjectFilterData[0]->projectLongitude)){ echo $ProjectFilterData[0]->projectLongitude; } ?> ">
                               </div>
                               <div class="form-group col-xs-12 col-sm-12 mapinfo map_canvas" style="height: 400px"> </div>
                             </div>
                           </div>
-                          <div class="col-md-4 col-sm-4 col-xs-12"> 
-                            <!--<label class="control-label" for="last-name">Status </label>
+                         <!-- <div class="col-md-4 col-sm-4 col-xs-12"> 
+                            <label class="control-label" for="last-name">Status </label>
                                 
                                 <div class="btn-group" data-toggle="buttons">
                             <label class="btn btn-default">
@@ -555,8 +546,8 @@
                              <label class="btn btn-default">
                                 <input type="radio" name="options" id="option2"> Draft
                             </label>
-                        </div> --> 
-                          </div>
+                        </div> 
+                          </div>--> 
                           <div class="row">
                             <div class="col-md-12 col-sm-12 col-xs-12 ">
                               <h4 class="floall-had">Payment Info </h4>
@@ -564,20 +555,34 @@
                           </div>
                           <div class="col-md-12 col-sm-12 col-xs-12">
                             <div class="field_wrapper form-group fileld-manag" id="pay-info">
-                              <div class="row">
-                                <div class="form-group col-xs-12 col-sm-3 martop20 ">
+							 <?php $i=1;if(!empty($ProjectPaymentInfo)){ foreach($ProjectPaymentInfo as $list){ ?>
+							 <div class="row">
+								<div class="form-group col-xs-12 col-sm-3 martop20 ">
                                   <label class="control-label" for="last-name">Label </label>
-                                  <input type="text" name="field_name[]" value="" class="form-control"/>
+                                  <input type="text" name="paymentInfoLable[]" value="<?=$list->paymentInfoLabel;?>" class="form-control"/>
                                 </div>
                                 <div class="form-group col-xs-12 col-sm-3 martop20 ">
                                   <label class="control-label" for="last-name">Value </label>
-                                  <input type="text" name="field_name[]" value="" class="form-control"/>
+                                  <input type="text" name="paymentInfoValue[]" value="<?=$list->paymentInfoValue;?>" class="form-control"/>
                                 </div>
-                                <div class="form-group col-xs-12 col-sm-6 martop20 "> <a href="javascript:;" class="add_button" id="add" title="Add field" onclick="createplantable()" ><img src="images/add-icon.png"/></a> </div>
-                              </div>
-                            </div>
+								<?php if($i=='1') { ?>
+								<div class="form-group col-xs-12 col-sm-6 martop20 "> <a href="javascript:;" class="add_button" id="add" title="Add field" onclick="createplantable()" ><img src="<?=base_url();?>images/add-icon.png"/></a> </div> <?php } else { ?><div class="form-group col-xs-12 col-sm-6 martop20 removediv"><a href="javascript:;" class="remove_button" title="Add field" ><img src="<?=base_url();?>images/remove-icon.png"/></a></div><?php } ?>
+							</div>	
+							<?php $i++; }  } else{ ?>
+                              <div class="row">
+                                <div class="form-group col-xs-12 col-sm-3 martop20 ">
+                                  <label class="control-label" for="last-name">Label </label>
+                                  <input type="text" name="paymentInfoLable[]" value="" class="form-control"/>
+                                </div>
+                                <div class="form-group col-xs-12 col-sm-3 martop20 ">
+                                  <label class="control-label" for="last-name">Value </label>
+                                  <input type="text" name="paymentInfoValue[]" value="" class="form-control"/>
+                                </div>
+                                <div class="form-group col-xs-12 col-sm-6 martop20 "> <a href="javascript:;" class="add_button" id="add" title="Add field" onclick="createplantable()" ><img src="<?=base_url();?>images/add-icon.png"/></a> </div>
+							 </div>
+							<?php } ?>
                           </div>
-                          
+                           </div>
                           <!-- start accordion -->
                           <div class="accordion" id="accordion2" role="tablist" aria-multiselectable="true">
                             <div class="panel"> <a class="panel-heading" role="tab" id="headingOne1" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne2" aria-expanded="true" aria-controls="collapseOne2">
@@ -587,15 +592,15 @@
                                 <div class="panel-body ">
                                   <div class="form-group col-xs-12 col-sm-12">
                                     <label class="control-label" for="last-name">Title </label>
-                                    <input id="middle-name" class="form-control" type="text" name="projectMetaTitle">
+                                    <input id="middle-name" class="form-control" type="text" value="<?php if(!empty($ProjectFilterData[0]->projectMetaTitle)){ echo $ProjectFilterData[0]->projectMetaTitle; } ?> " name="projectMetaTitle">
                                   </div>
                                   <div class="form-group col-xs-12 col-sm-12">
                                     <label class="control-label" for="last-name">Meta Keywords </label>
-                                    <textarea placeholder="" name="projectMetaKeyword" rows="2" class="form-control"></textarea>
+                                    <textarea placeholder="" name="projectMetaKeyword" rows="2" class="form-control"><?php if(!empty($ProjectFilterData[0]->projectMetaKeyword)){ echo $ProjectFilterData[0]->projectMetaKeyword; } ?></textarea>
                                   </div>
                                   <div class="form-group col-xs-12 col-sm-12">
                                     <label class="control-label" for="last-name">Meta Description </label>
-                                    <textarea placeholder="" name="projectMetaDescription" rows="2" class="form-control"></textarea>
+                                    <textarea placeholder="" name="projectMetaDescription" rows="2" class="form-control"><?php if(!empty($ProjectFilterData[0]->projectMetaDescription)){ echo $ProjectFilterData[0]->projectMetaDescription; } ?></textarea>
                                   </div>
                                 </div>
                               </div>
@@ -610,11 +615,12 @@
                           </div>
                           <div class="form-group col-xs-12 col-sm-12 martop20 ">
                             <label class="control-label" for="last-name">Title </label>
-                            <input id="middle-name" class="form-control" type="text" name="projectOgTitle">
+                            <input id="middle-name" class="form-control" type="text" 
+							value="<?php if(!empty($ProjectFilterData[0]->projectOgTitle)){ echo $ProjectFilterData[0]->projectOgTitle; } ?> " name="projectOgTitle">
                           </div>
                           <div class="form-group col-xs-12 col-sm-12 martop20 ">
                             <label class="control-label" for="last-name">Description</label>
-                            <textarea placeholder="" name="projectOgDescription" rows="2" class="form-control"></textarea>
+                            <textarea placeholder="" name="projectOgDescription" rows="2" class="form-control"><?php if(!empty($ProjectFilterData[0]->projectOgDescription)){ echo $ProjectFilterData[0]->projectOgDescription; } ?></textarea>
                           </div>
                         </div>
                       </div>
@@ -632,8 +638,12 @@
                   <div class="form-group col-xs-12 col-sm-12">
                     <form action="<?php echo base_url();?>AddProject/uploadimage" class="dropzone" style="border: 1px solid #e5e5e5;">
 						<input type="hidden" name="projectID" value="" readonly class="form1_id" />
-						<input type="hidden" name="imagecategory" value="1" readonly />
+						<input type="hidden" name="ElevationImageCategory" value="1" readonly />
                     </form>
+					<?php if(!empty($ProjectFilterData[0]->	projectElevationImage)){ ?>
+						
+						<img src="<?=base_url();?>projectImages/<?=$ProjectFilterData[0]->projectElevationImage?>" width="100px" height="100px" />	
+					<?php } ?>
                   </div>
                   <div class="form-group col-xs-12 col-sm-12">
                     <h4>360<sup>0</sup> View</h4>
@@ -641,8 +651,12 @@
                   <div class="form-group col-xs-12 col-sm-12">
                     <form action="<?php echo base_url();?>AddProject/uploadimage" class="dropzone" style="border: 1px solid #e5e5e5;">
 						<input type="hidden" name="projectID" value="" readonly  class="form1_id"/>
-						<input type="hidden" name="imagecategory" value="2" readonly />
+						<input type="hidden" name="ThreeSixtyImageCategory" value="2" readonly />
                     </form>
+					<?php if(!empty($ProjectFilterData[0]->	projectThreeSixtyImage)){ ?>
+						
+						<img src="<?=base_url();?>projectImages/<?=$ProjectFilterData[0]->projectThreeSixtyImage?>" width="100px" height="100px" />
+					<?php } ?>
                   </div>
                   <div class="form-group col-xs-12 col-sm-12">
                     <h4>Gallery</h4>
@@ -667,6 +681,10 @@
 								    <input type="hidden" name="projectID" value="" readonly  class="form1_id"/>
 									<input type="hidden" name="imagecategory" value="3" readonly />
                                   </form>
+								  <?php if(!empty($ProjectImageInfo[0]->projectImageName)&& $ProjectImageInfo[0]->imageCatID=='3'){ ?>
+						
+									<img src="<?=base_url();?>projectImages/<?=$ProjectImageInfo[0]->projectImageName?>" width="100px" height="100px" />	
+								<?php } ?>
                                 </div>
                                <!-- <div class="form-group col-md-8 col-xs-12 col-sm-8 martop15">
                                   <div class="phoadd">
@@ -697,6 +715,10 @@
 									<input type="hidden" name="projectID" value="" readonly class="form1_id" />
 									<input type="hidden" name="imagecategory" value="4" readonly />
                                   </form>
+								  <?php if(!empty($ProjectImageInfo[1]->projectImageName)&& $ProjectImageInfo[1]->imageCatID==4){ ?>
+						
+									<img src="<?=base_url();?>projectImages/<?=$ProjectImageInfo[1]->projectImageName?>" width="100px" height="100px" />	
+									<?php } ?>
                                 </div>
                                 <!--<div class="form-group col-md-8 col-xs-12 col-sm-8 martop15">
                                   <div class="phoadd">
@@ -724,6 +746,10 @@
 									<input type="hidden" name="projectID" value="" readonly class="form1_id" />
 									<input type="hidden" name="imagecategory" value="5" readonly />
                                   </form>
+								  <?php if(!empty($ProjectImageInfo[2]->projectImageName) && $ProjectImageInfo[2]->imageCatID==5){ ?>
+						
+									<img src="<?=base_url();?>projectImages/<?=$ProjectImageInfo[2]->projectImageName?>" width="100px" height="100px" />	
+								<?php } ?>
                                 </div>
                                 <!--<div class="form-group col-md-8 col-xs-12 col-sm-8 martop15">
                                   <div class="phoadd">
@@ -753,11 +779,15 @@
 						<input type="hidden" name="projectID" value="" readonly class="form1_id" />
 						<input type="hidden" name="videocategory" value="6" readonly />
                     </form>
+					<?php if(!empty($ProjectVideoInfo[0]->projectVideo)){ ?>
+					<video autoplay="autoplay" controls="controls" src="<?=base_url();?>projectVideos/<?=$ProjectVideoInfo[0]->projectVideo?>" type="video/wmv">
+					</video>
+					<?php } ?>
                   </div>
                   <div class="form-group col-xs-12 col-sm-12">
                   <label class="control-label" for="last-name" style="display:block;">Status </label>
                                 
-                                <div class="btn-group" data-toggle="buttons">
+                        <div class="btn-group" data-toggle="buttons">
                             <label class="btn btn-default">
                                 <input type="radio" name="options" id="option1"> Active
                             </label>
@@ -1136,7 +1166,7 @@
                                   <td>1000 Sq.Ft</td>
                                   <td><i class="fa fa-rupee"></i> 599</td>
                                   <td><i class="fa fa-rupee"></i> 5.99 lac</td>
-                                  <td><a href="#" data-toggle="modal" data-target=".bs-example-modal-lg"><img src="images/floor.png"/></a></td>
+                                  <td><a href="#" data-toggle="modal" data-target=".bs-example-modal-lg"><img src="<?=base_url();?>images/floor.png"/></a></td>
                                   <td><a href="#" class="more-uni-pri"><i class="fa fa-plus"></i> More</a></td>
                                 </tr>
                                 <tr class="moreunits">
@@ -1155,7 +1185,7 @@
                                   <td>1000 Sq.Ft</td>
                                   <td><i class="fa fa-rupee"></i> 599</td>
                                   <td><i class="fa fa-rupee"></i> 5.99 lac</td>
-                                  <td><img src="images/floor.png"/></td>
+                                  <td><img src="<?=base_url();?>images/floor.png"/></td>
                                   <td><a href="#" class="more-uni-pri1"><i class="fa fa-plus"></i> More</a></td>
                                 </tr>
                                 <tr class="moreunits1">
@@ -1215,11 +1245,12 @@
 		window.onload = function()
 		{
 			//alert('hiiii');
+			var userid="<?php if(!empty($ProjectFilterData[0]->userID)){ echo $ProjectFilterData[0]->userID; } ?>";//alert(userids);die;
 			var UserTypeId=document.getElementById('usertype').value; //alert(UserTypeId);
 			$.ajax({
 			type: "POST",
 			url : base_url+'AddProject/UserTypeDetail',
-			data: {UserTypeId:UserTypeId},
+			data: {UserTypeId:UserTypeId,userid:userid},
 			beforeSend: function() {
 				$("#loader").fadeIn();
 			}
@@ -1342,8 +1373,9 @@
 <!-- /form validation --> 
 <!-- editor --> 
 <script>
-            $(document).ready(function () {
-                $('.xcxc').click(function () {
+			
+            $(document).ready(function () { 
+                $('#editor').keyup(function () { //alert('hii');
                     $('#descr').val($('#editor').html());
                 });
             });
@@ -1469,7 +1501,6 @@
 <script type="text/javascript">
     $(document).ready(function(){
     	// Smart Wizard 	
-		var val= document.getElementById('project').value;//alert(val);
  		$('#wizard').smartWizard();
       
       function onFinishCallback(){
@@ -1482,7 +1513,7 @@
     $(function() {
       $("#add").click(function() {
           div = document.createElement('div');
-          $(div).addClass("row").html('<div class="form-group col-xs-12 col-sm-3 martop20"><label class="control-label" for="last-name">Label </label><input type="text" name="field_name[]" value="" class="form-control"/></div><div class="form-group col-xs-12 col-sm-3 martop20 "><label class="control-label" for="last-name">Value </label><input type="text" name="field_name[]" value="" class="form-control"/></div><div class="form-group col-xs-12 col-sm-6 martop20 removediv"><a href="javascript:;" class="remove_button" title="Add field" ><img src="images/remove-icon.png"/></a></div>');
+          $(div).addClass("row").html('<div class="form-group col-xs-12 col-sm-3 martop20"><label class="control-label" for="last-name">Label </label><input type="text" name="paymentInfoLable[]" value="" class="form-control"/></div><div class="form-group col-xs-12 col-sm-3 martop20 "><label class="control-label" for="last-name">Value </label><input type="text" name="paymentInfoValue[]" value="" class="form-control"/></div><div class="form-group col-xs-12 col-sm-6 martop20 removediv"><a href="javascript:;" class="remove_button" title="Add field" ><img src="<?=base_url();?>images/remove-icon.png"/></a></div>');
           $("#pay-info").append(div);
         });
 		

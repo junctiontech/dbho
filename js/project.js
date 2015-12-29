@@ -94,55 +94,13 @@ function InsertProject(id)
 				$("#loader").fadeIn();
 			},
          success: function(result){	 
-			 $("#loader").fadeOut();
-			  document.getElementById("form1_id").value=result;	//alert(result);
+			 $("#loader").fadeOut();//alert(result); 
+			// alert(result);
+			  document.getElementById("form1_id").value=result;
+			 
 			  $('.form1_id').val(result);
 			 // $('.form1_id').val(result);
          }
 });
 	
-}
-
-
-function InsertPropertyDetail()
-{	//alert('hiiiiii');die;
-		var data=$("#form_3").serialize();//alert(data);die;
-		//var data = $("").serialize();
-		//var formid=id;
-		$.ajax({
-         data: data,
-         type: "post",
-         url: base_url+'AddProject/InsertPropertyDetail',
-		 beforeSend: function() {
-				$("#loader").fadeIn();
-			},
-         success: function(result){	 
-			 $("#loader").fadeOut();alert(result);die;
-			  document.getElementById("form1_id").value=result;	//
-			  $('.form1_id').val(result);
-			 // $('.form1_id').val(result);
-         }
-});
-	
-}
-
-function GetAminitiesAtrribute(projectTypeId)
-{	//alert(projectTypeId);die;
-	$.ajax({
-				type: "POST",
-				url : base_url+'AddProject/GetAminitiesAtrribute',
-				data: {projectTypeId:projectTypeId},
-				beforeSend: function() {
-				$("#loader").fadeIn();
-			}
-			})	
-				.done(function(msg){
-					$("#loader").fadeOut();
-					//alert(msg);	die;
-					$('#AttributesList').html(msg);
-				
-					return false;	
-				});
-		
-		return false;
 }
