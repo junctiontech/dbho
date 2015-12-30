@@ -261,7 +261,7 @@
                                 </div>
                               </div>
                             </div>
-                            <div class="panel"> <a class="panel-heading" role="tab" id="headingOne13" data-toggle="collapse" data-parent="#accordion13" href="#collapseOne13" aria-expanded="false" aria-controls="collapseOne13">
+                            <div class="panel"> <a class="panel-heading" role="tab" id="headingOne13" data-toggle="collapse" data-parent="#accordion1" href="#collapseOne13" aria-expanded="false" aria-controls="collapseOne13">
                               <h4 class="panel-title StepTitle">Price & Other Charges </h4>
                               </a>
                               <div id="collapseOne13" class="panel-collapse collapse " role="tabpanel" aria-labelledby="headingOne">
@@ -383,7 +383,7 @@
                                 </div>
                               </div>
                             </div>
-                            <div class="panel"> <a class="panel-heading" role="tab" id="headingOne14" data-toggle="collapse" data-parent="#accordion14" href="#collapseOne14" aria-expanded="false" aria-controls="collapseOne14">
+                            <div class="panel"> <a class="panel-heading" role="tab" id="headingOne14" data-toggle="collapse" data-parent="#accordion1" href="#collapseOne14" aria-expanded="false" aria-controls="collapseOne14">
                               <h4 class="panel-title StepTitle">Transaction Type, Property Availability </h4>
                               </a>
                               <div id="collapseOne14" class="panel-collapse collapse " role="tabpanel" aria-labelledby="headingOne">
