@@ -536,7 +536,7 @@
                                 <div class="panel-body">
                                   <div class="row" style="margin-top:20px;"> </div>
                     <div class="row">
-                      <div class="col-sm-4">
+                      <div class="col-sm-4 disablerent" style="display:none">
                         <div class="x_title-1">
                           <h4>Food</h4>
                         </div>
@@ -554,7 +554,7 @@
                           </div>
                         </div>
                       </div>
-                      <div class="col-sm-4">
+                      <div class="col-sm-4 disablerent" style="display:none">
                         <div class="x_title-1">
                           <h4>Pets Allowed</h4>
                         </div>
@@ -589,7 +589,7 @@
                       </div>
                     </div>
                     <div class="row" style="margin-top:15px;">
-                      <div class="col-sm-3">
+                      <div class="col-sm-3 disablerent" style="display:none">
                         <div class="form-group">
                           <label>Lease Type</label>
                           <select name="LeaseType" class="form-control">
@@ -649,13 +649,23 @@
                     <div class="row">
                       <div class="col-sm-12">
                         <div class="x_title-1">
+                          <h4>Water Supply</h4>
+                        </div>
+                        <div class="clearfix"> <span class="checkbozsty-1">
+                          <input type="checkbox"  value="GroundTanks" name="watersupply">
+                          Munciple water</span> <span class="checkbozsty-1">
+                          <input type="checkbox"  value="terracetanks" name="watersupply">
+                          Bore water</span> </div>
+                      </div>
+					  <div class="col-sm-12">
+                        <div class="x_title-1">
                           <h4>Water Backup</h4>
                         </div>
                         <div class="clearfix"> <span class="checkbozsty-1">
                           <input type="checkbox"  value="GroundTanks" name="waterbackup">
-                          Grounded Tanks</span> <span class="checkbozsty-1">
+                          Grounded Tank</span> <span class="checkbozsty-1">
                           <input type="checkbox"  value="terracetanks" name="waterbackup">
-                          Pterrace Tankse</span> </div>
+                          Terrace Tankse</span> </div>
                       </div>
                     </div>
                     <div class="row">
@@ -663,23 +673,13 @@
                         <div class="x_title-1">
                           <h4>Miscellaneous</h4>
                         </div>
-                        <div class="clearfix"> <span class="checkbozsty-1">
-                          <input type="checkbox"  value="serventroom" name="Miscellaneous[]">
-                          Servent Room</span> <span class="checkbozsty-1">
+                        <div class="clearfix">  <span class="checkbozsty-1">
                           <input type="checkbox"  value="privateterrace" name="Miscellaneous[]">
                           Private Terrace</span> <span class="checkbozsty-1">
                           <input type="checkbox"  value="prayerroom" name="Miscellaneous[]">
-                          Prayer Room</span> <span class="checkbozsty-1">
+                          Prayer Area</span> <span class="checkbozsty-1">
                           <input type="checkbox"  value="terrace" name="Miscellaneous[]">
-                          Terrace</span> <span class="checkbozsty-1">
-                          <input type="checkbox" value="rentnegotiable" name="Miscellaneous[]">
-                          Rent Negotiable</span> <span class="checkbozsty-1">
-                          <input type="checkbox"  value="securitydeposit" name="Miscellaneous[]">
-                          Security Deposit</span> <span class="checkbozsty-1">
-                          <input type="checkbox"  value="securitynegotiable" name="Miscellaneous[]">
-                          Security Negotiable</span> <span class="checkbozsty-1">
-                          <input type="checkbox"  value="societyoverheadtank" name="Miscellaneous[]">
-                          Society OverHead Tank</span> <span class="checkbozsty-1">
+                          Common Terrace</span> <span class="checkbozsty-1">
                           <input type="checkbox" value="smokedetector" name="Miscellaneous[]">
                           Smoke Detector</span> <span class="checkbozsty-1">
                           <input type="checkbox"  value="firehydrantsystem" name="Miscellaneous[]">
