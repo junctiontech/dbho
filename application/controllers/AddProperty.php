@@ -138,7 +138,7 @@ class AddProperty extends CI_Controller {
                      
 					if(!empty($getamenities)){echo"<p>YES </p>";}else{echo"<p>NO</p>";}
                           
-                     $getroomdetails=$this->AddProperty_model->Getotherdatafromnewdb('dbho_bed_room',array('propertyID'=>$this->input->post('propertyid')));
+                    /* $getroomdetails=$this->AddProperty_model->Getotherdatafromnewdb('dbho_bed_room',array('propertyID'=>$this->input->post('propertyid')));
                      
 						 if(in_array("AC", $bedothers)){ $ac="YES";}else{$ac="NO";}*/
                        
@@ -602,6 +602,7 @@ class AddProperty extends CI_Controller {
 							//..................................................................Bed Room
 							if(!empty($data['flooringTypebedroom'])){
 							$bedi=1;
+							$this->AddProperty_model->deletestep3data('dbho_bed_room',array('propertyID'=>$data['propertyID']));
 							foreach($data['flooringTypebedroom'] as $flooringTypebedroom)
 							{	$bedroom=array();
 								if(!empty($flooringTypebedroom))
@@ -625,6 +626,7 @@ class AddProperty extends CI_Controller {
 							//.......................................................................Living Room
 							if(!empty($data['flooringTypelivingroom'])){
 							$livingi=1;
+							$this->AddProperty_model->deletestep3data('dbho_living_room',array('propertyID'=>$data['propertyID']));
 							foreach($data['flooringTypelivingroom'] as $flooringTypelivingroom)
 							{
 								$livingroom=array();
@@ -649,6 +651,7 @@ class AddProperty extends CI_Controller {
 							//.......................................................................................Bath  Room
 							if(!empty($data['flooringTypebathroom'])){
 							$bathi=1;
+							$this->AddProperty_model->deletestep3data('dbho_bath_room',array('propertyID'=>$data['propertyID']));
 							foreach($data['flooringTypebathroom'] as $flooringTypebathroom)
 							{	
 								$bathroom=array();$kitchen=array();
@@ -682,6 +685,7 @@ class AddProperty extends CI_Controller {
 							//.......................................................................................................Kitchen
 							if(!empty($data['platform'])){
 							$kitcheni=1;
+							$this->AddProperty_model->deletestep3data('dbho_kitchen',array('propertyID'=>$data['propertyID']));
 							foreach($data['platform'] as $platform)
 							{	
 								$kitchen=array();
@@ -1676,6 +1680,23 @@ public function propertyPreview(){
 
 	}
 
+	
+/*Delete property image Start.............................................................................................................*/
+	function Deletepropertyimage()
+	{	
+			if(!empty($this->input->post('imageid')))
+			{
+					$this->AddProperty_model->Deletepropertyimage($this->input->post('imageid'));
+					
+					echo"Image Deleted Successfully!!";
+			}else{
+					echo"Image Deletion Fail!!";
+			}
+		
+	}
+/*Delete property image End.............................................................................................................*/
+
+	
 
 }
 ?>

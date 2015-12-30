@@ -518,9 +518,11 @@
                                 <div class="panel-body">
                                   <div class="form-group col-xs-12 col-sm-12 martop20">
 									<?php $Attributeoption=$this->AddProperty_model->GetAttributesoption(6);
-									foreach($Attributeoption as $Attributeoptions){?>
+									foreach($Attributeoption as $Attributeoptions){ 
+									$getamenities=$this->AddProperty_model->Getotherdata('rp_property_attribute_values',array('propertyID'=>$propertyid,'attributeID'=>6,'attrOptionID'=>$Attributeoptions->attrOptionID));
+									 ?>
 								    <span class="checkbozsty">
-                                    <input type="checkbox" value="6-<?=$Attributeoptions->attrOptionID?>-<?=$Attributeoptions->attrOptName?>" name="Amenities[]">
+                                    <input type="checkbox" value="6-<?=$Attributeoptions->attrOptionID?>-<?=$Attributeoptions->attrOptName?>" <?php if(!empty($getamenities)){echo"checked";} ?> name="Amenities[]">
                                     <?=$Attributeoptions->attrOptName?></span>
 									<?php } ?>
 									. 
@@ -810,15 +812,15 @@
 								  <?php if(!empty($propertyimages)){ ?>
                                   <div class="x_content">
 									<div class="row">
-									<?php foreach($propertyimages as $propertyimagess){ ?>
-										<div class="col-md-55">
+									<?php $i=1; foreach($propertyimages as $propertyimagess){ ?>
+										<div class="col-md-55 imagediv_<?=$i?>" id="imagediv_<?=$i?>">
                                             <div class="thumbnail">
                                                 <div class="image view view-first">
                                                     <img style="width: 100%; display: block;" src="<?=base_url();?>propertyImages/<?=isset($propertyimagess->propertyImageName)?$propertyimagess->propertyImageName:''?>" alt="image" />
                                                     <div class="mask">
                                                         <div class="tools tools-bottom">
-                                                            
-                                                            <a href="#"><i class="fa fa-times"></i></a>
+                                                            <!--return confirm('Are you sure to delete this image? ');-->
+                                                            <a href="javascript:;" onClick="deleteiamge(<?=isset($propertyimagess->propertyImageID)?$propertyimagess->propertyImageID:''?>,'imagediv_<?=$i?>');"><i class="fa fa-times"></i></a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -827,7 +829,7 @@
                                                 </div>
                                             </div>
                                         </div>
-										<?php }  ?>
+										<?php $i++; }  ?>
 										</div>
 										</div>
                                   <?php  } ?>
@@ -1066,6 +1068,25 @@
 	 
 	 $(function() 
 	 {
+		 <?php if(!empty($propertytypeid)){ ?>
+		 var propertytypeid = $("#propertytype").val();
+	
+		$.ajax({
+            type: 'POST', 
+            url: base_url+'AddProperty/Getattributes',
+            data: {propertytypeid:propertytypeid},
+			cache: false,
+			beforeSend: function() {
+				$("#loader").fadeIn();
+			},
+            success:function(result){
+				//alert(result);
+				$("#loader").fadeOut();
+				$("#showattributes").html(result);
+             
+            }
+        });
+		 <?php } ?>
 						// add handler to re-enable input boxes on click
 						$("#checksell").click(function() {
 							$(".price_as").html("Show Price As <i class='fa fa-rupee text-right'>");

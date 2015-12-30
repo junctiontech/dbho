@@ -294,6 +294,26 @@ function InsertProperty(id)
 		
 }
 
+function deleteiamge(imageid,divid) 
+	{   
+		
+		
+		$.ajax({
+         data: {imageid:imageid},
+         type: "post",
+         url: base_url+'AddProperty/Deletepropertyimage',
+		 beforeSend: function() {
+				$("#loader").fadeIn();
+			},
+         success: function(result){
+			 $("#loader").fadeOut();
+			document.getElementById(divid).style.display = "none";
+			alert(result);
+         }
+});
+		
+}
+
 function shownoofbedrooms(id) 
 	{   
 		

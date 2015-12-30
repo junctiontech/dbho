@@ -193,5 +193,16 @@ public function Getotherdatafromnewdb($table=false,$filter=false){
 			return $query->result();
 		
 	}
+
+public function Deletepropertyimage($filter=false)
+	{
+		$this->db->query("DELETE rp_property_images,rp_property_image_details FROM rp_property_images JOIN rp_property_image_details ON rp_property_image_details.propertyImageID = rp_property_images.propertyImageID WHERE rp_property_images.propertyImageID ='$filter'");
+	}
+	
+public function deletestep3data($table=false,$filter=false)
+	{
+		$db2 = $this->load->database('both', TRUE);
+		$db2->delete($table,$filter);
+	}
 	
 }
