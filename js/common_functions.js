@@ -231,16 +231,21 @@ function generatenameproperty()
 		if(projectid !=''){
 				var inproject= ' in ' + $("#projectid option:selected").text();
 		}
-		
+		var coveredareasize='';
+		var coveredarea = $("#coveredarea").val();
+		if(coveredarea !=''){
+		var coveredareasize = $("#coveredareasize option:selected").text();
+		}
 		if(document.getElementById("bedroom") != null) {
 			if($("#bedroom option:selected").val() !=''){
 			var rooms= $("#bedroom option:selected").text() + 'BHK ';
 			}
 		}
-	
+		var propertytypeid = $("#propertytype option:selected").val();
+		if(propertytypeid !=''){
 		var propertytype = $("#propertytype option:selected").text();
-		
-		var newtittle = rooms + propertytype + ' For ' + purpose + inproject;
+		}
+		var newtittle = rooms + propertytype  + ' ' +  coveredarea +' '+  coveredareasize;
 		document.getElementById('propertyname').value='';
 		document.getElementById('propertyname').value=newtittle;
 		$("#loader").fadeOut();

@@ -37,15 +37,15 @@
                   <li><a href="#step-2">
                     <label class="stepNumber">2</label>
                     <span class="stepDesc"> Step 2<br />
-                    <small>Detailed Information</small> </span> </a></li>
+                    <small>Gallery & SEO</small> </span> </a></li>
                   <li><a href="#step-3">
                     <label class="stepNumber">3</label>
                     <span class="stepDesc"> Step 3<br />
-                    <small>Other Information</small> </span> </a></li>
+                    <small>Detailed Information</small> </span> </a></li>
                   <li><a href="#step-4">
                     <label class="stepNumber">4</label>
                     <span class="stepDesc"> Step 4<br />
-                    <small>preview page</small> </span> </a></li>
+                    <small>preview </small> </span> </a></li>
                 </ul>
                 <div id="step-1">
                   <h2 class="StepTitle">Basic Information</h2>
@@ -134,7 +134,7 @@
                           <select name="userID" class=" select2_group form-control" id="showuserlabel" >
                             <option value="">Please Select Usertype First</option>
 							<?php if(!empty($userID)){?>
-                            <option value="<?isset($userID)?$userID:''?>" selected><?=isset($useremail)?$useremail:''?></option>
+                            <option value="<?=isset($userID)?$userID:''?>" selected><?=isset($useremail)?$useremail:''?></option>
 							<?php } ?>
                           </select>
                         </div>
@@ -206,10 +206,10 @@
                                     <div class="form-group clearfix">
                                       <label class="control-label col-md-2 col-sm-2 col-xs-12 martop15" style="text-align:right">Covered Area</label>
                                       <div class="col-md-2 col-sm-2 col-xs-12">
-                                        <input id="middle-name" placeholder="Covered Area" class="form-control" type="text" name="">
+                                        <input id="coveredarea" placeholder="Covered Area" class="form-control" onchange="generatenameproperty();" type="text" name="">
                                       </div>
                                       <div class="col-md-2 col-sm-2 col-xs-12">
-                                        <select class="select2_group form-control">
+                                        <select id="coveredareasize" class="select2_group form-control" onchange="generatenameproperty();">
                                           <optgroup label="Select">
                                           <option value="1">Sq-ft</option>
                                           <option value="2">Sq-yrd</option>

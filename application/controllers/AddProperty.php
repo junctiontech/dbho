@@ -294,7 +294,7 @@ class AddProperty extends CI_Controller {
 	function InsertProperty($formid=false)
 	{	
 		$data=$_POST;
-		//print_r($data);die;
+		//print_r($data);
 		$date=date("Y-m-d");
 		
 		if(!empty($formid))
