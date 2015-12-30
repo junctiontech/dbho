@@ -389,7 +389,7 @@
                               <div id="collapseOne14" class="panel-collapse collapse " role="tabpanel" aria-labelledby="headingOne">
                                 <div class="panel-body">
                                   <div class="row">
-                                    <div class="form-group clearfix">
+                                    <div class="form-group clearfix disablesell">
                                       <label class="control-label col-md-2 col-sm-2 col-xs-12 martop20">Transaction Type</label>
                                       <div class="col-md-10 col-sm-10 col-xs-12 martop15">
                                         <div class="radio mabott10">
@@ -402,20 +402,55 @@
                                         </div>
                                       </div>
                                     </div>
-                                    <div class="form-group clearfix">
+                                    <div class="form-group clearfix disablesell">
                                       <label class="control-label col-md-2 col-sm-2 col-xs-12 martop10">Possession Status</label>
                                       <div class="col-md-10 col-sm-10 col-xs-12">
                                         <div class="radio mabott10">
-                                          <label>
-                                            <input type="radio" class="flat" checked name="">
+                                          <label >
+                                            <input type="radio"  id="underconstruction" name="possessionstatus">
                                             Under Construction </label>
-                                          <label>
-                                            <input type="radio" class="flat" name="">
+                                          <label >
+                                            <input type="radio"  id="readytomove"  name="possessionstatus">
                                             Ready To Move </label>
                                         </div>
                                       </div>
                                     </div>
-                                    <div class="form-group clearfix">
+									
+									<div class="form-group clearfix disablerent" style="display:none">
+                                      <label class="control-label col-md-2 col-sm-2 col-xs-12 martop10">Available From</label>
+                                      <div class="col-md-10 col-sm-10 col-xs-12">
+                                        <div class="radio mabott10">
+                                          <label >
+                                            <input type="radio"  id="selectdate" name="availablefromrent">
+                                            Select Date </label>
+                                          <label >
+                                            <input type="radio"  id="immediately"  name="availablefromrent">
+                                            Immediately </label>
+                                        </div>
+                                      </div>
+                                    </div>
+									
+									<div class="form-group clearfix dateshow" style="display:none">
+											<label class="control-label col-md-2 col-sm-2 col-xs-12 martop10" for="last-name">Date</label>
+									<div class="col-md-8 col-sm-8 col-xs-12 xdisplay_inputx form-group has-feedback">
+									<input type="text" name="Date" class="form-control has-feedback-left"  id="single_cal2"  placeholder="Select Date" aria-describedby="inputSuccess2Status2"  readonly >
+									<span class="fa fa-calendar-o form-control-feedback left" style="left:5px;" aria-hidden="true"></span> <span id="inputSuccess2Status2" class="sr-only">(success)</span> 
+									</div>
+									</div>
+			<script type="text/javascript">
+				$(document).ready(function () {
+					
+					$('#single_cal2').daterangepicker({
+						singleDatePicker: true,
+						calender_style: "picker_2"
+					}, function (start, end, label) {
+						console.log(start.toISOString(), end.toISOString(), label);
+					});
+					 
+				});
+			</script> 
+									
+                                    <div class="form-group clearfix available" style="display:none">
                                       <label class="control-label col-md-2 col-sm-2 col-xs-12 martop10">Available From</label>
                                       <div class="col-md-2 col-sm-2 col-xs-12">
                                         <select class="select2_group form-control">
@@ -457,11 +492,11 @@
                                         </select>
                                       </div>
                                     </div>
-                                    <div class="form-group clearfix">
+                                    <div class="form-group clearfix ageofconstruction" style="display:none">
                                       <label class="control-label col-md-2 col-sm-2 col-xs-12 martop10">Age of Construction</label>
                                       <div class="col-md-4 col-sm-4 col-xs-12">
                                         <select class="select2_group form-control">
-                                          <option value="-1">Age of Construction</option>
+                                          <option value="">Age of Construction</option>
                                           <option value="11651">New Construction</option>
                                           <option value="11652">Less than 5 years</option>
                                           <option value="11653">5 to 10 years</option>
@@ -490,6 +525,169 @@
 									<?php } ?>
 									. 
 								  </div>
+                                </div>
+                              </div>
+                            </div>
+							
+							<div class="panel"> <a class="panel-heading collapsed" role="tab" id="headingTwo2" data-toggle="collapse" data-parent="#accordion1" href="#collapseTwo2" aria-expanded="false" aria-controls="collapseTwo2">
+                              <h4 class="panel-title StepTitle">Additional Information </h4>
+                              </a>
+                              <div id="collapseTwo2" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                                <div class="panel-body">
+                                  <div class="row" style="margin-top:20px;"> </div>
+                    <div class="row">
+                      <div class="col-sm-4">
+                        <div class="x_title-1">
+                          <h4>Food</h4>
+                        </div>
+                        <div class="x_content-1">
+                          <div class="radio mabott10">
+                            <label>
+                              <input type="radio" class="flat" value="Veg" name="food">
+                              Veg</label>
+                            <label>
+                              <input type="radio" class="flat" value="NonVeg" name="food">
+                              Non-Veg</label>
+                            <label>
+                              <input type="radio" class="flat" value="NoPreferences" name="food">
+                              No Preferences</label>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-4">
+                        <div class="x_title-1">
+                          <h4>Pets Allowed</h4>
+                        </div>
+                        <div class="x_content-1">
+                          <div class="radio mabott10">
+                            <label>
+                              <input type="radio" class="flat" value="yes" name="petsallowed">
+                              Yes</label>
+                            <label>
+                              <input type="radio" class="flat" value="no" name="petsallowed">
+                              No</label>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-4">
+                        <div class="x_title-1">
+                          <h4>Power Backup</h4>
+                        </div>
+                        <div class="x_content-1">
+                          <div class="radio mabott10">
+                            <label>
+                              <input type="radio" class="flat" value="Partial" name="powerbackup">
+                              Partial</label>
+                            <label>
+                              <input type="radio" class="flat" value="Full" name="powerbackup">
+                              Full</label>
+                            <label>
+                              <input type="radio" class="flat" value="nobackup"  name="powerbackup">
+                              no backup</label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row" style="margin-top:15px;">
+                      <div class="col-sm-3">
+                        <div class="form-group">
+                          <label>Lease Type</label>
+                          <select name="LeaseType" class="form-control">
+						  <option value="">select</option>
+                            <option value="Family">Family</option>
+                            <option value="Bachelors">Bachelors</option>
+                            <option value="Company">Company</option>
+                            <option value="NoRestriction">No Restriction</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="col-sm-3">
+                        <div class="form-group">
+                          <label>No of Lifts</label>
+                          <select name="nooflifts" class="form-control">
+						  <option value="">select</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <div class="x_title-1">
+                          <h4>Boundary Wall</h4>
+                        </div>
+                        <div class="x_content-1">
+                          <div class="radio mabott10">
+                            <label>
+                              <input type="radio" class="flat" value="BarbedWire" name="boundarywall">
+                              Barbed Wire</label>
+                            <label>
+                              <input type="radio" class="flat" value="Grill" name="boundarywall">
+                              Grill</label>
+                            <label>
+                              <input type="radio" class="flat" value="Glass"  name="boundarywall">
+                              Glass</label>
+                            <label>
+                              <input type="radio" class="flat" value="ElectricWiring" name="boundarywall">
+                              Electric Wiring</label>
+                            <label>
+                              <input type="radio" class="flat" value="brickwall"  name="boundarywall">
+                              brick wall</label>
+                            <label>
+                              <input type="radio" class="flat" value="CementedWall"  name="boundarywall">
+                              Cemented Wall</label>
+                            <label>
+                              <input type="radio" class="flat" value="NA"  name="boundarywall">
+                              NA</label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <div class="x_title-1">
+                          <h4>Water Backup</h4>
+                        </div>
+                        <div class="clearfix"> <span class="checkbozsty-1">
+                          <input type="checkbox"  value="GroundTanks" name="waterbackup">
+                          Grounded Tanks</span> <span class="checkbozsty-1">
+                          <input type="checkbox"  value="terracetanks" name="waterbackup">
+                          Pterrace Tankse</span> </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-xs-12">
+                        <div class="x_title-1">
+                          <h4>Miscellaneous</h4>
+                        </div>
+                        <div class="clearfix"> <span class="checkbozsty-1">
+                          <input type="checkbox"  value="serventroom" name="Miscellaneous[]">
+                          Servent Room</span> <span class="checkbozsty-1">
+                          <input type="checkbox"  value="privateterrace" name="Miscellaneous[]">
+                          Private Terrace</span> <span class="checkbozsty-1">
+                          <input type="checkbox"  value="prayerroom" name="Miscellaneous[]">
+                          Prayer Room</span> <span class="checkbozsty-1">
+                          <input type="checkbox"  value="terrace" name="Miscellaneous[]">
+                          Terrace</span> <span class="checkbozsty-1">
+                          <input type="checkbox" value="rentnegotiable" name="Miscellaneous[]">
+                          Rent Negotiable</span> <span class="checkbozsty-1">
+                          <input type="checkbox"  value="securitydeposit" name="Miscellaneous[]">
+                          Security Deposit</span> <span class="checkbozsty-1">
+                          <input type="checkbox"  value="securitynegotiable" name="Miscellaneous[]">
+                          Security Negotiable</span> <span class="checkbozsty-1">
+                          <input type="checkbox"  value="societyoverheadtank" name="Miscellaneous[]">
+                          Society OverHead Tank</span> <span class="checkbozsty-1">
+                          <input type="checkbox" value="smokedetector" name="Miscellaneous[]">
+                          Smoke Detector</span> <span class="checkbozsty-1">
+                          <input type="checkbox"  value="firehydrantsystem" name="Miscellaneous[]">
+                          Fire Hydrant System</span> <span class="checkbozsty-1">
+                          <input type="checkbox"  value="solarwaterheater" name="Miscellaneous[]">
+                          Solar Water Heater</span> </div>
+                      </div>
+                    </div>
                                 </div>
                               </div>
                             </div>
@@ -778,161 +976,7 @@
                                   <h4>Toilet</h4>
                                 </div> -->
                     
-                    <h2 class="StepTitle">Other Information</h2>
-                    <div class="row" style="margin-top:20px;"> </div>
-                    <div class="row">
-                      <div class="col-sm-4">
-                        <div class="x_title-1">
-                          <h4>Food</h4>
-                        </div>
-                        <div class="x_content-1">
-                          <div class="radio mabott10">
-                            <label>
-                              <input type="radio" class="flat" value="Veg" name="food">
-                              Veg</label>
-                            <label>
-                              <input type="radio" class="flat" value="NonVeg" name="food">
-                              Non-Veg</label>
-                            <label>
-                              <input type="radio" class="flat" value="NoPreferences" name="food">
-                              No Preferences</label>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-sm-4">
-                        <div class="x_title-1">
-                          <h4>Pets Allowed</h4>
-                        </div>
-                        <div class="x_content-1">
-                          <div class="radio mabott10">
-                            <label>
-                              <input type="radio" class="flat" value="yes" name="petsallowed">
-                              Yes</label>
-                            <label>
-                              <input type="radio" class="flat" value="no" name="petsallowed">
-                              No</label>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-sm-4">
-                        <div class="x_title-1">
-                          <h4>Power Backup</h4>
-                        </div>
-                        <div class="x_content-1">
-                          <div class="radio mabott10">
-                            <label>
-                              <input type="radio" class="flat" value="Partial" name="powerbackup">
-                              Partial</label>
-                            <label>
-                              <input type="radio" class="flat" value="Full" name="powerbackup">
-                              Full</label>
-                            <label>
-                              <input type="radio" class="flat" value="nobackup"  name="powerbackup">
-                              no backup</label>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row" style="margin-top:15px;">
-                      <div class="col-sm-3">
-                        <div class="form-group">
-                          <label>Lease Type</label>
-                          <select name="LeaseType" class="form-control">
-						  <option value="">select</option>
-                            <option value="Family">Family</option>
-                            <option value="Bachelors">Bachelors</option>
-                            <option value="Company">Company</option>
-                            <option value="NoRestriction">No Restriction</option>
-                          </select>
-                        </div>
-                      </div>
-                      <div class="col-sm-3">
-                        <div class="form-group">
-                          <label>No of Lifts</label>
-                          <select name="nooflifts" class="form-control">
-						  <option value="">select</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                          </select>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-sm-12">
-                        <div class="x_title-1">
-                          <h4>Boundary Wall</h4>
-                        </div>
-                        <div class="x_content-1">
-                          <div class="radio mabott10">
-                            <label>
-                              <input type="radio" class="flat" value="BarbedWire" name="boundarywall">
-                              Barbed Wire</label>
-                            <label>
-                              <input type="radio" class="flat" value="Grill" name="boundarywall">
-                              Grill</label>
-                            <label>
-                              <input type="radio" class="flat" value="Glass"  name="boundarywall">
-                              Glass</label>
-                            <label>
-                              <input type="radio" class="flat" value="ElectricWiring" name="boundarywall">
-                              Electric Wiring</label>
-                            <label>
-                              <input type="radio" class="flat" value="brickwall"  name="boundarywall">
-                              brick wall</label>
-                            <label>
-                              <input type="radio" class="flat" value="CementedWall"  name="boundarywall">
-                              Cemented Wall</label>
-                            <label>
-                              <input type="radio" class="flat" value="NA"  name="boundarywall">
-                              NA</label>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-sm-12">
-                        <div class="x_title-1">
-                          <h4>Water Backup</h4>
-                        </div>
-                        <div class="clearfix"> <span class="checkbozsty-1">
-                          <input type="checkbox"  value="GroundTanks" name="waterbackup">
-                          Grounded Tanks</span> <span class="checkbozsty-1">
-                          <input type="checkbox"  value="terracetanks" name="waterbackup">
-                          Pterrace Tankse</span> </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-xs-12">
-                        <div class="x_title-1">
-                          <h4>Miscellaneous</h4>
-                        </div>
-                        <div class="clearfix"> <span class="checkbozsty-1">
-                          <input type="checkbox"  value="serventroom" name="Miscellaneous[]">
-                          Servent Room</span> <span class="checkbozsty-1">
-                          <input type="checkbox"  value="privateterrace" name="Miscellaneous[]">
-                          Private Terrace</span> <span class="checkbozsty-1">
-                          <input type="checkbox"  value="prayerroom" name="Miscellaneous[]">
-                          Prayer Room</span> <span class="checkbozsty-1">
-                          <input type="checkbox"  value="terrace" name="Miscellaneous[]">
-                          Terrace</span> <span class="checkbozsty-1">
-                          <input type="checkbox" value="rentnegotiable" name="Miscellaneous[]">
-                          Rent Negotiable</span> <span class="checkbozsty-1">
-                          <input type="checkbox"  value="securitydeposit" name="Miscellaneous[]">
-                          Security Deposit</span> <span class="checkbozsty-1">
-                          <input type="checkbox"  value="securitynegotiable" name="Miscellaneous[]">
-                          Security Negotiable</span> <span class="checkbozsty-1">
-                          <input type="checkbox"  value="societyoverheadtank" name="Miscellaneous[]">
-                          Society OverHead Tank</span> <span class="checkbozsty-1">
-                          <input type="checkbox" value="smokedetector" name="Miscellaneous[]">
-                          Smoke Detector</span> <span class="checkbozsty-1">
-                          <input type="checkbox"  value="firehydrantsystem" name="Miscellaneous[]">
-                          Fire Hydrant System</span> <span class="checkbozsty-1">
-                          <input type="checkbox"  value="solarwaterheater" name="Miscellaneous[]">
-                          Solar Water Heater</span> </div>
-                      </div>
-                    </div>
+                    
 					</form>
                   </div>
                   
@@ -988,6 +1032,7 @@
 							$(".disablerent").css("display","none");
 							$(".disablesell").css("display","block");
 							$(".disablerentbro").css("display","none");
+							$(".ageofconstruction").css("display","none");
 						});
 						
 						$("#checkrent").click(function() {
@@ -995,6 +1040,7 @@
 							$(".expectedpricesellrent").html("Expected Rent <i class='fa fa-rupee text-right'>");
 							$(".disablesell").css("display","none");
 							$(".disablerent").css("display","block");
+							$(".ageofconstruction").css("display","block");
 							if($("#usertypeid option:selected").val() !=''){
 								var username= $("#usertypeid option:selected").text();
 								if(username=="Agent"){
@@ -1003,6 +1049,29 @@
 								}
 							
 						});
+						
+						$("#underconstruction").click(function() {
+							
+							$(".available").css("display","block");
+							$(".ageofconstruction").css("display","none");
+						});
+						
+						$("#readytomove").click(function() {
+							$(".ageofconstruction").css("display","block");
+							$(".available").css("display","none");
+						});
+						
+						$("#selectdate").click(function() {
+							
+							$(".dateshow").css("display","block");
+							
+						});
+						
+						$("#immediately").click(function() {
+							$(".dateshow").css("display","none");
+						});
+						
+						
 						
 					});
 	 
