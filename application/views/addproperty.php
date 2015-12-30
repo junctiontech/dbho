@@ -590,7 +590,7 @@
                     </div>
                     <div class="row" style="margin-top:15px;">
                       <div class="col-sm-3 disablerent" style="display:none">
-                        <div class="form-group">
+                        <div class="form-group ">
                           <label>Lease Type</label>
                           <select name="LeaseType" class="form-control">
 						  <option value="">select</option>
@@ -602,7 +602,7 @@
                         </div>
                       </div>
                       <div class="col-sm-3">
-                        <div class="form-group">
+                        <div class="form-group ">
                           <label>No of Lifts</label>
                           <select name="nooflifts" class="form-control">
 						  <option value="">select</option>
@@ -613,6 +613,47 @@
                           </select>
                         </div>
                       </div>
+					  
+					  <div class="col-sm-3">
+                        <div class="form-group">
+                          <label>Society Name</label>
+                          <input type="text" value="" name="" class="form-control" />
+                        </div>
+                      </div>
+                    </div>
+					<div class="row">
+                      <div class="col-sm-4 disablerent" >
+                        <div class="x_title-1">
+                          <h4>Registered Society</h4>
+                        </div>
+                        <div class="x_content-1">
+                          <div class="radio mabott10">
+                            <label>
+                              <input type="radio" class="flat" value="Veg" name="registersociety">
+                              Yes</label>
+                            <label>
+                              <input type="radio" class="flat" value="NonVeg" name="registersociety">
+                              No</label>
+                            
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-4 disablerent" >
+                        <div class="x_title-1">
+                          <h4>Gated Community</h4>
+                        </div>
+                        <div class="x_content-1">
+                          <div class="radio mabott10">
+                            <label>
+                              <input type="radio" class="flat" value="yes" name="gatecommunity">
+                              Yes</label>
+                            <label>
+                              <input type="radio" class="flat" value="no" name="gatecommunity">
+                              No</label>
+                          </div>
+                        </div>
+                      </div>
+                      
                     </div>
                     <div class="row">
                       <div class="col-sm-12">
