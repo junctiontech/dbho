@@ -126,6 +126,23 @@ $(document).ready(function(){
         });
 		
 	 });
+	
+	function calculatepersqreft() 
+	{
+		$("#loader").fadeIn();
+        var sum = 0;
+        var expect= document.getElementById('expectedprice').value;
+		var sizearea= document.getElementById('coveredarea').value;
+ 
+            if(!isNaN(expect) && expect.length!=0 && !isNaN(sizearea) && sizearea.length!=0) {
+                sum = parseFloat(expect/sizearea);
+            }
+ 
+        
+        $("#pricepersqrft").val(sum.toFixed(2));
+		$(".showpriceas").html(expect);
+		$("#loader").fadeOut();
+    }
  
     function calculateSum() 
 	{

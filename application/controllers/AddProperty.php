@@ -215,7 +215,7 @@ class AddProperty extends CI_Controller {
 						$atti=1;
 						foreach($AttributesGroup as $AttributesGroups)
 						{
-							if($AttributesGroups->name !="Flooring" && $AttributesGroups->name !="Fittings" && $AttributesGroups->name !="Walls")
+							if($AttributesGroups->name !="Flooring" && $AttributesGroups->name !="Fittings" && $AttributesGroups->name !="Walls" && $AttributesGroups->name !="Rent")
 							{
 												
 							echo"<div class=\"panel\"> <a class=\"panel-heading\" role=\"tab\" id=\"headingOneA$atti\" data-toggle=\"collapse\" data-parent=\"#accordionA$atti\" href=\"#collapseOneA$atti\" aria-expanded=\"false\" aria-controls=\"collapseOneA$atti\">";
@@ -422,9 +422,16 @@ class AddProperty extends CI_Controller {
 										}elseif($typeofattribute[0]=="text")
 										{
 											if(!empty($datas))
-												{
+												{	$size='';
 													$selectattribute[]=array('attributeID'=>$typeofattribute[1],'attrOptionID'=>0);
-													$selectattributeval[]=array('attrDetValue'=>$datas);
+													if($typeofattribute[1]==94){
+														$size=$data['coveredarea'];
+													}elseif($typeofattribute[1]==2){
+														$size=$data['plotarea'];
+													}elseif($typeofattribute[1]==67){
+														$size=$data['carpetarea'];
+													}
+													$selectattributeval[]=array('attrDetValue'=>"$datas $size");
 													
 												}
 											

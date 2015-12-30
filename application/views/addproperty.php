@@ -206,17 +206,17 @@
                                     <div class="form-group clearfix">
                                       <label class="control-label col-md-2 col-sm-2 col-xs-12 martop15" style="text-align:right">Covered Area</label>
                                       <div class="col-md-2 col-sm-2 col-xs-12">
-                                        <input id="coveredarea" placeholder="Covered Area" class="form-control" onchange="generatenameproperty();" type="text" name="">
+                                        <input id="coveredarea" placeholder="Covered Area" class="form-control" onchange="generatenameproperty();" type="text" name="text-94">
                                       </div>
                                       <div class="col-md-2 col-sm-2 col-xs-12">
-                                        <select id="coveredareasize" class="select2_group form-control" onchange="generatenameproperty();">
+                                        <select id="coveredareasize" class="select2_group form-control" onchange="generatenameproperty();" name="coveredarea">
                                           <optgroup label="Select">
-                                          <option value="1">Sq-ft</option>
-                                          <option value="2">Sq-yrd</option>
-                                          <option value="3">Sq-m</option>
-                                          <option value="3">Acre</option>
-                                          <option value="4">Bigha</option>
-                                          <option value="5">Hectare</option>
+                                          <option value="Sq-ft">Sq-ft</option>
+                                          <option value="Sq-yrd">Sq-yrd</option>
+                                          <option value="Sq-m">Sq-m</option>
+                                          <option value="Acre">Acre</option>
+                                          <option value="Bigha">Bigha</option>
+                                          <option value="Hectare">Hectare</option>
                                           </optgroup>
                                         </select>
                                       </div>
@@ -224,17 +224,17 @@
                                     <div class="form-group clearfix">
                                       <label class="control-label col-md-2 col-sm-2 col-xs-12 martop15" style="text-align:right">Plot Area</label>
                                       <div class="col-md-2 col-sm-2 col-xs-12">
-                                        <input id="middle-name" placeholder="Plot Area" class="form-control" type="text" name="">
+                                        <input id="middle-name" placeholder="Plot Area" class="form-control" type="text" name="text-2">
                                       </div>
                                       <div class="col-md-2 col-sm-2 col-xs-12">
-                                        <select class="select2_group form-control">
+                                        <select class="select2_group form-control" name="plotarea">
                                           <optgroup label="Select">
-                                          <option value="1">Sq-ft</option>
-                                          <option value="2">Sq-yrd</option>
-                                          <option value="3">Sq-m</option>
-                                          <option value="3">Acre</option>
-                                          <option value="4">Bigha</option>
-                                          <option value="5">Hectare</option>
+                                          <option value="Sq-ft">Sq-ft</option>
+                                          <option value="Sq-yrd">Sq-yrd</option>
+                                          <option value="Sq-m">Sq-m</option>
+                                          <option value="Acre">Acre</option>
+                                          <option value="Bigha">Bigha</option>
+                                          <option value="Hectare">Hectare</option>
                                           </optgroup>
                                         </select>
                                       </div>
@@ -242,17 +242,17 @@
                                     <div class="form-group clearfix">
                                       <label class="control-label col-md-2 col-sm-2 col-xs-12 martop15" style="text-align:right">Carpet Area</label>
                                       <div class="col-md-2 col-sm-2 col-xs-12">
-                                        <input id="middle-name" placeholder="Carpet Area" class="form-control" type="text" name="">
+                                        <input id="middle-name" placeholder="Carpet Area" class="form-control" type="text" name="text-67">
                                       </div>
                                       <div class="col-md-2 col-sm-2 col-xs-12">
-                                        <select class="select2_group form-control">
+                                        <select class="select2_group form-control" name="carpetarea">
                                           <optgroup label="Select">
-                                          <option value="1">Sq-ft</option>
-                                          <option value="2">Sq-yrd</option>
-                                          <option value="3">Sq-m</option>
-                                          <option value="3">Acre</option>
-                                          <option value="4">Bigha</option>
-                                          <option value="5">Hectare</option>
+                                          <option value="Sq-ft">Sq-ft</option>
+                                          <option value="Sq-yrd">Sq-yrd</option>
+                                          <option value="Sq-m">Sq-m</option>
+                                          <option value="Acre">Acre</option>
+                                          <option value="Bigha">Bigha</option>
+                                          <option value="Hectare">Hectare</option>
                                           </optgroup>
                                         </select>
                                       </div>
@@ -268,36 +268,56 @@
                                 <div class="panel-body">
                                   <div class="row">
                                     <div class="form-group clearfix">
-                                      <label class="control-label col-md-2 col-sm-2 col-xs-12 martop15">Expected Price <i class="fa fa-rupee text-right"></i></label>
+                                      <label class="control-label col-md-2 col-sm-2 col-xs-12 martop15 expectedpricesellrent">Expected Price <i class="fa fa-rupee text-right"></i></label>
                                       
                                       
                                       <div class="col-md-8 col-sm-8 col-xs-12 "> 
-                                        <input id="middle-name" class="form-control pull-left" placeholder="Enter Total Price" value="<?=isset($propertyprice)?$propertyprice:''?>" type="text" name="propertyPrice">
+                                        <input id="expectedprice" class="form-control pull-left" placeholder="Enter Total Price" value="<?=isset($propertyprice)?$propertyprice:''?>" type="text" name="propertyPrice" onchange="calculatepersqreft()">
                                       </div>
                                     </div>
-                                    <div class="form-group clearfix">
+                                    <div class="form-group clearfix disablesell">
                                       <label class="control-label col-md-2 col-sm-2 col-xs-12 martop15">Price per Sq-ft <i class="fa fa-rupee text-right"></i></label>
                                       <div class="col-md-8 col-sm-8 col-xs-12">
-                                        <input id="middle-name" class="form-control" type="text" name="">
+                                        <input readonly id="pricepersqrft" class="form-control" type="text" name="pricepersqft" value="">
                                       </div>
                                     </div>
+									
+									
                                     <div class="form-group clearfix">
                                       <label class="control-label col-md-2 col-sm-2 col-xs-12 martop15 price_as"><i class="fa fa-rupee text-right"></i></label>
                                       <div class="col-md-8 col-sm-8 col-xs-12">
                                         <div class="radio mabott10">
                                           <label>
-                                            <input type="radio" class="flat" checked name="">
-                                            1 Lac </label>
+                                            <input type="radio" class="flat"  name="showpriceas">
+                                            <span class="showpriceas"></span> Lac </label>
                                           <label>
-                                            <input type="radio" class="flat" name="">
-                                            1 Lac Negotiable </label>
+                                            <input type="radio" class="flat" name="showpriceas">
+                                            <span class="showpriceas"></span> Lac Negotiable </label>
                                           <label>
-                                            <input type="radio" class="flat" name="">
+                                            <input type="radio" class="flat" name="showpriceas">
                                             Call For Price </label>
                                         </div>
                                       </div>
                                     </div>
-                                    <div class="form-group clearfix">
+									<div class="form-group clearfix disablerent" style="display:none">
+                                      <label class="control-label col-md-2 col-sm-2 col-xs-12 martop15">Security Deposit <i class="fa fa-rupee text-right"></i></label>
+                                      <div class="col-md-8 col-sm-8 col-xs-12">
+                                       
+                                        <select name="securitydeposite" class="select2_group form-control">
+                                          <optgroup label="Select">
+                                          <option value="0">No Security Deposit</option>
+                                          <option value="1">1 Month</option>
+                                          <option value="2">2 Months</option>
+                                          <option value="3">6 Months</option>
+										  <option value="3">10 Months</option>
+                                          <option value="4">Others</option>
+                                          </optgroup>
+                                        </select>
+                                      
+                                      </div>
+                                    </div>
+									
+                                    <div class="form-group clearfix disablesell">
                                       <label class="control-label col-md-2 col-sm-2 col-xs-12 martop15">Price Includes </label>
                                       <div class="col-md-10 col-sm-10 col-xs-12">
                                         <div class="checkbox cklabl">
@@ -313,7 +333,7 @@
                                         </div>
                                       </div>
                                     </div>
-                                    <div class="form-group clearfix">
+                                    <div class="form-group clearfix disablesell">
                                       <label class="control-label col-md-2 col-sm-2 col-xs-12 martop15">Booking/Token Amount <i class="fa fa-rupee text-right"></i></label>
                                       <div class="col-md-8 col-sm-8 col-xs-12">
                                         <input id="middle-name" class="form-control" placeholder="Booking/Token Amount" type="text" name="">
@@ -336,7 +356,23 @@
                                         </select>
                                       </div>
                                     </div>
-                                    <div class="form-group clearfix">
+									<div class="form-group clearfix disablerentbro" style="display:none">
+                                      <label class="control-label col-md-2 col-sm-2 col-xs-12 martop15">Brokerage <i class="fa fa-rupee text-right"></i></label>
+                                      <div class="col-md-8 col-sm-8 col-xs-12">
+                                       
+                                        <select name="brokerage" class="select2_group form-control">
+                                          <optgroup label="Select">
+                                          <option value="0">15 Days</option>
+                                          <option value="1">30 Days</option>
+                                          <option value="2">45 Days</option>
+                                          <option value="3">60 Days</option>
+										  
+                                          </optgroup>
+                                        </select>
+                                      
+                                      </div>
+                                    </div>
+                                    <div class="form-group clearfix disablesell">
                                       <label class="control-label col-md-2 col-sm-2 col-xs-12 martop15">Other Charges <i class="fa fa-rupee text-right"></i></label>
                                       <div class="col-md-8 col-sm-8 col-xs-12">
                                         <input id="middle-name" class="form-control" placeholder="Other Charges" type="text" name="">
@@ -947,11 +983,25 @@
 	 {
 						// add handler to re-enable input boxes on click
 						$("#checksell").click(function() {
-							$(".price_as").html("Show Sell As <i class='fa fa-rupee text-right'>");
+							$(".price_as").html("Show Price As <i class='fa fa-rupee text-right'>");
+							$(".expectedpricesellrent").html("Expected Price <i class='fa fa-rupee text-right'>");
+							$(".disablerent").css("display","none");
+							$(".disablesell").css("display","block");
+							$(".disablerentbro").css("display","none");
 						});
 						
 						$("#checkrent").click(function() {
 							$(".price_as").html("Show Rent As <i class='fa fa-rupee text-right'>");
+							$(".expectedpricesellrent").html("Expected Rent <i class='fa fa-rupee text-right'>");
+							$(".disablesell").css("display","none");
+							$(".disablerent").css("display","block");
+							if($("#usertypeid option:selected").val() !=''){
+								var username= $("#usertypeid option:selected").text();
+								if(username=="Agent"){
+									$(".disablerentbro").css("display","block");
+								}
+								}
+							
 						});
 						
 					});
