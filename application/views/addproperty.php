@@ -1087,6 +1087,40 @@
             }
         });
 		 <?php } ?>
+		 
+		 <?php if(!empty($purpose)){
+			 if($purpose=="sell"){ ?>
+			 
+							$(".price_as").html("Show Price As <i class='fa fa-rupee text-right'>");
+							$(".expectedpricesellrent").html("Expected Price <i class='fa fa-rupee text-right'>");
+							$(".disablerent").css("display","none");
+							$(".disablesell").css("display","block");
+							$(".disablerentbro").css("display","none");
+							$(".ageofconstruction").css("display","none");
+			 
+		 
+			 <?php }
+			 if($purpose=="Rent"){ ?>
+			 
+			 $(".price_as").html("Show Rent As <i class='fa fa-rupee text-right'>");
+							$(".expectedpricesellrent").html("Expected Rent <i class='fa fa-rupee text-right'>");
+							$(".disablesell").css("display","none");
+							$(".disablerent").css("display","block");
+							$(".ageofconstruction").css("display","block");
+							if($("#usertypeid option:selected").val() !=''){
+								var username= $("#usertypeid option:selected").text();
+								if(username=="Agent"){
+									$(".disablerentbro").css("display","block");
+								}
+								}
+
+			 <?php } }?>
+			 
+			<?php if(!empty($propertyprice)){ ?>
+				calculatepersqreft();
+				<?php }?>
+		 
+		 
 						// add handler to re-enable input boxes on click
 						$("#checksell").click(function() {
 							$(".price_as").html("Show Price As <i class='fa fa-rupee text-right'>");
