@@ -209,7 +209,7 @@ class AddProperty extends CI_Controller {
 
 
 /*AddProperty Get Attributes Start.............................................................................................................*/
-	function Getattributes()
+	function Getattributes($propertyid=false)
 	{	
 			if(!empty($this->input->post('propertytypeid')))
 			{
@@ -484,11 +484,11 @@ class AddProperty extends CI_Controller {
 							$propertyprice['currencyID']=3;
 							$this->AddProperty_model->InsertProperty('rp_property_price',$propertyprice,$filter1);
 						}
-						
+						$this->AddProperty_model->deleteattributesandvalues($data['propertyID']);
 						if(!empty($amenitiesdata) && !empty($amenitiesvalue))
 						{	$i=0;
 							
-							$this->AddProperty_model->deleteattributesandvalues($data['propertyID']);
+							
 							foreach($amenitiesdata as $amenitiesdatainsert)
 							{	
 								$amenitiesdatainsert['propertyID']=$data['propertyID'];
@@ -503,7 +503,7 @@ class AddProperty extends CI_Controller {
 						if(!empty($selectattribute) && !empty($selectattributeval))
 						{	$j=0;
 							
-							$this->AddProperty_model->deleteattributesandvalues($data['propertyID']);
+							
 							foreach($selectattribute as $selectattributeinsert)
 							{	
 								$selectattributeinsert['propertyID']=$data['propertyID'];
@@ -545,6 +545,7 @@ class AddProperty extends CI_Controller {
 							{	
 								$amenitiesdatainsert['propertyID']=$propertyid;
 								$attributevalueId=$this->AddProperty_model->InsertProperty('rp_property_attribute_values',$amenitiesdatainsert);
+								
 								$amenitiesvalue[$i]['attrValueID']=$attributevalueId;
 								$amenitiesvalue[$i]['languageID']=1;
 								$this->AddProperty_model->InsertProperty('rp_property_attribute_value_details',$amenitiesvalue[$i]);
