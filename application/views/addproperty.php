@@ -519,7 +519,7 @@
                                   <div class="form-group col-xs-12 col-sm-12 martop20">
 									<?php $Attributeoption=$this->AddProperty_model->GetAttributesoption(6);
 									foreach($Attributeoption as $Attributeoptions){ 
-									$getamenities=$this->AddProperty_model->Getotherdata('rp_property_attribute_values',array('propertyID'=>$propertyid,'attributeID'=>6,'attrOptionID'=>$Attributeoptions->attrOptionID));
+									$getamenities=$this->AddProperty_model->Getotherdata('rp_property_attribute_values',array('propertyID'=>isset($propertyid)?$propertyid:'','attributeID'=>6,'attrOptionID'=>$Attributeoptions->attrOptionID));
 									 ?>
 								    <span class="checkbozsty">
                                     <input type="checkbox" value="6-<?=$Attributeoptions->attrOptionID?>-<?=$Attributeoptions->attrOptName?>" <?php if(!empty($getamenities)){echo"checked";} ?> name="Amenities[]">
