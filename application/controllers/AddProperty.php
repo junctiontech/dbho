@@ -132,6 +132,11 @@ class AddProperty extends CI_Controller {
 					}
 					
 					$this->data['propertyimages']=$this->AddProperty_model->Getotherdata('rp_property_images',array('propertyID'=>$propertyid));
+					
+					$this->data['coveredarea']=$this->AddProperty_model->Shownoofbedrooms('rp_property_attribute_values',array('propertyID'=>$propertyid,'attributeID'=>94));
+					$this->data['plotarea']=$this->AddProperty_model->Shownoofbedrooms('rp_property_attribute_values',array('propertyID'=>$propertyid,'attributeID'=>2));
+					$this->data['carpetarea']=$this->AddProperty_model->Shownoofbedrooms('rp_property_attribute_values',array('propertyID'=>$propertyid,'attributeID'=>67));
+                     
                    // print_r($this->data['propertyimages']);die;
 					
 					/*$getamenities=$this->AddProperty_model->Getotherdata('rp_property_attribute_values',array('propertyID'=>$this->input->post('propertyid'),'attributeID'=>6,'attrOptionID'=>$Attributeoptions->attrOptionID));

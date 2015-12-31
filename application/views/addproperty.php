@@ -206,17 +206,21 @@
                                     <div class="form-group clearfix">
                                       <label class="control-label col-md-2 col-sm-2 col-xs-12 martop15" style="text-align:right">Covered Area</label>
                                       <div class="col-md-2 col-sm-2 col-xs-12">
-                                        <input id="coveredarea" placeholder="Covered Area" class="form-control" onchange="generatenameproperty();" type="text" name="text-94">
+									  <?php if(!empty($coveredarea[0]->attrDetValue)){ $coverval=explode(" ",$coveredarea[0]->attrDetValue); } ?>
+									  <?php if(!empty($plotarea[0]->attrDetValue)){ $plotval=explode(" ",$plotarea[0]->attrDetValue);}?>
+									  <?php if(!empty($carpetarea[0]->attrDetValue)){ $carpetval=explode(" ",$carpetarea[0]->attrDetValue);}?>
+									  
+                                        <input id="coveredarea" placeholder="Covered Area" class="form-control" onchange="generatenameproperty();" value="<?=isset($coverval[0])?$coverval[0]:''?>" type="text" name="text-94">
                                       </div>
                                       <div class="col-md-2 col-sm-2 col-xs-12">
                                         <select id="coveredareasize" class="select2_group form-control" onchange="generatenameproperty();" name="coveredarea">
                                           <optgroup label="Select">
-                                          <option value="Sq-ft">Sq-ft</option>
-                                          <option value="Sq-yrd">Sq-yrd</option>
-                                          <option value="Sq-m">Sq-m</option>
-                                          <option value="Acre">Acre</option>
-                                          <option value="Bigha">Bigha</option>
-                                          <option value="Hectare">Hectare</option>
+                                          <option value="Sq-ft" <?php if(!empty($coverval[1])){ if($coverval[1]=="Sq-ft"){ echo"selected";} }?> >Sq-ft</option>
+                                          <option value="Sq-yrd" <?php if(!empty($coverval[1])){ if($coverval[1]=="Sq-yrd"){ echo"selected";} }?>>Sq-yrd</option>
+                                          <option value="Sq-m" <?php if(!empty($coverval[1])){ if($coverval[1]=="Sq-m"){ echo"selected";} }?>>Sq-m</option>
+                                          <option value="Acre" <?php if(!empty($coverval[1])){ if($coverval[1]=="Acre"){ echo"selected";} }?>>Acre</option>
+                                          <option value="Bigha" <?php if(!empty($coverval[1])){ if($coverval[1]=="Bigha"){ echo"selected";} }?>>Bigha</option>
+                                          <option value="Hectare" <?php if(!empty($coverval[1])){ if($coverval[1]=="Hectare"){ echo"selected";} }?>>Hectare</option>
                                           </optgroup>
                                         </select>
                                       </div>
@@ -224,17 +228,17 @@
                                     <div class="form-group clearfix">
                                       <label class="control-label col-md-2 col-sm-2 col-xs-12 martop15" style="text-align:right">Plot Area</label>
                                       <div class="col-md-2 col-sm-2 col-xs-12">
-                                        <input id="middle-name" placeholder="Plot Area" class="form-control" type="text" name="text-2">
+                                        <input id="middle-name" placeholder="Plot Area" class="form-control" value="<?=isset($plotval[0])?$plotval[0]:''?>" type="text" name="text-2">
                                       </div>
                                       <div class="col-md-2 col-sm-2 col-xs-12">
                                         <select class="select2_group form-control" name="plotarea">
                                           <optgroup label="Select">
-                                          <option value="Sq-ft">Sq-ft</option>
-                                          <option value="Sq-yrd">Sq-yrd</option>
-                                          <option value="Sq-m">Sq-m</option>
-                                          <option value="Acre">Acre</option>
-                                          <option value="Bigha">Bigha</option>
-                                          <option value="Hectare">Hectare</option>
+                                          <option value="Sq-ft" <?php if(!empty($plotval[1])){ if($plotval[1]=="Sq-ft"){ echo"selected";} }?> >Sq-ft</option>
+                                          <option value="Sq-yrd" <?php if(!empty($plotval[1])){ if($plotval[1]=="Sq-yrd"){ echo"selected";} }?>>Sq-yrd</option>
+                                          <option value="Sq-m" <?php if(!empty($plotval[1])){ if($plotval[1]=="Sq-m"){ echo"selected";} }?>>Sq-m</option>
+                                          <option value="Acre" <?php if(!empty($plotval[1])){ if($plotval[1]=="Acre"){ echo"selected";} }?>>Acre</option>
+                                          <option value="Bigha" <?php if(!empty($plotval[1])){ if($plotval[1]=="Bigha"){ echo"selected";} }?>>Bigha</option>
+                                          <option value="Hectare" <?php if(!empty($plotval[1])){ if($plotval[1]=="Hectare"){ echo"selected";} }?>>Hectare</option>
                                           </optgroup>
                                         </select>
                                       </div>
@@ -242,17 +246,17 @@
                                     <div class="form-group clearfix">
                                       <label class="control-label col-md-2 col-sm-2 col-xs-12 martop15" style="text-align:right">Carpet Area</label>
                                       <div class="col-md-2 col-sm-2 col-xs-12">
-                                        <input id="middle-name" placeholder="Carpet Area" class="form-control" type="text" name="text-67">
+                                        <input id="middle-name" placeholder="Carpet Area" class="form-control" value="<?=isset($carpetval[0])?$carpetval[0]:''?>" type="text" name="text-67">
                                       </div>
                                       <div class="col-md-2 col-sm-2 col-xs-12">
                                         <select class="select2_group form-control" name="carpetarea">
                                           <optgroup label="Select">
-                                          <option value="Sq-ft">Sq-ft</option>
-                                          <option value="Sq-yrd">Sq-yrd</option>
-                                          <option value="Sq-m">Sq-m</option>
-                                          <option value="Acre">Acre</option>
-                                          <option value="Bigha">Bigha</option>
-                                          <option value="Hectare">Hectare</option>
+                                          <option value="Sq-ft" <?php if(!empty($carpetval[1])){ if($carpetval[1]=="Sq-ft"){ echo"selected";} }?> >Sq-ft</option>
+                                          <option value="Sq-yrd" <?php if(!empty($carpetval[1])){ if($carpetval[1]=="Sq-yrd"){ echo"selected";} }?>>Sq-yrd</option>
+                                          <option value="Sq-m" <?php if(!empty($carpetval[1])){ if($carpetval[1]=="Sq-m"){ echo"selected";} }?>>Sq-m</option>
+                                          <option value="Acre" <?php if(!empty($carpetval[1])){ if($carpetval[1]=="Acre"){ echo"selected";} }?>>Acre</option>
+                                          <option value="Bigha" <?php if(!empty($carpetval[1])){ if($carpetval[1]=="Bigha"){ echo"selected";} }?>>Bigha</option>
+                                          <option value="Hectare" <?php if(!empty($carpetval[1])){ if($carpetval[1]=="Hectare"){ echo"selected";} }?>>Hectare</option>
                                           </optgroup>
                                         </select>
                                       </div>
@@ -289,10 +293,10 @@
                                         <div class="radio mabott10">
                                           <label>
                                             <input type="radio" class="flat"  name="showpriceas">
-                                            <span class="showpriceas"></span> Lac </label>
+                                            <span class="showpriceas"></span> <i class="fa fa-rupee text-right"></i> </label>
                                           <label>
                                             <input type="radio" class="flat" name="showpriceas">
-                                            <span class="showpriceas"></span> Lac Negotiable </label>
+                                            <span class="showpriceas"></span> <i class="fa fa-rupee text-right"></i> Negotiable </label>
                                           <label>
                                             <input type="radio" class="flat" name="showpriceas">
                                             Call For Price </label>
