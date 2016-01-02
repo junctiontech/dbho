@@ -15,7 +15,7 @@ class AddProperty_model extends CI_Model
 		$this->load->database();
 	}
 	
-	function Insert_data($campaignstartdate=false,$user_id=false,$currentexpiry=false,$filter=false)
+	function Insert_data($table=false,$data=false,$filter=false)
    {	
 		$db2 = $this->load->database('both', TRUE);
 		 if($filter){
@@ -24,8 +24,7 @@ class AddProperty_model extends CI_Model
 				$db2->update($table,$data);
 				
 		}else{
-				$data=array('userID'=>$user_id,'startDate'=>$campaignstartdate,'expiry_date_campaign'=>$currentexpiry);
-				$db2->insert('dbho_campaignmaster',$data);
+				$db2->insert($table,$data);
 				$last_id = $db2->insert_id();
 				return($last_id);
 			}
@@ -155,7 +154,8 @@ class AddProperty_model extends CI_Model
 									rp_properties.userID=rp_users.userID and
 									rp_users.userTypeID=rp_user_type_details.userTypeID and
 									rp_property_details.languageID='1' and
-									rp_user_type_details.languageID='1'");	
+									rp_user_type_details.languageID='1' and
+									rp_properties.propertyStatus !='Deleted'");	
 			return $qry->Result();	
 	}
 	
@@ -204,5 +204,16 @@ public function deletestep3data($table=false,$filter=false)
 		$db2 = $this->load->database('both', TRUE);
 		$db2->delete($table,$filter);
 	}
+	
+function get_propertyloglisting($filter=false)
+	{
+		$db2 = $this->load->database('both', TRUE);
+			$qry = $db2->query("select logID,propertyName,adminUserEmail,createdOn,actionType from dbho_property_log,homeonline.rp_properties,homeonline.rp_property_details,homeonline.rp_admin_users where
+									dbho_property_log.propertyID=rp_properties.propertyID and
+									rp_properties.propertyID=rp_property_details.propertyID and
+									dbho_property_log.userID=rp_admin_users.adminUserID and 
+									rp_property_details.languageID='1' $filter");	
+			return $qry->Result();	
+	}	
 	
 }

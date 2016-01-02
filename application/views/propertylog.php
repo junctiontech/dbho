@@ -44,33 +44,16 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>XXXXXX</td>
-                      <td>demo@gmail.com</td>
-                      <td>Gold</td>
-                      <td>18/12/2015 14:59:00</td>
-                       <td>Refresh</td>
-                     
-                    </tr>
                     
+                    <?php foreach($log_details as $log_detailss){?>
                     <tr>
-                      <td>XXXXXX</td>
-                      <td>demo@gmail.com</td>
+                      <td><?=isset($log_detailss->propertyName)?$log_detailss->propertyName:''?></td>
+                      <td><?=isset($log_detailss->adminUserEmail)?$log_detailss->adminUserEmail:''?></td>
                       <td>Gold</td>
-                      <td>18/12/2015 14:59:00</td>
-                       <td>
-                       Edit
-                       <!--<div class="action-icons">
-                       <a href="#" title="Pause" alt="Pause"><i class="fa fa-pause"></i></a>
-                        <a href="#" title="Active" alt="Active"><i class="fa fa-lightbulb-o"></i></a>
-                        <a href="#" title="Refresh" alt="Refresh"><i class="fa fa-refresh"></i></a>
-                        <a href="#" title="Reactive" alt="Reactive"><i class="fa fa-lightbulb-o"></i></a>
-                        <a href="#" title="Draft" alt="Draft"><i class="fa fa-save"></i></a>
-                       </div> -->
-                       </td>
-                     
-                    </tr>
-                    
+                      <td><?=isset($log_detailss->createdOn)?$log_detailss->createdOn:''?></td>
+                       <td> <?=isset($log_detailss->actionType)?$log_detailss->actionType:''?></td>
+                      </tr>
+                    <?php } ?>
                     
                     
                     

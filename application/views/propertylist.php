@@ -20,6 +20,23 @@
                     </script>
         
         <div class="clearfix"></div>
+		<!-- Alert section For Message-->
+		 <?php  if($this->session->flashdata('message_type')=='success') { ?>
+		  <div class="alert alert-success alert-dismissible fade in" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span> </button>
+                <strong><?=$this->session->flashdata('message')?></strong>  </div>
+		 <?php } if($this->session->flashdata('message_type')=='error') { ?>
+		 <div class="alert alert-danger alert-dismissible fade in" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span> </button>
+                <strong><?=$this->session->flashdata('message')?></strong>  </div>
+		 <?php } if($this->session->flashdata('category_error')) { ?>
+<div class="row" >
+<div class="alert alert-danger" >
+<strong><?=$this->session->flashdata('category_error')?></strong> <?php echo"<button type=\"button\" class=\"close\" data-dismiss=\"alert\">&times;</button>";?>
+</div>
+</div>
+<?php }?>
+		 <!-- Alert section End-->
         <div class="row">
           <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
@@ -112,10 +129,10 @@
                        <div class="action-icons">
                        <a href="<?=base_url();?>AddProperty/index/<?=isset($propertylistings->propertyID)?$propertylistings->propertyID:''?>" title="Edit" alt="Edit"><i class="fa fa-edit"></i></a>
                        <a href="<?=base_url();?>AddProperty/PropertyLog/<?=isset($propertylistings->propertyID)?$propertylistings->propertyID:''?>" title="Log" alt="Log"><i class="fa fa-archive"></i></a>
-                       <a href="<?=base_url();?>AddProperty/Deleteproperty/<?=isset($propertylistings->propertyID)?$propertylistings->propertyID:''?>" title="Delete" alt="Delete"><i class="fa fa-trash"></i></a><br>
-                       <a href="#" title="Pause" alt="Pause"><i class="fa fa-pause"></i></a>
-                       <a href="<?=base_url();?>AddProperty/propertyPreview/<?=isset($propertylistings->propertyID)?$propertylistings->propertyID:''?>" target="_blank" title="Preview" alt="Refresh"><i class="fa fa-refresh"></i></a>
-                       <a <?php if($propertylistings->propertyStatus!="Active"){ echo "href='/AddProperty/ActivateProperty/$propertylistings->propertyID'";}?> title="Active" alt="Active"><i class="fa fa-lightbulb-o"></i></a>
+                       <a onclick="return confirm('Are You Sure To Delete This Property ?');" href="<?=base_url();?>AddProperty/PropertyAction/Delete/<?=isset($propertylistings->propertyID)?$propertylistings->propertyID:''?>" title="Delete" alt="Delete"><i class="fa fa-trash"></i></a><br>
+                       <a href="javascript:;" title="Pause" alt="Pause"><i class="fa fa-pause"></i></a>
+                       <a <?php if($propertylistings->propertyStatus=="Draft"){ ?> href="<?=base_url();?>AddProperty/propertyPreview/<?=isset($propertylistings->propertyID)?$propertylistings->propertyID:''?>" <?php }else{?> onclick="alert('Property With Status Draft Can Only Be See Preview');"<?php }?> target="_blank" title="Preview" alt="Refresh"><i class="fa fa-refresh"></i></a>
+                       <a <?php if($propertylistings->propertyStatus!="Active"){ ?> onclick="return confirm('Are You Sure To Activate This Property ?');" href="<?=base_url();?>AddProperty/PropertyAction/Active/<?=$propertylistings->propertyID?>" <?php }else{?> onclick="alert('This Property Is Already Active');"<?php }?> title="Active" alt="Active"><i class="fa fa-lightbulb-o"></i></a>
                        </div>
                        </td>
                        <td><i  <?php if($propertylistings->propertyStatus=="Active"){ echo 'title="Active" class="fa fa-check"'; }elseif($propertylistings->propertyStatus=="Draft"){ echo 'title="Draft" class="fa fa-archive"';}else{echo 'title="refresh" class="fa fa-refresh"';}?>></i></td>

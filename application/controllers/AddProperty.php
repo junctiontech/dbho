@@ -14,7 +14,7 @@ class AddProperty extends CI_Controller {
 		$this->data['base_url']=base_url();
 		$this->load->library('session');
 		if (!$this->session->userdata('homeonline')){ $this->session->set_flashdata('category_error_login', " Your Session Is Expired!! Please Login Again. "); redirect('Login');}
-
+		$this->userinfo=$this->session->userdata('homeonline');
 	}
 	
 // AddProperty Started Here.................................................................................................................
@@ -813,11 +813,14 @@ class AddProperty extends CI_Controller {
 /*Property List view Load Start.............................................................................................................*/
 
 /*Property Log view Load Start.............................................................................................................*/
-	function PropertyLog()
+	function PropertyLog($propertyid=false)
 	{	
-		//$this->data['projects']=$this->AddProperty_model->get_project();
-		//$this->data['propertytype']=$this->AddProperty_model->getPropertyType();
-		//$this->data['user_type']=$this->AddProperty_model->get_user_type();
+		if(!empty($propertyid)){
+		$filter=" and dbho_property_log.propertyID=$propertyid";
+		}else{
+			$filter='';
+		}
+		$this->data['log_details']=$this->AddProperty_model->get_propertyloglisting($filter);
 		$this->parser->parse('header',$this->data);
 		$this->load->view('propertylog',$this->data);
 		$this->parser->parse('footer',$this->data);
@@ -1798,6 +1801,38 @@ public function propertyPreview(){
 		
 	}
 /*Delete property image End.............................................................................................................*/
+
+
+/* Property Action Start.............................................................................................................*/
+	function PropertyAction($action=false,$propertyid=false)
+	{	//print_r($this->userinfo);die;
+			if(!empty($action) && !empty($propertyid))
+			{
+				if($action=="Active")
+				{
+					$data=array('propertyStatus'=>'Active');
+					$filter=array('propertyID'=>$propertyid);
+					$this->AddProperty_model->InsertProperty('rp_properties',$data,$filter);
+					$logdata=array('propertyID'=>$propertyid,'userName'=>$this->userinfo['adminUserFirstName'],'userID'=>$this->userinfo['adminUserID'],'createdBy'=>$this->userinfo['adminUserFirstName'],'actionType'=>'Active');
+					$this->AddProperty_model->Insert_data('dbho_property_log',$logdata);
+					$this->session->set_flashdata('message_type', 'success');
+					$this->session->set_flashdata('message', $this->config->item("PropertyListing").' Property Activated successfully');
+				}elseif($action=="Delete")
+				{
+					$data=array('propertyStatus'=>'Deleted');
+					$filter=array('propertyID'=>$propertyid);
+					$this->AddProperty_model->InsertProperty('rp_properties',$data,$filter);
+					$logdata=array('propertyID'=>$propertyid,'userName'=>$this->userinfo['adminUserFirstName'],'userID'=>$this->userinfo['adminUserID'],'createdBy'=>$this->userinfo['adminUserFirstName'],'actionType'=>'Deleted');
+					$this->AddProperty_model->Insert_data('dbho_property_log',$logdata);
+					$this->session->set_flashdata('message_type', 'success');
+					$this->session->set_flashdata('message', $this->config->item("PropertyListing").' Property Deleted successfully');
+				}		
+			}else{
+					
+			}
+		redirect('AddProperty/PropertyListing');
+	}
+/*Property Action End.............................................................................................................*/
 
 	
 
