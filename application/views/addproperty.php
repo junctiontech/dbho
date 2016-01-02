@@ -56,8 +56,8 @@
                         <div class="form-group clearfix">
                           <div class="form-group col-xs-12 col-sm-3" style="padding-top:8px;">
                             <div class="btn-group" data-toggle="buttons">
-                              <label class="btn btn-default <?php if(!empty($purpose)){if($purpose=="sell"){echo" active";}}?>" id="checksell">
-                                <input type="radio" <?php if(!empty($purpose)){if($purpose=="sell"){echo"checked";}}?> name="propertyPurpose" value="Sell" id="sell" onchange="generatenameproperty();">
+                              <label class="btn btn-default <?php if(!empty($purpose)){if($purpose=="Sell"){echo" active";}}?>" id="checksell">
+                                <input type="radio" <?php if(!empty($purpose)){if($purpose=="Sell"){echo"checked";}}?> name="propertyPurpose" value="Sell" id="sell" onchange="generatenameproperty();">
                                 Sell </label>
                               <label class="btn btn-default <?php if(!empty($purpose)){if($purpose=="Rent"){echo" active";}}?>" id="checkrent">
                                 <input type="radio" <?php if(!empty($purpose)){if($purpose=="Rent"){echo"checked";}}?> name="propertyPurpose" value="Rent" id="rent" onchange="generatenameproperty();">
@@ -266,7 +266,7 @@
                               </div>
                             </div>
                             <div class="panel"> <a class="panel-heading" role="tab" id="headingOne13" data-toggle="collapse" data-parent="#accordion1" href="#collapseOne13" aria-expanded="false" aria-controls="collapseOne13">
-                              <h4 class="panel-title StepTitle">Price & Other Charges </h4>
+                              <h4 class="panel-title StepTitle"><span class="slowlabelheading">Price</span> & Other Charges </h4>
                               </a>
                               <div id="collapseOne13" class="panel-collapse collapse " role="tabpanel" aria-labelledby="headingOne">
                                 <div class="panel-body">
@@ -398,10 +398,10 @@
                                       <div class="col-md-10 col-sm-10 col-xs-12 martop15">
                                         <div class="radio mabott10">
                                           <label>
-                                            <input type="radio" class="flat" checked name="">
+                                            <input type="radio" class="flat" checked name="transactiontype">
                                             New Property </label>
                                           <label>
-                                            <input type="radio" class="flat" name="">
+                                            <input type="radio" class="flat" name="transactiontype">
                                             Resale </label>
                                         </div>
                                       </div>
@@ -1075,10 +1075,10 @@
 	 {
 		 <?php if(!empty($propertytypeid)){ ?>
 		 var propertytypeid = $("#propertytype").val();
-	
+		 var propertyid= $("#form1_id").val();
 		$.ajax({
             type: 'POST', 
-            url: base_url+'AddProperty/Getattributes',
+            url: base_url+'AddProperty/Getattributes/'+propertyid,
             data: {propertytypeid:propertytypeid},
 			cache: false,
 			beforeSend: function() {
@@ -1094,10 +1094,11 @@
 		 <?php } ?>
 		 
 		 <?php if(!empty($purpose)){
-			 if($purpose=="sell"){ ?>
+			 if($purpose=="Sell"){ ?>
 			 
 							$(".price_as").html("Show Price As <i class='fa fa-rupee text-right'>");
 							$(".expectedpricesellrent").html("Expected Price <i class='fa fa-rupee text-right'>");
+							$(".slowlabelheading").html("Price");
 							$(".disablerent").css("display","none");
 							$(".disablesell").css("display","block");
 							$(".disablerentbro").css("display","none");
@@ -1109,6 +1110,7 @@
 			 
 			 $(".price_as").html("Show Rent As <i class='fa fa-rupee text-right'>");
 							$(".expectedpricesellrent").html("Expected Rent <i class='fa fa-rupee text-right'>");
+							$(".slowlabelheading").html("Rent");
 							$(".disablesell").css("display","none");
 							$(".disablerent").css("display","block");
 							$(".ageofconstruction").css("display","block");
@@ -1130,6 +1132,7 @@
 						$("#checksell").click(function() {
 							$(".price_as").html("Show Price As <i class='fa fa-rupee text-right'>");
 							$(".expectedpricesellrent").html("Expected Price <i class='fa fa-rupee text-right'>");
+							$(".slowlabelheading").html("Price");
 							$(".disablerent").css("display","none");
 							$(".disablesell").css("display","block");
 							$(".disablerentbro").css("display","none");
@@ -1139,6 +1142,7 @@
 						$("#checkrent").click(function() {
 							$(".price_as").html("Show Rent As <i class='fa fa-rupee text-right'>");
 							$(".expectedpricesellrent").html("Expected Rent <i class='fa fa-rupee text-right'>");
+							$(".slowlabelheading").html("Rent");
 							$(".disablesell").css("display","none");
 							$(".disablerent").css("display","block");
 							$(".ageofconstruction").css("display","block");

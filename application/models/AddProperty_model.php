@@ -161,7 +161,7 @@ class AddProperty_model extends CI_Model
 	
 	public function Shownoofbedrooms($table=false,$propertyID=false){
 		 
-	   $this->db->select('attrDetValue');
+	   $this->db->select('attrDetValue,attrOptionID');
 	   $this->db->from('rp_property_attribute_values t1');
 	   $this->db->join('rp_property_attribute_value_details t2','t1.attrValueID=t2.attrValueID AND t2.languageID=1 ','inner');
 	   $this->db->where($propertyID);

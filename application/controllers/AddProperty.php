@@ -238,6 +238,10 @@ class AddProperty extends CI_Controller {
 													{
 													$Attributeoption=$this->AddProperty_model->GetAttributesoption($Attributes->attributeID);
 													
+													if(!empty($propertyid))
+													{
+													$checkattri=$this->AddProperty_model->Shownoofbedrooms('rp_property_attribute_values',array('propertyID'=>$propertyid,'attributeID'=>$Attributes->attributeID));
+													}
 													if($Attributes->attrInputType=="select"){
 													
 													  echo"<div class=\"form-group col-xs-12 col-sm-4 martop20\">";
@@ -247,7 +251,9 @@ class AddProperty extends CI_Controller {
 														  echo"<optgroup label=\"Select\">";
 														  echo"<option value=\"\">select</option>";
 														  foreach($Attributeoption as $Attributeoptions){
-														  echo"<option value=\"$Attributeoptions->attrOptionID-$Attributeoptions->attrOptName\">$Attributeoptions->attrOptName</option>";
+														  echo"<option value=\"$Attributeoptions->attrOptionID-$Attributeoptions->attrOptName\"";
+														  if(!empty($checkattri[0]->attrOptionID)){ if($checkattri[0]->attrOptionID==$Attributeoptions->attrOptionID){ echo"selected";}}
+														 echo" >$Attributeoptions->attrOptName</option>";
 														  }
 														  echo"</optgroup>";
 														echo"</select>";
@@ -257,7 +263,7 @@ class AddProperty extends CI_Controller {
 													if($Attributes->attrInputType=="texbox"){
 													  echo"<div class=\"form-group col-xs-12 col-sm-4 \">";
 														echo"<label class=\"control-label\" for=\"last-name\">$Attributes->attrName </label>";
-														echo"<input id=\"middle-name\" class=\"form-control\" type=\"text\" name=\"text-$Attributes->attributeID\">";
+														echo"<input id=\"middle-name\" class=\"form-control\" type=\"text\" name=\"text-$Attributes->attributeID\" value=\"isset($checkattri[0]->attrDetValue)?$checkattri[0]->attrDetValue:''\">";
 													  echo"</div>";
 													}
 													  
@@ -266,9 +272,13 @@ class AddProperty extends CI_Controller {
 													  echo"<div class=\"form-group col-xs-12 col-sm-4\">";
 														echo"<label class=\"control-label\" for=\"last-name\" style=\"display:block;\">$Attributes->attrName</label>";
 														foreach($Attributeoption as $Attributeoptions){
-														  
+														  if(!empty($propertyid)){
+														$attmulti=$this->AddProperty_model->Getotherdata('rp_property_attribute_values',array('propertyID'=>$propertyid,'attributeID'=>$Attributes->attributeID,'attrOptionID'=>$Attributeoptions->attrOptionID));
+														}
 														echo"<span class=\"checkbozsty\">";
-														echo"<input type=\"checkbox\"  value=\"$Attributeoptions->attrOptionID-$Attributeoptions->attrOptName\" name=\"multi-$Attributes->attributeID[]\">";
+														echo"<input type=\"checkbox\"  value=\"$Attributeoptions->attrOptionID-$Attributeoptions->attrOptName\" name=\"multi-$Attributes->attributeID[]\"";
+														if(!empty($attmulti)){echo"checked";}
+														echo">";
 														echo"$Attributeoptions->attrOptName</span>";
 														}
 														echo"</div>";
@@ -825,9 +835,25 @@ class AddProperty extends CI_Controller {
 				if(!empty($NoOfBedRooms))
 				{	
 					if(!empty($NoOfBedRooms[0]->attrDetValue))
-					{	
+					{	$bedroomdata=$this->AddProperty_model->Getotherdatafromnewdb('dbho_bed_room',array('propertyID'=>$this->input->post('propertyid')));
+						
 						for($i=1;$i<=$NoOfBedRooms[0]->attrDetValue;$i++)
-						{
+						{	
+							$bedothers=array();
+							if(!empty($bedroomdata[$i-1]->others)){
+							$bedothers=explode(",",$bedroomdata[$i-1]->others);
+							}
+							
+							if(in_array("AC", $bedothers)){ $AC="checked";}else{$AC="";}
+							if(in_array("Bed", $bedothers)){ $Bed="checked";}else{$Bed="";}
+							if(in_array("TV", $bedothers)){ $TV="checked";}else{$TV="";}
+							if(in_array("DressingTable", $bedothers)){ $DressingTable="checked";}else{$DressingTable="";}
+							if(in_array("Wardrobe", $bedothers)){ $Wardrobe="checked";}else{$Wardrobe="";}
+							if(in_array("FalseSeiling", $bedothers)){ $FalseSeiling="checked";}else{$FalseSeiling="";}
+							if(in_array("AttachedBalcony", $bedothers)){ $AttachedBalcony="checked";}else{$AttachedBalcony="";}
+							if(in_array("AttachedBathroom", $bedothers)){ $AttachedBathroom="checked";}else{$AttachedBathroom="";}
+							if(in_array("Ventilation", $bedothers)){ $Ventilation="checked";}else{$Ventilation="";}
+						
 							echo "<div class=\"panel\"> <a class=\"panel-heading\" role=\"tab\" id=\"headingOne1\" data-toggle=\"collapse\" data-parent=\"#accordion3\" href=\"#collapseOneR$i\" aria-expanded=\"false\" aria-controls=\"collapseOne3\">";
                          
 							echo"	<h4 class=\"panel-title StepTitle\">Bed Room $i</h4>
@@ -839,33 +865,45 @@ class AddProperty extends CI_Controller {
 										<label>Flooring Type</label>
 										<select name="flooringTypebedroom[]" class="form-control">
 										 <option value="">select</option>
-										  <option value="Marble">Marble</option>
-										  <option value="Wood">Wood</option>
-										  <option value="Ceramic">Ceramic</option>
-										  <option value="Stone">Stone</option>
-										  <option value="Laminate">Laminate</option>
-										  <option value="AntiSkidTiles">Anti Skid Tiles</option>
+										  <option value="Marble"';
+										  if(!empty($bedroomdata[$i-1]->flooringType)){ if($bedroomdata[$i-1]->flooringType=='Marble'){echo"selected";}}
+										  echo'>Marble</option>
+										  <option value="Wood"';
+										  if(!empty($bedroomdata[$i-1]->flooringType)){ if($bedroomdata[$i-1]->flooringType=='Wood'){echo"selected";}}
+										 echo' >Wood</option>
+										  <option value="Ceramic"';
+										  if(!empty($bedroomdata[$i-1]->flooringType)){ if($bedroomdata[$i-1]->flooringType=='Ceramic'){echo"selected";}}
+										  echo'>Ceramic</option>
+										  <option value="Stone"';
+										 if(!empty($bedroomdata[$i-1]->flooringType)){ if($bedroomdata[$i-1]->flooringType=='Stone'){echo"selected";}}
+										  echo'>Stone</option>
+										  <option value="Laminate"';
+										  if(!empty($bedroomdata[$i-1]->flooringType)){ if($bedroomdata[$i-1]->flooringType=='Laminate'){echo"selected";}}
+										  echo'>Laminate</option>
+										  <option value="AntiSkidTiles"';
+										    if(!empty($bedroomdata[$i-1]->flooringType)){ if($bedroomdata[$i-1]->flooringType=='AntiSkidTiles'){echo"selected";}}
+										  echo'>Anti Skid Tiles</option>
 										</select>
 									  </div>
 									</div>';
 								echo"	<div class=\" clearfix\"> <span class=\"checkbozsty-1\">
-									  <input type=\"checkbox\"  value=\"TV\" name=\"$i-othersbedroom[]\">
+									  <input type=\"checkbox\"  value=\"TV\" $TV name=\"$i-othersbedroom[]\">
 									  TV</span> <span class=\"checkbozsty-1\">
-									  <input type=\"checkbox\"  value=\"AC\" name=\"$i-othersbedroom[]\">
+									  <input type=\"checkbox\"  value=\"AC\" $AC name=\"$i-othersbedroom[]\">
 									  AC</span> <span class=\"checkbozsty-1\">
-									  <input type=\"checkbox\"  value=\"Bed\" name=\"$i-othersbedroom[]\">
+									  <input type=\"checkbox\"  value=\"Bed\" $Bed name=\"$i-othersbedroom[]\">
 									  Bed</span> <span class=\"checkbozsty-1\">
-									  <input type=\"checkbox\" value=\"DressingTable\" name=\"$i-othersbedroom[]\">
+									  <input type=\"checkbox\" value=\"DressingTable\" $DressingTable name=\"$i-othersbedroom[]\">
 									  Dressing Table</span> <span class=\"checkbozsty-1\">
-									  <input type=\"checkbox\"  value=\"Wardrobe\" name=\"$i-othersbedroom[]\">
+									  <input type=\"checkbox\"  value=\"Wardrobe\" $Wardrobe name=\"$i-othersbedroom[]\">
 									  Wardrobe</span> <span class=\"checkbozsty-1\">
-									  <input type=\"checkbox\"  value=\"FalseSeiling\" name=\"$i-othersbedroom[]\">
+									  <input type=\"checkbox\"  value=\"FalseSeiling\" $FalseSeiling name=\"$i-othersbedroom[]\">
 									  False Seiling</span> <span class=\"checkbozsty-1\">
-									  <input type=\"checkbox\"  value=\"AttachedBalcony\" name=\"$i-othersbedroom[]\">
+									  <input type=\"checkbox\"  value=\"AttachedBalcony\" $AttachedBalcony name=\"$i-othersbedroom[]\">
 									  Attached Balcony</span> <span class=\"checkbozsty-1\">
-									  <input type=\"checkbox\"  value=\"AttachedBathroom\" name=\"$i-othersbedroom[]\">
+									  <input type=\"checkbox\"  value=\"AttachedBathroom\" $AttachedBathroom name=\"$i-othersbedroom[]\">
 									  Attached Bathroom</span> <span class=\"checkbozsty-1\">
-									  <input type=\"checkbox\"  value=\"Ventilation\" name=\"$i-othersbedroom[]\">
+									  <input type=\"checkbox\"  value=\"Ventilation\" $Ventilation name=\"$i-othersbedroom[]\">
 									  Ventilation</span> </div>
 								  </div>
 								</div>
@@ -880,9 +918,22 @@ class AddProperty extends CI_Controller {
 				if(!empty($NoOfLivingRooms))
 				{	
 					if(!empty($NoOfLivingRooms[0]->attrDetValue))
-					{	
+					{	$livingroomdata=$this->AddProperty_model->Getotherdatafromnewdb('dbho_living_room',array('propertyID'=>$this->input->post('propertyid')));
+						
 						for($i=1;$i<=$NoOfLivingRooms[0]->attrDetValue;$i++)
 						{
+							$livingothers=array();
+							if(!empty($livingroomdata[$i-1]->others)){
+							$livingothers=explode(",",$livingroomdata[$i-1]->others);
+							}
+							
+							if(in_array("Sofa", $livingothers)){ $Sofa="checked";}else{$Sofa="";}
+							if(in_array("DiningTable", $livingothers)){ $DiningTable="checked";}else{$DiningTable="";}
+							if(in_array("AC", $livingothers)){ $AC="checked";}else{$AC="";}
+							if(in_array("ShoeRack", $livingothers)){ $ShoeRack="checked";}else{$ShoeRack="";}
+							if(in_array("TV", $livingothers)){ $TV="checked";}else{$TV="";}
+							if(in_array("FalseSeiling", $livingothers)){ $FalseSeiling="checked";}else{$FalseSeiling="";}
+							
 							echo "<div class=\"panel\"> <a class=\"panel-heading\" role=\"tab\" id=\"headingOne1\" data-toggle=\"collapse\" data-parent=\"#accordion3\" href=\"#collapseOneL$i\" aria-expanded=\"false\" aria-controls=\"collapseOne3\">";
                          
 							echo"<h4 class=\"panel-title StepTitle\">Living Room $i</h4>
@@ -894,27 +945,40 @@ class AddProperty extends CI_Controller {
                                 <label>Flooring Type</label>
                                 <select name="flooringTypelivingroom[]" class="form-control">
                                   <option value="">select</option>
-                                  <option value="Marble">Marble</option>
-                                  <option value="Wood">Wood</option>
-                                  <option value="Ceramic">Ceramic</option>
-                                  <option value="Stone">Stone</option>
-                                  <option value="Laminate">Laminate</option>
-                                  <option value="AntiSkidTiles">Anti Skid Tiles</option>
+								   <option value="Marble"';
+										  if(!empty($livingroomdata[$i-1]->flooringType)){ if($livingroomdata[$i-1]->flooringType=='Marble'){echo"selected";}}
+										  echo'>Marble</option>
+										  <option value="Wood"';
+										  if(!empty($livingroomdata[$i-1]->flooringType)){ if($livingroomdata[$i-1]->flooringType=='Wood'){echo"selected";}}
+										 echo' >Wood</option>
+										  <option value="Ceramic"';
+										  if(!empty($livingroomdata[$i-1]->flooringType)){ if($livingroomdata[$i-1]->flooringType=='Ceramic'){echo"selected";}}
+										  echo'>Ceramic</option>
+										  <option value="Stone"';
+										 if(!empty($livingroomdata[$i-1]->flooringType)){ if($livingroomdata[$i-1]->flooringType=='Stone'){echo"selected";}}
+										  echo'>Stone</option>
+										  <option value="Laminate"';
+										  if(!empty($livingroomdata[$i-1]->flooringType)){ if($livingroomdata[$i-1]->flooringType=='Laminate'){echo"selected";}}
+										  echo'>Laminate</option>
+										  <option value="AntiSkidTiles"';
+										    if(!empty($livingroomdata[$i-1]->flooringType)){ if($livingroomdata[$i-1]->flooringType=='AntiSkidTiles'){echo"selected";}}
+										  echo'>Anti Skid Tiles</option>
+                                  
                                 </select>
                               </div>
                             </div>
                             <div class=" clearfix"> <span class="checkbozsty-1">';
-                           echo"   <input type=\"checkbox\"  value=\"Sofa\" name=\"$i-otherslivingroom[]\">
+                           echo"   <input type=\"checkbox\"  value=\"Sofa\" $Sofa name=\"$i-otherslivingroom[]\">
                               Sofa</span> <span class=\"checkbozsty-1\">
-                              <input type=\"checkbox\"  value=\"DiningTable\" name=\"$i-otherslivingroom[]\">
+                              <input type=\"checkbox\"  value=\"DiningTable\" $DiningTable name=\"$i-otherslivingroom[]\">
                               Dining Table</span> <span class=\"checkbozsty-1\">
-                              <input type=\"checkbox\"  value=\"AC\" name=\"$i-otherslivingroom[]\">
+                              <input type=\"checkbox\"  value=\"AC\" $AC name=\"$i-otherslivingroom[]\">
                               AC</span> <span class=\"checkbozsty-1\">
-                              <input type=\"checkbox\" value=\"ShoeRack\" name=\"$i-otherslivingroom[]\">
+                              <input type=\"checkbox\" value=\"ShoeRack\" $ShoeRack name=\"$i-otherslivingroom[]\">
                               Shoe Rack</span> <span class=\"checkbozsty-1\">
-                              <input type=\"checkbox\"  value=\"TV\" name=\"$i-otherslivingroom[]\">
+                              <input type=\"checkbox\"  value=\"TV\" $TV name=\"$i-otherslivingroom[]\">
                               TV</span> <span class=\"checkbozsty-1\">
-                              <input type=\"checkbox\"  value=\"FalseSeiling\" name=\"$i-otherslivingroom[]\">
+                              <input type=\"checkbox\"  value=\"FalseSeiling\" $FalseSeiling name=\"$i-otherslivingroom[]\">
                               False Seiling</span> </div>
                           </div>
                         </div>
@@ -929,9 +993,22 @@ class AddProperty extends CI_Controller {
 				if(!empty($NoOfBathRooms))
 				{	
 					if(!empty($NoOfBathRooms[0]->attrDetValue))
-					{	
+					{	$bathroomdata=$this->AddProperty_model->Getotherdatafromnewdb('dbho_bath_room',array('propertyID'=>$this->input->post('propertyid')));
+						
 						for($i=1;$i<=$NoOfBathRooms[0]->attrDetValue;$i++)
 						{
+							$bathothers=array();
+							if(!empty($bathroomdata[$i-1]->others)){
+							$bathothers=explode(",",$bathroomdata[$i-1]->others);
+							}
+							
+							if(in_array("GlassPartition", $bathothers)){ $GlassPartition="checked";}else{$GlassPartition="";}
+							if(in_array("BathTub", $bathothers)){ $BathTub="checked";}else{$BathTub="";}
+							if(in_array("Axhaustfan", $bathothers)){ $Axhaustfan="checked";}else{$Axhaustfan="";}
+							if(in_array("Windows", $bathothers)){ $Windows="checked";}else{$Windows="";}
+							if(in_array("ShowerCurtain", $bathothers)){ $ShowerCurtain="checked";}else{$ShowerCurtain="";}
+							if(in_array("Cabinet", $bathothers)){ $Cabinet="checked";}else{$Cabinet="";}
+							
 							echo "<div class=\"panel\"> <a class=\"panel-heading\" role=\"tab\" id=\"headingOne1\" data-toggle=\"collapse\" data-parent=\"#accordion3\" href=\"#collapseOneB$i\" aria-expanded=\"false\" aria-controls=\"collapseOne3\">";
                          
 							echo"	<h4 class=\"panel-title StepTitle\">Bath Room $i</h4>
@@ -945,12 +1022,24 @@ class AddProperty extends CI_Controller {
                                   <label>Flooring Type</label>
                                   <select name="flooringTypebathroom[]" class="form-control">
                                   <option value="">select</option>
-                                  <option value="Marble">Marble</option>
-                                  <option value="Wood">Wood</option>
-                                  <option value="Ceramic">Ceramic</option>
-                                  <option value="Stone">Stone</option>
-                                  <option value="Laminate">Laminate</option>
-                                  <option value="AntiSkidTiles">Anti Skid Tiles</option>
+                                  <option value="Marble"';
+										  if(!empty($bathroomdata[$i-1]->flooringType)){ if($bathroomdata[$i-1]->flooringType=='Marble'){echo"selected";}}
+										  echo'>Marble</option>
+										  <option value="Wood"';
+										  if(!empty($bathroomdata[$i-1]->flooringType)){ if($bathroomdata[$i-1]->flooringType=='Wood'){echo"selected";}}
+										 echo' >Wood</option>
+										  <option value="Ceramic"';
+										  if(!empty($bathroomdata[$i-1]->flooringType)){ if($bathroomdata[$i-1]->flooringType=='Ceramic'){echo"selected";}}
+										  echo'>Ceramic</option>
+										  <option value="Stone"';
+										 if(!empty($bathroomdata[$i-1]->flooringType)){ if($bathroomdata[$i-1]->flooringType=='Stone'){echo"selected";}}
+										  echo'>Stone</option>
+										  <option value="Laminate"';
+										  if(!empty($bathroomdata[$i-1]->flooringType)){ if($bathroomdata[$i-1]->flooringType=='Laminate'){echo"selected";}}
+										  echo'>Laminate</option>
+										  <option value="AntiSkidTiles"';
+										    if(!empty($bathroomdata[$i-1]->flooringType)){ if($bathroomdata[$i-1]->flooringType=='AntiSkidTiles'){echo"selected";}}
+										  echo'>Anti Skid Tiles</option>
                                   </select>
                                 </div>
                               </div>
@@ -962,10 +1051,14 @@ class AddProperty extends CI_Controller {
                                   <div class="x_content-1">
                                     <div class="radio mabott10">
                                       <label>
-                                        <input type="radio" class="flat" value="Geyser" name="hotwatersupply[]">
+                                        <input type="radio" class="flat"  value="Geyser" name="hotwatersupply[]"';
+										if(!empty($bathroomdata[$i-1]->hotwatersupply)){ if($bathroomdata[$i-1]->hotwatersupply=='Geyser'){echo"checked";}}
+										echo'>
                                         Geyser </label>
                                       <label>
-                                        <input type="radio" class="flat" value="Gas"  name="hotwatersupply[]">
+                                        <input type="radio" class="flat" value="Gas"  name="hotwatersupply[]"';
+										if(!empty($bathroomdata[$i-1]->hotwatersupply)){ if($bathroomdata[$i-1]->hotwatersupply=='Gas'){echo"checked";}}
+										echo'>
                                         Gas </label>
                                     </div>
                                   </div>
@@ -979,10 +1072,14 @@ class AddProperty extends CI_Controller {
                                   <div class="x_content-1">
                                     <div class="radio mabott10">
                                       <label>
-                                        <input type="radio" class="flat" value="Indian" name="toilet[]">
+                                        <input type="radio" class="flat" value="Indian" name="toilet[]"';
+										if(!empty($bathroomdata[$i-1]->toilet)){ if($bathroomdata[$i-1]->toilet=='Indian'){echo"checked";}}
+										echo'>
                                         Indian </label>
                                       <label>
-                                        <input type="radio" class="flat" value="Western" name="toilet[]">
+                                        <input type="radio" class="flat" value="Western" name="toilet[]"';
+										if(!empty($bathroomdata[$i-1]->toilet)){ if($bathroomdata[$i-1]->toilet=='Western'){echo"checked";}}
+										echo'>
                                         Western </label>
                                     </div>
                                   </div>
@@ -991,17 +1088,17 @@ class AddProperty extends CI_Controller {
                             </div>
                             <div class="">
                               <div class="clearfix"> <span class="checkbozsty-1">';
-                           echo"     <input type=\"checkbox\"  value=\"GlassPartition\" name=\"$i-othersbathroom[]\">
+                           echo"     <input type=\"checkbox\"  value=\"GlassPartition\" $GlassPartition name=\"$i-othersbathroom[]\">
                                 Glass Partition</span> <span class=\"checkbozsty-1\">
-                                <input type=\"checkbox\"  value=\"BathTub\" name=\"$i-othersbathroom[]\">
+                                <input type=\"checkbox\"  value=\"BathTub\" $BathTub name=\"$i-othersbathroom[]\">
                                 Bath Tub</span> <span class=\"checkbozsty-1\">
-                                <input type=\"checkbox\"  value=\"Axhaustfan\" name=\"$i-othersbathroom[]\">
+                                <input type=\"checkbox\"  value=\"Axhaustfan\" $Axhaustfan name=\"$i-othersbathroom[]\">
                                 Axhaust fan</span> <span class=\"checkbozsty-1\">
-                                <input type=\"checkbox\" value=\"Windows\" name=\"$i-othersbathroom[]\">
+                                <input type=\"checkbox\" value=\"Windows\" $Windows name=\"$i-othersbathroom[]\">
                                 Windows</span> <span class=\"checkbozsty-1\">
-                                <input type=\"checkbox\"  value=\"ShowerCurtain\" name=\"$i-othersbathroom[]\">
+                                <input type=\"checkbox\"  value=\"ShowerCurtain\" $ShowerCurtain name=\"$i-othersbathroom[]\">
                                 Shower Curtain</span> <span class=\"checkbozsty-1\">
-                                <input type=\"checkbox\"  value=\"Cabinet\" name=\"$i-othersbathroom[]\">
+                                <input type=\"checkbox\"  value=\"Cabinet\" $Cabinet name=\"$i-othersbathroom[]\">
                                 Cabinet</span> </div>
                             </div>
                           </div>
