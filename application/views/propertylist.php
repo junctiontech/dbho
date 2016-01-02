@@ -48,33 +48,33 @@
             
             
         <div class="x_content">
-                <form id="demo-form2" data-parsley-validate class="form-group form-label-left clearfix">
+                <form id="demo-form2" action="<?=base_url();?>AddProperty/PropertyListing/search" method="post" data-parsley-validate class="form-group form-label-left clearfix">
                 <div class="row">
                   <div class="form-group col-xs-12 col-sm-2">
                     <label class="control-label" for="first-name">User Type</label>
-                    <input type="text" id="first-name" required="required" class="form-control">
+                    <input type="text" id="first-name" name="usertype" value="<?=isset($usertype)?$usertype:''?>"  class="form-control">
                   </div>
                   
                   <div class="form-group col-xs-12 col-sm-2">
                     <label class="control-label" for="first-name">Account</label>
-                    <input type="text" id="first-name" required="required" class="form-control">
+                    <input type="text" id="first-name" name="account" value="<?=isset($account)?$account:''?>" class="form-control">
                   </div>
                   <div class="form-group col-xs-12 col-sm-2">
                      <label class="control-label" for="first-name">Activated By</label>
-                    <input type="text" id="first-name" required="required" class="form-control">
+                    <input type="text" id="first-name" name="activatedby" value="<?=isset($activatedby)?$activatedby:''?>" class="form-control">
                   </div>
                   <div class="form-group col-xs-12 col-sm-2">
                     <label for="middle-name" class="control-label">Plan</label>
-                     <input id="middle-name" class="form-control" type="text" name="middle-name">
+                     <input id="middle-name" class="form-control" value="<?=isset($plan)?$plan:''?>" name="plan" type="text" >
                   </div>
                   
                   <div class="form-group col-xs-12 col-sm-2">
                     <label for="middle-name" class="control-label">Status</label>
-                    <input id="middle-name" class="form-control" type="text" name="middle-name">
+                    <input id="middle-name" class="form-control" value="<?=isset($status)?$status:''?>"  type="text" name="status">
                   </div>
                   
                   <div class="form-group col-xs-12 col-sm-2 martop20">
-                  <button type="submit" class="btn btn-primary">Reset</button>
+                  <button type="button" onclick="location.href = '<?=base_url();?>AddProperty/PropertyListing';" class="btn btn-primary">Reset</button>
                   <button type="submit" class="btn btn-success">Search</button>
                   </div>
 

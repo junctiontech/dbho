@@ -802,9 +802,30 @@ class AddProperty extends CI_Controller {
 	
 		
 /*Property List view Load Start.............................................................................................................*/
-	function PropertyListing()
+	function PropertyListing($action=false)
 	{	
+		if($action=="search"){
+			
+			$this->data['usertype']=$usertype=$this->input->post('usertype');
+			$this->data['account']=$account=$this->input->post('account');
+			$this->data['activatedby']=$activatedby=$this->input->post('activatedby');
+			$this->data['plan']=$plan=$this->input->post('plan');
+			$this->data['status']=$status=$this->input->post('status');
+			
+			
+			$query="";
+			if(!empty($usertype)){ $query.="and `userTypeName` like TRIM('%$usertype%')"; }
+			if(!empty($account)){ $query.="and `userEmail` like TRIM('%$account%')"; }
+			if(!empty($activatedby)){ $query.="and `userEmail` like TRIM('%$activatedby%')"; }
+			//if(!empty($plan)){ $query.="and `userEmail` like TRIM('%$plan%')"; }
+			if(!empty($status)){ $query.="and `propertyStatus` like TRIM('%$status%')"; }
+			
+			
+			$this->data['propertylisting']=$this->AddProperty_model->get_propertylisting($query);
+			
+		}else{
 		$this->data['propertylisting']=$this->AddProperty_model->get_propertylisting();
+		}
 		$this->parser->parse('header',$this->data);
 		$this->load->view('propertylist',$this->data);
 		$this->parser->parse('footer',$this->data);

@@ -147,7 +147,7 @@ class AddProperty_model extends CI_Model
 		$this->db->query("DELETE rp_property_attribute_values,rp_property_attribute_value_details FROM rp_property_attribute_values JOIN rp_property_attribute_value_details ON rp_property_attribute_value_details.attrValueID = rp_property_attribute_values.attrValueID WHERE rp_property_attribute_values.propertyID ='$filter'");
 	}
 	
-	function get_propertylisting()
+	function get_propertylisting($extraqry=false)
 	{		
 			$qry = $this->db->query("select rp_properties.propertyID,propertyStatus,propertyAddedDate,propertyName,userEmail,userTypeName from rp_properties,rp_property_details,rp_users,rp_user_type_details where
 									rp_properties.propertyID=rp_property_details.propertyID and
@@ -155,7 +155,7 @@ class AddProperty_model extends CI_Model
 									rp_users.userTypeID=rp_user_type_details.userTypeID and
 									rp_property_details.languageID='1' and
 									rp_user_type_details.languageID='1' and
-									rp_properties.propertyStatus !='Deleted'");	
+									rp_properties.propertyStatus !='Deleted' $extraqry ");	
 			return $qry->Result();	
 	}
 	
