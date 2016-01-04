@@ -292,10 +292,10 @@
                                       <div class="col-md-8 col-sm-8 col-xs-12">
                                         <div class="radio mabott10">
                                           <label>
-                                            <input type="radio" class="flat"  name="showpriceas">
+                                            <input type="radio" class="flat"  name="showpriceas" <?php if(!empty($isNegotiable)){echo" checked";}?>>
                                             <span class="showpriceas"></span> <i class="fa fa-rupee text-right"></i> </label>
                                           <label>
-                                            <input type="radio" class="flat" name="showpriceas">
+                                            <input type="radio" class="flat" name="showpriceas" value="Yes" <?php if(!empty($isNegotiable)){if($isNegotiable=="Yes"){echo" checked";}}?>>
                                             <span class="showpriceas"></span> <i class="fa fa-rupee text-right"></i> Negotiable </label>
                                           <label>
                                             <input type="radio" class="flat" name="showpriceas">
@@ -777,7 +777,7 @@
                                 <label class="control-label" for="last-name">Longitude </label>
                                 <input id="lng" class="form-control" type="text" name="lng" value="<?=isset($propertyLongitude)?$propertyLongitude:''?>">
                               </div>
-                              <div class="form-group col-xs-12 col-sm-12 mapinfo map_canvas" style="height: 400px"> </div>
+                              <div class="form-group col-xs-12 col-sm-12 mapinfo map_canvas" id="map_canvas" style="height: 400px"> </div>
                             </div>
                           </div>
                         </div>
@@ -1036,16 +1036,16 @@
                   <div class="x_content">
                     <div class="showpreview"></div>
                     <div class="row">
-					<form id="form-4" method="post" class="form-group form-label-left clearfix">
+					<form id="form-4" method="post" action="<?=base_url();?>AddProperty/PropertyAction/propertystatus" class="form-group form-label-left clearfix">
 					<input type="hidden" name="propertyID" value="<?=isset($propertyid)?$propertyid:''?>" readonly id="form4_id"/>
                       <div class="col-md-2 col-sm-2 col-xs-12">
                         <label class="control-label" for="last-name" style="display:block;">Status </label>
                         <div class="btn-group" data-toggle="buttons">
-                          <label class="btn btn-default">
-                            <input type="radio" name="propertystatus" value="Active" id="option1">
+                          <label class="btn btn-default <?php if(!empty($propertyStatus)){if($propertyStatus=="Active"){echo" active";}}?>">
+                            <input type="radio" name="propertystatus" value="Active" <?php if(!empty($propertyStatus)){if($propertyStatus=="Active"){echo" checked";}}?> id="option1">
                             Active </label>
-                          <label class="btn btn-default">
-                            <input type="radio" name="propertystatus" value="Draft" id="option2">
+                          <label class="btn btn-default <?php if(!empty($propertyStatus)){if($propertyStatus=="Draft"){echo" active";}}?>">
+                            <input type="radio" name="propertystatus" value="Draft" <?php if(!empty($propertyStatus)){if($propertyStatus=="Draft"){echo" checked";}}?> id="option2">
                             Draft </label>
                         </div>
                       </div>
@@ -1199,6 +1199,23 @@
       });
     </script>
 	
+	<script>
+	<?php /*/if(!empty($propertyLatitude) && !empty($propertyLongitude)){ ?>
+ 
+		var lat=<?=$propertyLatitude?>; var lng=<?=$propertyLongitude?>;
+    function initialize() {
+var map_canvas = document.getElementById('map_canvas');
+var map_options = {
+center: new google.maps.LatLng(lat,lng),
+zoom:8,
+mapTypeId: google.maps.MapTypeId.ROADMAP
+}
+var map = new google.maps.Map(map_canvas, map_options)
+}
+google.maps.event.addDomListener(window, 'load', initialize);
+
+	<?php //}*/ ?>
+</script>
 	
    <script>
             function onAddTag(tag) {
@@ -1349,6 +1366,7 @@
 <!-- /editor --> 
 
 <script type="text/javascript">
+//.attr("onclick","alert('fdgdg')").addClass("buttonFinish")
     $(document).ready(function(){
     	// Smart Wizard 	
   		$('#wizard').smartWizard();

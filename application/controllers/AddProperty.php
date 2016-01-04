@@ -83,7 +83,13 @@ class AddProperty extends CI_Controller {
 					
 					if(!empty($propertytabledetails[0]->isNegotiable))
 					{
-						$isNegotiable=$propertytabledetails[0]->isNegotiable;}else{$isNegotiable="Not Mentioned";
+						$this->data['isNegotiable']=$propertytabledetails[0]->isNegotiable;
+					}
+					
+					if(!empty($propertytabledetails[0]->propertyStatus))
+					{
+						$this->data['propertyStatus']=$propertytabledetails[0]->propertyStatus;
+						
 					}
 					
 					if(!empty($propertytabledetails[0]->propertyDescription))
@@ -395,6 +401,9 @@ class AddProperty extends CI_Controller {
 						}elseif($key=="propertyCurrentStatus")
 						{
 						  $data2['propertyCurrentStatus']= $datas;
+						}elseif($key=="showpriceas")
+						{
+						  $data1['isNegotiable']= $datas;
 						}elseif($key=="propertyPrice")
 						{
 						  $propertyprice['propertyPrice']= $datas;
@@ -1827,6 +1836,7 @@ public function propertyPreview(){
 /* Property Action Start.............................................................................................................*/
 	function PropertyAction($action=false,$propertyid=false)
 	{	//print_r($this->userinfo);die;
+			
 			if(!empty($action) && !empty($propertyid))
 			{
 				if($action=="Active")
@@ -1848,8 +1858,17 @@ public function propertyPreview(){
 					$this->session->set_flashdata('message_type', 'success');
 					$this->session->set_flashdata('message', $this->config->item("PropertyListing").' Property Deleted successfully');
 				}		
+			}elseif(!empty($action) && $action=="propertystatus" && !empty($this->input->post('propertystatus')) && !empty($this->input->post('propertyID'))){
+					$data=array('propertyStatus'=>$this->input->post('propertystatus'));
+					$filter=array('propertyID'=>$this->input->post('propertyID'));
+					$this->AddProperty_model->InsertProperty('rp_properties',$data,$filter);
+					$logdata=array('propertyID'=>$this->input->post('propertyID'),'userName'=>$this->userinfo['adminUserFirstName'],'userID'=>$this->userinfo['adminUserID'],'createdBy'=>$this->userinfo['adminUserFirstName'],'actionType'=>$this->input->post('propertystatus'));
+					$this->AddProperty_model->Insert_data('dbho_property_log',$logdata);
+					$this->session->set_flashdata('message_type', 'success');
+					$this->session->set_flashdata('message', $this->config->item("PropertyListing").' Property Added successfully');
 			}else{
-					
+					$this->session->set_flashdata('message_type', 'error');
+					$this->session->set_flashdata('message', $this->config->item("PropertyListing").' Invalide Data Post!!!');
 			}
 		redirect('AddProperty/PropertyListing');
 	}
