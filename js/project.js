@@ -83,7 +83,7 @@ function ProjectType(projectTypeId)
 }
 
 function InsertProject(id)
-{	//alert(projectTypeId);
+{	//alert("jdfk");
 		var data = $("#form-"+id).serialize();
 		var formid=id;
 		$.ajax({
@@ -96,11 +96,65 @@ function InsertProject(id)
          success: function(result){	 
 			 $("#loader").fadeOut();//alert(result); 
 			// alert(result);
+			 if(result !=""){
 			  document.getElementById("form1_id").value=result;
 			 
 			  $('.form1_id').val(result);
+			 }
 			 // $('.form1_id').val(result);
          }
 });
-	
+
 }
+
+/*Get Attributes For Add Property............................. Start*/	
+
+$("#projectpropertytype").change(function(){
+	//alert("fds");
+	var propertytypeid = $("#"+($(this).attr('id'))).val();
+	
+	$.ajax({
+            type: 'POST', 
+            url: base_url+'AddProject/Getattributes',
+            data: {propertytypeid:propertytypeid},
+			cache: false,
+			beforeSend: function() {
+				$("#loader").fadeIn();
+			},
+            success:function(result){
+				//alert(result);
+				$("#loader").fadeOut();
+				$("#showattributes").html(result);
+             
+            }
+        });
+	
+});	
+/*Get Attributes For Add Property............................. End*/
+
+
+function InsertPropertyproject(id) 
+	{   
+		
+		var data = $("#form-3").serialize();
+		var formid='3';
+		$.ajax({
+         data: data,
+         type: "post",
+         url: base_url+'AddProject/InsertProperty/'+formid,
+		 beforeSend: function() {
+				$("#loader").fadeIn();
+			},
+         success: function(result){
+			 $("#loader").fadeOut();
+		//alert(result);
+			  
+			  $('.showunits').html(result);
+         }
+});
+		
+}
+
+
+	
+

@@ -149,4 +149,15 @@ class AddProject_model extends CI_Model
 		$qry=$this->db->delete($table);
 		return $qry;
 	}
+	
+	
+	public function Getunitdetails($projectid=false,$propertyid=false){
+		
+			$qry = $this->db->query("select * from rp_properties where
+									rp_properties.projectID='$projectid' and
+									rp_properties.type='Unit' ");	
+			return $qry->Result();
+	} 
+	
+	
 }

@@ -9,6 +9,7 @@ class AddProject extends CI_Controller {
 		$this->data[]="";
 		$this->data['url'] = base_url();
 		$this->load->model('AddProject_model');
+		$this->load->model('AddProperty_model');
 		$this->load->library('parser');
 		$this->load->library('utilities');
 		$this->data['base_url']=base_url();
@@ -426,7 +427,7 @@ class AddProject extends CI_Controller {
 			}
 			if(!empty($projectID)){ echo $projectID; } else{ if(!empty($data['projectID'])){ echo $data['projectID']; }}
 		}else{
-			echo"Add Project Fail!!";
+			//echo"Add Project Fail!!";
 		}
 	
 	}
@@ -688,5 +689,529 @@ class AddProject extends CI_Controller {
 			redirect('AddProject/ProjectList/'.$ProjectList);
 		}
 	}
+	
+	/*AddProperty Get Attributes Start.............................................................................................................*/
+	function Getattributes($propertyid=false)
+	{	
+			if(!empty($this->input->post('propertytypeid')))
+			{
+					$AttributesGroup=$this->AddProperty_model->Getattributesgroups($this->input->post('propertytypeid'));
+					
+					if(!empty($AttributesGroup)){
+						
+						$atti=1;
+						foreach($AttributesGroup as $AttributesGroups)
+						{
+							if($AttributesGroups->name !="Flooring" && $AttributesGroups->name !="Fittings" && $AttributesGroups->name !="Walls" && $AttributesGroups->name !="Rent")
+							{
+												
+							echo"<div class=\"panel\"> <a class=\"panel-heading\" role=\"tab\" id=\"headingOneA$atti\" data-toggle=\"collapse\" data-parent=\"#accordion2\" href=\"#collapseOneA$atti\" aria-expanded=\"false\" aria-controls=\"collapseOneA$atti\">";
+                              echo"<h4 class=\"panel-title StepTitle\">Unit Specification</h4>";
+								echo"</a>";
+									echo"<div id=\"collapseOneA$atti\" class=\"panel-collapse collapse \" role=\"tabpanel\" aria-labelledby=\"headingOne\">";
+										echo"<div class=\"panel-body black-filed\">";
+										
+											$Attribute=$this->AddProperty_model->GetAttributes($AttributesGroups->attributeGroupID);
+											if(!empty($Attribute))
+											{
+												foreach($Attribute as $Attributes)
+												{
+													if($Attributes->attrName !="Amenities" )
+													{
+													$Attributeoption=$this->AddProperty_model->GetAttributesoption($Attributes->attributeID);
+													
+													if(!empty($propertyid))
+													{
+													$checkattri=$this->AddProperty_model->Shownoofbedrooms('rp_property_attribute_values',array('propertyID'=>$propertyid,'attributeID'=>$Attributes->attributeID));
+													}
+													if($Attributes->attrInputType=="select"){
+													
+													  echo"<div class=\"form-group col-xs-12 col-sm-4 martop20\">";
+														echo"<label class=\"control-label\" for=\"last-name\">$Attributes->attrName </label>";
+														if($Attributes->attrName=="Bed Rooms"){ $call=""; $id="id='bedroom'";}else{$call=''; $id='';}
+														echo"<select name=\"select-$Attributes->attributeID\" class=\"form-control\" $call $id>";
+														  echo"<optgroup label=\"Select\">";
+														  echo"<option value=\"\">select</option>";
+														  foreach($Attributeoption as $Attributeoptions){
+														  echo"<option value=\"$Attributeoptions->attrOptionID-$Attributeoptions->attrOptName\"";
+														  if(!empty($checkattri[0]->attrOptionID)){ if($checkattri[0]->attrOptionID==$Attributeoptions->attrOptionID){ echo"selected";}}
+														 echo" >$Attributeoptions->attrOptName</option>";
+														  }
+														  echo"</optgroup>";
+														echo"</select>";
+													  echo"</div>";
+													}
+													 
+													if($Attributes->attrInputType=="texbox"){
+													  echo"<div class=\"form-group col-xs-12 col-sm-4 \">";
+														echo"<label class=\"control-label\" for=\"last-name\">$Attributes->attrName </label>";
+														echo"<input id=\"middle-name\" class=\"form-control\" type=\"text\" name=\"text-$Attributes->attributeID\" value=\"isset($checkattri[0]->attrDetValue)?$checkattri[0]->attrDetValue:''\">";
+													  echo"</div>";
+													}
+													  
+													if($Attributes->attrInputType=="multiselect"){ 
+													//echo"<br>";
+													  echo"<div class=\"form-group col-xs-12 col-sm-4\">";
+														echo"<label class=\"control-label\" for=\"last-name\" style=\"display:block;\">$Attributes->attrName</label>";
+														foreach($Attributeoption as $Attributeoptions){
+														  if(!empty($propertyid)){
+														$attmulti=$this->AddProperty_model->Getotherdata('rp_property_attribute_values',array('propertyID'=>$propertyid,'attributeID'=>$Attributes->attributeID,'attrOptionID'=>$Attributeoptions->attrOptionID));
+														}
+														echo"<span class=\"checkbozsty\">";
+														echo"<input type=\"checkbox\"  value=\"$Attributeoptions->attrOptionID-$Attributeoptions->attrOptName\" name=\"multi-$Attributes->attributeID[]\"";
+														if(!empty($attmulti)){echo"checked";}
+														echo">";
+														echo"$Attributeoptions->attrOptName</span>";
+														}
+														echo"</div>";
+														//echo"<br>";
+													}
+												}
+												}
+											}
+								
+                              echo"</div>";
+                            echo"</div>";
+							 echo"</div>";
+							$atti++;
+						}
+						}
+						
+					}else{
+						echo"List Is Empty!!";
+					}
+			}else{
+				echo"Property Is Not Found!!";
+			}
+		
+	}
+/*AddProperty Get Attributes End.............................................................................................................*/
+
+/*AddProperty Insert Data Start.............................................................................................................*/
+	function InsertProperty($formid=false)
+	{	
+		$data=$_POST;
+		//print_r($_FILES);die;
+		$date=date("Y-m-d");
+		
+		if(!empty($formid))
+		{
+			$formname="form-";
+			$formname.=$formid;
+		}
+		if(!empty($data))
+			{
+				$data1=array();
+				$data2=array();
+				
+				if($formname=="form-3")
+				{
+					$propertyprice=array();
+					$selectattribute=array();
+					$selectattributeval=array();
+					$textattribute=array();
+					$multiattribute=array();
+					$amenitiesdata=array();
+					$amenitiesvalue=array();
+					
+					foreach($data as $key=> $datas)
+					{
+						if($key=="projectID")
+						{
+						  $data1['projectID']= $datas;
+						}elseif($key=="type")
+						{
+						  $data1['type']= $datas;
+						}elseif($key=="propertyPrice")
+						{
+						  $propertyprice['propertyPrice']= $datas;
+						}elseif($key=="Amenities"){					//Amenities Start.........................................
+							
+							if(!empty($datas))
+							{
+								foreach($datas as $amenities){
+									
+									$amenitiesarr=explode("-",$amenities);
+									$amenitiesdata[]=array('attributeID'=>$amenitiesarr[0],'attrOptionID'=>$amenitiesarr[1]);
+									$amenitiesvalue[]=array('attrDetValue'=>$amenitiesarr[2]);
+									
+								}
+							}
+							
+						}else{											//Attributes strat............................................
+							
+							
+							if(!empty($key))
+							{
+									
+									$typeofattribute=explode("-",$key);
+									
+									if(count($typeofattribute)>1)
+									{
+										
+										if($typeofattribute[0]=="select")
+										{
+											if(!empty($datas))
+												{
+													$optionidselect=explode("-",$datas);
+													
+													$selectattribute[]=array('attributeID'=>$typeofattribute[1],'attrOptionID'=>$optionidselect[0]);
+													$selectattributeval[]=array('attrDetValue'=>$optionidselect[1]);
+													
+												}
+											
+											
+										}elseif($typeofattribute[0]=="text")
+										{
+											if(!empty($datas))
+												{	
+													$selectattribute[]=array('attributeID'=>$typeofattribute[1],'attrOptionID'=>0);
+													
+													$selectattributeval[]=array('attrDetValue'=>"$datas ");
+													
+												}
+											
+										}elseif($typeofattribute[0]=="multi")
+										{
+											if(!empty($datas))
+												{
+													foreach($datas as $attributemulti)
+													{
+									
+													$optionidmulti=explode("-",$attributemulti);
+													$selectattribute[]=array('attributeID'=>$typeofattribute[1],'attrOptionID'=>$optionidmulti[0]);
+													$selectattributeval[]=array('attrDetValue'=>$optionidmulti[1]);
+														
+													}
+												}
+											
+											
+										}
+									}
+							
+									
+							
+							}
+							
+							
+						}
+						
+						
+						
+					}
+					
+					
+						$propertykey=strtoupper(bin2hex(mcrypt_create_iv(4, MCRYPT_DEV_RANDOM)));
+					
+						$data1['propertyKey']= $propertykey;
+						$data1['propertyAddedDate']= $date;
+						$data1['propertyStatus']= 'Draft';
+						$propertyid=$this->AddProperty_model->InsertProperty('rp_properties',$data1);
+						
+						if(!empty($propertyprice))
+						{
+							$propertyprice['currencyID']=3;
+							$propertyprice['propertyID']= $propertyid;
+							$this->AddProperty_model->InsertProperty('rp_property_price',$propertyprice);
+						}
+						
+						if(!empty($amenitiesdata) && !empty($amenitiesvalue))
+						{	$i=0;
+							
+							foreach($amenitiesdata as $amenitiesdatainsert)
+							{	
+								$amenitiesdatainsert['propertyID']=$propertyid;
+								$attributevalueId=$this->AddProperty_model->InsertProperty('rp_property_attribute_values',$amenitiesdatainsert);
+								
+								$amenitiesvalue[$i]['attrValueID']=$attributevalueId;
+								$amenitiesvalue[$i]['languageID']=1;
+								$this->AddProperty_model->InsertProperty('rp_property_attribute_value_details',$amenitiesvalue[$i]);
+								$i++;
+							}
+						}
+						
+						if(!empty($selectattribute) && !empty($selectattributeval))
+						{	$j=0;
+							
+							foreach($selectattribute as $selectattributeinsert)
+							{	
+								$selectattributeinsert['propertyID']=$propertyid;
+								
+								$attributevalueId=$this->AddProperty_model->InsertProperty('rp_property_attribute_values',$selectattributeinsert);
+								$selectattributeval[$j]['attrValueID']=$attributevalueId;
+								$selectattributeval[$j]['languageID']=1;
+								$this->AddProperty_model->InsertProperty('rp_property_attribute_value_details',$selectattributeval[$j]);
+								$j++;
+							}
+						}
+						
+						if(!empty($propertyid) )
+		{
+			
+			/*if($_FILES['file']['name']!='')
+			{
+				$data['image_z1']= $_FILES['file']['name'];
+				$image=sha1($_FILES['file']['name']).time().rand(0, 9);
+				
+					if(!empty($_FILES['file']['name']))
+					{
+				
+						$config =  array(
+						'upload_path'	  => './propertyImages/',
+						'file_name'       => $image,
+						'allowed_types'   => "gif|jpg|png|jpeg|JPG|JPEG|PNG|JPG",
+						'overwrite'       => true);
+						
+							$this->upload->initialize($config);
+							$this->load->library('upload');
+				 
+								if($this->upload->do_upload("file"))
+								{
+									$upload_data = $this->upload->data();
+									$image=$upload_data['file_name'];
+									$data=array('propertyID'=>$propertyid,'imageCatID'=>'6','propertyImageName'=>$image,'isCoverImage'=>'No','propertyImagePriority'=>'1','propertyImageStatus'=>'Active');
+									$propertyImageID=$this->AddProperty_model->InsertProperty('rp_property_images',$data);
+									$data1=array('propertyImageID'=>$propertyImageID,'languageID'=>'1','propertyImageTitle'=>'','propertyImageAltTag'=>'');
+									$this->AddProperty_model->InsertProperty('rp_property_image_details',$data1);
+								}else
+								{
+										echo $this->upload->display_errors()."file upload failed";
+								}
+					}
+			}*/
+		
+		}
+						
+					}
+				
+				
+					$propertytype=$this->AddProject_model->getPropertyType();
+					$unitpropertylist=$this->AddProject_model->Getunitdetails($data['projectID']);
+					
+					
+					
+					echo'<div class="col-md-12">
+							<form id="form-3" method="post" enctype="multipart/form-data">
+							<input type="hidden" name="projectID" value="';
+							
+					echo $data1['projectID'];
+					
+					echo'" readonly class="form1_id" />
+					   
+							<input type="hidden" name="type" value="Unit" >
+							<div class="form-group col-xs-12 col-sm-4 martop20">
+							<label class="control-label" for="first-name">Property Type </label>
+							<select name="propertyTypeID" class="  form-control" id="projectpropertytype"  >
+                            <option value="">Select</option>
+                            <optgroup label="Residential Properties">';
+							
+                    foreach($propertytype as $propertytypes){
+						
+                    echo'  <option value="';
+					
+					echo $propertytypes->propertyTypeID;
+					
+					echo'" >';
+					  
+					echo  $propertytypes->propertyTypeName;
+					
+					echo'</option>';
+					
+					} 
+					
+                    echo'</optgroup>
+							</select>
+							</div>
+							<div class="form-group col-xs-12 col-sm-4 martop20 ">
+							  <label for="last-name" class="control-label">Size</label>
+							  <input type="text" name="text-94" class="form-control" id="middle-name">
+							  <span class="sqft">sq/ft</span> </div>
+								<div class="form-group col-xs-12 col-sm-4 martop20 ">
+								  <label for="last-name" class="control-label">Price</label>
+								  <input type="text" name="propertyPrice" class="form-control" id="middle-name">
+								</div>
+						<div class="form-group">
+                    <label class="control-label col-md-2 col-sm-2 col-xs-12">Floor Plan <span id="inputImagemes"  aria-hidden="true"></span></label>
+                    <div class="col-md-10 col-sm-10 col-xs-12">
+                      <label class="btn btn-default btn-upload" for="inputImage" title="Upload image file">
+                                        <input  class="sr-only" id="inputImage" name="file" type="file" value="" accept="image/*">
+                                        
+                                          <span class="brous-bt" id="inputImagemes1">Brouse </span>
+                                       
+                                      </label>
+                    </div>
+                  </div>
+                        
+                        <div class="row">
+                          <div class="x_content"> 
+                            
+                            <!-- start accordion -->
+                            <div class="accordion" id="accordion2" role="tablist" aria-multiselectable="true">
+                              <div id="showattributes">
+							</div>
+							
+                              <div class="panel"> <a class="panel-heading collapsed" role="tab" id="headingTwo33" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo33" aria-expanded="false" aria-controls="collapseTwo33">
+                                <h4 class="panel-title StepTitle">Amenities </h4>
+                                </a>
+                                <div id="collapseTwo33" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                                  <div class="panel-body">
+                                    <div class="form-group col-xs-12 col-sm-12 martop20">';
+									
+					$Attributeoption=$this->AddProperty_model->GetAttributesoption(6);
+					
+					foreach($Attributeoption as $Attributeoptions){ 
+									
+					echo' <span class="checkbozsty">';
+					
+                    echo'   <input type="checkbox" value="6-';
+					
+					echo $Attributeoptions->attrOptionID.'-'.$Attributeoptions->attrOptName;
+					
+					echo'" ';
+								  
+					echo 'name="Amenities[]">';
+					
+                    echo   $Attributeoptions->attrOptName;
+					
+					echo'</span>';
+					
+					} 
+					
+					echo'	. 
+								  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <!-- end of accordion --> 
+                            
+                          </div>
+								</div>
+								<div class="row">
+								  <div class="col-md-12">
+									<button type="button" class="btn btn-success" onclick="InsertPropertyproject();">Save</button>
+								  </div>
+								</div>
+								 </div>
+								 </form>
+								 
+							</div>
+							<div class="clearfix"></div>
+							<div class="row" style="margin-top:20px;">
+							  <div class="col-md-12 col-sm-12 col-xs-12">
+								<h4 class="panel-title StepTitle">Unit List</h4>
+								<div class="x_panel">
+								  <div class="x_content">
+									<div class="pull-right filter-con">
+									  <label>Filter by</label>
+									  <select>
+										<option>Property Type</option>
+										<option>Villa</option>
+									  </select>
+									  <select>
+										<option>BHK</option>
+										<option>2BHK</option>
+									  </select></div>
+									<table id="myTable" class="table table-bordered table-hover vert-aliins">
+									  <thead>
+									<tr>
+									  <th>BHK</th>
+									  <th>Area Sq.Ft</th>
+									  <th>Price/Sq.Ft</th>
+									  <th>Price</th>
+									  <th>Floor Plan</th>
+									  <th><i class="fa fa-gear"></i></th>
+									</tr>
+								  </thead>
+								  <tbody>';
+								  $i=1;
+							foreach($unitpropertylist as $unitpropertylists)
+							{
+									$filter=array('propertyID'=>$unitpropertylists->propertyID);
+									$getpropertyprice=$this->AddProperty_model->Getotherdata('rp_property_price',$filter); 
+									$coveredarea=$this->AddProperty_model->Shownoofbedrooms('rp_property_attribute_values',array('propertyID'=>$unitpropertylists->propertyID,'attributeID'=>94));
+									$bedroomno=$this->AddProperty_model->Shownoofbedrooms('rp_property_attribute_values',array('propertyID'=>$unitpropertylists->propertyID,'attributeID'=>1));
+													
+									if(!empty($getpropertyprice[0]->propertyPrice) && !empty($coveredarea[0]->attrDetValue))
+									{
+											$propertyprice=$getpropertyprice[0]->propertyPrice;
+											$propertysize=$coveredarea[0]->attrDetValue;
+											$propertypricepersqr=$propertyprice/$propertysize;
+									}
+									
+								echo'	<tr>
+                                  <td>';
+								  if(!empty($bedroomno)){
+								  echo $bedroomno[0]->attrDetValue;echo"BHK";}
+								  echo'</td>
+                                  <td>';
+								  echo $propertysize;
+								  echo'Sq.Ft</td>
+                                  <td><i class="fa fa-rupee"></i>';
+									echo $propertypricepersqr;
+								echo'  </td>
+                                  <td><i class="fa fa-rupee"></i>';
+								  echo $propertyprice;
+								echo'  </td>
+                                  <td><a href="javascript:;" data-toggle="modal" data-target=".bs-example-modal-lg"><img src="';
+								  echo base_url();
+								  echo 'images/floor.png"/></a></td>
+                                  <td><a href="javascript:;" class="more-uni-pri"><i class="fa fa-plus"></i> More</a></td>
+                                </tr>
+                                <tr class="moreunits';
+								echo $i;
+								echo'">
+                                  <td colspan="6"><table id="myTable" class="table table-hover vert-aliins unit-sty">
+                                      <tr>
+                                        <td>Amenities<span>Security</span></td>
+                                        <td>Ownership Type<span>Freehold</span></td>
+                                        <td>Gated Community<span>Yes</span></td>
+                                        <td>Registered Society<span>Yes</span></td>
+                                        <td>Sales Status<span>New</span></td>
+                                      </tr>
+                                    </table></td>
+                                </tr>';
+								
+						$i++;	}
+                                
+                            echo'  </tbody>
+                            </table>
+                            <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+                              <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                    <h4 class="modal-title" id="myModalLabel2">Floor Plan</h4>
+                                  </div>
+                                  <div class="modal-body">
+                                    <iframe src="gallery.html" style="border:0px; width:100%; height:430px;"></iframe>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                            <script>
+							  $(document).ready(function(){
+								  $(".more-uni-pri").click(function(){';
+								echo"	$('.moreunits').slideToggle();
+									$('.fa-plus').toggleClass('fa-minus');
+									  });";
+									  
+								echo'	  $(".more-uni-pri1").click(function(){';
+								echo"	$('.moreunits1').slideToggle();
+									
+									  });
+								  });
+						  </script> 
+                        </div>
+                      </div>
+                    </div>";
+					
+			}else{
+				echo"Add Property Fail!!";
+			}
+		
+	}
+/*AddProperty Insert Data End.............................................................................................................*/
+
 	
 }

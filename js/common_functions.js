@@ -231,6 +231,7 @@ $(document).ready(function(){
 function generatenameproperty() 
 	{   
 		$("#loader").fadeIn();
+		if(document.getElementById('propertyname') !=null){
 		var purpose='';
 		var propertytype='';
 		var inproject='';
@@ -265,6 +266,7 @@ function generatenameproperty()
 		var newtittle = rooms + propertytype  + ' ' +  coveredarea +' '+  coveredareasize;
 		document.getElementById('propertyname').value='';
 		document.getElementById('propertyname').value=newtittle;
+	}
 		$("#loader").fadeOut();
 }
 

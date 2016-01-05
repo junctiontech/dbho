@@ -51,6 +51,7 @@
                   <h2 class="StepTitle">Basic Information</h2>
                   <div class="x_content">
                     <form id="form-1" method="post" class="form-group form-label-left clearfix">
+					 <input type="hidden" name="type" value="Property" >
 					<input type="hidden" name="propertyID" value="<?=isset($propertyid)?$propertyid:''?>" readonly id="form1_id"/>
                       <div class="row">
                         <div class="form-group clearfix">
@@ -67,10 +68,10 @@
                           <div class="form-group col-xs-12 col-sm-5" style="padding-top:8px;">
                             <div class="btn-group" data-toggle="buttons">
                               <label class="btn btn-default <?php if(!empty($under)){if($under==2){echo" active";}}?>" id="unit_individual">
-                                <input type="radio" name="type" <?php if(!empty($under)){if($under==2){echo" checked";}}?> value="Unit" id="type_individual">
+                                <input type="radio" name="individual" <?php if(!empty($under)){if($under==2){echo" checked";}}?> value="Unit" id="type_individual">
                                 Individual Property </label>
                               <label class="btn btn-default <?php if(!empty($under)){if($under==1){echo" active";}}?>" id="unit_project">
-                                <input type="radio" name="type" <?php if(!empty($under)){if($under==1){echo" checked";}}?> value="Property" id="type_project">
+                                <input type="radio" name="individual" <?php if(!empty($under)){if($under==1){echo" checked";}}?> value="Property" id="type_project">
                                 Property Under Project </label>
                             </div>
                           </div>

@@ -806,12 +806,15 @@
               <a class="btn btn-primary" href="unit-price.html">Back</a>
               </div>-->
 			 
-                    <div class="row">
+                    <div class="row showunits">
                       <div class="col-md-12">
-					   <form id="form_3" method="post">
+					   <form id="form-3" method="post" enctype="multipart/form-data">
+					   <input type="hidden" name="projectID" value="" readonly class="form1_id" />
+					   
+					   <input type="hidden" name="type" value="Unit" >
 					  <div class="form-group col-xs-12 col-sm-4 martop20">
                           <label class="control-label" for="first-name">Property Type </label>
-                          <select name="propertyTypeID" class="  form-control" id="propertytype" >
+                          <select name="propertyTypeID" class="  form-control" id="projectpropertytype"  >
                             <option value="">Select</option>
                             <optgroup label="Residential Properties">
                            <?php foreach($propertytype as $propertytypes){?>
@@ -822,303 +825,49 @@
                         </div>
                         <div class="form-group col-xs-12 col-sm-4 martop20 ">
                           <label for="last-name" class="control-label">Size</label>
-                          <input type="text" name="middle-name" class="form-control" id="middle-name">
+                          <input type="text" name="text-94" class="form-control" id="middle-name">
                           <span class="sqft">sq/ft</span> </div>
                         <div class="form-group col-xs-12 col-sm-4 martop20 ">
                           <label for="last-name" class="control-label">Price</label>
-                          <input type="text" name="middle-names" class="form-control" id="middle-name">
+                          <input type="text" name="propertyPrice" class="form-control" id="middle-name">
                         </div>
-						</form>
-                        <div class="form-group col-xs-12 col-sm-12 martop20">
-                          <label for="last-name" class="control-label">Floor Plan</label>
-                          <form action="<?php echo base_url();?>AddProject/uploadimage" class="dropzone" style="border: 1px solid #e5e5e5; height: 300px; ">
-                          </form>
-                        </div>
+						<div class="form-group">
+                    <label class="control-label col-md-2 col-sm-2 col-xs-12">Floor Plan <span id="inputImagemes"  aria-hidden="true"></span></label>
+                    <div class="col-md-10 col-sm-10 col-xs-12">
+                      <label class="btn btn-default btn-upload" for="inputImage" title="Upload image file">
+                                        <input  class="sr-only" id="inputImage" name="file" type="file" value="" accept="image/*">
+                                        
+                                          <span class="brous-bt" id="inputImagemes1">Brouse </span>
+                                       
+                                      </label>
+                    </div>
+                  </div>
+                        
                         <div class="row">
                           <div class="x_content"> 
                             
                             <!-- start accordion -->
                             <div class="accordion" id="accordion2" role="tablist" aria-multiselectable="true">
-                              <div class="panel"> <a class="panel-heading" role="tab" id="headingOne22" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne22" aria-expanded="false" aria-controls="collapseOne22">
-                                <h4 class="panel-title StepTitle">Unit Specification</h4>
-                                </a>
-                                <div id="collapseOne22" class="panel-collapse collapse " role="tabpanel" aria-labelledby="headingOne">
-                                  <div class="panel-body black-filed">
-                                    <div class="form-group col-xs-12 col-sm-4 martop20">
-                                      <label class="control-label" for="last-name">Bed Rooms </label>
-                                      <select class="  form-control">
-                                        <optgroup label="Select">
-                                        <option value="AK">1</option>
-                                        <option value="HI">2</option>
-                                        </optgroup>
-                                      </select>
-                                    </div>
-                                    <div class="form-group col-xs-12 col-sm-4 martop20">
-                                      <label class="control-label" for="last-name">Bath Rooms </label>
-                                      <select class="  form-control">
-                                        <optgroup label="Select">
-                                        <option value="AK">1</option>
-                                        <option value="HI">2</option>
-                                        </optgroup>
-                                      </select>
-                                    </div>
-                                    <div class="form-group col-xs-12 col-sm-4 martop20">
-                                      <label class="control-label" for="last-name">Balcony </label>
-                                      <select class="  form-control">
-                                        <optgroup label="Select">
-                                        <option value="AK">1</option>
-                                        <option value="HI">2</option>
-                                        </optgroup>
-                                      </select>
-                                    </div>
-                                    <!--<div class="form-group col-xs-12 col-sm-4 ">
-                                    <label class="control-label" for="last-name">Wash Dry Area </label>
-                                    <select class="  form-control">
-                                      <optgroup label="Select">
-                                      <option value="AK">1</option>
-                                      <option value="HI">2</option>
-                                      </optgroup>
-                                    </select>
-                                  </div>-->
-                                    <div class="form-group col-xs-12 col-sm-4 ">
-                                      <label class="control-label" for="last-name">Parking </label>
-                                      <select class="  form-control">
-                                        <optgroup label="Select">
-                                        <option value="AK">1</option>
-                                        <option value="HI">2</option>
-                                        </optgroup>
-                                      </select>
-                                    </div>
-                                    <div class="form-group col-xs-12 col-sm-4 ">
-                                      <label class="control-label" for="last-name">Structure </label>
-                                      <input id="middle-name" class="form-control" type="text" name="middle-name">
-                                    </div>
-                                    <div class="form-group col-xs-12 col-sm-4 ">
-                                      <label class="control-label" for="last-name">Solar Water Heater </label>
-                                      <select class="  form-control">
-                                        <optgroup label="Select">
-                                        <option value="AK">1</option>
-                                        <option value="HI">2</option>
-                                        </optgroup>
-                                      </select>
-                                    </div>
-                                    <div class="form-group col-xs-12 col-sm-4 ">
-                                      <label class="control-label" for="last-name">Built Up Area </label>
-                                      <input id="middle-name" class="form-control" type="text" name="middle-name">
-                                    </div>
-                                    <div class="form-group col-xs-12 col-sm-4 ">
-                                      <label class="control-label" for="last-name">Society Name </label>
-                                      <input id="middle-name" class="form-control" type="text" name="middle-name">
-                                    </div>
-                                    <div class="form-group col-xs-12 col-sm-4 ">
-                                      <label class="control-label" for="last-name">Ownership Type </label>
-                                      <select class="  form-control">
-                                        <optgroup label="Select">
-                                        <option value="AK">1</option>
-                                        <option value="HI">2</option>
-                                        </optgroup>
-                                      </select>
-                                    </div>
-                                    <div class="form-group col-xs-12 col-sm-4">
-                                      <label class="control-label" for="last-name">Main Entrance Facing </label>
-                                      <select class="  form-control">
-                                        <optgroup label="Select">
-                                        <option value="AK">North</option>
-                                        <option value="HI">East</option>
-                                        <option value="HI">West</option>
-                                        <option value="HI">South</option>
-                                        <option value="HI">North-East</option>
-                                        <option value="HI">North-West</option>
-                                        <option value="HI">South-East</option>
-                                        <option value="HI">South-West</option>
-                                        </optgroup>
-                                      </select>
-                                    </div>
-                                    <div class="form-group col-xs-12 col-sm-4 ">
-                                      <label class="control-label" for="last-name">Servant Room </label>
-                                      <select class="  form-control">
-                                        <optgroup label="Select">
-                                        <option value="AK">1</option>
-                                        <option value="HI">2</option>
-                                        </optgroup>
-                                      </select>
-                                    </div>
-                                    <div class="form-group col-xs-12 col-sm-4 ">
-                                      <label class="control-label" for="last-name">Gated Community</label>
-                                      <select class="  form-control">
-                                        <optgroup label="Select">
-                                        <option value="AK">1</option>
-                                        <option value="HI">2</option>
-                                        </optgroup>
-                                      </select>
-                                    </div>
-                                    <div class="form-group col-xs-12 col-sm-4 ">
-                                      <label class="control-label" for="last-name">Plot Area </label>
-                                      <input id="middle-name" class="form-control" type="text" name="middle-name">
-                                    </div>
-                                    <div class="form-group col-xs-12 col-sm-4 ">
-                                      <label class="control-label" for="last-name">Registered Society</label>
-                                      <select class="  form-control">
-                                        <optgroup label="Select">
-                                        <option value="AK">1</option>
-                                        <option value="HI">2</option>
-                                        </optgroup>
-                                      </select>
-                                    </div>
-                                    <div class="form-group col-xs-12 col-sm-4 ">
-                                      <label class="control-label" for="last-name">Sale Status</label>
-                                      <select class="  form-control">
-                                        <optgroup label="Select">
-                                        <option value="AK">1</option>
-                                        <option value="HI">2</option>
-                                        </optgroup>
-                                      </select>
-                                    </div>
-                                    <div class="form-group col-xs-12 col-sm-4 ">
-                                      <label class="control-label" for="last-name">Furnishing Status</label>
-                                      <select class="  form-control">
-                                        <optgroup label="Select">
-                                        <option value="AK">1</option>
-                                        <option value="HI">2</option>
-                                        </optgroup>
-                                      </select>
-                                    </div>
-                                    <div class="form-group col-xs-12 col-sm-4 ">
-                                      <label class="control-label" for="last-name">Carpet Area</label>
-                                      <select class="  form-control">
-                                        <optgroup label="Select">
-                                        <option value="AK">1</option>
-                                        <option value="HI">2</option>
-                                        </optgroup>
-                                      </select>
-                                    </div>
-                                    <div class="form-group col-xs-12 col-sm-4">
-                                      <label class="control-label" for="last-name">Age of Building</label>
-                                      <input type="text" class="  form-control"/>
-                                    </div>
-                                    <div class="form-group col-xs-12 col-sm-4">
-                                      <label class="control-label" for="last-name" style="display:block;">Water Supply</label>
-                                      <span class="checkbozsty">
-                                      <input type="checkbox" checked="" value="57" name="multiselect_Amenities_Security_6">
-                                      Muncipal Corp</span> <span class="checkbozsty">
-                                      <input type="checkbox" checked="" value="58" name="multiselect_Amenities_ReservedParking_6">
-                                      Bore Well</span> </div>
-                                  </div>
-                                </div>
-                              </div>
+                              <div id="showattributes">
+							</div>
+							
                               <div class="panel"> <a class="panel-heading collapsed" role="tab" id="headingTwo33" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo33" aria-expanded="false" aria-controls="collapseTwo33">
                                 <h4 class="panel-title StepTitle">Amenities </h4>
                                 </a>
                                 <div id="collapseTwo33" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
                                   <div class="panel-body">
-                                    <div class="form-group col-xs-12 col-sm-12 martop20"> <span class="checkbozsty">
-                                      <input type="checkbox" checked="" value="57" name="multiselect_Amenities_Security_6">
-                                      Security</span> <span class="checkbozsty">
-                                      <input type="checkbox" checked="" value="58" name="multiselect_Amenities_ReservedParking_6">
-                                      Reserved Parking</span> <span class="checkbozsty">
-                                      <input type="checkbox" checked="" value="59" name="multiselect_Amenities_VisitorParking_6">
-                                      Visitor Parking</span> <span class="checkbozsty">
-                                      <input type="checkbox" value="246" name="multiselect_Amenities_WiFi_6">
-                                      Gymnasium</span> <span class="checkbozsty">
-                                      <input type="checkbox" checked="" value="333" name="multiselect_Amenities_ROWaterSystem_6">
-                                      Lift</span> <span class="checkbozsty">
-                                      <input type="checkbox" checked="" value="337" name="multiselect_Amenities_VaastuCompliant_6">
-                                      Waste Disposal</span> <span class="checkbozsty">
-                                      <input type="checkbox" checked="" value="338" name="multiselect_Amenities_Intercom_6">
-                                      Power Back Up</span> <span class="checkbozsty">
-                                      <input type="checkbox" checked="" value="360" name="multiselect_Amenities_PipeGas_6">
-                                      R O Water System</span> <span class="checkbozsty">
-                                      <input type="checkbox" checked="" value="373" name="multiselect_Amenities_CentralizedAC_6">
-                                      Conference Room</span> <span class="checkbozsty">
-                                      <input type="checkbox" checked="" value="448" name="multiselect_Amenities_24hourswatersupply_6">
-                                      Fire fighting Equipments</span> <span class="checkbozsty">
-                                      <input type="checkbox" checked="" value="449" name="multiselect_Amenities_CCTV_6">
-                                      Laundary Service</span> <span class="checkbozsty">
-                                      <input type="checkbox" checked="" value="450" name="multiselect_Amenities_DTHTVFacilities_6">
-                                      Vaastu Compliant</span> <span class="checkbozsty">
-                                      <input type="checkbox" checked="" value="451" name="multiselect_Amenities_Guestaccomadation_6">
-                                      Intercom</span> <span class="checkbozsty">
-                                      <input type="checkbox" checked="" value="452" name="multiselect_Amenities_LaundryService_6">
-                                      Club House</span> <span class="checkbozsty">
-                                      <input type="checkbox" checked="" value="453" name="multiselect_Amenities_PowerBackup_6">
-                                      WiFi</span> <span class="checkbozsty">
-                                      <input type="checkbox" checked="" value="453" name="multiselect_Amenities_PowerBackup_6">
-                                      Rain Water Harvesting</span> <span class="checkbozsty">
-                                      <input type="checkbox" checked="" value="453" name="multiselect_Amenities_PowerBackup_6">
-                                      Swimming Pool</span> <span class="checkbozsty">
-                                      <input type="checkbox" checked="" value="453" name="multiselect_Amenities_PowerBackup_6">
-                                      Landscape - Flower Garden</span> <span class="checkbozsty">
-                                      <input type="checkbox" checked="" value="453" name="multiselect_Amenities_PowerBackup_6">
-                                      Property Staff - Maintenace Staff</span> <span class="checkbozsty">
-                                      <input type="checkbox" checked="" value="453" name="multiselect_Amenities_PowerBackup_6">
-                                      School</span> <span class="checkbozsty">
-                                      <input type="checkbox" checked="" value="453" name="multiselect_Amenities_PowerBackup_6">
-                                      ATM</span> <span class="checkbozsty">
-                                      <input type="checkbox" checked="" value="453" name="multiselect_Amenities_PowerBackup_6">
-                                      Worship</span> <span class="checkbozsty">
-                                      <input type="checkbox" checked="" value="453" name="multiselect_Amenities_PowerBackup_6">
-                                      Water Plant</span> <span class="checkbozsty">
-                                      <input type="checkbox" checked="" value="453" name="multiselect_Amenities_PowerBackup_6">
-                                      Bank</span> <span class="checkbozsty">
-                                      <input type="checkbox" checked="" value="453" name="multiselect_Amenities_PowerBackup_6">
-                                      Pipe Gas</span> <span class="checkbozsty">
-                                      <input type="checkbox" checked="" value="453" name="multiselect_Amenities_PowerBackup_6">
-                                      Shopping Center - Retail Shop</span> <span class="checkbozsty">
-                                      <input type="checkbox" checked="" value="453" name="multiselect_Amenities_PowerBackup_6">
-                                      Banquet Hall</span> <span class="checkbozsty">
-                                      <input type="checkbox" checked="" value="453" name="multiselect_Amenities_PowerBackup_6">
-                                      24 Hours Water Supply</span> <span class="checkbozsty">
-                                      <input type="checkbox" checked="" value="453" name="multiselect_Amenities_PowerBackup_6">
-                                      Aerobic Room</span> <span class="checkbozsty">
-                                      <input type="checkbox" checked="" value="453" name="multiselect_Amenities_PowerBackup_6">
-                                      Amphithreater</span> <span class="checkbozsty">
-                                      <input type="checkbox" checked="" value="453" name="multiselect_Amenities_PowerBackup_6">
-                                      Barbeque Pit</span> <span class="checkbozsty">
-                                      <input type="checkbox" checked="" value="453" name="multiselect_Amenities_PowerBackup_6">
-                                      Basketball-Tennis Court</span> <span class="checkbozsty">
-                                      <input type="checkbox" checked="" value="453" name="multiselect_Amenities_PowerBackup_6">
-                                      Day care center</span> <span class="checkbozsty">
-                                      <input type="checkbox" checked="" value="453" name="multiselect_Amenities_PowerBackup_6">
-                                      DTH TV Facilities</span> <span class="checkbozsty">
-                                      <input type="checkbox" checked="" value="453" name="multiselect_Amenities_PowerBackup_6">
-                                      Early Learning Centre - Play Group</span> <span class="checkbozsty">
-                                      <input type="checkbox" checked="" value="453" name="multiselect_Amenities_PowerBackup_6">
-                                      Golf Course</span> <span class="checkbozsty">
-                                      <input type="checkbox" checked="" value="453" name="multiselect_Amenities_PowerBackup_6">
-                                      Guest Accomadation</span> <span class="checkbozsty">
-                                      <input type="checkbox" checked="" value="453" name="multiselect_Amenities_PowerBackup_6">
-                                      Indoor Games Room</span> <span class="checkbozsty">
-                                      <input type="checkbox" checked="" value="453" name="multiselect_Amenities_PowerBackup_6">
-                                      Indoor Squash - badminton Court</span> <span class="checkbozsty">
-                                      <input type="checkbox" checked="" value="453" name="multiselect_Amenities_PowerBackup_6">
-                                      Kids Club</span> <span class="checkbozsty">
-                                      <input type="checkbox" checked="" value="453" name="multiselect_Amenities_PowerBackup_6">
-                                      Kids Play Area</span> <span class="checkbozsty">
-                                      <input type="checkbox" checked="" value="453" name="multiselect_Amenities_PowerBackup_6">
-                                      Meditiation Center</span> <span class="checkbozsty">
-                                      <input type="checkbox" checked="" value="453" name="multiselect_Amenities_PowerBackup_6">
-                                      Multiporpose Hall</span> <span class="checkbozsty">
-                                      <input type="checkbox" checked="" value="453" name="multiselect_Amenities_PowerBackup_6">
-                                      Paved Compound</span> <span class="checkbozsty">
-                                      <input type="checkbox" checked="" value="453" name="multiselect_Amenities_PowerBackup_6">
-                                      Recreational Pool - Facilities</span> <span class="checkbozsty">
-                                      <input type="checkbox" checked="" value="453" name="multiselect_Amenities_PowerBackup_6">
-                                      Rentable Community Space</span> <span class="checkbozsty">
-                                      <input type="checkbox" checked="" value="453" name="multiselect_Amenities_PowerBackup_6">
-                                      Service - Goods Lift</span> <span class="checkbozsty">
-                                      <input type="checkbox" checked="" value="453" name="multiselect_Amenities_PowerBackup_6">
-                                      Sewage Treatment Plan</span> <span class="checkbozsty">
-                                      <input type="checkbox" checked="" value="453" name="multiselect_Amenities_PowerBackup_6">
-                                      Skating Court</span> <span class="checkbozsty">
-                                      <input type="checkbox" checked="" value="453" name="multiselect_Amenities_PowerBackup_6">
-                                      Strolling Cycling and Jogging Track</span> <span class="checkbozsty">
-                                      <input type="checkbox" checked="" value="453" name="multiselect_Amenities_PowerBackup_6">
-                                      Waiting Lounge</span> <span class="checkbozsty">
-                                      <input type="checkbox" checked="" value="453" name="multiselect_Amenities_PowerBackup_6">
-                                      CCTV</span> <span class="checkbozsty">
-                                      <input type="checkbox" checked="" value="453" name="multiselect_Amenities_PowerBackup_6">
-                                      Centralized AC</span> . </div>
-                                  </div>
+                                    <div class="form-group col-xs-12 col-sm-12 martop20">
+									<?php $Attributeoption=$this->AddProperty_model->GetAttributesoption(6);
+									foreach($Attributeoption as $Attributeoptions){ 
+									if(!empty($propertyid)){
+									$getamenities=$this->AddProperty_model->Getotherdata('rp_property_attribute_values',array('propertyID'=>$propertyid,'attributeID'=>6,'attrOptionID'=>$Attributeoptions->attrOptionID));
+									} ?>
+								    <span class="checkbozsty">
+                                    <input type="checkbox" value="6-<?=$Attributeoptions->attrOptionID?>-<?=$Attributeoptions->attrOptName?>" <?php if(!empty($getamenities)){echo"checked";} ?> name="Amenities[]">
+                                    <?=$Attributeoptions->attrOptName?></span>
+									<?php } ?>
+									. 
+								  </div>
                                 </div>
                               </div>
                             </div>
@@ -1128,10 +877,12 @@
                         </div>
                         <div class="row">
                           <div class="col-md-12">
-                            <button type="button" class="btn btn-success" onclick="InsertPropertyDetail();">Save</button>
+                            <button type="button" class="btn btn-success" onclick="InsertPropertyproject();">Save</button>
                           </div>
                         </div>
 						 </div>
+						 </form>
+						 
                     </div>
                     <div class="clearfix"></div>
                     <div class="row" style="margin-top:20px;">
@@ -1161,44 +912,8 @@
                                 </tr>
                               </thead>
                               <tbody>
-                                <tr>
-                                  <td>3BHK</td>
-                                  <td>1000 Sq.Ft</td>
-                                  <td><i class="fa fa-rupee"></i> 599</td>
-                                  <td><i class="fa fa-rupee"></i> 5.99 lac</td>
-                                  <td><a href="#" data-toggle="modal" data-target=".bs-example-modal-lg"><img src="<?=base_url();?>images/floor.png"/></a></td>
-                                  <td><a href="#" class="more-uni-pri"><i class="fa fa-plus"></i> More</a></td>
-                                </tr>
-                                <tr class="moreunits">
-                                  <td colspan="6"><table id="myTable" class="table table-hover vert-aliins unit-sty">
-                                      <tr>
-                                        <td>Amenities<span>Security</span></td>
-                                        <td>Ownership Type<span>Freehold</span></td>
-                                        <td>Gated Community<span>Yes</span></td>
-                                        <td>Registered Society<span>Yes</span></td>
-                                        <td>Sales Status<span>New</span></td>
-                                      </tr>
-                                    </table></td>
-                                </tr>
-                                <tr>
-                                  <td>2BHK</td>
-                                  <td>1000 Sq.Ft</td>
-                                  <td><i class="fa fa-rupee"></i> 599</td>
-                                  <td><i class="fa fa-rupee"></i> 5.99 lac</td>
-                                  <td><img src="<?=base_url();?>images/floor.png"/></td>
-                                  <td><a href="#" class="more-uni-pri1"><i class="fa fa-plus"></i> More</a></td>
-                                </tr>
-                                <tr class="moreunits1">
-                                  <td colspan="6"><table id="myTable" class="table table-hover vert-aliins unit-sty">
-                                      <tr>
-                                        <td>Amenities<span>Security</span></td>
-                                        <td>Ownership Type<span>Freehold</span></td>
-                                        <td>Gated Community<span>Yes</span></td>
-                                        <td>Registered Society<span>Yes</span></td>
-                                        <td>Sales Status<span>New</span></td>
-                                      </tr>
-                                    </table></td>
-                                </tr>
+                                
+                                
                               </tbody>
                             </table>
                             <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
