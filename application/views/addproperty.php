@@ -1,4 +1,14 @@
 <!-- page content -->
+<style>
+.editmode {
+    background: #ccc none repeat scroll 0 0;
+    bottom: -10px;
+    left: 0;
+    padding: 5px 10px;
+    position: absolute;
+    right: 0;
+}
+</style>
     <div class="right_col" role="main">
       <div class="">
         <div class="page-title">
@@ -28,7 +38,7 @@
           <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel"> 
               <!--<div class="reffresh-button"><a href="#" class="fa fa-refresh"> </a></div>-->
-              <div id="wizard" class="swMain">
+              <div id="property_wizard" class="swMain">
                 <ul>
                   <li><a href="#step-1">
                     <label class="stepNumber">1</label>
@@ -50,7 +60,7 @@
                 <div id="step-1">
                   <h2 class="StepTitle">Basic Information</h2>
                   <div class="x_content">
-                    <form id="form-1" method="post" class="form-group form-label-left clearfix">
+                    <form id="form-1" method="post" class="form-group form-label-left clearfix form" novalidate>
 					 <input type="hidden" name="type" value="Property" >
 					<input type="hidden" name="propertyID" value="<?=isset($propertyid)?$propertyid:''?>" readonly id="form1_id"/>
                       <div class="row">
@@ -58,25 +68,25 @@
                           <div class="form-group col-xs-12 col-sm-3" style="padding-top:8px;">
                             <div class="btn-group" data-toggle="buttons">
                               <label class="btn btn-default <?php if(!empty($purpose)){if($purpose=="Sell"){echo" active";}}?>" id="checksell">
-                                <input type="radio" <?php if(!empty($purpose)){if($purpose=="Sell"){echo"checked";}}?> name="propertyPurpose" value="Sell" id="sell" onchange="generatenameproperty();">
+                                <input  type="radio" class="purpose " <?php if(!empty($purpose)){if($purpose=="Sell"){echo"checked";}}?> name="propertyPurpose" value="Sell" id="sell" onchange="generatenameproperty();">
                                 Sell </label>
                               <label class="btn btn-default <?php if(!empty($purpose)){if($purpose=="Rent"){echo" active";}}?>" id="checkrent">
-                                <input type="radio" <?php if(!empty($purpose)){if($purpose=="Rent"){echo"checked";}}?> name="propertyPurpose" value="Rent" id="rent" onchange="generatenameproperty();">
+                                <input  type="radio" class="purpose " <?php if(!empty($purpose)){if($purpose=="Rent"){echo"checked";}}?> name="propertyPurpose" value="Rent" id="rent" onchange="generatenameproperty();">
                                 Rent </label>
                             </div>
                           </div>
                           <div class="form-group col-xs-12 col-sm-5" style="padding-top:8px;">
                             <div class="btn-group" data-toggle="buttons">
                               <label class="btn btn-default <?php if(!empty($under)){if($under==2){echo" active";}}?>" id="unit_individual">
-                                <input type="radio" name="individual" <?php if(!empty($under)){if($under==2){echo" checked";}}?> value="Unit" id="type_individual">
+                                <input  type="radio" name="individual" <?php if(!empty($under)){if($under==2){echo" checked";}}?> value="Unit" id="type_individual" class="typechecking">
                                 Individual Property </label>
                               <label class="btn btn-default <?php if(!empty($under)){if($under==1){echo" active";}}?>" id="unit_project">
-                                <input type="radio" name="individual" <?php if(!empty($under)){if($under==1){echo" checked";}}?> value="Property" id="type_project">
+                                <input  type="radio" name="individual" <?php if(!empty($under)){if($under==1){echo" checked";}}?> value="Property" id="type_project" class="typechecking">
                                 Property Under Project </label>
                             </div>
                           </div>
                           <div class="form-group col-xs-12 col-sm-4" style="padding-top:8px;"> <span id="unit1">
-                            <select name="projectID" class="form-control select2_group project-uni" id="projectid" onchange="generatenameproperty();">
+                            <select name="projectID" class="form-control select2_single  project-uni" id="projectid" onchange="generatenameproperty();">
                               <option value="" class="em">Select Project</option>
                               <?php foreach($projects as $projects){?>
                         <option value="<?=isset($projects->projectID)?$projects->projectID:''?>" <?php if(!empty($projectid)){ if($projectid==$projects->projectID){ echo"selected";} } ?>><?=isset($projects->projectName)?$projects->projectName:''?></option>
@@ -90,15 +100,18 @@
 					$(function() {
 						// disable all the input boxes
 						$(".project-uni").attr("disabled", true);
-				
-						// add handler to re-enable input boxes on click
+						
+						// add handler to re-enable input boxes on click allowClear: true
 						$("#unit_project").click(function() {
 							$(".project-uni").removeAttr("disabled");
+							$(".hidemap").css("display","none");
 						});
-						// add handler to re-disable input boxes on click
+						// add handler to re-disable input boxes on click select2-selection__clear
 						$("#unit_individual").click(function() {
 						$("#projectid").find("option:selected").prop("selected", false)
+						
 						$(".project-uni").attr("disabled", true);
+						$(".hidemap").css("display","block");
 						generatenameproperty();
 						});
 						
@@ -107,32 +120,49 @@
                         </div>
                         <div class="form-group col-xs-12 col-sm-6">
                           <label class="control-label" for="first-name">Property Type <span class="required">*</span> </label>
-                          <select name="propertyTypeID" class="  form-control" id="propertytype" onchange="generatenameproperty();">
+                          <select  name="propertyTypeID" class="  form-control propertytype" id="propertytype" onchange="generatenameproperty();">
                             <option value="">Select</option>
-                            <optgroup label="Residential Properties">
+                            
                            <?php foreach($propertytype as $propertytypes){?>
                         <option value="<?=isset($propertytypes->propertyTypeID)?$propertytypes->propertyTypeID:''?>" <?php if(!empty($propertytypeid)){ if($propertytypeid==$propertytypes->propertyTypeID){ echo"selected";} } ?>><?=isset($propertytypes->propertyTypeName)?$propertytypes->propertyTypeName:''?></option>
 						<?php } ?>
-                            </optgroup>
+                            
                           </select>
                         </div>
                         <div class="form-group col-xs-12 col-sm-6">
                           <label class="control-label" for="first-name">Property Name <span class="required">*</span> </label>
-                          <input name="propertyName" type="text" value="<?=isset($propertyname)?$propertyname:''?>" id="propertyname" readonly required="required" class="form-control">
+                          <input name="propertyName" type="text" value="<?=isset($propertyname)?$propertyname:''?>" id="propertyname" readonly  class="form-control ">
                         </div>
-                        <div class="form-group col-xs-12 col-sm-4">
+                       <!-- <div class="form-group col-xs-12 col-sm-4">
                           <label style="display:block;" class="control-label">User Type</label>
                           <select id="usertypeid" class=" form-control" name="usertype" >
 							<option value="">Select User Type</option>
-							<?php foreach($user_type as $user_type){?>
-							<option value="<?=$user_type->userTypeID?>" <?php if(!empty($usertypeid)){ if($usertypeid==$user_type->userTypeID){ echo"selected";} } ?>><?=$user_type->userTypeName?></option>
-							<?php } ?>
+							 <?php //foreach($user_type as $user_type){?>
+							<option value="<?php//=$user_type->userTypeID?>" <?php //if(!empty($usertypeid)){ if($usertypeid==$user_type->userTypeID){ echo"selected";} } ?>><?php //=$user_type->userTypeName?></option>
+							<?php //} ?> 
 							
 						  </select>
+                        </div> -->
+						
+						<div class="form-group col-xs-12 col-sm-4">
+                          <label style="display:block;" class="control-label">User Type</label>
+                          <div class="btn-group" data-toggle="buttons">
+                            <label class="btn btn-default <?php if(!empty($usertypeid)){ if($usertypeid=="4"){ echo"active";} } ?>">
+                              <input  type="radio" name="usertype" value="4" <?php if(!empty($usertypeid)){ if($usertypeid=="4"){ echo"checked";} } ?> id="Agent" class="usertypeid">
+                              Agent </label>
+                            <label class="btn btn-default <?php if(!empty($usertypeid)){ if($usertypeid=="3"){ echo"active";} } ?>">
+                              <input  type="radio" name="usertype" value="3" <?php if(!empty($usertypeid)){ if($usertypeid=="3"){ echo"checked";} } ?> id="Builder" class="usertypeid">
+                              Builder </label>
+                            <label class="btn btn-default <?php if(!empty($usertypeid)){ if($usertypeid=="1"){ echo"active";} } ?>">
+                              <input  type="radio" name="usertype" value="1" <?php if(!empty($usertypeid)){ if($usertypeid=="1"){ echo"checked";} } ?> id="Individual" class="usertypeid">
+                              Individual </label>
+                          </div>
                         </div>
+						
                         <div class="form-group col-xs-12 col-sm-4">
                           <label for="middle-name" class="control-label showuserlabel" ><?=isset($usertype)?$usertype:''?></label>
-                          <select name="userID" class=" select2_group form-control" id="showuserlabel" >
+						  <input type="hidden" name="" value="<?=isset($propertyid)?$propertyid:''?>" readonly id="form1_id"/>
+                          <select required="required" name="userID" class=" select2_group form-control" id="showuserlabel" >
                             <option value="">Please Select Usertype First</option>
 							<?php if(!empty($userID)){?>
                             <option value="<?=isset($userID)?$userID:''?>" selected><?=isset($useremail)?$useremail:''?></option>
@@ -142,12 +172,13 @@
                         <div class="form-group col-xs-12 col-sm-4 ">
                           <label for="middle-name" class="control-label">User Plan</label>
 						 
-                          <select name="planid" class=" select2_group form-control" id="userplan">
+                          <select name="planid" class="  form-control" onchange="PropertyConsumePlanID(this.value);" id="userplan">
                             <option value="">Select</option>
                            </optgroup>
                           </select>
 						  
                         </div>
+						
                       </div>
                       <div class="row">
                         <div class="form-group col-xs-12 col-sm-12">
@@ -186,7 +217,7 @@
                             <div class="btn-group"> <a class="btn" data-edit="undo" title="Undo (Ctrl/Cmd+Z)"><i class="icon-undo"></i></a> <a class="btn" data-edit="redo" title="Redo (Ctrl/Cmd+Y)"><i class="icon-repeat"></i></a> </div>
                           </div>
                           <div id="editor"><?=isset($propertyDescription)?$propertyDescription:''?> </div>
-                          <textarea name="propertyDescription" id="descr" style="display:none;"><?=isset($propertyDescription)?$propertyDescription:''?></textarea>
+                          <textarea  name="propertyDescription" id="descr" style="display:none;"><?=isset($propertyDescription)?$propertyDescription:''?></textarea>
                           <br />
                         </div>
                         <div class="form-group col-xs-12 col-sm-12"> </div>
@@ -198,324 +229,7 @@
                           <div class="accordion" id="accordion1" role="tablist" aria-multiselectable="true">
                             <div id="showattributes">
 							</div>
-                            <div class="panel"> <a class="panel-heading" role="tab" id="headingOne12" data-toggle="collapse" data-parent="#accordion1" href="#collapseOne12" aria-expanded="false" aria-controls="collapseOne12">
-                              <h4 class="panel-title StepTitle">Area</h4>
-                              </a>
-                              <div id="collapseOne12" class="panel-collapse collapse " role="tabpanel" aria-labelledby="headingOne">
-                                <div class="panel-body">
-                                  <div class="row">
-                                    <div class="form-group clearfix">
-                                      <label class="control-label col-md-2 col-sm-2 col-xs-12 martop15" style="text-align:right">Covered Area</label>
-                                      <div class="col-md-2 col-sm-2 col-xs-12">
-									  <?php if(!empty($coveredarea[0]->attrDetValue)){ $coverval=explode(" ",$coveredarea[0]->attrDetValue); } ?>
-									  <?php if(!empty($plotarea[0]->attrDetValue)){ $plotval=explode(" ",$plotarea[0]->attrDetValue);}?>
-									  <?php if(!empty($carpetarea[0]->attrDetValue)){ $carpetval=explode(" ",$carpetarea[0]->attrDetValue);}?>
-									  
-                                        <input id="coveredarea" placeholder="Covered Area" class="form-control" onchange="generatenameproperty();" value="<?=isset($coverval[0])?$coverval[0]:''?>" type="text" name="text-94">
-                                      </div>
-                                      <div class="col-md-2 col-sm-2 col-xs-12">
-                                        <select id="coveredareasize" class="select2_group form-control" onchange="generatenameproperty();" name="coveredarea">
-                                          <optgroup label="Select">
-                                          <option value="Sq-ft" <?php if(!empty($coverval[1])){ if($coverval[1]=="Sq-ft"){ echo"selected";} }?> >Sq-ft</option>
-                                          <option value="Sq-yrd" <?php if(!empty($coverval[1])){ if($coverval[1]=="Sq-yrd"){ echo"selected";} }?>>Sq-yrd</option>
-                                          <option value="Sq-m" <?php if(!empty($coverval[1])){ if($coverval[1]=="Sq-m"){ echo"selected";} }?>>Sq-m</option>
-                                          <option value="Acre" <?php if(!empty($coverval[1])){ if($coverval[1]=="Acre"){ echo"selected";} }?>>Acre</option>
-                                          <option value="Bigha" <?php if(!empty($coverval[1])){ if($coverval[1]=="Bigha"){ echo"selected";} }?>>Bigha</option>
-                                          <option value="Hectare" <?php if(!empty($coverval[1])){ if($coverval[1]=="Hectare"){ echo"selected";} }?>>Hectare</option>
-                                          </optgroup>
-                                        </select>
-                                      </div>
-                                    </div>
-                                    <div class="form-group clearfix">
-                                      <label class="control-label col-md-2 col-sm-2 col-xs-12 martop15" style="text-align:right">Plot Area</label>
-                                      <div class="col-md-2 col-sm-2 col-xs-12">
-                                        <input id="middle-name" placeholder="Plot Area" class="form-control" value="<?=isset($plotval[0])?$plotval[0]:''?>" type="text" name="text-2">
-                                      </div>
-                                      <div class="col-md-2 col-sm-2 col-xs-12">
-                                        <select class="select2_group form-control" name="plotarea">
-                                          <optgroup label="Select">
-                                          <option value="Sq-ft" <?php if(!empty($plotval[1])){ if($plotval[1]=="Sq-ft"){ echo"selected";} }?> >Sq-ft</option>
-                                          <option value="Sq-yrd" <?php if(!empty($plotval[1])){ if($plotval[1]=="Sq-yrd"){ echo"selected";} }?>>Sq-yrd</option>
-                                          <option value="Sq-m" <?php if(!empty($plotval[1])){ if($plotval[1]=="Sq-m"){ echo"selected";} }?>>Sq-m</option>
-                                          <option value="Acre" <?php if(!empty($plotval[1])){ if($plotval[1]=="Acre"){ echo"selected";} }?>>Acre</option>
-                                          <option value="Bigha" <?php if(!empty($plotval[1])){ if($plotval[1]=="Bigha"){ echo"selected";} }?>>Bigha</option>
-                                          <option value="Hectare" <?php if(!empty($plotval[1])){ if($plotval[1]=="Hectare"){ echo"selected";} }?>>Hectare</option>
-                                          </optgroup>
-                                        </select>
-                                      </div>
-                                    </div>
-                                    <div class="form-group clearfix">
-                                      <label class="control-label col-md-2 col-sm-2 col-xs-12 martop15" style="text-align:right">Carpet Area</label>
-                                      <div class="col-md-2 col-sm-2 col-xs-12">
-                                        <input id="middle-name" placeholder="Carpet Area" class="form-control" value="<?=isset($carpetval[0])?$carpetval[0]:''?>" type="text" name="text-67">
-                                      </div>
-                                      <div class="col-md-2 col-sm-2 col-xs-12">
-                                        <select class="select2_group form-control" name="carpetarea">
-                                          <optgroup label="Select">
-                                          <option value="Sq-ft" <?php if(!empty($carpetval[1])){ if($carpetval[1]=="Sq-ft"){ echo"selected";} }?> >Sq-ft</option>
-                                          <option value="Sq-yrd" <?php if(!empty($carpetval[1])){ if($carpetval[1]=="Sq-yrd"){ echo"selected";} }?>>Sq-yrd</option>
-                                          <option value="Sq-m" <?php if(!empty($carpetval[1])){ if($carpetval[1]=="Sq-m"){ echo"selected";} }?>>Sq-m</option>
-                                          <option value="Acre" <?php if(!empty($carpetval[1])){ if($carpetval[1]=="Acre"){ echo"selected";} }?>>Acre</option>
-                                          <option value="Bigha" <?php if(!empty($carpetval[1])){ if($carpetval[1]=="Bigha"){ echo"selected";} }?>>Bigha</option>
-                                          <option value="Hectare" <?php if(!empty($carpetval[1])){ if($carpetval[1]=="Hectare"){ echo"selected";} }?>>Hectare</option>
-                                          </optgroup>
-                                        </select>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                            <div class="panel"> <a class="panel-heading" role="tab" id="headingOne13" data-toggle="collapse" data-parent="#accordion1" href="#collapseOne13" aria-expanded="false" aria-controls="collapseOne13">
-                              <h4 class="panel-title StepTitle"><span class="slowlabelheading">Price</span> & Other Charges </h4>
-                              </a>
-                              <div id="collapseOne13" class="panel-collapse collapse " role="tabpanel" aria-labelledby="headingOne">
-                                <div class="panel-body">
-                                  <div class="row">
-                                    <div class="form-group clearfix">
-                                      <label class="control-label col-md-2 col-sm-2 col-xs-12 martop15 expectedpricesellrent">Expected Price <i class="fa fa-rupee text-right"></i></label>
-                                      
-                                      
-                                      <div class="col-md-8 col-sm-8 col-xs-12 "> 
-                                        <input id="expectedprice" class="form-control pull-left" placeholder="Enter Total Price" value="<?=isset($propertyprice)?$propertyprice:''?>" type="text" name="propertyPrice" onchange="calculatepersqreft()">
-                                      </div>
-                                    </div>
-                                    <div class="form-group clearfix disablesell">
-                                      <label class="control-label col-md-2 col-sm-2 col-xs-12 martop15">Price per Sq-ft <i class="fa fa-rupee text-right"></i></label>
-                                      <div class="col-md-8 col-sm-8 col-xs-12">
-                                        <input readonly id="pricepersqrft" class="form-control" type="text" name="pricepersqft" value="">
-                                      </div>
-                                    </div>
-									
-									
-                                    <div class="form-group clearfix">
-                                      <label class="control-label col-md-2 col-sm-2 col-xs-12 martop15 price_as"><i class="fa fa-rupee text-right"></i></label>
-                                      <div class="col-md-8 col-sm-8 col-xs-12">
-                                        <div class="radio mabott10">
-                                          <label>
-                                            <input type="radio" class="flat"  name="showpriceas" <?php if(!empty($isNegotiable)){echo" checked";}?>>
-                                            <span class="showpriceas"></span> <i class="fa fa-rupee text-right"></i> </label>
-                                          <label>
-                                            <input type="radio" class="flat" name="showpriceas" value="Yes" <?php if(!empty($isNegotiable)){if($isNegotiable=="Yes"){echo" checked";}}?>>
-                                            <span class="showpriceas"></span> <i class="fa fa-rupee text-right"></i> Negotiable </label>
-                                          <label>
-                                            <input type="radio" class="flat" name="showpriceas">
-                                            Call For Price </label>
-                                        </div>
-                                      </div>
-                                    </div>
-									<div class="form-group clearfix disablerent" style="display:none">
-                                      <label class="control-label col-md-2 col-sm-2 col-xs-12 martop15">Security Deposit <i class="fa fa-rupee text-right"></i></label>
-                                      <div class="col-md-8 col-sm-8 col-xs-12">
-                                       
-                                        <select name="securitydeposite" class="select2_group form-control">
-                                          <optgroup label="Select">
-                                          <option value="0">No Security Deposit</option>
-                                          <option value="1">1 Month</option>
-                                          <option value="2">2 Months</option>
-                                          <option value="3">6 Months</option>
-										  <option value="3">10 Months</option>
-                                          <option value="4">Others</option>
-                                          </optgroup>
-                                        </select>
-                                      
-                                      </div>
-                                    </div>
-									
-                                    <div class="form-group clearfix disablesell">
-                                      <label class="control-label col-md-2 col-sm-2 col-xs-12 martop15">Price Includes </label>
-                                      <div class="col-md-10 col-sm-10 col-xs-12">
-                                        <div class="checkbox cklabl">
-                                          <label>
-                                            <input type="checkbox" name="" id="hobby1" value="ski" data-parsley-mincheck="2" required class="flat" />
-                                            PLC </label>
-                                          <label>
-                                            <input type="checkbox" name="" id="hobby1" value="ski" data-parsley-mincheck="2" required class="flat" />
-                                            Car Parking </label>
-                                          <label>
-                                            <input type="checkbox" name="" id="hobby1" value="ski" data-parsley-mincheck="2" required class="flat" />
-                                            Club Membership </label>
-                                        </div>
-                                      </div>
-                                    </div>
-                                    <div class="form-group clearfix disablesell">
-                                      <label class="control-label col-md-2 col-sm-2 col-xs-12 martop15">Booking/Token Amount <i class="fa fa-rupee text-right"></i></label>
-                                      <div class="col-md-8 col-sm-8 col-xs-12">
-                                        <input id="middle-name" class="form-control" placeholder="Booking/Token Amount" type="text" name="">
-                                      </div>
-                                    </div>
-                                    <div class="form-group clearfix">
-                                      <label class="control-label col-md-2 col-sm-2 col-xs-12 martop15">Maintenance Charges <i class="fa fa-rupee text-right"></i></label>
-                                      <div class="col-md-4 col-sm-4 col-xs-12">
-                                        <input id="middle-name" class="form-control" placeholder="Maintenance Charges" type="text" name="">
-                                      </div>
-                                      <div class="col-md-4 col-sm-4 col-xs-12">
-                                        <select class="select2_group form-control">
-                                          <optgroup label="Select">
-                                          <option value="0">Monthly</option>
-                                          <option value="1">Quarterly</option>
-                                          <option value="2">Yearly</option>
-                                          <option value="3">One-Time</option>
-                                          <option value="4">Per sq. Unit Monthly</option>
-                                          </optgroup>
-                                        </select>
-                                      </div>
-                                    </div>
-									<div class="form-group clearfix disablerentbro" style="display:none">
-                                      <label class="control-label col-md-2 col-sm-2 col-xs-12 martop15">Brokerage <i class="fa fa-rupee text-right"></i></label>
-                                      <div class="col-md-8 col-sm-8 col-xs-12">
-                                       
-                                        <select name="brokerage" class="select2_group form-control">
-                                          <optgroup label="Select">
-                                          <option value="0">15 Days</option>
-                                          <option value="1">30 Days</option>
-                                          <option value="2">45 Days</option>
-                                          <option value="3">60 Days</option>
-										  
-                                          </optgroup>
-                                        </select>
-                                      
-                                      </div>
-                                    </div>
-                                    <div class="form-group clearfix disablesell">
-                                      <label class="control-label col-md-2 col-sm-2 col-xs-12 martop15">Other Charges <i class="fa fa-rupee text-right"></i></label>
-                                      <div class="col-md-8 col-sm-8 col-xs-12">
-                                        <input id="middle-name" class="form-control" placeholder="Other Charges" type="text" name="">
-                                      </div>
-                                      <div class="col-md-4 col-sm-4 col-xs-12"> </div>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                            <div class="panel"> <a class="panel-heading" role="tab" id="headingOne14" data-toggle="collapse" data-parent="#accordion1" href="#collapseOne14" aria-expanded="false" aria-controls="collapseOne14">
-                              <h4 class="panel-title StepTitle">Transaction Type, Property Availability </h4>
-                              </a>
-                              <div id="collapseOne14" class="panel-collapse collapse " role="tabpanel" aria-labelledby="headingOne">
-                                <div class="panel-body">
-                                  <div class="row">
-                                    <div class="form-group clearfix disablesell">
-                                      <label class="control-label col-md-2 col-sm-2 col-xs-12 martop20">Transaction Type</label>
-                                      <div class="col-md-10 col-sm-10 col-xs-12 martop15">
-                                        <div class="radio mabott10">
-                                          <label>
-                                            <input type="radio" class="flat" checked name="transactiontype">
-                                            New Property </label>
-                                          <label>
-                                            <input type="radio" class="flat" name="transactiontype">
-                                            Resale </label>
-                                        </div>
-                                      </div>
-                                    </div>
-                                    <div class="form-group clearfix disablesell">
-                                      <label class="control-label col-md-2 col-sm-2 col-xs-12 martop10">Possession Status</label>
-                                      <div class="col-md-10 col-sm-10 col-xs-12">
-                                        <div class="radio mabott10">
-                                          <label >
-                                            <input type="radio"  id="underconstruction" name="possessionstatus">
-                                            Under Construction </label>
-                                          <label >
-                                            <input type="radio"  id="readytomove"  name="possessionstatus">
-                                            Ready To Move </label>
-                                        </div>
-                                      </div>
-                                    </div>
-									
-									<div class="form-group clearfix disablerent" style="display:none">
-                                      <label class="control-label col-md-2 col-sm-2 col-xs-12 martop10">Available From</label>
-                                      <div class="col-md-10 col-sm-10 col-xs-12">
-                                        <div class="radio mabott10">
-                                          <label >
-                                            <input type="radio"  id="selectdate" name="availablefromrent">
-                                            Select Date </label>
-                                          <label >
-                                            <input type="radio"  id="immediately"  name="availablefromrent">
-                                            Immediately </label>
-                                        </div>
-                                      </div>
-                                    </div>
-									
-									<div class="form-group clearfix dateshow" style="display:none">
-											<label class="control-label col-md-2 col-sm-2 col-xs-12 martop10" for="last-name">Date</label>
-									<div class="col-md-8 col-sm-8 col-xs-12 xdisplay_inputx form-group has-feedback">
-									<input type="text" name="Date" class="form-control has-feedback-left"  id="single_cal2"  placeholder="Select Date" aria-describedby="inputSuccess2Status2"  readonly >
-									<span class="fa fa-calendar-o form-control-feedback left" style="left:5px;" aria-hidden="true"></span> <span id="inputSuccess2Status2" class="sr-only">(success)</span> 
-									</div>
-									</div>
-			<script type="text/javascript">
-				$(document).ready(function () {
-					
-					$('#single_cal2').daterangepicker({
-						singleDatePicker: true,
-						calender_style: "picker_2"
-					}, function (start, end, label) {
-						console.log(start.toISOString(), end.toISOString(), label);
-					});
-					 
-				});
-			</script> 
-									
-                                    <div class="form-group clearfix available" style="display:none">
-                                      <label class="control-label col-md-2 col-sm-2 col-xs-12 martop10">Available From</label>
-                                      <div class="col-md-2 col-sm-2 col-xs-12">
-                                        <select class="select2_group form-control">
-                                          <optgroup label="Select">
-                                          <option value="-1">Month</option>
-                                          <option value="1">January</option>
-                                          <option value="2">February</option>
-                                          <option value="3">March</option>
-                                          <option value="4">April</option>
-                                          <option value="5">May</option>
-                                          <option value="6">June</option>
-                                          <option value="7">July</option>
-                                          <option value="8">August</option>
-                                          <option value="9">September</option>
-                                          <option value="10">October</option>
-                                          <option value="11">November</option>
-                                          <option selected="selected" value="12">December</option>
-                                          </optgroup>
-                                        </select>
-                                      </div>
-                                      <div class="col-md-2 col-sm-2 col-xs-12">
-                                        <select class="select2_group form-control">
-                                          <optgroup label="Select">
-                                          <option selected="selected" value="2015">Year</option>
-                                          <option value="2014">2014</option>
-                                          <option >2015</option>
-                                          <option value="2016">2016</option
-                                          >
-                                          <option value="2017">2017</option>
-                                          <option value="2018">2018</option>
-                                          <option value="2019">2019</option>
-                                          <option value="2020">2020</option>
-                                          <option value="2021">2021</option>
-                                          <option value="2022">2022</option>
-                                          <option value="2023">2023</option>
-                                          <option value="2024">2024</option>
-                                          <option value="2025">2025</option>
-                                          </optgroup>
-                                        </select>
-                                      </div>
-                                    </div>
-                                    <div class="form-group clearfix ageofconstruction" style="display:none">
-                                      <label class="control-label col-md-2 col-sm-2 col-xs-12 martop10">Age of Construction</label>
-                                      <div class="col-md-4 col-sm-4 col-xs-12">
-                                        <select class="select2_group form-control">
-                                          <option value="">Age of Construction</option>
-                                          <option value="11651">New Construction</option>
-                                          <option value="11652">Less than 5 years</option>
-                                          <option value="11653">5 to 10 years</option>
-                                          <option value="11654">10 to 15 years</option>
-                                          <option value="11655">15 to 20 years</option>
-                                          <option value="11656">Above 20 years</option>
-                                          </optgroup>
-                                        </select>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
+                          
                             <div class="panel"> <a class="panel-heading collapsed" role="tab" id="headingTwo1" data-toggle="collapse" data-parent="#accordion1" href="#collapseTwo1" aria-expanded="false" aria-controls="collapseTwo1">
                               <h4 class="panel-title StepTitle">Amenities </h4>
                               </a>
@@ -523,12 +237,28 @@
                                 <div class="panel-body">
                                   <div class="form-group col-xs-12 col-sm-12 martop20">
 									<?php $Attributeoption=$this->AddProperty_model->GetAttributesoption(6);
-									foreach($Attributeoption as $Attributeoptions){ 
+									function cmp($a, $b)
+									{
+											return strcmp($a->attrOptName, $b->attrOptName);
+									}
+									usort($Attributeoption, "cmp");
+
+
+									
 									if(!empty($propertyid)){
-									$getamenities=$this->AddProperty_model->Getotherdata('rp_property_attribute_values',array('propertyID'=>$propertyid,'attributeID'=>6,'attrOptionID'=>$Attributeoptions->attrOptionID));
-									} ?>
+									$getamenities=$this->AddProperty_model->Getotherdata('rp_property_attribute_values',array('propertyID'=>$propertyid,'attributeID'=>6));
+									if(!empty($getamenities)){
+										$amenitiescheckvalues=explode("#|#",$getamenities[0]->attrOptionID);
+									}
+									
+									}
+									
+									
+									
+									foreach($Attributeoption as $Attributeoptions){ 
+									 ?>
 								    <span class="checkbozsty">
-                                    <input type="checkbox" value="6-<?=$Attributeoptions->attrOptionID?>-<?=$Attributeoptions->attrOptName?>" <?php if(!empty($getamenities)){echo"checked";} ?> name="Amenities[]">
+                                    <input type="checkbox" value="6#<?=$Attributeoptions->attrOptionID?>#<?=$Attributeoptions->attrOptName?>" <?php if(!empty($amenitiescheckvalues)){ if(in_array($Attributeoptions->attrOptionID,$amenitiescheckvalues)){echo"checked";} } ?> name="Amenities[]">
                                     <?=$Attributeoptions->attrOptName?></span>
 									<?php } ?>
 									. 
@@ -537,250 +267,58 @@
                               </div>
                             </div>
 							
-							<div class="panel"> <a class="panel-heading collapsed" role="tab" id="headingTwo2" data-toggle="collapse" data-parent="#accordion1" href="#collapseTwo2" aria-expanded="false" aria-controls="collapseTwo2">
-                              <h4 class="panel-title StepTitle">Additional Information </h4>
-                              </a>
-                              <div id="collapseTwo2" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
-                                <div class="panel-body">
-                                  <div class="row" style="margin-top:20px;"> </div>
-                    <div class="row">
-                      <div class="col-sm-4 disablerent" style="display:none">
-                        <div class="x_title-1">
-                          <h4>Food</h4>
-                        </div>
-                        <div class="x_content-1">
-                          <div class="radio mabott10">
-                            <label>
-                              <input type="radio" class="flat" value="Veg" name="food">
-                              Veg</label>
-                            <label>
-                              <input type="radio" class="flat" value="NonVeg" name="food">
-                              Non-Veg</label>
-                            <label>
-                              <input type="radio" class="flat" value="NoPreferences" name="food">
-                              No Preferences</label>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-sm-4 disablerent" style="display:none">
-                        <div class="x_title-1">
-                          <h4>Pets Allowed</h4>
-                        </div>
-                        <div class="x_content-1">
-                          <div class="radio mabott10">
-                            <label>
-                              <input type="radio" class="flat" value="yes" name="petsallowed">
-                              Yes</label>
-                            <label>
-                              <input type="radio" class="flat" value="no" name="petsallowed">
-                              No</label>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-sm-4">
-                        <div class="x_title-1">
-                          <h4>Power Backup</h4>
-                        </div>
-                        <div class="x_content-1">
-                          <div class="radio mabott10">
-                            <label>
-                              <input type="radio" class="flat" value="Partial" name="powerbackup">
-                              Partial</label>
-                            <label>
-                              <input type="radio" class="flat" value="Full" name="powerbackup">
-                              Full</label>
-                            <label>
-                              <input type="radio" class="flat" value="nobackup"  name="powerbackup">
-                              no backup</label>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row" style="margin-top:15px;">
-                      <div class="col-sm-3 disablerent" style="display:none">
-                        <div class="form-group ">
-                          <label>Lease Type</label>
-                          <select name="LeaseType" class="form-control">
-						  <option value="">select</option>
-                            <option value="Family">Family</option>
-                            <option value="Bachelors">Bachelors</option>
-                            <option value="Company">Company</option>
-                            <option value="NoRestriction">No Restriction</option>
-                          </select>
-                        </div>
-                      </div>
-                      <div class="col-sm-3">
-                        <div class="form-group ">
-                          <label>No of Lifts</label>
-                          <select name="nooflifts" class="form-control">
-						  <option value="">select</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                          </select>
-                        </div>
-                      </div>
-					  
-					  <div class="col-sm-3">
-                        <div class="form-group">
-                          <label>Society Name</label>
-                          <input type="text" value="" name="" class="form-control" />
-                        </div>
-                      </div>
-                    </div>
-					<div class="row">
-                      <div class="col-sm-4 disablerent" >
-                        <div class="x_title-1">
-                          <h4>Registered Society</h4>
-                        </div>
-                        <div class="x_content-1">
-                          <div class="radio mabott10">
-                            <label>
-                              <input type="radio" class="flat" value="Veg" name="registersociety">
-                              Yes</label>
-                            <label>
-                              <input type="radio" class="flat" value="NonVeg" name="registersociety">
-                              No</label>
-                            
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-sm-4 disablerent" >
-                        <div class="x_title-1">
-                          <h4>Gated Community</h4>
-                        </div>
-                        <div class="x_content-1">
-                          <div class="radio mabott10">
-                            <label>
-                              <input type="radio" class="flat" value="yes" name="gatecommunity">
-                              Yes</label>
-                            <label>
-                              <input type="radio" class="flat" value="no" name="gatecommunity">
-                              No</label>
-                          </div>
-                        </div>
-                      </div>
-                      
-                    </div>
-                    <div class="row">
-                      <div class="col-sm-12">
-                        <div class="x_title-1">
-                          <h4>Boundary Wall</h4>
-                        </div>
-                        <div class="x_content-1">
-                          <div class="radio mabott10">
-                            <label>
-                              <input type="radio" class="flat" value="BarbedWire" name="boundarywall">
-                              Barbed Wire</label>
-                            <label>
-                              <input type="radio" class="flat" value="Grill" name="boundarywall">
-                              Grill</label>
-                            <label>
-                              <input type="radio" class="flat" value="Glass"  name="boundarywall">
-                              Glass</label>
-                            <label>
-                              <input type="radio" class="flat" value="ElectricWiring" name="boundarywall">
-                              Electric Wiring</label>
-                            <label>
-                              <input type="radio" class="flat" value="brickwall"  name="boundarywall">
-                              brick wall</label>
-                            <label>
-                              <input type="radio" class="flat" value="CementedWall"  name="boundarywall">
-                              Cemented Wall</label>
-                            <label>
-                              <input type="radio" class="flat" value="NA"  name="boundarywall">
-                              NA</label>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-sm-12">
-                        <div class="x_title-1">
-                          <h4>Water Supply</h4>
-                        </div>
-                        <div class="clearfix"> <span class="checkbozsty-1">
-                          <input type="checkbox"  value="GroundTanks" name="watersupply">
-                          Munciple water</span> <span class="checkbozsty-1">
-                          <input type="checkbox"  value="terracetanks" name="watersupply">
-                          Bore water</span> </div>
-                      </div>
-					  <div class="col-sm-12">
-                        <div class="x_title-1">
-                          <h4>Water Backup</h4>
-                        </div>
-                        <div class="clearfix"> <span class="checkbozsty-1">
-                          <input type="checkbox"  value="GroundTanks" name="waterbackup">
-                          Grounded Tank</span> <span class="checkbozsty-1">
-                          <input type="checkbox"  value="terracetanks" name="waterbackup">
-                          Terrace Tankse</span> </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-xs-12">
-                        <div class="x_title-1">
-                          <h4>Miscellaneous</h4>
-                        </div>
-                        <div class="clearfix">  <span class="checkbozsty-1">
-                          <input type="checkbox"  value="privateterrace" name="Miscellaneous[]">
-                          Private Terrace</span> <span class="checkbozsty-1">
-                          <input type="checkbox"  value="prayerroom" name="Miscellaneous[]">
-                          Prayer Area</span> <span class="checkbozsty-1">
-                          <input type="checkbox"  value="terrace" name="Miscellaneous[]">
-                          Common Terrace</span> <span class="checkbozsty-1">
-                          <input type="checkbox" value="smokedetector" name="Miscellaneous[]">
-                          Smoke Detector</span> <span class="checkbozsty-1">
-                          <input type="checkbox"  value="firehydrantsystem" name="Miscellaneous[]">
-                          Fire Hydrant System</span> <span class="checkbozsty-1">
-                          <input type="checkbox"  value="solarwaterheater" name="Miscellaneous[]">
-                          Solar Water Heater</span> </div>
-                      </div>
-                    </div>
-                                </div>
-                              </div>
-                            </div>
+							
                           </div>
                           <!-- end of accordion -->
-                          
-                          <div class="row">
+                          <?php $lochide=''; if(!empty($under)){
+							  if($under==1){ $lochide='style="display:none"'; } } ?>
+                          <div class="row hidemap" <?=$lochide?>>
                             <div class="col-md-12 col-sm-12 col-xs-12">
                               <h4 class="StepTitle">Property Location </h4>
                               <div class="form-group col-xs-12 col-sm-4 martop20 ">
                                 <label class="control-label" for="last-name">Location Info </label>
-                                <input id="geocomplete" class="form-control" value="<?=isset($propertyAddress1)?$propertyAddress1:''?>" type="text" name="propertyAddress1">
+                                <input id="geocomplete" onblur="initialize();" class="form-control hidemap" value="" type="text" name="propertyAddress3">
                               </div>
                               <div class="form-group col-xs-12 col-sm-4 martop20">
                                 <label class="control-label" for="last-name">Locality </label>
-                                <input id="sublocality" class="form-control" type="text" name="sublocality" value="<?=isset($propertyLocality)?$propertyLocality:''?>">
+                                <input id="sublocality" class="form-control hidemap" type="text" name="sublocality" value="<?=isset($propertyLocality)?$propertyLocality:''?>"> 
                               </div>
                               <div class="form-group col-xs-12 col-sm-4 martop20">
                                 <label class="control-label" for="last-name">Country </label>
-                                <input id="country"  class="form-control" type="text" name="country">
+                                <input id="country"  class="form-control showvalidation hidemap" type="text" name="country" value="<?=isset($countryname)?$countryname:''?>">
                               </div>
                               <div class="form-group col-xs-12 col-sm-4 ">
                                 <label class="control-label" for="last-name">State </label>
-                                <input id="administrative_area_level_1" class="form-control" type="text" name="administrative_area_level_1">
+                                <input id="administrative_area_level_1" class="form-control showvalidation hidemap" type="text" name="administrative_area_level_1" value="<?=isset($statename)?$statename:''?>">
                               </div>
                               <div class="form-group col-xs-12 col-sm-4 ">
                                 <label class="control-label" for="last-name">City / Area </label>
-                                <input id="locality" class="form-control" type="text" name="locality">
+                                <input id="locality" class="form-control showvalidation hidemap" type="text" name="locality" value="<?=isset($cityname)?$cityname:''?>">
                               </div>
                               <div class="form-group col-xs-12 col-sm-4 ">
                                 <label class="control-label" for="last-name">Zip / Postal Code </label>
-                                <input id="postal_code" class="form-control" type="text" name="postal_code" value="<?=isset($propertyZipCode)?$propertyZipCode:''?>">
+                                <input id="postal_code" class="form-control hidemap" type="text" name="postal_code" value="<?=isset($propertyZipCode)?$propertyZipCode:''?>">
                               </div>
                               <div class="form-group col-xs-12 col-sm-4 ">
                                 <label class="control-label" for="last-name">Latitude </label>
-                                <input id="lat" class="form-control" type="text" name="lat" value="<?=isset($propertyLatitude)?$propertyLatitude:''?>">
+                                <input id="lat" class="form-control showvalidation hidemap" type="text" name="lat" value="<?=isset($propertyLatitude)?$propertyLatitude:''?>">
                               </div>
                               <div class="form-group col-xs-12 col-sm-4 ">
                                 <label class="control-label" for="last-name">Longitude </label>
-                                <input id="lng" class="form-control" type="text" name="lng" value="<?=isset($propertyLongitude)?$propertyLongitude:''?>">
+                                <input id="lng" class="form-control showvalidation hidemap" type="text" name="lng" value="<?=isset($propertyLongitude)?$propertyLongitude:''?>">
                               </div>
-                              <div class="form-group col-xs-12 col-sm-12 mapinfo map_canvas" id="map_canvas" style="height: 400px"> </div>
+							  <div class="form-group col-xs-12 col-sm-4 ">
+                                <label class="control-label" for="last-name">Address1 </label>
+                                <input  class="form-control showvalidation hidemap" type="text" name="propertyAddress1" value="<?=isset($propertyAddress1)?$propertyAddress1:''?>">
+                              </div>
+							  <div class="form-group col-xs-12 col-sm-4 ">
+                                <label class="control-label" for="last-name">Address2 </label>
+                                <input  class="form-control hidemap" type="text" name="propertyAddress2" value="<?=isset($propertyAddress2)?$propertyAddress2:''?>">
+                              </div>
+                              <div class="form-group col-xs-12 col-sm-12 mapinfo map_canvas" id="map-canvas" style="height: 400px"> </div>
                             </div>
                           </div>
+							 
                         </div>
                       </div>
                     </form>
@@ -811,36 +349,14 @@
                                 <div class="x_panel marlemin">
                                   <div class="form-group col-md-12 col-xs-12 col-sm-2 martop15">
 								   <form  action="<?php echo base_url();?>AddProperty/uploadimage" class="dropzone" style="border: 1px dashed #e5e5e5;  ">
-                                    <input type="hidden" name="propertyID" value="<?=isset($propertyid)?$propertyid:''?>" readonly id="form5_id" />
-									 <input type="hidden" name="imagecategory" value="1" readonly />
+                                    <input type="hidden" name="propertyID" value="<?=isset($propertyid)?$propertyid:''?>" readonly id="form5_id" class="form5_id" />
+									 <input type="hidden" name="imagecategory" value="2" readonly />
+									 <input type="hidden" name="propertyImageTitle" value="Exterior View" readonly />
 								   </form>
                                   </div>
-								  <?php if(!empty($propertyimages)){ ?>
-                                  <div class="x_content">
-									<div class="row">
-									<?php $i=1; foreach($propertyimages as $propertyimagess){ ?>
-										<div class="col-md-55 imagediv_<?=$i?>" id="imagediv_<?=$i?>">
-                                            <div class="thumbnail">
-                                                <div class="image view view-first">
-                                                    <img style="width: 100%; display: block;" src="<?=base_url();?>propertyImages/<?=isset($propertyimagess->propertyImageName)?$propertyimagess->propertyImageName:''?>" alt="image" />
-                                                    <div class="mask">
-                                                        <div class="tools tools-bottom">
-                                                            <!--return confirm('Are you sure to delete this image? ');-->
-                                                            <a href="javascript:;" onClick="deleteiamge(<?=isset($propertyimagess->propertyImageID)?$propertyimagess->propertyImageID:''?>,'imagediv_<?=$i?>');"><i class="fa fa-times"></i></a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="caption">
-                                                    <p><?php if(!empty($propertyimagess->imageCatID)){ if($propertyimagess->imageCatID==1){ echo"Exterior View";} if($propertyimagess->imageCatID==2){ echo"Living Room";} if($propertyimagess->imageCatID==3){ echo"Bed Room";} if($propertyimagess->imageCatID==4){ echo"Bath Room";} if($propertyimagess->imageCatID==5){ echo"Kitchen";} if($propertyimagess->imageCatID==6){ echo"Floor Plan";} if($propertyimagess->imageCatID==7){ echo"Master Plan";} if($propertyimagess->imageCatID==8){ echo"Location Map";} if($propertyimagess->imageCatID==9){ echo"Others ";} } ?></p>
-                                                </div>
-                                            </div>
-                                        </div>
-										<?php $i++; }  ?>
-										</div>
-										</div>
-                                  <?php  } ?>
+								  
                                   <div class="form-group col-md-12 col-xs-12 col-sm-12 martop15">
-                                    <p>Accepted formats are .jpg, .gif, .bmp & .png. Maximum size allowed is 4 MB</p>
+                                    <p>Accepted formats are .jpg, .gif, .bmp & .png. Maximum size allowed is 2 MB</p>
                                   </div>
                                 </div>
                               </div>
@@ -854,6 +370,7 @@
                                     <form action="<?php echo base_url();?>AddProperty/uploadimage" class="dropzone" style="border: 1px dashed #e5e5e5;  ">
 									<input type="hidden" name="propertyID" value="<?=isset($propertyid)?$propertyid:''?>" readonly  class="form5_id"/>
 									 <input type="hidden" name="imagecategory" value="2" readonly />
+									 <input type="hidden" name="propertyImageTitle" value="Living Room" readonly />
                                     </form>
                                   </div>
                                   
@@ -869,7 +386,8 @@
                                   <div class="form-group col-md-12 col-xs-12 col-sm-2 martop15">
                                     <form action="<?php echo base_url();?>AddProperty/uploadimage" class="dropzone" style="border: 1px dashed #e5e5e5;  ">
 									<input type="hidden" name="propertyID" value="<?=isset($propertyid)?$propertyid:''?>" readonly  class="form5_id"/>
-									 <input type="hidden" name="imagecategory" value="3" readonly />
+									 <input type="hidden" name="imagecategory" value="2" readonly />
+									  <input type="hidden" name="propertyImageTitle" value="Bedrooms" readonly />
                                     </form>
                                   </div>
                                   
@@ -885,7 +403,8 @@
                                   <div class="form-group col-md-12 col-xs-12 col-sm-2 martop15">
                                     <form action="<?php echo base_url();?>AddProperty/uploadimage" class="dropzone" style="border: 1px dashed #e5e5e5; height: 131px; ">
 									<input type="hidden" name="propertyID" value="<?=isset($propertyid)?$propertyid:''?>" readonly  class="form5_id"/>
-									 <input type="hidden" name="imagecategory" value="4" readonly />
+									 <input type="hidden" name="imagecategory" value="2" readonly />
+									  <input type="hidden" name="propertyImageTitle" value="Bathrooms" readonly />
                                     </form>
                                   </div>
                                   
@@ -901,7 +420,8 @@
                                   <div class="form-group col-md-12 col-xs-12 col-sm-2 martop15">
                                     <form action="<?php echo base_url();?>AddProperty/uploadimage" class="dropzone" style="border: 1px dashed #e5e5e5;  ">
 									<input type="hidden" name="propertyID" value="<?=isset($propertyid)?$propertyid:''?>" readonly  class="form5_id"/>
-									 <input type="hidden" name="imagecategory" value="5" readonly />
+									 <input type="hidden" name="imagecategory" value="2" readonly />
+									  <input type="hidden" name="propertyImageTitle" value="Kitchen" readonly />
                                     </form>
                                   </div>
                                   
@@ -916,7 +436,8 @@
                                   <div class="form-group col-md-12 col-xs-12 col-sm-2 martop15">
                                     <form action="<?php echo base_url();?>AddProperty/uploadimage" class="dropzone" style="border: 1px dashed #e5e5e5;  ">
 									<input type="hidden" name="propertyID" value="<?=isset($propertyid)?$propertyid:''?>" readonly  class="form5_id"/>
-									 <input type="hidden" name="imagecategory" value="6" readonly />
+									 <input type="hidden" name="imagecategory" value="2" readonly />
+									  <input type="hidden" name="propertyImageTitle" value="Floor Plan" readonly />
                                     </form>
                                   </div>
                                  
@@ -931,7 +452,8 @@
                                   <div class="form-group col-md-12 col-xs-12 col-sm-2 martop15">
                                     <form action="<?php echo base_url();?>AddProperty/uploadimage" class="dropzone" style="border: 1px dashed #e5e5e5;  ">
 									<input type="hidden" name="propertyID" value="<?=isset($propertyid)?$propertyid:''?>" readonly  class="form5_id"/>
-									 <input type="hidden" name="imagecategory" value="7" readonly />
+									 <input type="hidden" name="imagecategory" value="2" readonly />
+									  <input type="hidden" name="propertyImageTitle" value="Master Plan" readonly />
                                     </form>
                                   </div>
                                  
@@ -946,7 +468,8 @@
                                   <div class="form-group col-md-12 col-xs-12 col-sm-2 martop15">
                                     <form action="<?php echo base_url();?>AddProperty/uploadimage" class="dropzone" style="border: 1px dashed #e5e5e5; ">
 									<input type="hidden" name="propertyID" value="<?=isset($propertyid)?$propertyid:''?>" readonly  class="form5_id"/>
-									 <input type="hidden" name="imagecategory" value="8" readonly />
+									 <input type="hidden" name="imagecategory" value="2" readonly />
+									  <input type="hidden" name="propertyImageTitle" value="Location Map" readonly />
                                     </form>
                                   </div>
                                   
@@ -961,7 +484,8 @@
                                   <div class="form-group col-md-12 col-xs-12 col-sm-2 martop15">
                                     <form action="<?php echo base_url();?>AddProperty/uploadimage" class="dropzone" style="border: 1px dashed #e5e5e5;  ">
 									<input type="hidden" name="propertyID" value="<?=isset($propertyid)?$propertyid:''?>" readonly  class="form5_id"/>
-									 <input type="hidden" name="imagecategory" value="9" readonly />
+									 <input type="hidden" name="imagecategory" value="2" readonly />
+									  <input type="hidden" name="propertyImageTitle" value="Others" readonly />
                                     </form>
                                   </div>
                                   
@@ -971,37 +495,97 @@
                             </div>
                           </div>
                         </div>
+						<style>
+					.cover-img {position:absolute; top:0; left:0; z-index:999; width:90px;}
+					.cover-img img {max-width:100%;}
+					</style>
+					<div class="afteruploadimagediv">
+						<?php if(!empty($propertyimages)){ ?>
+                                  <div class="x_content ">
+									<div class="row">
+									<?php $i=1; foreach($propertyimages as $propertyimagess){ ?>
+										<div class="col-md-55 imagediv_<?=$i?>" id="imagediv_<?=$i?>">
+                                            <div class="thumbnail">
+                                                <div class="image view view-first" style="relative">
+												<?php if($propertyimagess->isCoverImage=="Yes"){?>
+												<div class="cover-img" id="firsttimeimg_<?php echo $propertyimagess->propertyImageID?>"><img src="<?php echo base_url()?>assests/images/cover.png"/></div>
+												<?php }?>
+												<div class="cover-img" id="ajaxtimeimg_<?php echo $propertyimagess->propertyImageID?>" style="display:none;"><img src="<?php echo base_url()?>assests/images/cover.png"/></div>
+                                                    <img style="width: 100%; display: block;" src="http://<?=isset($severname)?$severname:''?>/public/uploads/property/images/medium/<?=isset($propertyimagess->propertyImageName)?$propertyimagess->propertyImageName:''?>" alt="image" />
+                                                    <div class="mask">
+                                                        <div class="tools tools-bottom">
+														
+														<a href="javascript:;" onclick="return isCoverImage(<?php echo $propertyimagess->propertyImageID?>,<?php echo $propertyimagess->propertyID?>)">Set as Cover Image</a> 
+                                                            <a href="javascript:;" onClick="ConfirmDelete(<?=isset($propertyimagess->propertyImageID)?$propertyimagess->propertyImageID:''?>,'imagediv_<?=$i?>')"><i class="fa fa-times"></i></a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+												<script>function ConfirmDelete(aa,bb)
+												{
+												  var x = confirm("Are you sure you want to delete?");
+												  if (x)
+													 deleteiamge1(aa,bb);
+												  else
+													return false;
+												}</script>
+                                                <div class="caption">
+                                                    <p><span id="textspan_<?php echo $propertyimagess->propertyImageID?>"><?php echo $propertyimagess->propertyImageTitle;?></span><span id="newtextspan_<?php echo $propertyimagess->propertyImageID?>"> </span><a href="javascript:void(0);" onclick="return appImageEdit(<?php echo $propertyimagess->propertyImageID?>)"><i class="fa fa-edit"></i></a></p>
+													<p><span id="textspan1_<?php echo $propertyimagess->propertyImageID?>">Priority- <?php echo $propertyimagess->propertyImagePriority;?></span><span id="newtextspan1_<?php echo $propertyimagess->propertyImageID?>"> </span><a href="javascript:void(0);" onclick="return appImageEdit1(<?php echo $propertyimagess->propertyImageID?>)"><i class="fa fa-edit"></i></a></p>
+										
+										
+										
+										
+											<div class="form-group editmode" style="display:none;" id="ajaxeditimg_<?php echo $propertyimagess->propertyImageID?>">											
+												 <input type="text" class="form-control" value="<?php echo $propertyimagess->propertyImageTitle;?>" id="imgtagedit_<?php echo $propertyimagess->propertyImageID;?>">
+												 <button type="button" class="btn btn-primary" onclick="return editImageTag(<?php echo $propertyimagess->propertyImageID?>);">Edit</button>
+												  <button type="button" class="btn btn-primary imgtagclose">Close</button>
+											</div>
+											<div class="form-group editmode" style="display:none;" id="ajaxeditimg1_<?php echo $propertyimagess->propertyImageID?>">											
+												 <input type="text" class="form-control" value="<?php echo $propertyimagess->propertyImagePriority;?>" id="imgtagedit1_<?php echo $propertyimagess->propertyImageID;?>">
+												 <button type="button" class="btn btn-primary" onclick="return editImageTag(<?php echo $propertyimagess->propertyImageID?>);">Edit</button>
+												  <button type="button" class="btn btn-primary imgtagclose">Close</button>
+											</div>
+										</div>
+                                            </div>
+                                        </div>
+										<?php $i++; }  ?>
+										</div>
+										</div>
+                                  <?php  } ?>
+								  </div>
                       </div>
                     </div>
                   </div>
                   <div class="x_content"> 
                     
                     <!-- start accordion -->
+					<?php if(!empty($propertyid)){?>
                     <div class="accordion" id="accordion2" role="tablist" aria-multiselectable="true">
                       <div class="panel"> <a class="panel-heading" role="tab" id="headingOne1" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne2" aria-expanded="true" aria-controls="collapseOne2">
                         <h4 class="panel-title StepTitle">Meta Details</h4>
                         </a>
                         <div id="collapseOne2" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
                           <div class="panel-body">
-						  <form id="form-2" method="post" class="form-group form-label-left clearfix">
-						  <input type="hidden" name="propertyID" value="<?=isset($propertyid)?$propertyid:''?>" readonly id="form2_id"/>
+						  <form id="form-2" method="post" class="form-group form-label-left clearfix form">
+						  <input type="hidden" name="propertyID" value="<?=isset($propertyid)?$propertyid:''?>" readonly class="form5_id"/>
                             <div class="form-group col-xs-12 col-sm-12">
                               <label class="control-label" for="last-name">Title </label>
-                              <input id="middle-name" class="form-control" type="text" name="propertyMetaTitle" value="<?=isset($propertyMetaTitle)?$propertyMetaTitle:''?>">
+                              <input id="middle-name" readonly class="form-control" type="text" name="propertyMetaTitle" value="<?=isset($propertyMetaTitle)?$propertyMetaTitle:''?>">
                             </div>
                             <div class="form-group col-xs-12 col-sm-12">
                               <label class="control-label" for="last-name">Meta Keywords </label>
-                              <textarea placeholder="" name="propertyMetaKeyword" rows="2" class="form-control"><?=isset($propertyMetaKeyword)?$propertyMetaKeyword:''?></textarea>
+                              <textarea placeholder="" readonly name="propertyMetaKeyword" rows="2" class="form-control"><?=isset($propertyMetaKeyword)?$propertyMetaKeyword:''?></textarea>
                             </div>
                             <div class="form-group col-xs-12 col-sm-12">
                               <label class="control-label" for="last-name">Meta Description </label>
-                              <textarea placeholder="" name="propertyMetaDescription" rows="2" class="form-control"><?=isset($propertyMetaDescription)?$propertyMetaDescription:''?></textarea>
+                              <textarea placeholder="" readonly name="propertyMetaDescription" rows="2" class="form-control"><?=isset($propertyMetaDescription)?$propertyMetaDescription:''?></textarea>
                             </div>
 							</form>
                           </div>
                         </div>
                       </div>
                     </div>
+					<?php } ?>
                     <!-- end of accordion --> 
                     
                   </div>
@@ -1010,12 +594,13 @@
                   <div class="x_content head-sty"> 
                     
                     <!-- start accordion -->
-					<form id="form-3" method="post" class="form-group form-label-left clearfix">
+					<form id="form-3" method="post" class="form-group form-label-left clearfix form">
 					<input type="hidden" name="propertyID" value="<?=isset($propertyid)?$propertyid:''?>" readonly id="form3_id"/>
                     <div class="accordion" id="accordion4" role="tablist" aria-multiselectable="true">
 					
                       <div class="showbedrooms"></div>
 					  
+					   
                       
                       
                       
@@ -1037,20 +622,22 @@
                   <div class="x_content">
                     <div class="showpreview"></div>
                     <div class="row">
-					<form id="form-4" method="post" action="<?=base_url();?>AddProperty/PropertyAction/propertystatus" class="form-group form-label-left clearfix">
+					<form id="form-4" method="post" action="<?=base_url();?>AddProperty/PropertyAction/propertystatus/<?=isset($propertyid)?$propertyid:''?>" class="form-group form-label-left clearfix form">
 					<input type="hidden" name="propertyID" value="<?=isset($propertyid)?$propertyid:''?>" readonly id="form4_id"/>
                       <div class="col-md-2 col-sm-2 col-xs-12">
                         <label class="control-label" for="last-name" style="display:block;">Status </label>
                         <div class="btn-group" data-toggle="buttons">
+						 <input type="hidden" name="PlaneID" value="<?php if(isset($propertyid)){ $PlanDetail=$this->AddProject_model->GetMultipleData('rp_dbho_plan_mapping',array('objectID'=>$propertyid)); if(isset($PlanDetail[0]->planID)){ echo $PlanDetail[0]->planID; } }?>" readonly class="ConsumePlaneID"/>
                           <label class="btn btn-default <?php if(!empty($propertyStatus)){if($propertyStatus=="Active"){echo" active";}}?>">
                             <input type="radio" name="propertystatus" value="Active" <?php if(!empty($propertyStatus)){if($propertyStatus=="Active"){echo" checked";}}?> id="option1">
                             Active </label>
-                          <label class="btn btn-default <?php if(!empty($propertyStatus)){if($propertyStatus=="Draft"){echo" active";}}?>">
-                            <input type="radio" name="propertystatus" value="Draft" <?php if(!empty($propertyStatus)){if($propertyStatus=="Draft"){echo" checked";}}?> id="option2">
+                          <label class="btn btn-default <?php if(!empty($propertyStatus)){if($propertyStatus=="Draft"){echo" active";}}else{echo"active";}?>">
+                            <input type="radio" name="propertystatus" checked value="Draft" <?php if(!empty($propertyStatus)){if($propertyStatus=="Draft"){echo" checked";}}?> id="option2">
                             Draft </label>
                         </div>
                       </div>
-					  </form
+					  </form>
+					  
                     </div>
                   </div>
                 </div>
@@ -1089,17 +676,13 @@
 				//alert(result);
 				$("#loader").fadeOut();
 				$("#showattributes").html(result);
-             
-            }
-        });
-		 <?php } ?>
-		 
-		 <?php if(!empty($purpose)){
+				generatenameproperty();
+             <?php if(!empty($purpose)){
 			 if($purpose=="Sell"){ ?>
 			 
 							$(".price_as").html("Show Price As <i class='fa fa-rupee text-right'>");
 							$(".expectedpricesellrent").html("Expected Price <i class='fa fa-rupee text-right'>");
-							$(".slowlabelheading").html("Price");
+							$(".slowlabelheading").html("Price & Other Charges");
 							$(".disablerent").css("display","none");
 							$(".disablesell").css("display","block");
 							$(".disablerentbro").css("display","none");
@@ -1111,7 +694,59 @@
 			 
 			 $(".price_as").html("Show Rent As <i class='fa fa-rupee text-right'>");
 							$(".expectedpricesellrent").html("Expected Rent <i class='fa fa-rupee text-right'>");
-							$(".slowlabelheading").html("Rent");
+							$(".slowlabelheading").html("Rent & Other Charges");
+							$(".disablesell").css("display","none");
+							$(".disablerent").css("display","block");
+							$(".ageofconstruction").css("display","block");
+							if($("#usertypeid option:selected").val() !=''){
+								var username= $("#usertypeid option:selected").text();
+								if(username=="Agent"){
+									$(".disablerentbro").css("display","block");
+								}
+								}
+
+			 <?php } }?>
+            }
+        });
+		
+		/* function call for plan code by ankit singh */
+		 var PropertyID= $("#form1_id").val();
+		 var userID= "<?=isset($userID)?$userID:''?>"; //alert(PropertyID);
+		 
+		 $.ajax({
+				type: "POST",
+				url : base_url+'AddProperty/GetUserplan',
+				data: {PropertyID:PropertyID,userID:userID},
+				beforeSend: function() {
+				$("#loader").fadeIn();
+			}
+			})	
+				.done(function(result){
+					//alert(msg);	die;
+					$("#loader").fadeOut();
+					$('#userplan').html(result);
+				});
+		
+		 <?php } ?>
+		 
+		 <?php if(!empty($purpose)){
+			 if($purpose=="Sell"){ ?>
+			 
+							$(".price_as").html("Show Price As <i class='fa fa-rupee text-right'>");
+							$(".expectedpricesellrent").html("Expected Price <i class='fa fa-rupee text-right'>");
+							$(".slowlabelheading").html("Price & Other Charges");
+							$(".disablerent").css("display","none");
+							$(".disablesell").css("display","block");
+							$(".disablerentbro").css("display","none");
+							$(".ageofconstruction").css("display","none");
+			 
+		 
+			 <?php }
+			 if($purpose=="Rent"){ ?>
+			 
+			 $(".price_as").html("Show Rent As <i class='fa fa-rupee text-right'>");
+							$(".expectedpricesellrent").html("Expected Rent <i class='fa fa-rupee text-right'>");
+							$(".slowlabelheading").html("Rent & Other Charges");
 							$(".disablesell").css("display","none");
 							$(".disablerent").css("display","block");
 							$(".ageofconstruction").css("display","block");
@@ -1131,21 +766,30 @@
 		 
 						// add handler to re-enable input boxes on click
 						$("#checksell").click(function() {
+							$("#loader").fadeIn();
 							$(".price_as").html("Show Price As <i class='fa fa-rupee text-right'>");
 							$(".expectedpricesellrent").html("Expected Price <i class='fa fa-rupee text-right'>");
-							$(".slowlabelheading").html("Price");
+							$(".slowlabelheading").html("Price & Other Charges");
 							$(".disablerent").css("display","none");
+							$(".dateshow").css("display","none");
+							$(".available").css("display","none");
 							$(".disablesell").css("display","block");
 							$(".disablerentbro").css("display","none");
 							$(".ageofconstruction").css("display","none");
+							$(".calndr").css("display","none");
+							$("#loader").fadeOut();
 						});
 						
 						$("#checkrent").click(function() {
+							$("#loader").fadeIn();
 							$(".price_as").html("Show Rent As <i class='fa fa-rupee text-right'>");
 							$(".expectedpricesellrent").html("Expected Rent <i class='fa fa-rupee text-right'>");
-							$(".slowlabelheading").html("Rent");
+							$(".slowlabelheading").html("Rent & Other Charges");
 							$(".disablesell").css("display","none");
+							$(".dateshow").css("display","none");
+							$(".available").css("display","none");
 							$(".disablerent").css("display","block");
+							$(".calndr").css("display","none");
 							$(".ageofconstruction").css("display","block");
 							if($("#usertypeid option:selected").val() !=''){
 								var username= $("#usertypeid option:selected").text();
@@ -1153,29 +797,10 @@
 									$(".disablerentbro").css("display","block");
 								}
 								}
-							
+							$("#loader").fadeOut();
 						});
 						
-						$("#underconstruction").click(function() {
-							
-							$(".available").css("display","block");
-							$(".ageofconstruction").css("display","none");
-						});
 						
-						$("#readytomove").click(function() {
-							$(".ageofconstruction").css("display","block");
-							$(".available").css("display","none");
-						});
-						
-						$("#selectdate").click(function() {
-							
-							$(".dateshow").css("display","block");
-							
-						});
-						
-						$("#immediately").click(function() {
-							$(".dateshow").css("display","none");
-						});
 						
 						
 						
@@ -1185,39 +810,88 @@
 	 
 	 
 	 
-
-      $(function(){
-        $("#geocomplete").geocomplete({
-          map: ".map_canvas",
-          details: "form",
-          blur: true,
-          geocodeAfterResult: true
-        });
-
-        $("#find").click(function(){
-          $("#geocomplete").trigger("geocode");
-        });
-      });
+	
+    </script>
+	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+	<?php if(!empty($propertyLatitude)&& !empty($propertyLongitude)){ ?>
+		function initialize() {
+		var Lat= document.getElementById('lat').value; //alert(Lat); alert(Long);
+		var Long= document.getElementById('lng').value; 
+			 // var Lat=	Lats;		
+			 //var Long=  longs;
+			var mapCanvas = document.getElementById('map-canvas');
+			var mapOptions = {
+			  center: new google.maps.LatLng(Lat, Long),
+			  zoom: 17,
+			  mapTypeId: google.maps.MapTypeId.roadmap
+			}
+			 map = new google.maps.Map(mapCanvas, mapOptions);
+			var latlng = new google.maps.LatLng(Lat,Long);
+			var marker = new google.maps.Marker({
+				position: latlng,
+				map: map,
+				title: '',
+				draggable: true
+			});
+			google.maps.event.addListener(marker, 'dragend', function (event) {
+			document.getElementById("lat").value = this.getPosition().lat();
+			document.getElementById("lng").value = this.getPosition().lng();
+			});
+		  }
+		  google.maps.event.addDomListener(window, 'load', initialize);
+		  <?php }else{ ?>
+		  
+		  function initialize() {
+			var Lat= document.getElementById('lat').value; 
+			var Long= document.getElementById('lng').value; 
+			if(Lat=='' && Long=='')
+			{
+				var Lat='23.2326762';
+				var Long='77.43004819999999';
+			}
+			 //alert(Lat); alert(Long);
+			 // var Lat=	Lats;		
+			 //var Long=  longs;
+			var mapCanvas = document.getElementById('map-canvas');
+			var mapOptions = {
+			  center: new google.maps.LatLng(Lat, Long),
+			  zoom: 17,
+			  mapTypeId: google.maps.MapTypeId.roadmap
+			}
+			 map = new google.maps.Map(mapCanvas, mapOptions);
+			var latlng = new google.maps.LatLng(Lat,Long);
+			var marker = new google.maps.Marker({
+				position: latlng,
+				map: map,
+				title: '',
+				draggable: true
+			});
+			google.maps.event.addListener(marker, 'dragend', function (event) {
+			document.getElementById("lat").value = this.getPosition().lat();
+			document.getElementById("lng").value = this.getPosition().lng();
+			});
+		  }
+		  google.maps.event.addDomListener(window, 'load', initialize);
+		  <?php }?>
+		
     </script>
 	
 	<script>
-	<?php /*/if(!empty($propertyLatitude) && !empty($propertyLongitude)){ ?>
- 
-		var lat=<?=$propertyLatitude?>; var lng=<?=$propertyLongitude?>;
-    function initialize() {
-var map_canvas = document.getElementById('map_canvas');
-var map_options = {
-center: new google.maps.LatLng(lat,lng),
-zoom:8,
-mapTypeId: google.maps.MapTypeId.ROADMAP
-}
-var map = new google.maps.Map(map_canvas, map_options)
-}
-google.maps.event.addDomListener(window, 'load', initialize);
+		  $(function(){
+			 $("#geocomplete").geocomplete({
+			  map: ".map_canvas",
+			  details: "form",
+			  blur: true,
+			  geocodeAfterResult: true
+			});
 
-	<?php //}*/ ?>
-</script>
-	
+			$("#find").click(function(){
+				
+			  $("#geocomplete").trigger("geocode");
+			});
+		  });
+    </script>
    <script>
             function onAddTag(tag) {
                 alert("Added a tag: " + tag);
@@ -1352,18 +1026,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
                 });
             });
         </script> 
-<script type="text/javascript">
-        $(document).ready(function () {
-            
-            $('#single_cal2').daterangepicker({
-                singleDatePicker: true,
-                calender_style: "picker_2"
-            }, function (start, end, label) {
-                console.log(start.toISOString(), end.toISOString(), label);
-            });
-             
-        });
-    </script> 
+
 <!-- /editor --> 
 
 <script type="text/javascript">
@@ -1385,4 +1048,362 @@ google.maps.event.addDomListener(window, 'load', initialize);
 		}
 		
 </script>
+<script>
+            $(document).ready(function () {
+                $(".select2_single").select2({
+                    placeholder: "Select a Project",
+                    allowClear: true
+                });
+                $(".select2_group").select2({});
+                $(".select2_multiple").select2({
+                    maximumSelectionLength: 4,
+                    placeholder: "With Max Selection limit 4",
+                    allowClear: true
+                });
+            });
+			
+			
+			
+        </script> 
+		
+		
 
+	
+<script type="text/javascript">
+  $(document).ready(function(){
+        // Smart Wizard        
+        $('#property_wizard').smartWizard({onLeaveStep:leaveAStepCallback});
+  
+      function leaveAStepCallback(obj){
+		  
+				var nextStepIdx= obj.attr('rel'); 
+				var returntype=true;
+				
+				 
+				
+				var propertyPurpose = document.getElementsByName("propertyPurpose");
+				
+						var propertyPurposec = -1;
+
+						for(var iiii=0; iiii < propertyPurpose.length; iiii++){
+						   if(propertyPurpose[iiii].checked) {
+							  propertyPurposec = iiii; 
+							  
+						   }
+						}
+						 
+						if (propertyPurposec == -1){
+							alert("Please Select Property Purpose");
+							$(propertyPurposec).focus();
+							return false;
+						}
+				
+				
+				
+				
+				var r = document.getElementsByName("individual");
+				
+				var c = -1;
+
+						for(var i=0; i < r.length; i++){
+						   if(r[i].checked) {
+							  c = i; 
+							  var typechekdval=$(".typechecking").val();
+					
+							if(typechekdval=='Property'){
+								
+								if($(".project-uni").val()==''){
+									alert("Please Select Project");
+									$(".project-uni").focus();
+									returntype =false;
+									return false;
+								}
+							}
+						   }
+						}
+						 
+						if (c == -1){
+							alert("Please Select Property Is");
+							return false;
+						}
+						
+						
+						var usertype = document.getElementsByName("usertype");
+				
+						var usertypec = -1;
+
+						for(var ii=0; ii < usertype.length; ii++){
+						   if(usertype[ii].checked) {
+							  usertypec = ii; 
+							  
+						   }
+						}
+						 
+						if (usertypec == -1){
+							alert("Please Select User Type");
+							$(usertype).focus();
+							return false;
+						}
+				if($(".propertytype").val() == ''){
+					
+					alert("Please Select Property Type");
+					$(".propertytype").focus();
+					returntype =false;
+					return false;
+					
+				}
+				
+				if($("#showuserlabel").val() == ''){
+					
+					alert("Please Select User");
+					$("#showuserlabel").focus();
+					returntype =false;
+					return false;
+					
+				}
+				
+				if($("#userplan").val() == ''){
+					
+					alert("Please Select User Plan");
+					$("#userplan").focus();
+					returntype =false;
+					return false;
+					
+				}
+				
+				if($("#descr").val() == ''){
+					
+					alert("Please Write Desciption");
+					$("#descr").focus();
+					returntype =false;
+					return false;
+					
+				}
+				
+				if($("#bedroom")){
+				if($("#bedroom").val() == ''){
+					
+					alert("Please Select Bedroom");
+					$("#bedroom").focus();
+					returntype =false;
+					return false;
+					
+				}
+				}
+				
+				
+				
+				if($("select[name=select-3]")){
+					
+				if($("select[name=select-3]").val() == ''){
+					
+					alert("Please Select Bathroom");
+					$("select[name=select-3]").focus();
+					returntype =false;
+					return false;
+					
+				}
+				}
+				
+				if($("select[name=select-7]")){
+					
+				if($("select[name=select-7]").val() == ''){
+					
+					alert("Please Select Furnishing Status");
+					$("select[name=select-7]").focus();
+					returntype =false;
+					return false;
+					
+				}
+				}
+				
+				
+				if($("#coveredarea")){
+				if($("#coveredarea").val() == ''){
+					
+					alert("Please Give BuildUp/Plot Area");
+					$("#coveredarea").focus();
+					returntype =false;
+					return false;
+					
+				}
+				}
+				
+				if($("input[name=text-154]")){
+					
+				if($("input[name=text-154]").val() == ''){
+					
+					alert("Please Give Carpet Area");
+					$("input[name=text-154]").focus();
+					returntype =false;
+					return false;
+					
+				}
+				}
+				
+				
+				if($("#expectedprice")){
+				if($("#expectedprice").val() == ''){
+					
+					alert("Please Give Price");
+					$("#expectedprice").focus();
+					returntype =false;
+					return false;
+					
+				}
+				}
+				
+				if($("select[name=select-8]") !=''){
+					
+				if($("select[name=select-8]").val() == ''){
+					
+					alert("Please Select Sale Status");
+					$("select[name=select-8]").focus();
+					returntype =false;
+					return false;
+					
+				}
+				}
+				
+				
+				
+				var currentstatus = document.getElementsByName("currentstatus");
+				
+						var currentstatusc = -1;
+				if(currentstatus !=null){
+						for(var iii=0; iii < currentstatus.length; iii++){
+						   if(currentstatus[iii].checked) {
+							  currentstatusc = iii; 
+							  
+						   }
+						}
+						 
+						if (currentstatusc == -1){
+							alert("Please Select Current Status");
+							$(currentstatus).focus();
+							return false;
+						}
+						
+			}	
+				
+				if($('input[name=currentstatus]:checked').val() !='Under Construction'){
+				
+				if($("select[name=select-164]")){
+					
+				if($("select[name=select-164]").val() == ''){
+					
+					alert("Please Select Age Of Construction");
+					$("select[name=select-164]").focus();
+					returntype =false;
+					return false;
+					
+				}
+				}
+				
+	  }
+				
+				if($("select[name=year]").is(':visible')){
+					
+				if($("select[name=year]").val() == ''){
+					
+					alert("Please Select Year");
+					$("select[name=year]").focus();
+					returntype =false;
+					return false;
+					
+				}
+				}
+				
+				if($("select[name=month]").is(':visible')){
+					
+				if($("select[name=month]").val() == ''){
+					
+					alert("Please Select Month");
+					$("select[name=month]").focus();
+					returntype =false;
+					return false;
+					
+				}
+				}
+				
+				
+				if($('input[name=propertyPurpose]:checked').val()=='Rent'){
+				if($("select[name=select-165]")){
+					
+				if($("select[name=select-165]").val() == ''){
+					
+					alert("Please Select Food Preferences");
+					$("select[name=select-165]").focus();
+					returntype =false;
+					return false;
+					
+				}
+				}
+				
+				if($("select[name=select-166]")){
+					
+				if($("select[name=select-166]").val() == ''){
+					
+					alert("Please Select Pets Allow");
+					$("select[name=select-166]").focus();
+					returntype =false;
+					return false;
+					
+				}
+				}
+				
+				if($("select[name=select-167]")){
+					
+				if($("select[name=select-167]").val() == ''){
+					
+					alert("Please Select Lease Type");
+					$("select[name=select-167]").focus();
+					returntype =false;
+					return false;
+					
+				}
+				}
+				
+	  }
+				
+				$(".showvalidation").each(function() {
+				if($(this).is(':visible')){	
+				if($(this).val() =='') {
+						 
+					$(this).focus() ;
+					$(this).prop('class',' form-control parsley-error showvalidation') ;
+					returntype =false;
+					return false;
+					   
+				}else{
+					$(this).prop('class',' form-control showvalidation') ;	
+					returntype=true;
+				}
+				}	
+				});
+	 
+				  
+				  if(returntype==true){
+					  InsertProperty(nextStepIdx); 
+					 if(nextStepIdx==2){
+				shownoofbedrooms(nextStepIdx);
+					}
+					if(nextStepIdx==3){
+						showpreview(nextStepIdx);
+					}
+					 return returntype;
+				  }
+			  
+       
+      }
+       
+      /* function onFinishCallback(){
+       if(validateAllSteps()){
+        $('form').submit();
+       }
+      } */
+       
+               
+      
+  });
+</script>

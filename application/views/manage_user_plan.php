@@ -41,7 +41,7 @@
                 </div>
                 
                 <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
-				<center><img src="<?=base_url();?>/images/ajax-loader2.gif" id="loading-indicator" style="display:none" /></center>
+				
                 <div class="modal-dialog modal-lg">
                   <div class="modal-content">
                     <div class="modal-header">
@@ -67,25 +67,45 @@
             <div class="x_panel">
              
               <div class="x_content">
+			  <?php //echo '<pre>'; var_dump($plandetails); echo '</pre>'; ?>
                 <form action="<?=base_url();?>Manage_user_plan/index/search" method="post"  class="form-group form-label-left clearfix">
                 <div class="row">
-                  <div class="form-group col-xs-12 col-sm-3">
-                    <label class="control-label" for="first-name">Plan Title <span class="required">*</span> </label>
-                    <input  type="text" id="first-name" required="required" name="plantitle" class="form-control">
+				<div class="col-xs-12 col-md-8">
+                <div class="row">
+                  <div class="form-group col-xs-12 col-sm-4">
+                    <label class="control-label" for="first-name">Plan Title </label>
+                    <select id="first-name" name="plantitle" class="form-control">
+						<option value="">Select</option>
+						<?php foreach($plandetails as $plandetails){?>
+						<option value="<?=isset($plandetails->planTypeTitle)?$plandetails->planTypeTitle:''?>" <?php  if(!empty($plantitle)){   if($plantitle==$plandetails->planTypeTitle
+						){ echo"selected";} } ?>><?=isset($plandetails->planTypeTitle)?$plandetails->planTypeTitle:''?></option>
+						<?php } ?>
+					</select>
                   </div>
-                  <div class="form-group col-xs-12 col-sm-3">
-                    <label class="control-label" for="last-name">User Type <span class="required">*</span> </label>
-                    <input  type="text" id="last-name"  required="required" name="username" class="form-control">
+				  
+                  <div class="form-group col-xs-12 col-sm-4">
+                    <label class="control-label" for="last-name">User Type </label>
+                    <select id="last-name" name="username" class="form-control">
+						<option value=''>Select</option>
+						<option value='Agent' <?php if(!empty($usertype)){ if($usertype=='Agent'){ echo"selected";} } ?>>Agent</option>
+						<option value='Builder' <?php if(!empty($usertype)){ if($usertype=='Builder'){ echo"selected";} } ?>>Builder</option>
+						<option value='Individual' <?php if(!empty($usertype)){ if($usertype=='Individual'){ echo"selected";} } ?>>Individual</option>
+					</select>
                   </div>
-                  <div class="form-group col-xs-12 col-sm-3">
+                  <div class="form-group col-xs-12 col-sm-4">
                     <label for="middle-name" class="control-label">Listing Type</label>
-                    <input id="middle-name" class="form-control" type="text" name="listingtype">
+					<select id="middle-name" class="form-control" name="listingtype">
+						<option value=''>Select</option>
+						<option value='project' <?php if(!empty($listingType)){ if($listingType=='project'){ echo"selected";} } ?>>Project</option>
+						<option value='property' <?php if(!empty($listingType)){ if($listingType=='property'){ echo"selected";} } ?>>Property</option>
+					</select>
                   </div>
-                  
-                  <div class="form-group col-xs-12 col-sm-3 martop20">
+                  </div>
+                  </div>
+                  <div class="form-group col-xs-12 col-sm-4 martop20">
                   <button type="button" onclick="location.href = '<?=base_url();?>Manage_user_plan';" class="btn btn-primary">Reset</button>
                   <button type="submit" class="btn btn-success">Search</button>
-                   
+                  <button type="submit" name='submit' class="btn btn-success" value="Export to CSV">Export to CSV</button>
                   </div>
 
                   </div>
@@ -123,8 +143,8 @@
                 <table id="example" class="table table-striped responsive-utilities jambo_table">
                   <thead>
                     <tr class="headings">
-                      <th> <input type="checkbox" class="tableflat">
-                      </th>
+                      <!-- <th> <input type="checkbox" class="tableflat">
+                      </th> -->
                       <th>Plan Title </th>
                       <th>User Type </th>
                       <th>Plan Order </th>
@@ -136,12 +156,12 @@
                   <tbody>
 				  <?php foreach($userplans as $userplans){?>
                     <tr class="even pointer">
-                      <td class="a-center "><input type="checkbox" class="tableflat"></td>
+                     <!--  <td class="a-center "><input type="checkbox" class="tableflat"></td> -->
               
                       <td class=" "><?=isset($userplans->planTitle)?$userplans->planTitle:''?> </td>
-                      <td class=" "><?=isset($userplans->userTypeName)?$userplans->userTypeName:''?> <i class="success fa fa-long-arrow-up"></i></td>
+                      <td class=" "><?=isset($userplans->userTypeName)?$userplans->userTypeName:''?> </td>
                       <td class=" "><input type="text" placeholder="<?=isset($userplans->planPrice)?$userplans->planPrice:''?>" disabled="disabled" class="form-control edt-form"></td>
-                      <td class=" ">project</td>
+                      <td class=" "><?=isset($userplans->listingType)?$userplans->listingType:''?></td>
                       <td class="a-right a-right "><?=isset($userplans->planDate)?$userplans->planDate:''?></td>
                       <td class=" last"><ul class="list-inline text-right">
                       <li><a title="Right" href="javascript:;"><i class="fa fa-check"></i></a></li>
@@ -238,14 +258,14 @@
               .find(".modal-content").html('');
     });
 	
-	/*$(document).ajaxSend(function(event, request, settings) {
-    $('#loading-indicator').show();
+	$(document).ajaxSend(function(event, request, settings) {
+    $("#loader").fadeIn();
 });
 
 $(document).ajaxComplete(function(event, request, settings) {
-    $('#loading-indicator').hide();
+    $("#loader").fadeOut();
 });
-*/
+
 //validation start..........................................................................
 
 function checkvalidation(){

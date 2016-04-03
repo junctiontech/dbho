@@ -45,39 +45,39 @@
               <div class="x_content">
                 <form action="<?=base_url();?>Campaign/Campaign_listing/search" method="post" class="form-group form-label-left clearfix">
                   <div class="row">
-                    <div class="form-group col-xs-12 col-sm-2">
+                    <div class="form-group col-xs-12 col-sm-3">
                       <label for="middle-name" class="control-label">Comapny name</label>
-                      <input name="companyname" type="text" placeholder="Company" class="form-control">
+                      <input name="companyname" type="text" placeholder="Company" value="<?=isset($companyname)?$companyname:''?>" class="form-control">
                     </div>
                     
-                    <div class="form-group col-xs-12 col-sm-2">
+                    <div class="form-group col-xs-12 col-sm-3">
                      <label for="middle-name" class="control-label">Email</label>
-                      <input name="email" type="text" placeholder="Enter Your Email" class="form-control">
+                      <input name="email" type="text" value="<?=isset($emailid)?$emailid:''?>" placeholder="Enter Your Email" class="form-control">
                     </div>
-                    <div class="form-group col-xs-12 col-sm-2">
+                    <div class="form-group col-xs-12 col-sm-3">
                       <label for="middle-name" class="control-label">Mobile No</label>
-                      <input name="mobileno" type="text" placeholder="Enter Your No" class="form-control">
+                      <input name="mobileno" value="<?=isset($mobileno)?$mobileno:''?>" type="text" placeholder="Enter Your No" class="form-control">
                     </div>
                     
-                    <div class="form-group col-xs-12 col-sm-2">
+                    <div class="form-group col-xs-12 col-sm-3">
                       <label for="middle-name" class="control-label">Campaign Name</label>
-                      <input name="campaignname" type="text" placeholder="Enter Your Campaign" class="form-control">
+                      <input name="campaignname" value="<?=isset($campaignname)?$campaignname:''?>" type="text" placeholder="Enter Your Campaign" class="form-control">
                     </div>
                     
-                    <div class="form-group col-xs-12 col-sm-2">
+                    <div class="form-group col-xs-12 col-sm-3">
                       <label class="control-label" for="last-name">User Type <span class="required">*</span> </label>
                       <select name="usertype" class="select2_group form-control">
                         <option value="">select user type</option>
                         <?php foreach($user_type as $user_type){?>
-                        <option value="<?=$user_type->userTypeID?>" <?php if(!empty($updateplan[0]->userTypeID)){ if($updateplan[0]->userTypeID==$user_type->userTypeID){ echo"selected";} } ?>><?=$user_type->userTypeName?></option>
+                        <option value="<?=$user_type->userTypeID?>" <?php if(!empty($usertype)){ if($usertype==$user_type->userTypeID){ echo"selected";} } ?>><?=$user_type->userTypeName?></option>
 						<?php } ?>
                       </select>
                     </div>
                     
-                    <div class="form-group col-xs-12 col-sm-2 martop20">                      
+                    <div class="form-group col-xs-12 col-sm-4 martop20">                      
                     <button type="button" onclick="location.href = '<?=base_url();?>Campaign/Campaign_listing';" class="btn btn-primary">Reset</button>
                     <button type="submit" class="btn btn-success">Search</button>
-          
+					 <button type="submit" name='submit' class="btn btn-success" value="Export to CSV">Export to CSV</button>
                     </div>
                   </div>
                  <!-- <div class="ln_solid"></div>-->
@@ -122,8 +122,9 @@
                       <th>Company Name</th>
                       <th>Email ID </th>
                       <th>Mobile No</th>
-                      
+                      <th>Start Date</th>
                       <th>UPED</th>
+					  
                       <th>Amount Rs </th>
                       <th></th>
                     
@@ -136,12 +137,18 @@
                       <td><?=isset($campaignlists->userCompanyName)?$campaignlists->userCompanyName:''?></td>
                       <td><?=isset($campaignlists->userEmail)?$campaignlists->userEmail:''?></td>
                       <td><?=isset($campaignlists->userPhone)?$campaignlists->userPhone:''?></td>
+					  <td><?=isset($campaignlists->startDate)?$campaignlists->startDate:''?></td>
                        <td><?=isset($campaignlists->expiry_date_campaign)?$campaignlists->expiry_date_campaign:''?></td>
-					   <?php $sumofamountofplan=$this->utilities->sumofamount('dbho_campaignplan',isset($campaignlists->campaignID)?$campaignlists->campaignID:'');
-					  $sumofamountofinventory=$this->utilities->sumofamount('dbho_campaigninventory',isset($campaignlists->campaignID)?$campaignlists->campaignID:''); 
+					   
+					   <?php $sumofamountofplan=$this->utilities->sumofamount('rp_dbho_campaignplan',isset($campaignlists->campaignID)?$campaignlists->campaignID:'');
+					  $sumofamountofinventory=$this->utilities->sumofamount('rp_dbho_campaigninventory',isset($campaignlists->campaignID)?$campaignlists->campaignID:''); 
 					  ?>
                        <td><?=(isset($sumofamountofplan[0]->amount)?$sumofamountofplan[0]->amount:0)+(isset($sumofamountofinventory[0]->amount)?$sumofamountofinventory[0]->amount:0)?></td>
-                       <td><button class="btn btn-success" type="button" data-toggle="modal" href="<?=base_url();?>campaign/campaign_modal/<?=isset($campaignlists->campaignID)?$campaignlists->campaignID:''?>" data-target=".bs-example-modal-lg">View</button></td>
+                       <td><button class="btn btn-success" type="button" data-toggle="modal" href="<?=base_url();?>campaign/campaign_modal/<?=isset($campaignlists->campaignID)?$campaignlists->campaignID:''?>" data-target=".bs-example-modal-lg">View</button>
+					   <?php if(!empty($campaignlists->expiry_date_campaign)){ $exdate=strtotime($campaignlists->expiry_date_campaign); $curdate=strtotime(date("Y-m-d")); if($exdate<$curdate){ ?>
+						<button onclick="confirm('Are You Sure To Extend Expiry Date Of This Campaign ?');" class="btn btn-success" type="button" data-toggle="modal" href="<?=base_url();?>campaign/Extendcampaignexpirydate/<?=isset($campaignlists->campaignID)?$campaignlists->campaignID:''?>" data-target=".bs-example-modal-lg">Extend ED</button>
+					   <?php }}?>
+					   </td>
                        
                      
                     </tr>
@@ -151,16 +158,20 @@
               </div>
               
               
-              <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+              <div class="modal fade bs-example-modal-lg" id="fade" tabindex="-1" role="dialog" aria-hidden="true">
 			 
-			  <center><img src="<?=base_url();?>/images/ajax-loader2.gif" id="loading-indicator" style="display:none" /></center>
-                <div class="modal-dialog modal-lg">
+			  
+                <div class="modal-dialog modal-lg" id="modal">
 				
-                  <div class="modal-content moda-scrol">
+                  <div class="modal-content " id="result">
 				   
                   </div>
                 </div>
               </div>
+			  
+			  
+			  
+			  
               
              <!-- <div class="valusho pull-left"> <h5>Campaign Amount :  Rs 335090 </h5></div>
               <div class="valusho pull-right"> <button class="btn btn-info btn-lg" type="button">Create</button></div>-->
@@ -251,11 +262,45 @@ $(document).on('hidden.bs.modal', function (e) {
 
 
 
-$(document).ajaxSend(function(event, request, settings) {
-    $('#loading-indicator').show();
+ $(document).ajaxSend(function(event, request, settings) {
+   
+   $("#loader").fadeIn();
 });
 
 $(document).ajaxComplete(function(event, request, settings) {
-    $('#loading-indicator').hide();
+   $("#loader").fadeOut();
 });
+
+
+
+
+/* function openModal() {
+        $('#loading-indicator').show();
+}
+
+function closeModal() {
+     $('#loading-indicator').show();
+}
+        
+function loadAjax() {
+    document.getElementById('results').innerHTML = '';
+    openModal();
+    var xhr = false;
+    if (window.XMLHttpRequest) {
+        xhr = new XMLHttpRequest();
+    }
+    else {
+        xhr = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    if (xhr) {
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                closeModal();
+                document.getElementById("results").innerHTML = xhr.responseText;
+            }
+        }
+        xhr.open("GET", "", true);
+        xhr.send(null);
+    }
+} */
 </script>

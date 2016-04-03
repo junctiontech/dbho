@@ -1,7 +1,4 @@
-<?php
-/* Model for login and sign up   */
-
-class Login_model extends CI_Model 
+<?php class Login_model extends CI_Model 
 {
 	
     function __construct()

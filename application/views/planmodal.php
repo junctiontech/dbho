@@ -28,8 +28,10 @@
                       <select  onchange="fill();" id="plantype" class=" form-control" name="planusertype" >
                         
 						<option value="">Select User Type</option>
-						<?php foreach($user_type as $user_type){?>
-                        <option value="<?=$user_type->userTypeID?>" <?php if(!empty($updateplan[0]->userTypeID)){ if($updateplan[0]->userTypeID==$user_type->userTypeID){ echo"selected";} } ?>><?=$user_type->userTypeName?></option>
+						<?php foreach($user_type as $user_type) {?>
+							<?php if(!in_array($user_type->userTypeName, array('Builder Employee', 'Agent'))) : ?>
+							<option value="<?=$user_type->userTypeID?>" <?php if(!empty($updateplan[0]->userTypeID)){ if($updateplan[0]->userTypeID==$user_type->userTypeID){ echo"selected";} } ?>><?=$user_type->userTypeName?></option>
+							<?php endif; ?>
 						<?php } ?>
                         
                       </select>
@@ -48,12 +50,14 @@
                     <label class="control-label col-md-3 col-sm-3 col-xs-12">Listing Type</label>
                     <div class="col-md-9 col-sm-9 col-xs-12">
                       <div id="gender" class="btn-group" data-toggle="buttons">
-                        <label class="btn btn-default active" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                          <input type="radio" checked name="listingtype" value="project" <?php if(!empty($updateplan[0]->plantype)){ if($updateplan[0]->plantype=="project"){ echo"checked";} } ?>>
+                        <label class="btn btn-default <?php if(!empty($updateplan[0]->listingType)){ if($updateplan[0]->listingType=="Project"){ echo"active";} } if(empty($updateplan)){ echo"active";} ?>" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                          <input type="radio" checked class="listing" name="listingtype" value="Project" <?php if(!empty($updateplan[0]->listingType)){ if($updateplan[0]->listingType=="Project"){ echo"checked";} }  if(empty($updateplan)){ echo"checked";} ?>>
                           &nbsp; Project &nbsp; </label>
-                        <label class="btn btn btn-default " data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                          <input  type="radio" name="listingtype" value="property" <?php if(!empty($updateplan[0]->plantype)){ if($updateplan[0]->plantype=="property"){ echo"checked";} } ?> >
-                          Property </label>
+						  
+                        <label class="btn btn btn-default <?php if(!empty($updateplan[0]->listingType)){ if($updateplan[0]->listingType=="Property"){ echo"active";} } ?>" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                          <input  type="radio" class="listing" name="listingtype" value="Property" <?php if(!empty($updateplan[0]->listingType)){ if($updateplan[0]->listingType=="Property"){ echo"checked";} } ?> >Property 
+						</label>
+						
                     </div>
                      </div>
                   </div>
@@ -85,7 +89,12 @@ $("#plantype").change(function(){
 
     var plantype = $("#plantype option:selected").text();
 	var plantittle = $("#plantittle option:selected").text();
-	var newtittle = plantittle +' For '+ plantype;
+	var selectedVal = "";
+	var selected = $("input[type='radio'][name='listingtype']:checked");
+	if (selected.length > 0) {
+		selectedVal = selected.val();
+	}
+	var newtittle = plantittle +' For '+ plantype +' '+ selectedVal;
 	document.getElementById('shownewtittle').value=newtittle;
 });
 
@@ -93,7 +102,25 @@ $("#plantittle").change(function(){
 
     var plantype = $("#plantype option:selected").text();
 	var plantittle = $("#plantittle option:selected").text();
-	var newtittle = plantittle +' For '+ plantype;
+	var selectedVal = "";
+	var selected = $("input[type='radio'][name='listingtype']:checked");
+	if (selected.length > 0) {
+		selectedVal = selected.val();
+	}
+	var newtittle = plantittle +' For '+ plantype +' '+ selectedVal;
+	document.getElementById('shownewtittle').value=newtittle;
+});
+
+$(".listing").change(function(){    
+
+    var plantype = $("#plantype option:selected").text();
+	var plantittle = $("#plantittle option:selected").text();
+	var selectedVal = "";
+	var selected = $("input[type='radio'][name='listingtype']:checked");
+	if (selected.length > 0) {
+		selectedVal = selected.val();
+	}
+	var newtittle = plantittle +' For '+ plantype +' '+ selectedVal;
 	document.getElementById('shownewtittle').value=newtittle;
 });
 </script>

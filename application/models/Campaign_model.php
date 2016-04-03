@@ -15,7 +15,7 @@ class Campaign_model extends CI_Model
 		$this->load->database();
 	}
 	
-	function insert_campaign_only($campaignstartdate=false,$user_id=false,$currentexpiry=false,$filter=false)
+	function insert_campaign_only($campaignstartdate=false,$user_id=false,$currentexpiry=false,$soldby=false,$filter=false)
    {	
 		$db2 = $this->load->database('both', TRUE);
 		 if($filter){
@@ -24,8 +24,8 @@ class Campaign_model extends CI_Model
 				$db2->update($table,$data);
 				
 		}else{
-				$data=array('userID'=>$user_id,'startDate'=>$campaignstartdate,'expiry_date_campaign'=>$currentexpiry);
-				$db2->insert('dbho_campaignmaster',$data);
+				$data=array('userID'=>$user_id,'startDate'=>$campaignstartdate,'expiry_date_campaign'=>$currentexpiry,'soldBy'=>$soldby);
+				$db2->insert('rp_dbho_campaignmaster',$data);
 				$last_id = $db2->insert_id();
 				return($last_id);
 			}
@@ -47,10 +47,11 @@ class Campaign_model extends CI_Model
 							 'amount'=>$inventoryamount,
 							 'cityID'=>$cityid,
 							 'duration'=>$inventoryduration);
-				$db2->insert('dbho_campaigninventory',$data1);
+				$db2->insert('rp_dbho_campaigninventory',$data1);
 				
 			}
 	}
+	
 	
 	
 	function insert_campaign_plan($last_id=false,$planid=false,$planquantity=false,$planduration=false,$planamount=false,$plancarryforwrd=false,$currentexpiryplan=false,$lastexpiryplan=false,$filter=false)
@@ -69,8 +70,8 @@ class Campaign_model extends CI_Model
 							 'Duration'=>$planduration,
 							 'Amount'=>$planamount,
 							 'CarryForward'=>$plancarryforwrd,
-							 'currentExpiry'=>$currentexpiryplan,'LastExpiry'=>$lastexpiryplan);
-				$db2->insert('dbho_campaignplan',$data2);
+							 'currentExpiry'=>$currentexpiryplan,'LastExpiry'=>$lastexpiryplan,'status'=>'Active');
+				$db2->insert('rp_dbho_campaignplan',$data2);
 				
 			}
 	}
@@ -86,8 +87,8 @@ class Campaign_model extends CI_Model
 	
 	function get_company_name()
 	{
-			$qry = $this->db->query("select rp_users.userID,userCompanyName from rp_users,rp_user_details where
-									rp_users.userID=rp_user_details.userID and rp_user_details.languageID='1'");	
+			$qry = $this->db->query("select rp_users.userID,userCompanyName,userEmail from rp_users,rp_user_details where
+									rp_users.userID=rp_user_details.userID and rp_users.userTypeID !='2' and rp_users.userTypeID !='5' and rp_user_details.languageID='1' ORDER BY userCompanyName asc");	
 			return $qry->Result();	
 	}
 	
@@ -100,8 +101,8 @@ class Campaign_model extends CI_Model
 	
 	function get_inventory()
 	{		$db2 = $this->load->database('both', TRUE);
-			$qry = $db2->query("select dbho_inventorytype.inventorytypeID,inventoryDescription from dbho_inventorytype where
-									dbho_inventorytype.LanguageID='1'");	
+			$qry = $db2->query("select rp_dbho_inventorytype.inventorytypeID,inventoryDescription,inventoryname from rp_dbho_inventorytype where
+									rp_dbho_inventorytype.LanguageID='1'");	
 			return $qry->Result();	
 	}
 	
@@ -113,50 +114,160 @@ class Campaign_model extends CI_Model
 	}
 	
 	function check($table=false,$filter=false)
-   {		$db2 = $this->load->database('both', TRUE);
-			$query = $db2->get_where($table, $filter);
+   {		$query = $this->db->get_where($table,$filter);
 			return $query->Result();
    }
    
    function inventory_availablity($inventoryid=false,$date=false)
 	{		$db2 = $this->load->database('both', TRUE);
-			$qry = $db2->query("select * from dbho_planinventoryconsumptiondates where
+			$qry = $db2->query("select * from rp_dbho_planinventoryconsumptiondates where
 									inventoryID=$inventoryid and date in ($date)");
 		return $qry->Result();	
 	}
 	
 	function get_campaignlist($query=false)
-	{		$db2 = $this->load->database('both', TRUE);
-			$qry = $db2->query("select dbho_campaignmaster.campaignID,userCompanyName,userEmail,userPhone,startDate,expiry_date_campaign,dbho_campaignmaster.created from dbho_campaignmaster,homeonline.rp_users,homeonline.rp_user_details,dbho_campaigninventory,dbho_campaignplan where
-									dbho_campaignmaster.userID=rp_users.userID and 
+	{		
+	
+		if($this->input->post('submit') == 'Export to CSV') {
+			
+			$qry = $this->db->query("select userCompanyName as Company,userEmail as Email,userPhone as Mobile,startDate,expiry_date_campaign as ExpiryDate,rp_dbho_campaignmaster.created as CreatedDate from rp_dbho_campaignmaster,rp_users,rp_user_details where
+									rp_dbho_campaignmaster.userID=rp_users.userID and 
 									rp_users.userID=rp_user_details.userID and
 									
 									rp_user_details.languageID='1' $query
-									GROUP BY campaignID ");
-		//echo $db2->last_query();die;									
+									ORDER BY rp_dbho_campaignmaster.campaignID DESC ");
+									
+										return $this->dbutil->csv_from_result($qry); 
+									}
+		
+		$qry = $this->db->query("select rp_dbho_campaignmaster.campaignID,userCompanyName,userEmail,userPhone,startDate,expiry_date_campaign,rp_dbho_campaignmaster.created from rp_dbho_campaignmaster,rp_users,rp_user_details where
+									rp_dbho_campaignmaster.userID=rp_users.userID and 
+									rp_users.userID=rp_user_details.userID and
+									
+									rp_user_details.languageID='1' $query
+									ORDER BY rp_dbho_campaignmaster.campaignID DESC ");
+									
+									
+										
 			return $qry->Result();	
+	}
+	
+	function get_campaignname($campaignid=false)
+	{		
+			$qry = $this->db->query("select rp_dbho_campaignmaster.campaignID,expiry_date_campaign,userCompanyName,rp_dbho_campaignmaster.created,soldBy from rp_dbho_campaignmaster,rp_users,rp_user_details where
+									rp_dbho_campaignmaster.userID=rp_users.userID and 
+									rp_users.userID=rp_user_details.userID and
+									rp_dbho_campaignmaster.campaignID=$campaignid and
+									rp_user_details.languageID='1' 
+									GROUP BY campaignID ORDER BY rp_dbho_campaignmaster.campaignID DESC ");
+				return $qry->Result();	
 	}
 	
 	function get_inventorylist($id=FALSE)
 	{		$db2 = $this->load->database('both', TRUE);
-		$qry = $db2->query("select dbho_campaignmaster.userID,dbho_campaigninventory.campaignID,dbho_campaigninventory.inventoryID,inventoryDescription,cityName,quantity,amount,duration from dbho_campaignmaster,dbho_campaigninventory,dbho_inventorymaster,dbho_inventorytype,homeonline.rp_city_details where
-									dbho_campaigninventory.campaignID=$id and
-									dbho_campaignmaster.campaignID=$id and
-									dbho_campaigninventory.inventoryID=dbho_inventorymaster.inventoryID and
-									dbho_inventorymaster.inventorytypeID=dbho_inventorytype.inventorytypeID and
-									dbho_campaigninventory.cityID=rp_city_details.cityID and rp_city_details.languageID='1'");
+		$qry = $db2->query("select rp_dbho_campaignmaster.userID,rp_dbho_campaigninventory.campaignID,rp_dbho_campaigninventory.inventoryID,inventoryDescription,inventoryname,cityName,quantity,amount,duration,UnitsConsumed from rp_dbho_campaignmaster,rp_dbho_campaigninventory,rp_dbho_inventorymaster,rp_dbho_inventorytype,rp_city_details where
+									rp_dbho_campaigninventory.campaignID=$id and
+									rp_dbho_campaignmaster.campaignID=$id and
+									rp_dbho_campaigninventory.inventoryID=rp_dbho_inventorymaster.inventoryID and
+									rp_dbho_inventorymaster.inventorytypeID=rp_dbho_inventorytype.inventorytypeID and
+									rp_dbho_campaigninventory.cityID=rp_city_details.cityID and rp_city_details.languageID='1'");
 	return $qry->Result();
 	}
 	
 	function get_planlist($id=FALSE)
 	{		$db2 = $this->load->database('both', TRUE);
-	$qry = $db2->query("select dbho_campaignplan.planID,planTitle,Quantity,Duration,CarryForward,LastExpiry,currentExpiry,Amount from dbho_campaignplan,homeonline.rp_user_plan_details where
-									dbho_campaignplan.campaignID=$id and
-									dbho_campaignplan.planID=rp_user_plan_details.planID and
+	$qry = $db2->query("select rp_dbho_campaignplan.planID,planTitle,Quantity,Duration,CarryForward,LastExpiry,currentExpiry,Amount,plan_unitconsumed from rp_dbho_campaignplan,rp_user_plan_details where
+									rp_dbho_campaignplan.campaignID=$id and
+									rp_dbho_campaignplan.planID=rp_user_plan_details.planID and
 									rp_user_plan_details.languageID='1'");
 	return $qry->Result();
 	}
 	
+	
+	function get_campaignplanold($planid=false,$userid=FALSE)
+	{		
+			$qry = $this->db->query("select Quantity,currentExpiry from rp_dbho_campaignmaster,rp_dbho_campaignplan where
+									rp_dbho_campaignmaster.userID='$userid' and 
+									rp_dbho_campaignplan.planID='$planid' and 
+									rp_dbho_campaignplan.status !='completed' and
+									rp_dbho_campaignmaster.campaignID=rp_dbho_campaignplan.campaignID");
+			return $qry->Result();
+	
+	}
+	
+	function update_campaignplanold($table=false,$data=FALSE,$filter=false)
+	{		
+			$planID=$filter['planID'];
+			$userID=$filter['userID'];
+			$status=$data['status'];
+			$plan_unitconsumed=$data['plan_unitconsumed'];
+									
+			$this->db->query("update rp_dbho_campaignplan,rp_dbho_campaignmaster 
+			set `status`='$status' ,`plan_unitconsumed`='$plan_unitconsumed'
+			where rp_dbho_campaignmaster.userID='$userID' and 
+				  rp_dbho_campaignplan.planID='$planID' and 
+				  rp_dbho_campaignplan.status !='completed' and
+				  rp_dbho_campaignmaster.campaignID=rp_dbho_campaignplan.campaignID");	
+			
+			
+	}
+	
+	function Insert_rp_user_to_plan($table=false,$data=false){
+		$this->db->insert($table,$data);
+	}
+	
+	function Update_rp_user_to_plan($table=false,$data=false,$filter=false)
+   {	
+		
+		 if($filter){
+			 
+				$this->db->where($filter);
+				$this->db->update($table,$data);
+				return true;
+		}
+	}
+	
+	function Emptyalltables()
+	{		
+			$this->db->truncate('rp_dbho_campaigninventory');
+			$this->db->truncate('rp_dbho_campaignlog');
+			
+			$this->db->truncate('rp_dbho_campaignmaster');
+			$this->db->truncate('rp_dbho_campaignplan');
+			//$this->db->truncate('rp_dbho_inventorymaster');
+			//$this->db->truncate('rp_dbho_inventory_log');
+			//$this->db->truncate('rp_dbho_planinventoryconsumption');
+			//$this->db->truncate('rp_dbho_planinventoryconsumptiondates');
+			$this->db->truncate('rp_dbho_plan_mapping');
+			$this->db->truncate('rp_dbho_plan_consumption_log');
+			$this->db->truncate('rp_dbho_property_log');
+			//$this->db->truncate('rp_dbho_plantype');
+			
+			// These three tables should be deleted together
+			//$this->db->truncate('rp_user_plan_details');
+			//$this->db->truncate('rp_user_plans');
+			//$this->db->truncate('rp_dbho_user_plans_subdetail');
+			$this->db->truncate('rp_user_to_plan');
+			$this->db->truncate('rp_dbho_bath_room');
+			$this->db->truncate('rp_dbho_bed_room');
+			$this->db->truncate('rp_dbho_kitchen');
+			$this->db->truncate('rp_dbho_living_room');
+			
+			$this->db->truncate('rp_google_localinfo_to_property');
+			$this->db->truncate('rp_properties');
+			$this->db->truncate('rp_property_attribute_values');
+			$this->db->truncate('rp_property_attribute_value_details');
+			$this->db->truncate('rp_property_details');
+			$this->db->truncate('rp_property_images');
+			$this->db->truncate('rp_property_image_details');
+			$this->db->truncate('rp_property_price');
+			
+			$this->db->truncate('rp_property_to_areas');
+			$this->db->truncate('rp_property_image_details');
+			$this->db->truncate('rp_property_image_details');
+			
+			
+	}
 	
 		
 }

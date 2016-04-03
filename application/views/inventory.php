@@ -30,8 +30,8 @@
            
 			<div class="form-group">
 			<label class="control-label col-md-2 col-sm-2 col-xs-12">Type</label>
-			<div class="col-md-10 col-sm-10 col-xs-12">
-                    <label class="control-label col-md-2 col-sm-2 col-xs-12"> <label class="control-label col-md-2 col-sm-2 col-xs-12"><?php if(!empty($campaignid) ||!empty($inventoryupdate[0]->CampaignID)){ echo"Campaign";}else{echo"Fee";}?> </label></label>
+			<div class="col-md-6 col-sm-10 col-xs-12">
+                    <label class="control-label"><?php if(!empty($campaignid) ||!empty($inventoryupdate[0]->CampaignID)){ echo"Campaign";}else{echo"Free";}?> </label>
             </div>
 			</div>
 			
@@ -43,50 +43,51 @@
 				<input type="hidden" name="campaignid" value="<?=$campaignid?>" readonly />
 				<input type="hidden" name="user_id"  value="<?=isset($campaigndetails[0]->userID)?$campaigndetails[0]->userID:''?>" readonly />
 				<input type="hidden" name="inventoryid"  value="<?=isset($campaigndetails[0]->inventoryID)?$campaigndetails[0]->inventoryID:''?>" readonly />
-				<input type="hidden" name="city_id" value="<?=isset($campaigndetails[0]->cityID)?$campaigndetails[0]->cityID:''?>" readonly />
-				<div class="form-group">
+				<input type="hidden" name="cityid" value="<?=isset($campaigndetails[0]->cityID)?$campaigndetails[0]->cityID:''?>" readonly />
+				
+                <div class="form-group ">
                     <label class="control-label col-md-2 col-sm-2 col-xs-12">Campaign Name</label>
-                    <div class="col-md-10 col-sm-10 col-xs-12">
+                    <div class="col-md-6 col-sm-10 col-xs-12">
                        <label class="control-label col-md-2 col-sm-2 col-xs-12"><?=isset($campaigndetails[0]->userCompanyName)?$campaigndetails[0]->userCompanyName:''?> <?=isset($campaigndetails[0]->created)?$campaigndetails[0]->created:''?></label>
                     </div>
                 </div>
 				
-				<div class="form-group">
+				<div class="form-group pdbottom10">
                     <label class="control-label col-md-2 col-sm-2 col-xs-12">Company Name</label>
-                    <div class="col-md-10 col-sm-10 col-xs-12">
-                       <label class="control-label col-md-2 col-sm-2 col-xs-12"><?=isset($campaigndetails[0]->userCompanyName)?$campaigndetails[0]->userCompanyName:''?> </label>
+                    <div class="col-md-6 col-sm-10 col-xs-12">
+                       <label class="control-label col-md-2 col-sm-2 col-xs-12"><?=isset($campaigndetails[0]->userCompanyName)?$campaigndetails[0]->userCompanyName:''?> <?=isset($campaigndetails[0]->userEmail)?$campaigndetails[0]->userEmail:''?> </label>
                     </div>
                 </div>
 				
-				<div class="form-group">
+				<div class="form-group pdbottom10">
                     <label class="control-label col-md-2 col-sm-2 col-xs-12">Inventory</label>
-                    <div class="col-md-10 col-sm-10 col-xs-12">
-                       <label class="control-label col-md-2 col-sm-2 col-xs-12"><?=isset($campaigndetails[0]->inventoryDescription)?$campaigndetails[0]->inventoryDescription:''?> </label>
+                    <div class="col-md-6 col-sm-10 col-xs-12">
+                       <label class="control-label col-md-2 col-sm-2 col-xs-12 " id="inventory"><?=isset($campaigndetails[0]->inventoryname)?$campaigndetails[0]->inventoryname:''?></label>
                     </div>
                 </div>
 				
 				
 		   <?php }else{ ?> 
 		   
-				<div class="form-group">
+				<div class="form-group pdbottom10">
                     <label class="control-label col-md-2 col-sm-2 col-xs-12">Company Name <span id="user_idmes"  aria-hidden="true"></span></label>
-                    <div class="col-md-10 col-sm-10 col-xs-12">
-                      <select onchange="fill();" id="user_id" class=" form-control"  name="user_id" <?php if(!empty($inventoryupdate)){ echo"enable='true'";}?>>
+                    <div class="col-md-6 col-sm-10 col-xs-12">
+                      <select onchange="fill();getprojectname();" id="user_id" class="select2_group form-control"  name="user_id" <?php if(!empty($inventoryupdate)){ echo"enable='true'";}?>>
                         <option value="">Select Company Name</option>
 						<?php foreach($company_name as $company_name){?>
-                        <option value="<?=isset($company_name->userID)?$company_name->userID:''?>" <?php if(!empty($inventoryupdate[0]->UserID)){ if($inventoryupdate[0]->UserID==$company_name->userID){ echo"selected";} } ?>><?=isset($company_name->userCompanyName)?$company_name->userCompanyName:''?></option>
+                        <option value="<?=isset($company_name->userID)?$company_name->userID:''?>" <?php if(!empty($inventoryupdate[0]->UserID)){ if($inventoryupdate[0]->UserID==$company_name->userID){ echo"selected";} } ?>><?=isset($company_name->userCompanyName)?$company_name->userCompanyName:''?> <?=isset($company_name->userEmail)?$company_name->userEmail:''?></option>
 						<?php } ?>
                       </select>
                     </div>
                   </div>
 		   
-				 <div class="form-group">
+				 <div class="form-group pdbottom10">
                     <label class="control-label col-md-2 col-sm-2 col-xs-12">Inventory <span id="inventoryidmes"  aria-hidden="true"></span></label>
-                    <div class="col-md-10 col-sm-10 col-xs-12">
-                      <select onchange="fill();" id="inventoryid"  class=" form-control" name="inventoryid" >
+                    <div  class="col-md-6 col-sm-10 col-xs-12">
+                      <select onchange="fill();getcityforcalendarinventory(this.value);getprojectname();" id="inventoryid"  class=" form-control inventory" name="inventoryid" >
                         <option value="">Select Inventory</option>
 						<?php foreach($inventory as $inventory){?>
-                        <option value="<?=isset($inventory->inventorytypeID)?$inventory->inventorytypeID:''?>" <?php if(!empty($inventoryupdateid[0]->inventorytypeID)){ if($inventoryupdateid[0]->inventorytypeID==$inventory->inventorytypeID){ echo"selected";} } ?>><?=isset($inventory->inventoryDescription)?$inventory->inventoryDescription:''?></option>
+                        <option value="<?=isset($inventory->inventorytypeID)?$inventory->inventorytypeID:''?>" <?php if(!empty($inventoryupdateid[0]->inventorytypeID)){ if($inventoryupdateid[0]->inventorytypeID==$inventory->inventorytypeID){ echo"selected";} } ?>><?=isset($inventory->inventoryname)?$inventory->inventoryname:''?></option>
 						<?php } ?>
                       </select>
                     </div>
@@ -96,10 +97,10 @@
                   
                   
            
-           <div class="form-group">
+           <div class="form-group pdbottom10">
                     <label class="control-label col-md-2 col-sm-2 col-xs-12">City <span id="city_idmes"  aria-hidden="true"></span></label>
-                    <div class="col-md-10 col-sm-10 col-xs-12">
-                      <select onchange="fill();" id="city_id" class=" form-control" name="city_id" <?php if(!empty($campaigndetails[0]->cityID)){ echo"disabled ='true'"; } ?> >
+                    <div id="inventorycity" class="col-md-6 col-sm-10 col-xs-12">
+                      <select onchange="fill();" id="city_id" class="select2_group form-control" name="cityid" <?php if(!empty($campaigndetails[0]->cityID)){ echo"disabled ='true'"; } ?> >
                         <option value="">Select City</option>
                        <?php foreach($cities as $cities){?>
                         <option value="<?=isset($cities->cityID)?$cities->cityID:''?>" <?php if(!empty($campaigndetails[0]->cityID)){ if($campaigndetails[0]->cityID==$cities->cityID){ echo"selected";} } ?> <?php if(!empty($inventoryupdate[0]->City)){ if($inventoryupdate[0]->City==$cities->cityID){ echo"selected";} } ?>><?=isset($cities->cityName)?$cities->cityName:''?></option>
@@ -109,10 +110,10 @@
                   </div>
            
            
-           <div class="form-group">
+           <div class="form-group pdbottom10 propertyprojectdiv">
                     <label class="control-label col-md-2 col-sm-2 col-xs-12">Project Name <span id="project_idmes"  aria-hidden="true"></span></label>
-                    <div class="col-md-10 col-sm-10 col-xs-12">
-                      <select onchange="fill();" id="project_id" class=" form-control" name="project_id">
+                    <div id="projectname" class="col-md-6 col-sm-10 col-xs-12">
+                      <select onchange="fill();" id="project_id" class="select2_group form-control" name="project_id">
                         <option value="">Select Project</option>
                          <?php foreach($projects as $projects){?>
                         <option value="<?=isset($projects->projectID)?$projects->projectID:''?>" <?php if(!empty($inventoryupdate[0]->ProjectID)){ if($inventoryupdate[0]->ProjectID==$projects->projectID){ echo"selected";} } ?>><?=isset($projects->projectName)?$projects->projectName:''?></option>
@@ -121,23 +122,27 @@
                     </div>
                   </div>
            
-                  <div class="form-group">
+		   
+		   
+                  <div class="form-group pdbottom10">
+				  <input type="hidden" name="image1" id="imageshidden" value="<?=isset($inventoryupdate[0]->BannerImagePath)?$inventoryupdate[0]->BannerImagePath:''?>"/>
                     <label class="control-label col-md-2 col-sm-2 col-xs-12">Banner Image <span id="inputImagemes"  aria-hidden="true"></span></label>
-                    <div class="col-md-10 col-sm-10 col-xs-12">
+                    <div class="col-md-6 col-sm-10 col-xs-12">
                       <label class="btn btn-default btn-upload" for="inputImage" title="Upload image file">
-                                        <input onchange="fill();" class="sr-only" id="inputImage" name="file" type="file" value="<?=isset($inventoryupdate[0]->BannerImagePath)?$inventoryupdate[0]->BannerImagePath:''?>" accept="image/*">
+                                        <input onchange="fill();" class="sr-only" id="inputImage" name="file" type="file" value="" accept="image/*">
                                         
-                                          <span class="brous-bt" id="inputImagemes1">Brouse </span>
+                                          <span class="brous-bt"  id="inputImagemes1"><?php if(!empty($inventoryupdate[0]->BannerImagePath)){?><img style="height:100px;width:100px" src="http://staging.homeonline.com/public/uploads/projectOfMonth/<?=isset($inventoryupdate[0]->BannerImagePath)?$inventoryupdate[0]->BannerImagePath:''?>" alt="Banner Image"/> <?php }else{ ?>Browse<?php } ?></span>
                                        
                                       </label>
+									 
                     </div>
                   </div>
                   
                   
                   
-                  <div class="form-group">
+                  <div class="form-group pdbottom10">
                     <label class="control-label col-md-2 col-sm-2 col-xs-12">Start Date <span id="startdatemes"  aria-hidden="true"></span></label>
-                    <div class="col-md-10 col-sm-10 col-xs-12">
+                    <div class="col-md-6 col-sm-10 col-xs-12">
                       <fieldset>
                         <div class="control-group">
                           <div class="controls">
@@ -150,17 +155,17 @@
                     </div>
                   </div>
                   
-                  <div class="form-group">
+                  <div class="form-group pdbottom10">
                     <label class="control-label col-md-2 col-sm-2 col-xs-12">Duration <span id="durationmes"  aria-hidden="true"></span></label>
-                    <div class="col-md-10 col-sm-10 col-xs-12 contxt">
-                     <input  onblur="fill();" id="duration" type="text" placeholder="" class="form-control" <?php if(!empty($campaigndetails[0]->duration)){ echo"readonly"; } ?> value="<?=isset($campaigndetails[0]->duration)?$campaigndetails[0]->duration:''?><?=isset($inventoryupdate[0]->Duration)?$inventoryupdate[0]->Duration:''?>" <?php if(!empty($inventoryupdate)){ echo"readonly";}?> name="duration">
+                    <div class="col-md-6 col-sm-10 col-xs-12 contxt">
+                     <input  onblur="fill();" id="duration" type="text" placeholder="" class="form-control" <?php if(!empty($campaigndetails[0]->duration)){ echo"readonly"; } ?> value="<?=isset($campaigndetails[0]->duration)?$campaigndetails[0]->duration:''?><?=isset($Duration)?$Duration:''?>" <?php if(!empty($inventoryupdate)){ echo"readonly";}?> name="duration">
                     </div>
                   </div>
                   
                   
-				  <div class="form-group">
+				  <div class="form-group pdbottom10">
                                     <label class="control-label col-md-2 col-sm-2 col-xs-12">Weightage <span id="weightagemes"  aria-hidden="true"></span></label>
-                                    <div class="col-md-10 col-sm-10 col-xs-12">
+                                    <div class="col-md-6 col-sm-10 col-xs-12">
                                     <select onchange="fill();" id="weightage"  name="weightage" class=" form-control">
 									<option value="">Select Weightage</option>
                                     <option value="100" <?php if(!empty($inventoryupdate[0]->Weightage)){ if($inventoryupdate[0]->Weightage=="100"){ echo"selected";} } ?>>100</option>
@@ -172,19 +177,20 @@
                                     </div>
                                     </div>
                   
-                  <div class="form-group">
+                  <div class="form-group ">
                     <label class="control-label col-md-2 col-sm-2 col-xs-12">Remark</label>
-                    <div class="col-md-10 col-sm-10 col-xs-12">
+                    <div class="col-md-6 col-sm-10 col-xs-12">
                      <textarea id="message"  class="form-control"  name="remark" data-parsley-trigger="keyup" data-parsley-minlength="20" data-parsley-maxlength="100" data-parsley-minlength-message="Come on! You need to enter at least a 20 caracters long comment.." data-parsley-validation-threshold="10"><?=isset($inventoryupdate[0]->Remark)?$inventoryupdate[0]->Remark:''?></textarea>
                     </div>
                   </div>
                   
-                  <div class="form-group">
-                    <label class="control-label col-md-2 col-sm-2 col-xs-12"></label>
-                    <div class="col-md-10 col-sm-10 col-xs-12">
+                 <div class="form-group pdbottom10">
+				 
+				  <label class="control-label col-md-2 col-sm-2 col-xs-12"></label>
+				   <div class="col-md-5 col-sm-10 col-xs-12">
                      <button class="btn btn-success btn-lg" type="submit" value="submit" name="submit"><?php if(!empty($inventoryupdate)){echo"Update";}else{echo"Save";}?></button>
                     </div>
-                  </div>
+				</div>
                   
                   
                   
@@ -227,6 +233,29 @@
             });
 			
 			fill();
+			
+			$("#inputImage").change(function(e) {
+
+     for (var i = 0; i < e.originalEvent.srcElement.files.length; i++) {
+        
+        var file = e.originalEvent.srcElement.files[i];
+        
+        var img = document.createElement("img");
+        var reader = new FileReader();
+        reader.onloadend = function() {
+             img.src = reader.result;
+        }
+        reader.readAsDataURL(file);
+		$("#inputImagemes1").html('');
+        $("#inputImagemes1").append(img);
+		  $(img)
+                    .width(100)
+                    .height(100); 
+    } 
+	
+	
+	
+});
              
         });
 		
@@ -271,13 +300,33 @@ function checkvalidation(){
     	}
 		if(document.getElementById('inputImage').value == "" )
     	{
+			if($("#imageshidden").val()==""){
+					
+    			 
+				
+			if($("#inventoryid option:selected").text()=='Project Of Month'){
+					
     			 document.getElementById('inputImage').focus() ;
 				 document.getElementById('inputImage').placeholder="Please Choose Image!" ;
 				 document.getElementById('inputImage').setAttribute('class','parsley-error sr-only') ;
-				$('#inputImagemes1').html("Brouse Your Image");
+				$('#inputImagemes1').html("Browse Your Image");
 				document.getElementById('inputImagemes1').setAttribute('class','fa fa-times') ;
 				document.getElementById('inputImagemes1').style.color='red';
 				 return false;
+				}
+				
+				if($.trim($("#inventory").text())=="Project Of Month"){
+					
+    			 document.getElementById('inputImage').focus() ;
+				 document.getElementById('inputImage').placeholder="Please Choose Image!" ;
+				 document.getElementById('inputImage').setAttribute('class','parsley-error sr-only') ;
+				$('#inputImagemes1').html("Browse Your Image");
+				document.getElementById('inputImagemes1').setAttribute('class','fa fa-times') ;
+				document.getElementById('inputImagemes1').style.color='red';
+				 return false;
+				}
+			}
+				
     	}
 		if(document.getElementById('single_cal2').value == "" )
     	{
@@ -343,7 +392,7 @@ function fill(){
     			  document.getElementById('inputImagemes').setAttribute('class','required fa fa-check') ;
 				  document.getElementById('inputImagemes').style.color='green';
 				  document.getElementById('inputImage').setAttribute('class',' sr-only ') ;
-				  $('#inputImagemes1').html("Brouse");
+				  $('#inputImagemes1').html("Browse");
 				  document.getElementById('inputImagemes1').setAttribute('class','brous-bt') ;
 				  document.getElementById('inputImagemes1').style.color='#333';
     	}

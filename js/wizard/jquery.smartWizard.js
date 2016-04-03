@@ -84,7 +84,8 @@ function SmartWizard(target, options) {
         this.contentWidth = $this.elmStepContainer.width();
 
         $($this.buttons.next).click(function() {
-            $this.goForward();
+			$this.goForward();
+			
             return false;
         });
         $($this.buttons.previous).click(function() {

@@ -44,9 +44,9 @@
           <!--pop up start-->
           
           <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
-		  <center><img src="<?=base_url();?>/images/ajax-loader2.gif" id="loading-indicator" style="display:none" /></center>
+		  
                 <div class="modal-dialog modal-lg">
-                  <div class="modal-content moda-scrol">
+                  <div class="modal-content ">
                     
                     
                   </div>
@@ -100,7 +100,7 @@
                   <tbody>
 				  <?php foreach($inventorytypelist as $inventorytypelists){?>
                     <tr>
-                      <td><?=isset($inventorytypelists->inventoryDescription)?$inventorytypelists->inventoryDescription:''?></td>
+                      <td><?=isset($inventorytypelists->inventoryname)?$inventorytypelists->inventoryname:''?></td>
                       <td><?=isset($inventorytypelists->days)?$inventorytypelists->days:''?></td>
                       <td><?=isset($inventorytypelists->MaximumQuantity)?$inventorytypelists->MaximumQuantity:''?></td>
                       <td><?=isset($inventorytypelists->OverdrawingAllowed)?$inventorytypelists->OverdrawingAllowed:''?></td>
@@ -196,11 +196,11 @@
     });
 	
 	$(document).ajaxSend(function(event, request, settings) {
-    $('#loading-indicator').show();
+   $("#loader").fadeIn();
 });
 
 $(document).ajaxComplete(function(event, request, settings) {
-    $('#loading-indicator').hide();
+    $("#loader").fadeOut();
 });
 
 

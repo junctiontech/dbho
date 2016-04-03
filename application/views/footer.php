@@ -16,7 +16,7 @@
   <div id="notif-group" class="tabbed_notifications"></div>
 </div>
 <script src="<?=base_url();?>js/bootstrap.min.js"></script> 
-
+<!--script src="<?=base_url();?>js/bootstrap-datepicker.js"></script--> 
 <!-- chart js --> 
 <script src="<?=base_url();?>js/chartjs/chart.min.js"></script> 
 <!-- bootstrap progress js --> 
@@ -30,7 +30,10 @@
 <script src="<?=base_url();?>js/switchery/switchery.min.js"></script> 
 <!-- daterangepicker --> 
 <script type="text/javascript" src="<?=base_url();?>js/moment.min2.js"></script> 
-<script type="text/javascript" src="<?=base_url();?>js/datepicker/daterangepicker.js"></script> 
+<script type="text/javascript" src="<?=base_url();?>js/datepicker/daterangepicker.js"></script>
+<!--<script type="text/javascript" src="<?=base_url();?>js/jquery.simple-dtpicker1.js"></script>-->
+
+<!--<link type="text/css" href="<?=base_url();?>css/jquery.simple-dtpicker1.css" rel="stylesheet" />-->
 <!-- richtext editor --> 
 <script src="<?=base_url();?>js/editor/bootstrap-wysiwyg.js"></script> 
 <script src="<?=base_url();?>js/editor/external/jquery.hotkeys.js"></script> 
@@ -46,22 +49,23 @@
 <script src="<?=base_url();?>js/datatables/tools/js/dataTables.tableTools.js"></script> 
 
 <!-- bootstrap progress js --> 
-<script src="<?=base_url();?>js/progressbar/bootstrap-progressbar.min.js"></script> 
+<!--<script src="<?=base_url();?>js/progressbar/bootstrap-progressbar.min.js"></script> 
 <script src="<?=base_url();?>js/nicescroll/jquery.nicescroll.min.js"></script> 
 <script>
             autosize($('.resizable_textarea'));
-        </script> 
+        </script> -->
 		<script src="<?=base_url();?>js/dropzone/dropzone.js"></script> 
 <!-- Autocomplete --> 
 <script type="text/javascript" src="<?=base_url();?>js/autocomplete/countries.js"></script> 
 <script src="<?=base_url();?>js/autocomplete/jquery.autocomplete.js"></script>
+<script src="<?=base_url();?>js/custom.js"></script>
 <script src="<?=base_url();?>js/bootstrap-datepicker.js"></script> 
-<script src="<?=base_url();?>js/custom.js"></script> 
 <script src="<?=base_url();?>js/moment.min.js"></script>
-        <script src="<?=base_url();?>js/calendar/fullcalendar.min.js"></script>
+<!--<script src="<?=base_url();?>js/calendar/fullcalendar.min.js"></script>-->
 <script src="<?=base_url();?>js/common_functions.js"></script> 
 <script src="<?=base_url();?>js/project.js"></script>
-<script src="<?=base_url();?>js/script.js"></script> 
+<script src="<?=base_url();?>assests/js/script.js"></script>
+ <script src="<?=base_url();?>js/validator/validator.js"></script>
 <script type="text/javascript" src="<?=base_url();?>js/jquery.smartWizard.js"></script> 
 <script src="http://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places"></script> 
 <script src="<?=base_url();?>js/jquery.geocomplete.js"></script> 
@@ -80,6 +84,7 @@
                     appendTo: '#autocomplete-container'
                 });
             });
-        </script> 
+</script> 
+
 </body>
 </html>

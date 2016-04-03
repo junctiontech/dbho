@@ -36,7 +36,7 @@
         
           <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
-             <form  method="post" onsubmit="return(checkvalidation())" action="<?=base_url();?>campaign/addcampaign"  class="form-group form-label-left clearfix">
+             <form  method="post" onsubmit="return(checkvalidation());" action="<?=base_url();?>campaign/addcampaign"  class="form-group form-label-left clearfix">
             <div class="x_content">
                
                   <div class="row">
@@ -46,7 +46,7 @@
                         <div class="control-group">
                           <div class="controls">
                             <div class="xdisplay_inputx form-group has-feedback">
-                              <input onchange="fill();" readonly name="campaignstartdate"  value="" type="text" class="form-control has-feedback-left" id="single_cal2" placeholder="Select Date" aria-describedby="inputSuccess2Status2">
+                              <input onchange="campaignexpirydate(); fill(); " readonly name="campaignstartdate"  value="" type="text" class="form-control has-feedback-left" id="single_cal2" placeholder="Select Date" aria-describedby="inputSuccess2Status2">
                               <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span> <span id="inputSuccess2Status2" class="sr-only">(success)</span> </div>
                           </div>
                         </div>
@@ -55,11 +55,11 @@
 					
 					 <div class="form-group col-xs-12 col-sm-3">
                       <label class="control-label" for="last-name">Company Name <span id="useridmes"  aria-hidden="true"></span> </label>
-                      <select  class=" form-control" id="userid" name="user_id" onchange="get_usertype(this.value);fill();get_plans(this.value);">
+                      <select  class="select2_group form-control" id="userid" name="user_id" onchange="get_usertype(this.value);fill();get_plans(this.value);">
                         
                         <option value="">Select Company Name</option>
 						<?php foreach($company_name as $company_name){?>
-                        <option value="<?=isset($company_name->userID)?$company_name->userID:''?>"><?=isset($company_name->userCompanyName)?$company_name->userCompanyName:''?></option>
+                        <option value="<?=isset($company_name->userID)?$company_name->userID:''?>"><?=isset($company_name->userCompanyName)?$company_name->userCompanyName:''?>  <?=isset($company_name->userEmail)?$company_name->userEmail:''?></option>
 						<?php } ?>
                        
                       </select>
@@ -70,6 +70,16 @@
                       
 					   <input id="user_type" readonly name=""   value="" type="text" class="form-control has-feedback-left" >
                     </div>
+					
+					<div class="form-group col-xs-12 col-sm-3">
+                      <label class="control-label" for="last-name">Campaign Expiry Date <span id="enddatemes"  aria-hidden="true"></span></label>
+                      
+					   <input id="enddate" readonly name="campaignexpiry"   value="" type="text" class="form-control has-feedback-left" >
+                    </div>
+					
+					
+					
+					
                    
                     <!--<div class="form-group col-xs-12 col-sm-3 martop20">
                       
@@ -79,17 +89,24 @@
                     </div>-->
                   </div>
                  <!-- <div class="ln_solid"></div>-->
-                 
+                 <div class="row">
+				 <div class="form-group col-xs-12 col-sm-3">
+                      <label class="control-label" for="last-name">Sold By<span id="soldbymes"  aria-hidden="true"></span></label>
+                      
+					   <input id="soldby" name="soldby"   value="" type="text" class="form-control has-feedback-left" >
+                    </div>
+				 </div>
                
               </div>
               <div id="showhidden"  style="pointer-events:none">
-              <div class="row" >
+              <div class="row inventorydiv" >
+			  
         
           <div class="col-md-12 col-sm-12 col-xs-12">
           <div class="row">
          
             <div class="x_content">
-                <table id="myTable" class="table table-bordered table-hover vert-aliins">
+                <table id="myTable" class="table table-bordered table-hover vert-aliins inventorydiv1">
                   <thead>
                     <tr>
                      <th>Inventory</th>
@@ -97,16 +114,16 @@
                       <th>Qty</th>
                       <th>Duration (Days) </th>
                       <th>Amount (Rs)</th>
-                      <th><button class="btn btn-success" type="button" onclick="displayResult()">Add</button></th>
+                      <th style="text-align:right;"><button class="btn btn-success" type="button" onclick="displayResult()" style="margin-right:0px;">Add Inventory</button></th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
+                    <tr >
                     <td><div class="form-group col-xs-12 col-sm-12">
                       <select required name="inventoryid[]" class="select2_group form-control" onchange="getcityforinventory(this.value);">
                         <option value="">Select Inventory</option>
                         <?php foreach($inventory as $inventory1){?>
-                        <option value="<?=isset($inventory1->inventorytypeID)?$inventory1->inventorytypeID:''?>"><?=isset($inventory1->inventoryDescription)?$inventory1->inventoryDescription:''?></option>
+                        <option value="<?=isset($inventory1->inventorytypeID)?$inventory1->inventorytypeID:''?>"><?=isset($inventory1->inventoryname)?$inventory1->inventoryname:''?></option>
 						<?php } ?>
                        
                       </select>
@@ -122,14 +139,14 @@
                     </div></td>
                       <td>
                       <div class="form-group col-xs-12 col-sm-4">
-                      <input required name="inventoryquantity[]" type="text" placeholder="" class="form-control">
+                      <input required name="inventoryquantity[]" type="number" placeholder="" class="form-control">
                     </div></td>
                       <td><div class="form-group col-xs-12 col-sm-6">
-                      <input required name="inventoryduration[]" type="text" placeholder="" class="form-control">
+                      <input required name="inventoryduration[]" type="number"  placeholder="" class="form-control inventoryduration" onchange="campaignexpirydate();">
                     </div></td>
                       <td>
                       <div class="form-group col-xs-12 col-sm-6">
-                      <input required   name="inventoryamount[]" type="text" placeholder="" class="form-control txt">
+                      <input required   name="inventoryamount[]" type="number" placeholder="" class="form-control txt amount-sty">
                     </div>
                       </td>
                       
@@ -168,13 +185,13 @@
                       <th>Amount (Rs)</th>
                       <th>Carry forward (Qty)</th>
                       <th>Last Expiry</th>
-                      <th>Current Expiry Date</th>
-					  <th><button class="btn btn-success" type="button" onclick="displayResult1();get_plans(document.getElementById('userid').value,document.getElementById('myTable1').rows.length);">Add</button></th>
+                      <th>Current<br />Expiry Date</th>
+					  <th style="text-align:right;"><button class="btn btn-success" type="button" onclick="displayResult1();get_plans(document.getElementById('userid').value,document.getElementById('myTable1').rows.length);" style="margin-right:0px;">Add Plan</button></th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr>
-                      <td><div id="user_plans" class="form-group col-xs-12 col-sm-12">
+                      <td><div id="user_plans" class="form-group col-xs-12 col-sm-12" style="width:150px;">
                       <select onchange="checkplanavailable(this.value,this.id)" id="plan_0" required name="planid[]" class="select2_group form-control">
                         
                         <option value=""> Select Plan</option>
@@ -184,10 +201,10 @@
                         
                       </select>
                     </div></td>
-                      <td><input required name="planquantity[]" type="text" placeholder="" class="form-control"></td>
-                      <td><input required onblur="calculateexpirydate(this.value,this.id)" id="dura_0" name="planduration[]" type="text" placeholder="" class="form-control"></td>
-                      <td class="d"><input   required name="planamount[]" type="text" placeholder="" class="form-control txt"></td>
-                      <td class="d"><input name="plancarryforwrd[]" id="carrayforword_0" type="text" placeholder="" class="form-control"></td>
+                      <td><input required name="planquantity[]" type="number" placeholder="" class="form-control" style="width:100px;"></td>
+                      <td><input required onblur="calculateexpirydate(this.value,this.id)" id="dura_0" name="planduration[]" type="number" placeholder="" class="form-control" style="width:70px;"></td>
+                      <td class="d"><input   required name="planamount[]" type="number" placeholder="" class="form-control txt amount-sty"></td>
+                      <td class="d"><input name="plancarryforwrd[]" id="carrayforword_0" type="number" placeholder="" class="form-control" style="width:70px;"></td>
                       <td><input readonly name="lastexpiryplan[]" id="lastexpiry_0" type="text" placeholder="" class="form-control lastexpiry"></td>
                       <td><input readonly name="currentexpiryplan[]" id="expira_0"  type="text" placeholder="" class="form-control currentexpiry"></td>
 					  <td><p>Remove</p></td>
@@ -201,7 +218,7 @@
                 <input readonly name="currentexpiry" id="currentexpiry" type="hidden" placeholder="" class="form-control">
                 <div class="clearfix"></div>
          
-               <div class="valusho pull-left"> <button class="btn btn-info btn-lg" type="submit" name="submit" value="submit">Create</button></div>
+               <div class="valusho pull-left"> <button class="btn btn-info btn-lg" onclick="confirm('Cross Check Your Campaign Carefully, Because You Can Not Edit It After Submit.')" type="submit" name="submit" value="submit">Create</button></div>
               <div class="valusho pull-right"> <h5> Compaign Amount :  Rs <span id="sum">0.00</span> </h5></div>
               </div>
            </form>
@@ -303,6 +320,25 @@
     </script> 
 	
 	<script type="text/javascript">
+        $(document).ready(function () {
+            
+            $('#single_cal3').datepicker({
+                singleDatePicker: true,
+				startDate: new Date(),
+                calender_style: "picker_2"
+            }, function (start, end, label) {
+                console.log(start.toISOString(), end.toISOString(), label);
+            });
+          
+			
+        
+	   });
+	   
+	   
+	  
+    </script> 
+	
+	<script type="text/javascript">
 
 
 function displayResult()
@@ -310,7 +346,7 @@ function displayResult()
 	
 	if(document.getElementById("inventorycity") != null) {
 	document.getElementById("inventorycity").setAttribute("id","old_inventorycity");}
-document.getElementById("myTable").insertRow(-1).innerHTML = '<td><div  class="form-group col-xs-12 col-sm-12"><select onchange="getcityforinventory(this.value);" required name="inventoryid[]" class="select2_group form-control">  <option value="">Select Inventory</option><?php foreach($inventory as $inventory1){?><option value="<?=isset($inventory1->inventorytypeID)?$inventory1->inventorytypeID:''?>"><?=isset($inventory1->inventoryDescription)?$inventory1->inventoryDescription:''?></option><?php } ?> </select></div></td><td><div id="inventorycity" class="form-group col-xs-12 col-sm-12"><select required name="cityid[]" class="select2_group form-control"> <option value="">Select City</option><?php foreach($cities as $cities1){?> <option value="<?=isset($cities1->cityID)?$cities1->cityID:''?>"><?=isset($cities1->cityName)?$cities1->cityName:''?></option><?php } ?></select></div></td><td> <div class="form-group col-xs-12 col-sm-6"> <input required name="inventoryquantity[]" type="text" placeholder="" class="form-control"></div></td> <td><div class="form-group col-xs-12 col-sm-6"><input required name="inventoryduration[]" type="text" placeholder="" class="form-control"></div></td><td> <div class="form-group col-xs-12 col-sm-6"><input onkeyup="calculateSum();"  required name="inventoryamount[]" type="text" placeholder="" class="form-control txt"></div> </td><td><p>Remove</p></td>';
+document.getElementById("myTable").insertRow(-1).innerHTML = '<td><div  class="form-group col-xs-12 col-sm-12"><select onchange="getcityforinventory(this.value);" required name="inventoryid[]" class="select2_group form-control">  <option value="">Select Inventory</option><?php foreach($inventory as $inventory1){?><option value="<?=isset($inventory1->inventorytypeID)?$inventory1->inventorytypeID:''?>"><?=isset($inventory1->inventoryname)?$inventory1->inventoryname:''?></option><?php } ?> </select></div></td><td><div id="inventorycity" class="form-group col-xs-12 col-sm-12"><select required name="cityid[]" class="select2_group form-control"> <option value="">Select City</option><?php foreach($cities as $cities1){?> <option value="<?=isset($cities1->cityID)?$cities1->cityID:''?>"><?=isset($cities1->cityName)?$cities1->cityName:''?></option><?php } ?></select></div></td><td> <div class="form-group col-xs-12 col-sm-6"> <input required name="inventoryquantity[]" type="number" placeholder="" class="form-control"></div></td> <td><div class="form-group col-xs-12 col-sm-6"><input required name="inventoryduration[]" type="number" placeholder="" class="form-control inventoryduration" onchange="campaignexpirydate();"></div></td><td> <div class="form-group col-xs-12 col-sm-6"><input onkeyup="calculateSum();"  required name="inventoryamount[]" type="number" placeholder="" class="form-control txt"></div> </td><td><p>Remove</p></td>';
 }
 $('#myTable').on('click','td p',function(){
 $(this).closest('tr').remove();
@@ -337,7 +373,7 @@ function displayResult1()
     			var rowCount=table.rows.length;
     			var	last_row = rowCount+1;
     			
-document.getElementById("myTable1").insertRow(-1).innerHTML = '<td><div id="user_plans" class="form-group col-xs-12 "><select required name="planid[]" class="select2_group form-control"> <option value=""> Select Plan</option><?php foreach($plan as $plan1){?><option value="<?=isset($plan1->planID)?$plan1->planID:''?>"><?=isset($plan1->planTitle)?$plan1->planTitle:''?></option><?php } ?> </select> </div></td><td><input required name="planquantity[]" type="text" placeholder="" class="form-control"></td> <td><input required onblur="calculateexpirydate(this.value,this.id)" id="dura_'+last_row+'" name="planduration[]" type="text" placeholder="" class="form-control"></td> <td class="d"><input onkeyup="calculateSum();"  required name="planamount[]" type="text" placeholder="" class="form-control txt"></td> <td class="d"><input name="plancarryforwrd[]" id="carrayforword_'+last_row+'" type="text" placeholder="" class="form-control"></td> <td><input readonly name="lastexpiryplan[]" id="lastexpiry_'+last_row+'" type="text" placeholder="" class="form-control lastexpiry"></td><td><input readonly name="currentexpiryplan[]" id="expira_'+last_row+'" type="text" placeholder="" class="form-control currentexpiry"></td><td><p>Remove</p></td>';
+document.getElementById("myTable1").insertRow(-1).innerHTML = '<td><div id="user_plans" class="form-group col-xs-12 "><select required name="planid[]" class="select2_group form-control"> <option value=""> Select Plan</option><?php foreach($plan as $plan1){?><option value="<?=isset($plan1->planID)?$plan1->planID:''?>"><?=isset($plan1->planTitle)?$plan1->planTitle:''?></option><?php } ?> </select> </div></td><td><input required name="planquantity[]" type="number" placeholder="" class="form-control"></td> <td><input required onblur="calculateexpirydate(this.value,this.id)" id="dura_'+last_row+'" name="planduration[]" type="number" placeholder="" class="form-control"></td> <td class="d"><input onkeyup="calculateSum();"  required name="planamount[]" type="number" placeholder="" class="form-control txt"></td> <td class="d"><input name="plancarryforwrd[]" id="carrayforword_'+last_row+'" type="number" placeholder="" class="form-control"></td> <td><input readonly name="lastexpiryplan[]" id="lastexpiry_'+last_row+'" type="text" placeholder="" class="form-control lastexpiry"></td><td><input readonly name="currentexpiryplan[]" id="expira_'+last_row+'" type="text" placeholder="" class="form-control currentexpiry"></td><td><p>Remove</p></td>';
 
 }
 
@@ -360,6 +396,14 @@ function checkvalidation(){
     			 document.getElementById('single_cal2').focus() ;
 				 document.getElementById('single_cal2').placeholder="Please select Date!" ;
 				 document.getElementById('single_cal2').setAttribute('class',' form-control has-feedback-left  parsley-error') ;
+				 return false;
+    	}
+		
+		if(document.getElementById('enddate').value == "" )
+    	{
+    			 document.getElementById('enddate').focus() ;
+				 document.getElementById('enddate').placeholder="Please select Date!" ;
+				 document.getElementById('enddate').setAttribute('class',' form-control has-feedback-left  parsley-error') ;
 				 return false;
     	}
 		
@@ -392,6 +436,14 @@ function fill(){
 				 document.getElementById('single_cal2mes').style.color='green' ;
 				 document.getElementById('single_cal2').setAttribute('class',' form-control has-feedback-left') ;
     	}
+		
+		if(document.getElementById('enddate').value != "" )
+    	{
+    			 document.getElementById('enddatemes').setAttribute('class','required fa fa-check') ;
+				 document.getElementById('enddatemes').style.color='green' ;
+				 document.getElementById('enddate').setAttribute('class',' form-control has-feedback-left') ;
+    	}
+		
 		if(document.getElementById('single_cal2').value == "" ){
 				  document.getElementById('single_cal2mes').setAttribute('class','required ') ;
 				  document.getElementById('single_cal2').setAttribute('class',' form-control has-feedback-left parsley-error') ;
@@ -414,6 +466,16 @@ function fill(){
     	}else{
 				 document.getElementById('user_typemes').setAttribute('class','required ') ;
 				  document.getElementById('user_type').setAttribute('class',' form-control parsley-error') ;
+		}
+		
+		if(document.getElementById('soldby').value != "" )
+    	{
+    			  document.getElementById('soldbymes').setAttribute('class','required fa fa-check') ;
+				  document.getElementById('soldbymes').style.color='green';
+				  document.getElementById('soldby').setAttribute('class',' form-control ') ;
+    	}else{
+				 document.getElementById('soldbymes').setAttribute('class','required ') ;
+				  
 		}
 		
 }

@@ -79,6 +79,10 @@ if($_SERVER['HTTP_HOST']=="junctiondev.cloudapp.net"){
 $password="bitnami";
 $username="root";	
 }
+if($_SERVER['HTTP_HOST']=="staging.homeonline.com"){
+$password="DBclStaging#2016!";
+$username="HO_Staging";
+}
 
 $active_group = 'default';
 $query_builder = TRUE;
@@ -88,9 +92,9 @@ $db['default'] = array(
 	'hostname' => 'localhost',
 	'username' => $username,
 	'password' => $password,
-	'database' => 'homeonline',
+	'database' => 'homeonline_PreProd',
 	'dbdriver' => 'mysqli',
-	'dbprefix' => '',
+	'dbprefix' => 'rp_',
 	'pconnect' => FALSE,
 	'db_debug' => (ENVIRONMENT !== 'production'),
 	'cache_on' => FALSE,
@@ -111,10 +115,10 @@ $db['both'] = array(
 	'hostname' => 'localhost',
 	'username' => $username,
 	'password' => $password,
-	'database' => 'homeonline',
-	'database' => 'homeonline_junction',
+	'database' => 'homeonline_PreProd',
+	//'database' => 'homeonline_stagingA',
 	'dbdriver' => 'mysqli',
-	'dbprefix' => '',
+	'dbprefix' => 'rp_',
 	'pconnect' => FALSE,
 	'db_debug' => (ENVIRONMENT !== 'production'),
 	'cache_on' => FALSE,

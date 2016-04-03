@@ -13,10 +13,10 @@
                                     <div class="form-group">
                     <label class="control-label col-md-2 col-sm-2 col-xs-12">Inventory Name <span id="inventoryidmes"  aria-hidden="true"></span></label>
                     <div class="col-md-10 col-sm-10 col-xs-12">
-                      <select onchange="fill();" id="inventoryid" class=" form-control" name="inventoryname">
+                      <select onchange="fill();" id="inventoryid" class="select2_group form-control" name="inventoryname">
                         <option value="">Select Name</option>
                        <?php foreach($inventoryname as $inventorynames){?>
-                        <option value="<?=isset($inventorynames->inventorytypeID)?$inventorynames->inventorytypeID:''?>" ><?=isset($inventorynames->inventoryDescription)?$inventorynames->inventoryDescription:''?></option>
+                        <option value="<?=isset($inventorynames->inventorytypeID)?$inventorynames->inventorytypeID:''?>" ><?=isset($inventorynames->inventoryname)?$inventorynames->inventoryname:''?></option>
 						<?php } ?>
                       </select>
                     </div>
@@ -51,7 +51,7 @@
                                     <div class="form-group">
                     <label class="control-label col-md-2 col-sm-2 col-xs-12">City <span id="cityidmes"  aria-hidden="true"></span></label>
                     <div class="col-md-10 col-sm-10 col-xs-12">
-                      <select onchange="fill();" id="cityid" class=" form-control" name="city_id">
+                      <select onchange="fill();" id="cityid" class="select2_group form-control" name="city_id">
                         <option value="">Select City</option>
                        <?php foreach($cities as $cities){?>
                         <option value="<?=isset($cities->cityID)?$cities->cityID:''?>" ><?=isset($cities->cityName)?$cities->cityName:''?></option>

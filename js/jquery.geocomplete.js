@@ -51,15 +51,16 @@
     },
 
     markerOptions: {
-      draggable: false
+      draggable: true
     },
-
+	
+	
     maxZoom: 16,
     types: ['geocode'],
     blur: false,
     geocodeAfterResult: false
   };
-
+		
   // See: [Geocoding Types](https://developers.google.com/maps/documentation/geocoding/#Types)
   // on Google Developers.
   var componentTypes = ("street_address route intersection political " +
@@ -87,6 +88,7 @@
     this._name = 'geocomplete';
 
     this.init();
+	
   }
 
   // Initialize all parts of the plugin.
@@ -144,6 +146,7 @@
         this.marker,
         'dragend',
         $.proxy(this.markerDragged, this)
+		
       );
     },
 

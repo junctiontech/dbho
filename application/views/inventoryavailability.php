@@ -22,7 +22,7 @@
                     <select required name="inventoryid" class="select2_group form-control" onchange="getcityforcalendarinventory(this.value);">
 											<option value="">Select Inventory</option>
 											<?php foreach($inventory as $inventory1){?>
-											<option value="<?=isset($inventory1->inventorytypeID)?$inventory1->inventorytypeID:''?>" <?php if(!empty($inventorytypeid)){ if($inventorytypeid==$inventory1->inventorytypeID){ echo"selected";} } ?>><?=isset($inventory1->inventoryDescription)?$inventory1->inventoryDescription:''?></option>
+											<option value="<?=isset($inventory1->inventorytypeID)?$inventory1->inventorytypeID:''?>" <?php if(!empty($inventorytypeid)){ if($inventorytypeid==$inventory1->inventorytypeID){ echo"selected";} } ?>><?=isset($inventory1->inventoryname)?$inventory1->inventoryname:''?></option>
 											<?php } ?>
 										    </select>
                   </div>
@@ -150,5 +150,27 @@
                     editable: true,
                     events: [<?=isset($event)?$event:''?>]
                 });
+				
+				
             });
         </script>
+		
+		
+		<script>
+            $(document).ready(function () {
+                
+                $(".select2_group").select2({});
+                $(".select2_multiple").select2({
+                    maximumSelectionLength: 4,
+                    placeholder: "With Max Selection limit 4",
+                    allowClear: true
+                });
+            });
+			
+			$(document).ready(function () {
+                $('input.tableflat').iCheck({
+                    checkboxClass: 'icheckbox_flat-green',
+                    radioClass: 'iradio_flat-green'
+                });
+            });
+        </script> 

@@ -31,11 +31,11 @@
       <div class="">
         <div class="page-title">
           <div class="title_left">
-            <h3>Add Plan Type</h3>
+            <h3>Listing Type</h3>
           </div>
           <div class="title_right">
             <div class="input-group pull-right"> 
-           <div class="nav toggle paddman12">  <button href="<?=base_url();?>manage_user_plan/Addplantypemodal" type="button" class="btn btn-success taright" data-toggle="modal" data-target=".bs-example-modal-lg">Add Plan</button> </div>
+           <div class="nav toggle paddman12">  <button href="<?=base_url();?>manage_user_plan/Addplantypemodal" type="button" class="btn btn-success taright" data-toggle="modal" data-target=".bs-example-modal-lg">Listing Type</button> </div>
             
             <!-- <a id="menu_toggle2"><button class="btn btn-primary" type="button">Full Screen</button></a>-->
             </div>
@@ -44,9 +44,9 @@
           <!--pop up start-->
           
           <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
-		  <center><img src="<?=base_url();?>/images/ajax-loader2.gif" id="loading-indicator" style="display:none" /></center>
+		 
                 <div class="modal-dialog modal-lg">
-                  <div class="modal-content moda-scrol">
+                  <div class="modal-content ">
                 </div></div>
               </div>
               
@@ -87,8 +87,9 @@
                   <thead>
                     <tr>
                       <th>Plan Title</th>
-                      <th>Plan priority</th>
+                      <th class="sorting_desc" aria-sort="descending">Plan priority</th>
                       <th>Create On</th>
+					   <th>Action</th>
                      </tr>
                   </thead>
                   <tbody>
@@ -97,6 +98,10 @@
                       <td><?=isset($plantypelists->planTypeTitle)?$plantypelists->planTypeTitle:''?></td>
                       <td><?=isset($plantypelists->Priority)?$plantypelists->Priority:''?></td>
                       <td><?=isset($plantypelists->createdOn)?$plantypelists->createdOn:''?></td>
+					  <td class=" last"><ul class="list-inline text-right">
+                     
+                       <li><a title="Edit" data-toggle="modal" data-target=".bs-example-modal-lg" href="<?=base_url();?>Manage_user_plan/Addplantypemodal/<?=isset($plantypelists->planTypeID)?$plantypelists->planTypeID:''?>"><i class="fa fa-pencil"></i></a></li>
+                      </ul></td>
                      </tr>
 				  <?php } ?>
                    </tbody>
@@ -195,11 +200,11 @@
     });
 	
 	$(document).ajaxSend(function(event, request, settings) {
-    $('#loading-indicator').show();
+    $("#loader").fadeIn();
 });
 
 $(document).ajaxComplete(function(event, request, settings) {
-    $('#loading-indicator').hide();
+   $("#loader").fadeOut();
 });
 
 

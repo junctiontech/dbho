@@ -1,5 +1,5 @@
 body.nav-sm .container.body .left_col {
-    width: 70px;
+    width: 80px;
     padding: 0;
     position: fixed;
     height: 100%;
@@ -8,12 +8,12 @@ body.nav-sm .container.body .left_col {
 
 body.nav-sm .container.body .right_col {
     padding: 10px 20px;
-    margin-left: 70px;
+    margin-left: 80px;
     z-index: 2;
 }
 .right_col{min-height: 1000px;}
 body.nav-sm .navbar.nav_title {
-    width: 70px;
+    width: 80px;
 }
 
 body.nav-sm .navbar.nav_title a span {
@@ -34,14 +34,14 @@ body.nav-sm .navbar.nav_title a i {
 body.nav-sm .main_container .top_nav {
     padding: 0 !important;
     display: block;
-    margin-left: 70px;
+    margin-left: 80px;
     z-index: 2;
 }
 
 body.nav-sm .nav.side-menu li a {
     text-align: center !important;
     font-weight: 400;
-    font-size: 10px;
+    font-size: 12px;
     padding: 10px 5px;
 }
 
@@ -370,7 +370,7 @@ dark,
 }
 
 body {
-    color: #999;
+    color: #000;
     background:#263238;
     /*#ECF0F1; #FCFCFC*/
     
@@ -1054,7 +1054,7 @@ h2 {
     position: relative;
     width: 100%;
     margin-bottom: 10px;
-    padding: 10px 10px;
+    padding:3px;
     display: inline-block;
     background: #fff;
     border: 1px solid #c9c9c9;
@@ -1074,7 +1074,7 @@ h2 {
     padding:6px 10px;
     margin-bottom: 10px;
 	background:#e8e8e8;
-	margin:-10px -10px 10px;
+	margin:-3px -3px 10px;
 }
 
 .x_title .filter {
@@ -1375,7 +1375,7 @@ table.jambo_table {
 
 table.jambo_table thead {
     background: #F47D17;
-    color: #ECF0F1;
+    color: #fff;
 }
 
 table.jambo_table tbody tr:hover td {
@@ -2440,8 +2440,9 @@ span.section {
 .form-control {
     border-radius: 0;
     line-height:26px;
-	height:40px;
+	height:30px;
     width: 100%;
+	margin-bottom:5px;
 }
 
 .form-horizontal .control-label {
@@ -2466,7 +2467,7 @@ legend {
 }
 
 .form-control-feedback {
-    margin-top: 8px;
+    margin-top: 3px;
     height: 23px;
     color: #bbb;
     line-height: 24px;
@@ -2492,7 +2493,7 @@ legend {
 }
 
 .form-group {
-    margin-bottom: 10px;
+    margin-bottom:0px;
 }
 
 .validate {
@@ -3506,7 +3507,7 @@ ul.bar_tabs > li {
     border: 1px solid #E6E9ED;
     color: #333 !important;
     margin-top: -17px;
-    /*margin-left: 8px;*/
+    margin-right:5px;
     background: #fff;
     border-bottom: none;
     border-radius: 4px 4px 0 0;
@@ -6378,7 +6379,7 @@ ul.notifications {
 .vert-aliins td:nth-child(3) input {width:150px; text-align:center;}
 .vert-aliins td:nth-child(4) input {width:150px; text-align:center;}
 .vert-aliins td:nth-child(5) input {width:55px; text-align:center;}
-.vert-aliins th{background:#D6E0DE; color:#666;}
+.vert-aliins th{background:#D6E0DE; color:#000;}
 .paddman12{ padding-top: 0; width: 107px;}
 .paddman12 a{padding:0px;}
 .martop20 {margin-top: 26px;}
@@ -6412,6 +6413,7 @@ ul.notifications {
     cursor: pointer;
     padding: 5px 7px;
     text-align: center;
+	margin-bottom:0px;
 }
 
 #morbt i {
@@ -6513,11 +6515,13 @@ ul.notifications {
 
 .black-filed {}
 .black-filed .form-control, .black-filed .checkbozsty {border:1px solid #000;}
-.black-filed .checkbozsty {padding:9px;}
+/*.black-filed .checkbozsty {padding:9px;}*/
+
+.checkbozsty  input[type=checkbox] {margin-right:5px;}
 
 .black-filed {}
 .black-filed .form-control, .black-filed .checkbozsty {border:1px solid #000;}
-.black-filed .checkbozsty {padding:9px;}
+/*.black-filed .checkbozsty {padding:9px;}*/
 .moreunits {display:none;}
 .moreunits1 {display:none;}
 .unit-sty { border:0px;}
@@ -6599,3 +6603,41 @@ ul.allbar-tabs > li a{background:#e6e9ed; color:#333;}
 .allbar-tabs > li.active > a, .allbar-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus{background:#EA8511; color:#fff;}
 
 
+/*Remove button*/
+#myTable1 p {
+    background: none repeat scroll 0 0 #e74c3c;
+    border-radius: 3px;
+    color: #fff;
+    cursor: pointer;
+    padding: 5px 7px;
+    text-align: center;
+	margin-bottom:0px;
+}
+
+#myTable .btn {margin-bottom:0px;}
+.valusho .btn-lg {
+    margin-left: 5px;
+}
+
+#myTable1 .form-control {margin-bottom:0px;}
+.amount-sty {
+    width: 200px !important;
+}
+
+.child_menu i {display:none !important;}
+
+#AttributesList .panel-heading {padding:0px; font-size:15px;}
+#AttributesList .panel-title {font-size:15px;}
+#AttributesList .panel {margin-bottom:5px; box-shadow:none;}
+.accordion .panel-title { font-size:15px;}
+
+.appoint-detaion {background:#fff; border:1px solid #eee; padding:5px 15px; margin-bottom:15px;}
+.appoint-detaion big {font-size:13px; text-transform:uppercase; font-weight:bold;}
+
+/*Remove button end*/
+
+
+
+.pdtb10{padding-top:6px;padding-bottom:6px}
+
+.pdbottom10{padding-bottom:10px;}

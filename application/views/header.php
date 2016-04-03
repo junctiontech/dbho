@@ -14,7 +14,7 @@
 <link href="<?=base_url();?>css/bootstrap.min.css" rel="stylesheet">
 <link href="<?=base_url();?>fonts/css/font-awesome.min.css" rel="stylesheet">
 <link href="<?=base_url();?>css/animate.min.css" rel="stylesheet">
-
+<link rel="stylesheet" href="<?=base_url();?>css/datepicker.css" />
 <!-- Custom styling plus plugins -->
 <link href="<?=base_url();?>css/custom.css" rel="stylesheet">
 <link href="<?=base_url();?>css/icheck/flat/green.css" rel="stylesheet">
@@ -28,9 +28,16 @@
 <!-- switchery -->
 <link rel="stylesheet" href="<?=base_url();?>css/switchery/switchery.min.css" />
 <script src="<?=base_url();?>js/jquery.min.js"></script>
-<link rel="stylesheet" href="<?=base_url();?>css/datepicker.css" />
-<link href="<?=base_url();?>css/smart_wizard.css" rel="stylesheet" type="text/css">
+<!--<link rel="stylesheet" href="<?=base_url();?>css/datepicker.css" /> -->
 
+
+<!--<script src="<?=base_url();?>js/bootstrap.min.js"></script> 
+<script type="text/javascript" src="<?=base_url();?>js/jquery.simple-dtpicker.js"></script>
+
+<link type="text/css" href="<?=base_url();?>css/jquery.simple-dtpicker.css" rel="stylesheet" />-->
+
+<link href="<?=base_url();?>css/smart_wizard.css" rel="stylesheet" type="text/css">
+<!--<link type="text/css" href="<?=base_url();?>css/jquery.simple-dtpicker.css" rel="stylesheet" /> -->
 <link href="<?=base_url();?>css/calendar/fullcalendar.css" rel="stylesheet">
         <link href="<?=base_url();?>css/calendar/fullcalendar.print.css" rel="stylesheet" media="print">
 <!--[if lt IE 9]>
@@ -53,13 +60,37 @@
 					height: 100%; 
 					overflow: visible; 
 					background: url('<?=base_url();?>/images/ajax-loader2.gif') no-repeat center center;
+					
 					}   
+					.left_col {overflow:inherit !important; cursor:auto !important;}
+					.sidebar-footer {display:none !important;}
+					
         </style>
+	<script type="text/javascript">
+		var AbsoluteURL = '<?=base_url();?>';	
+		$(document).ready(function(){
+			loadnotification();
+		});
+</script>
+<script type="text/javascript" src="<?=base_url();?>js/script.js"></script>
+<!-- form validation -->
+    <script src="<?=base_url();?>js/validator/validator.js"></script> 
+
+<script>
+/*$(document).click(function(e){
+    if(!$(e.target).closest('.child_menu').length){
+        $('.child_menu').slideUp();
+    }
+});*/
+/*$('html').click(function(){
+  if( $('.child_menu').is(':visible') ) {
+     $('.child_menu').slideUp();
+  }
+});*/
+</script>
 </head>
-<body class="nav-md">
-
+<body class="nav-sm">
 <div style="display: none;" id="loader" class="loading-indicator"></div>
-
 <div class="container body">
   <div class="main_container">
     <div class="col-md-3 left_col">
@@ -68,12 +99,12 @@
         <div class="clearfix"></div>
         
         <!-- menu prile quick info -->
-        <div class="profile">
+       <!-- <div class="profile">
           <div class="profile_pic"> <img src="<?=base_url();?>images/img.jpg" alt="..." class="img-circle profile_img"> </div>
           <div class="profile_info"> <span>Welcome,</span>
             <h2>Anthony Fernando</h2>
           </div>
-        </div>
+        </div>-->
         <!-- /menu prile quick info --> 
         
         <br />
@@ -81,42 +112,75 @@
         <!-- sidebar menu -->
         <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
           <div class="menu_section">
-            <h3>General</h3>
+            <h3>Navigation</h3>
             <ul class="nav side-menu">
-				 <li><a><i class="fa fa-edit"></i> Manage Plan <span class="fa fa-chevron-down"></span></a>
+				 <li><a><i class="fa fa-user"></i>User Plan Management<span class="fa fa-chevron-down"></span></a>
 				  <ul class="nav child_menu" style="display: none">
 					<li><a href="<?=base_url();?>Manage_user_plan/AddPlanType"><i class="fa fa-user"></i>Add Plan Type</a></li>
-					<li><a href="<?=base_url();?>Manage_user_plan"><i class="fa fa-user"></i> Manage Usar Plan </a></li>
+					<li><a href="<?=base_url();?>Manage_user_plan"><i class="fa fa-user"></i>Manage User Plan </a></li>
+					<li><a href="<?=base_url();?>Manage_user_plan/PlanConsumptionLog"><i class="fa fa-user"></i>Plan Consumption Log</a></li>
 				  </ul>
 				 </li>
-				 <li><a><i class="fa fa-edit"></i> Manage Inventory <span class="fa fa-chevron-down"></span></a>
+				 <li><a><i class="fa fa-sitemap"></i>Inventory Management<span class="fa fa-chevron-down"></span></a>
 					<ul class="nav child_menu" style="display: none">
-					   <li><a href="<?=base_url();?>Inventory"><i class="fa fa-user"></i> Inventory </a></li>
+						<li><a href="<?=base_url();?>Inventory/Inventory_listing"><i class="fa fa-user"></i>Inventory Listing </a></li>
+					   <li><a href="<?=base_url();?>Inventory"><i class="fa fa-user"></i>Add Inventory </a></li>
 					   <li><a href="<?=base_url();?>Inventory/AddInventoryType"><i class="fa fa-user"></i>Add Inventory Type</a></li>
-					   <li><a href="<?=base_url();?>Inventory/Inventory_listing"><i class="fa fa-user"></i> Inventory Listing </a></li>
-					   <li><a href="<?=base_url();?>Inventory/InventoryAvailability"><i class="fa fa-user"></i>Check Inventory Avialabilty </a></li>
-					   <li><a href="<?=base_url();?>Inventory/InventoryConsumption"><i class="fa fa-user"></i> Inventory Consumption</a></li>
+					   <li><a href="<?=base_url();?>Inventory/InventoryAvailability"><i class="fa fa-user"></i>Check Inventory Availiability </a></li>
+					   <li><a href="<?=base_url();?>Inventory/InventoryConsumption"><i class="fa fa-user"></i>Inventory Consumption</a></li>
+					   <li><a href="<?=base_url();?>Inventory/Inventorylog"><i class="fa fa-user"></i>Inventory Log</a></li>
 				    </ul>
 				 </li>
-				 <li><a><i class="fa fa-edit"></i> Manage Campaign <span class="fa fa-chevron-down"></span></a>
+				 <li><a><i class="fa  fa-calendar-check-o"></i>Campaign Management<span class="fa fa-chevron-down"></span></a>
 					<ul class="nav child_menu" style="display: none">
-						<li><a href="<?=base_url();?>Campaign"><i class="fa fa-edit"></i> Creat Campaign </a></li>
-						<li><a href="<?=base_url();?>Campaign/Campaign_listing"><i class="fa fa-edit"></i> Campaign Listing</a></li>
-					</ul>
-				</li>
-				<li><a><i class="fa fa-edit"></i> Porperty <span class="fa fa-chevron-down"></span></a>
-					<ul class="nav child_menu" style="display: none">
-						<li><a href="<?=base_url();?>AddProperty" ><i class="fa fa-edit"></i> Add Property </a></li>
-						<li><a href="<?=base_url();?>AddProperty/PropertyListing" ><i class="fa fa-edit"></i> Property Listing </a></li>
-						<li><a href="<?=base_url();?>AddProperty/PropertyLog" ><i class="fa fa-edit"></i> Property Log </a></li>
+						<li><a href="<?=base_url();?>Campaign/Campaign_listing"><i class="fa fa-edit"></i>Campaign Listing</a></li>
+						<li><a href="<?=base_url();?>Campaign"><i class="fa fa-edit"></i>Create Campaign </a></li>
+						
 					</ul>
 				</li>
 				
-				<li><a><i class="fa fa-edit"></i> Project <span class="fa fa-chevron-down"></span></a>
+				<li><a><i class="fa fa-area-chart"></i>Property Management<span class="fa fa-chevron-down"></span></a>
+					<ul class="nav child_menu" style="display: none">
+						<li><a href="<?=base_url();?>AddProperty/PropertyListing" ><i class="fa fa-edit"></i>Property Listing </a></li>
+						<li><a href="<?=base_url();?>AddProperty/PropertyListing/RequestProperties" ><i class="fa fa-edit"></i>Requested Property List </a></li>
+						<li><a href="<?=base_url();?>Appointment/listAppointment" ><i class="fa fa-edit"></i>Appointment Listing </a></li>
+						<li><a href="<?=base_url();?>AddProperty" ><i class="fa fa-edit"></i>Add Property </a></li>
+						<li><a href="<?=base_url();?>AddProperty/PropertyLog" ><i class="fa fa-edit"></i>Property Log </a></li>
+						
+						
+					</ul>
+				</li>
+				
+				<li><a><i class="fa fa-pie-chart"></i>Project Management<span class="fa fa-chevron-down"></span></a>
 				  <ul class="nav child_menu" style="display: none">
-					<li><a href="<?=base_url();?>AddProject/ProjectList"><i class="fa fa-user"></i> Project List </a></li>
-					<li><a href="<?=base_url();?>AddProject" ><i class="fa fa-edit"></i> Add Project </a></li>
+					<li><a href="<?=base_url();?>AddProject/ProjectList"><i class="fa fa-user"></i>Project Listing </a></li>
+					<li><a href="<?=base_url();?>AddProject" ><i class="fa fa-edit"></i>Add Project </a></li>
+					<li><a href="<?=base_url();?>AddProject/ProjectLog" ><i class="fa fa-edit"></i>Project Log </a></li>
+					
 				  </ul>
+				 </li>
+				 
+				 <li><a><i class="fa fa-users"></i>Lead Management<span class="fa fa-chevron-down"></span></a>
+				  <ul class="nav child_menu" style="display: none">
+					<li><a href="<?=base_url();?>Lead/Callingleadlisting" ><i class="fa fa-edit"></i>Calling Lead Listing</a></li>
+					<li><a href="<?=base_url();?>Lead/Callingleadcreate"><i class="fa fa-user"></i>Calling Lead Create</a></li>
+					<li><a href="<?=base_url();?>Lead/Leadmanagementlist" ><i class="fa fa-edit"></i>Lead Management Listing</a></li>
+					<li><a href="<?=base_url();?>Lead/LeadLogs" ><i class="fa fa-edit"></i>Lead Log</a></li>
+					<li><a href="<?=base_url();?>Lead/Enquirylist" ><i class="fa fa-edit"></i>Enquiry</a></li>
+					<li><a href="<?=base_url();?>Lead/Adminlocality" ><i class="fa fa-edit"></i>Admin Locality</a></li>
+				  </ul>
+				 </li>
+				  <li><a><i class="fa fa-user"></i>App User Management<span class="fa fa-chevron-down"></span></a>
+				  <ul class="nav child_menu" style="display: none">
+					<li><a href="<?=base_url();?>Addappusers/"><i class="fa fa-user"></i>User List</a></li>
+					<li><a href="<?=base_url();?>Addappusers/addAppUser"><i class="fa fa-user"></i>Add App User</a></li>
+				  </ul>
+				 </li> 
+				 <li><a><i class="fa fa-cog"></i>Portal Management<span class="fa fa-chevron-down"></span></a>
+				  <ul class="nav child_menu" style="display: none">
+					<li><a href="<?=base_url();?>cron/"><i class="fa fa-user"></i>Settings</a></li>
+					<li><a href="<?=base_url();?>requests/"><i class="fa fa-user"></i>User Requests</a></li>
+					</ul>
 				 </li>
 					
             </ul>
@@ -136,7 +200,7 @@
         <nav class="" role="navigation">
           <div class="nav toggle"> <a id="menu_toggle"><i class="fa fa-bars"></i></a> </div>
           <ul class="nav navbar-nav navbar-right">
-            <li class=""> <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false"> <img src="<?=base_url();?>images/img.jpg" alt="">John Doe <span class=" fa fa-angle-down"></span> </a>
+            <li class=""> <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false"> <img src="<?=base_url();?>images/img.jpg" alt="">Admin <span class=" fa fa-angle-down"></span> </a>
               <ul class="dropdown-menu dropdown-usermenu animated fadeInDown pull-right">
                 <li><a href="javascript:;"> Profile</a> </li>
                 <li> <a href="javascript:;"> <span class="badge bg-red pull-right">50%</span> <span>Settings</span> </a> </li>
@@ -144,15 +208,10 @@
                 <li><a href="<?=base_url();?>Login/logout"><i class="fa fa-sign-out pull-right"></i> Log Out</a> </li>
               </ul>
             </li>
-            <li role="presentation" class="dropdown"> <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false"> <i class="fa fa-envelope-o"></i> <span class="badge bg-red">6</span> </a>
-              <ul id="menu1" class="dropdown-menu list-unstyled msg_list animated fadeInDown" role="menu">
-                <li> <a> <span class="image"> <img src="<?=base_url();?>images/img.jpg" alt="Profile Image" /> </span> <span> <span>John Smith</span> <span class="time">3 mins ago</span> </span> <span class="message"> Film festivals used to be do-or-die moments for movie makers. They were where... </span> </a> </li>
-                <li> <a> <span class="image"> <img src="<?=base_url();?>images/img.jpg" alt="Profile Image" /> </span> <span> <span>John Smith</span> <span class="time">3 mins ago</span> </span> <span class="message"> Film festivals used to be do-or-die moments for movie makers. They were where... </span> </a> </li>
-                <li> <a> <span class="image"> <img src="<?=base_url();?>images/img.jpg" alt="Profile Image" /> </span> <span> <span>John Smith</span> <span class="time">3 mins ago</span> </span> <span class="message"> Film festivals used to be do-or-die moments for movie makers. They were where... </span> </a> </li>
-                <li> <a> <span class="image"> <img src="<?=base_url();?>images/img.jpg" alt="Profile Image" /> </span> <span> <span>John Smith</span> <span class="time">3 mins ago</span> </span> <span class="message"> Film festivals used to be do-or-die moments for movie makers. They were where... </span> </a> </li>
-                <li>
-                  <div class="text-center"> <a> <strong>See All Alerts</strong> <i class="fa fa-angle-right"></i> </a> </div>
-                </li>
+			
+            <li role="presentation" class="dropdown"> <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false"> <i class="fa fa-envelope-o"></i> <span class="badge bg-red appnotification"> </span> </a>
+              <ul id="menu1" class="dropdown-menu list-unstyled msg_list animated fadeInDown completeapplist" role="menu">
+                
               </ul>
             </li>
           </ul>
